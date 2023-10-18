@@ -1,0 +1,89 @@
+@charset "UTF-8";
+*{
+	box-sizing: border-box;
+	margin: 0;
+	padding: 0;
+}
+body{
+	overflow-x: hidden;
+	margin: 0 auto;
+}
+.popup{
+	display: none;
+	background-color: white;
+	text-align: center;
+	width: 300px;
+}
+.on{
+	display: block;
+}
+#searchForm{
+	border: 1px;
+	border-radius: 35px;
+	box-shadow: -1px 2px 16px gainsboro;
+	text-align: center;
+	width: 70%;
+	height: 70px;
+	display: inline-block;
+	position: relative;
+}
+#popup{
+	position: absolute;
+	right: 0;
+	box-shadow: 1px 1px 3px black;
+}
+#popup h5{
+	font-size: 18px;
+}
+#popup input[type="number"]{
+	width: 50px;
+}
+#popup input[type="button"]{
+	border: 1px solid black;
+}
+#popup #cadd{
+	background-color: white;
+}
+#popup #cBtn{
+	background-color: green;
+	color: white;
+}
+#searchForm #date{
+	width: 200px;
+}
+#searchForm #text{
+	position: absolute;
+	left: 0;
+	border-radius: 35px;
+	width: 250px;
+}
+#searchForm input{
+	height: 70px;
+	border: none;
+}
+#searchForm button[type="submit"]{
+	position: absolute;
+	height: 70px;
+	right: 0;
+	border-radius: 35px;
+}
+main{
+	position: relative;
+}
+main_img{
+	position: absolute;
+}
+#searchForm input[type="button"]{
+	background-color: white;
+}
+#h_content{
+	text-align: center;
+}
+#hot_hotel button{
+	border: 1px solid lightgray;
+	padding: 5px 10px;
+	color: rgb(128, 128, 128);
+	background-color: white;
+	border-radius: 20px;
+	margin: 0 10px;
+}

@@ -1,0 +1,75 @@
+@charset "UTF-8";
+body{
+	width: 90%;
+	margin: 0 auto;
+	padding-top: 20px;
+}
+#login{
+	display: flex;
+	justify-content: right;
+}
+#login div{
+	margin-right: 20px;
+	cursor: pointer;
+}
+#logo{
+	margin-left: 20px;
+	width: 180px;
+}
+a{
+	text-decoration: none;
+	color: black;
+}
+#button{
+	right: 0;
+}
+#main{
+	display: inline-block;
+}
+
+.button-link {
+    text-align: center;
+}
+
+.button-link img {
+    display: block;
+    margin: 0 auto; 
+}
+#button{
+	display: flex;
+}
+.popup{
+	display: none;
+	background-color: white;
+	text-align: center;
+	width: 300px;
+}
+.on{
+	display: block;
+}
+#popup{
+	position: absolute;
+	right: 0;
+	box-shadow: 1px 1px 3px black;
+	z-index: 10;
+}
+#popup h5{
+	font-size: 18px;
+}
+#popup input[type="number"]{
+	width: 50px;
+}
+#searchForm{
+	width: 100%;
+    box-sizing: border-box;
+	margin: 0 auto;
+	border: 1px solid black;
+	border-width: 1px 0;
+	position: relative;
+}
+#searchForm input{
+	border: none;
+}
+#popBtn{
+	background-color: white;
+}
