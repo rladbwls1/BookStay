@@ -165,4 +165,55 @@ public class hotelDAO extends OracleDB{
 		}
 		return result;
 	}
+	public void hotelMainInsert(hotelDTO dto) {
+			int maxnum=0;
+		try {
+			conn=getConnection();
+			pstmt=conn.prepareStatement("select max(num) from hotel");
+			rs=pstmt.executeQuery();
+			if(rs.next()) {
+				maxnum=rs.getInt(1)+1;
+			}
+			String sql="insert into hotel(num,type,title,content,contactfax,contact,service,aprice,kprice,address,img,ref,re_step) "
+					+ " valuse(hotel_seq.nextval,?,?,?,?,?,?,0,0,?,?,?,0)";
+			pstmt=conn.prepareStatement(sql);
+			pstmt.setString(1, dto.getType());
+			pstmt.setString(2, dto.getContent());
+			pstmt.setString(3, dto.getContactfax());
+			pstmt.setString(4, dto.getContact());
+			pstmt.setString(5, dto.getService());
+			pstmt.setString(6, dto.getAddress());
+			pstmt.setString(7, dto.getImg());
+			pstmt.setInt(8, maxnum);
+			pstmt.executeUpdate();
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			close(rs, pstmt, conn);
+		}
+	}
+	public hotelDTO getMainList(int num) {
+		hotelDTO dto= new hotelDTO();
+		try {
+			conn=getConnection();
+			String sql="select * from hotel where num=?";
+			pstmt=conn.prepareStatement(sql);
+			pstmt.setInt(1, num);
+			rs=pstmt.executeQuery();
+			if(rs.next()) {
+				dto.setAddress(rs.getString("address"));
+				dto.setTitle(rs.getString("title"));
+				dto.setImg(rs.getString("img"));
+				dto.setService(rs.getString("service"));
+				dto.setContact(rs.getString("contact"));
+				dto.setContactfax(rs.getString("contactfax"));
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			close(rs, pstmt, conn);
+		} return dto;
+		
+	}
 }

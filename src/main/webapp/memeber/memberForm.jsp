@@ -3,7 +3,6 @@
 <%@ page import="hotel.bean.MemberDAO" %>
 <%@ page import="hotel.bean.MemberDTO" %>
 <%@ include file="color.jsp"%>
-
 <% request.setCharacterEncoding("UTF-8");%>
 <html>
 <head>
