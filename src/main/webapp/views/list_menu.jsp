@@ -3,6 +3,8 @@
 <script type="text/javascript" src="https://cdn.jsdelivr.net/jquery/latest/jquery.min.js"></script>
 <script type="text/javascript" src="https://cdn.jsdelivr.net/momentjs/latest/moment.min.js"></script>
 <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.min.js"></script>
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-4bw+/aepP/YC94hEpVNVgiZdgIC5+VKNBQNGCHeKRQN+PtmoHDEXuppvnDJzQIu9" crossorigin="anonymous">
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-HwwvtgBNo3bZJJLYd8oVXjrBZt8cqVSpeBNS5n7C8IVInixGAoxmnlMuBnhbgrkm" crossorigin="anonymous"></script>
 <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.css" />
 <%
 	request.setCharacterEncoding("UTF-8");
@@ -10,7 +12,11 @@
 	String checkin = request.getParameter("checkin");
 	String checkout = request.getParameter("checkout");
 	int adult = Integer.parseInt(request.getParameter("adult"));
+	System.out.println(adult);
 	int kids = Integer.parseInt(request.getParameter("kids"));
+	System.out.println(kids);
+	int select = Integer.parseInt(request.getParameter("select"));
+	System.out.println(select);
 	String pcount = "객실, 인원 " + (adult + kids) + "명";
 %>
 <!DOCTYPE html>
@@ -62,15 +68,6 @@
 		<input type="hidden" name="category" id="hvalue" value="0"/>
 	</form>
 </div>
-<div>
-	<select id="hselect">
-		<option value="sel1">최신순</option>
-		<option value="sel2">인기순</option>
-		<option value="sel3">가격높은순</option>
-		<option value="sel4">가격낮은순</option>
-		<option value="sel5">평점순</option>
-	</select>
-</div>
 </body>
 <script>
     var form = document.getElementById('searchForm');
@@ -90,9 +87,10 @@
       var kidsValue = kidsInput.value;
       var startValue = startInput.value;
       var endValue = endInput.value;
+      var selectValue = "<%= select%>"
       
       form.action = 'hlist.jsp?title=' + titleValue + '&checkin=' + startValue + '&checkout=' + endValue
-	  + '&adult=' + adultValue + '&kids=' + kidsValue; 
+	  + '&adult=' + adultValue + '&kids=' + kidsValue + '&select=1&check=1,2,3,4'; 
     });
 </script>
 <script src="/Hotel/resources/js/date.js"></script>

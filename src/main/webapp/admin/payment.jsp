@@ -1,4 +1,14 @@
 <%@ page contentType="text/html; charset=utf-8"%>
+<%request.setCharacterEncoding("UTF-8"); 
+if(session.getAttribute("sid")==null){
+	%>
+	<sciprt>
+		alert("로그인 후 이용해주세");
+		window.location="member/main.jsp";
+	</sciprt>	
+	<%
+}
+%>
 <html>
 <head>
     <title>배송 정보</title>

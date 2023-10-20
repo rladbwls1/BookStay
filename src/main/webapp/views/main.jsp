@@ -18,7 +18,9 @@
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-HwwvtgBNo3bZJJLYd8oVXjrBZt8cqVSpeBNS5n7C8IVInixGAoxmnlMuBnhbgrkm" crossorigin="anonymous"></script>
 </head>
 <body>
+
 <%@ include file="menu.jsp" %>
+<% session.setAttribute("sid", "admin"); %>
 <div id="main">
 	<img src="/Hotel/resources/img/header.png" id="main_img">
 	<form method="post" id="searchForm">
@@ -42,138 +44,41 @@
 	<h2>도시별 인기 호텔</h2>
 	<div id="hot_hotel">
 		<button class="hobtn" id="hobtn1" data-target="list1">서울</button>
-		<button class="hobtn" data-target="list2">경주</button>
-		<button class="hobtn" data-target="list3">여수</button>
-		<button class="hobtn" data-target="list4">부산</button>
-		<button class="hobtn" data-target="list5">전주</button>
-		<button class="hobtn" data-target="list6">대전</button>
-		<button class="hobtn" data-target="list7">제주도</button>
-		<button class="hobtn" data-target="list8">인천</button>
+		<button class="hobtn" data-target="list2">부산</button>
+		<button class="hobtn" data-target="list3">제주도</button>
+		<button class="hobtn" data-target="list4">인천</button>
+		<button class="hobtn" data-target="list5">여수</button>
+		<button class="hobtn" data-target="list6">수원</button>
+		<button class="hobtn" data-target="list7">대전</button>
+		<button class="hobtn" data-target="list8">광주</button>
+		<button class="hobtn" data-target="list9">대구</button>
+		<button class="hobtn" data-target="list10">속초</button>
 	</div>
 	<%
 	request.setCharacterEncoding("UTF-8");
+	ArrayList<hotelDTO> list;
+	hotelDAO dao = new hotelDAO();
+	String[] types = {"서울", "부산", "제주도", "인천", "여수", "수원", "대전", "광주", "대구", "속초"};
+
+	for(int i=0; i <types.length; i++){
+		list = dao.hothotel(types[i]);
+		String loc = types[i];
 	%>
-	<div id="list1">
-		<%
-		hotelDAO dao = new hotelDAO();
-		ArrayList<hotelDTO> list = dao.hothotel("서울"); 
-		for(hotelDTO dto : list){
-		%>	 
-		<div>
-			<img src="/Hotel/upload/<%= dto.getImg() %>" style="width:100px;"/>
-			<%= dto.getTitle() %>
-			<%= dto.getKprice() %>
-		</div>
-		<%}%>
-		<div>
-			<button>서울 호텔 전체 보기</button>
-		</div>
+	<div id="list<%=i+1%>" class="list" style="<%= ( i == 0) ? "display:block;" : "display:none;" %>">
+	 <%
+	 for(hotelDTO dto : list){
+	 %> 
+	 <div>
+		<img src="/Hotel/upload/<%= dto.getImg() %>" style="width:100px;"/>
+		<%= dto.getTitle() %>
+		<%= dto.getKprice() %>
+		<input type="hidden" id="loc" value="<%=loc %>"/>	
 	</div>
-	<div id="list2">
-		<%
-		ArrayList<hotelDTO> list1 = dao.hothotel("경주"); 
-		for(hotelDTO dto : list1){
-		%>	 
-		<div>
-			<img src="/Hotel/upload/<%= dto.getImg() %>" style="width:100px;"/>
-			<%= dto.getTitle() %>
-			<%= dto.getKprice() %>
-		</div>
-		<%}%>
-		<div>
-			<button>경주 호텔 전체 보기</button>
-		</div>
+	<% }%>
+		<button type="button" onclick="location();">
+		<%=loc%>호텔 전체 보기</button>	 
 	</div>
-	<div id="list3">
-		<%
-		ArrayList<hotelDTO> list2 = dao.hothotel("여수"); 
-		for(hotelDTO dto : list2){
-		%>	 
-		<div>
-			<img src="/Hotel/upload/<%= dto.getImg() %>" style="width:100px;"/>
-			<%= dto.getTitle() %>
-			<%= dto.getKprice() %>
-		</div>
-		<%}%>
-		<div>
-			<button>여수 호텔 전체 보기</button>
-		</div>
-	</div>
-	<div id="list4">
-		<%
-		ArrayList<hotelDTO> list3 = dao.hothotel("부산"); 
-		for(hotelDTO dto : list3){
-		%>	 
-		<div>
-			<img src="/Hotel/upload/<%= dto.getImg() %>" style="width:100px;"/>
-			<%= dto.getTitle() %>
-			<%= dto.getKprice() %>
-		</div>
-		<%}%>
-		<div>
-			<button>부산 호텔 전체 보기</button>
-		</div>
-	</div>
-	<div id="list5">
-		<%
-		ArrayList<hotelDTO> list4 = dao.hothotel("전주"); 
-		for(hotelDTO dto : list4){
-		%>	 
-		<div>
-			<img src="/Hotel/upload/<%= dto.getImg() %>" style="width:100px;"/>
-			<%= dto.getTitle() %>
-			<%= dto.getKprice() %>
-		</div>
-		<%}%>
-		<div>
-			<button>전주 호텔 전체 보기</button>
-		</div>
-	</div>
-	<div id="list6">
-		<%
-		ArrayList<hotelDTO> list5 = dao.hothotel("대전"); 
-		for(hotelDTO dto : list5){
-		%>	 
-		<div>
-			<img src="/Hotel/upload/<%= dto.getImg() %>" style="width:100px;"/>
-			<%= dto.getTitle() %>
-			<%= dto.getKprice() %>
-		</div>
-		<%}%>
-		<div>
-			<button>대전 호텔 전체 보기</button>
-		</div>
-	</div>
-	<div id="list7">
-		<%
-		ArrayList<hotelDTO> list6 = dao.hothotel("제주도"); 
-		for(hotelDTO dto : list6){
-		%>	 
-		<div>
-			<img src="/Hotel/upload/<%= dto.getImg() %>" style="width:100px;"/>
-			<%= dto.getTitle() %>
-			<%= dto.getKprice() %>
-		</div>
-		<%}%>
-		<div>
-			<button>제주도 호텔 전체 보기</button>
-		</div>
-	</div>
-	<div id="list8">
-		<%
-		ArrayList<hotelDTO> list7 = dao.hothotel("인천"); 
-		for(hotelDTO dto : list7){
-		%>	 
-		<div>
-			<img src="/Hotel/upload/<%= dto.getImg() %>" style="width:100px;"/>
-			<%= dto.getTitle() %>
-			<%= dto.getKprice() %>
-		</div>
-		<%}%>
-		<div>
-			<button>인천 호텔 전체 보기</button>
-		</div>
-	</div>
+<%}%>
 </div>
 </body>
 <script src="/Hotel/resources/js/today.js"></script>
@@ -198,8 +103,14 @@
 	  var endValue = endInput.value;
       var hselect = 0
 	  form.action = 'hlist.jsp?title=' + titleValue + '&checkin=' + startValue + '&checkout=' + endValue
-	  + '&adult=' + adultValue + '&kids=' + kidsValue; 
+	  + '&adult=' + adultValue + '&kids=' + kidsValue + '&select=1&check=1,2,3,4'; 
     });
+	var loc1 = document.getElementById('location');
+	function location(){
+		var locValue = loc1.value;
+		document.location.href='hlist.jsp?title=' + locValue + '&checkin=' + startValue + '&checkout=' + endValue
+			  + '&adult=' + adultValue + '&kids=' + kidsValue + '&select=1&check=1,2,3,4';		
+	}
 </script>
 <script>
 	function su(){
@@ -208,6 +119,8 @@
 		var suValue = su.value;
 		alert(suValue);
 	}
+</script>
+<script>
 </script>
 <script src="/Hotel/resources/js/count.js"></script>
 <script src="/Hotel/resources/js/date.js"></script>

@@ -1,5 +1,7 @@
+<%@page import="hotel.bean.hotelDAO"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<jsp:useBean id="dto" class="hotel.bean.hotelDTO"/>
 <%request.setCharacterEncoding("UTF-8");
 session.setAttribute("sid", "admin");
 String id = (String)session.getAttribute("sid");
@@ -11,17 +13,26 @@ if(!id.equals("admin")){
 	</script>
 	<%
 	
-} %>
+} 
+
+hotelDAO dao = new hotelDAO();
+
+	if(request.getParameter("ref")==null){
+
+%>
 <form action="hotelWritePro.jsp" method="post" enctype="multipart/form-data">
 	제목 :  <input type="text" name="title"><br>
 	내용 :<textarea rows="10" cols="20" name="content"></textarea><br>
 	숙박업소 타입:<select name="type">
-			  	<option value="호텔">호텔 </option>
-			  	<option value="리조트">리조트 </option>
-			  	<option value="모텔">모텔 </option>
-			  	<option value="기타숙소">기타숙소 </option>
-			  </select>
-	숙박업소 주소 : <input type="text" name="address">
+			  	<option value="1">호텔 </option>
+			  	<option value="2">리조트 </option>
+			  	<option value="3">모텔 </option>
+			  	<option value="4">기타숙소 </option>
+			  </select><br>
+	숙박업소 주소 : <input type="text" name="address"><br>
+	연락처 : <input type="text" name="contact"><br>
+	팩스번호 : <input type="text" name="contactfax"><br>
+	
 	사진 : <input type="file" name="upload1"><br>
 		<input type="file" name="upload2"><br>
 		<input type="file" name="upload3"><br>
@@ -61,8 +72,34 @@ if(!id.equals("admin")){
 	도서관<input type="checkbox" name="services" value="도서관">
 	주차(공간 제한)<input type="checkbox" name="services" value="주차(공간 제한)">
 	루프탑 테라스<input type="checkbox" name="services" value="루프탑 테라스">
+	<input type="hidden" name="re_step" value="0">
 	<input type="submit" value="등록">
 </form>
+
+<%}else{ 
+int ref = Integer.parseInt(request.getParameter("ref"));
+dto=dao.getContentMain(ref);%>
+<form action="hotelWritePro.jsp" method="post" enctype="multipart/form-data">
+	<input type="hidden" name="type" value="<%=dto.getType()%>">
+	<input type="hidden" name="address" value="<%=dto.getAddress()%>">
+	<input type="hidden" name="contact" value="<%=dto.getContact()%>">
+	<input type="hidden" name="contactfax" value="<%=dto.getContactfax()%>">
+	<input type="hidden" name="re_step" value="1">
+	<input type="hidden" name="ref" value="<%=ref%>">
+	제목 :  <input type="text" name="title"><br>
+	내용 :<textarea rows="10" cols="20" name="content"></textarea><br>
+	방종류 : <select name="roomtype">
+				<option value="1">스탠다드</option>
+				<option value="2">디럭스</option>
+				<option value="3">스위트</option>
+			</select><br>
+	어른가격 : <input type="number" name="aprice">
+	아이가격 : <input type="number" name="kprice">
+	사진 : <input type="file" name="upload"><br>
+	<button type="submit">등록</button>
+	</form>
+
+<%} %>
 
 
 
