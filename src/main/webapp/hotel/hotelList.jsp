@@ -10,15 +10,16 @@ hotelDAO dao = new hotelDAO();
 ArrayList<hotelDTO> list = dao.test();
 for(hotelDTO dto : list){
 	String img=dto.getImg();
+	if(img!=null){
 	String [] arrayimg = img.split(",");%>
-	<img src="BookStay/upload/<%=arrayimg[0]%>">	
+	}
+	<img src="BookStay/upload/<%=arrayimg[0]%>">
+	<%//dao.priceUpdate(dto.getNum());%>	
 	<%=dto.getTitle()%><%=dto.getAprice()%>원
-	ref=<%=dto.getRef()%>
 	<a href="hotelContent.jsp?ref=<%=dto.getRef()%>">예약</a>
-	<button onclick="window.location='Delete.jsp?num=<%=dto.getNum()%>&re_step=<%=dto.getRe_step()%>'">삭제 </button>
+	<button onclick="window.location='Delete.jsp?num=<%=dto.getNum()%>&re_step=<%=dto.getRe_step()%>'">삭제</button>
 	<hr />
-	0
-<% }%>
+<% }}%>
 <button onclick="window.location='hotelWriteForm.jsp'">등록 </button>
 
 

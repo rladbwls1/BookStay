@@ -18,16 +18,16 @@ if(!id.equals("admin")){
 hotelDAO dao = new hotelDAO();
 
 	if(request.getParameter("ref")==null){
-
+		int ref = Integer.parseInt(request.getParameter("ref"));
 %>
 <form action="hotelWritePro.jsp" method="post" enctype="multipart/form-data">
 	제목 :  <input type="text" name="title"><br>
 	내용 :<textarea rows="10" cols="20" name="content"></textarea><br>
 	숙박업소 타입:<select name="type">
-			  	<option value="1">호텔 </option>
-			  	<option value="2">리조트 </option>
-			  	<option value="3">모텔 </option>
-			  	<option value="4">기타숙소 </option>
+			  	<option value="호텔">호텔 </option>
+			  	<option value="리조트">리조트 </option>
+			  	<option value="모텔">모텔 </option>
+			  	<option value="기타숙소">기타숙소 </option>
 			  </select><br>
 	숙박업소 주소 : <input type="text" name="address"><br>
 	연락처 : <input type="text" name="contact"><br>
@@ -73,6 +73,8 @@ hotelDAO dao = new hotelDAO();
 	주차(공간 제한)<input type="checkbox" name="services" value="주차(공간 제한)">
 	루프탑 테라스<input type="checkbox" name="services" value="루프탑 테라스">
 	<input type="hidden" name="re_step" value="0">
+	<input type="hidden" name="ref" value="<%=ref%>">
+	<input type="hidden" name="num" value="<%=request.getParameter("num")%>">
 	<input type="submit" value="등록">
 </form>
 
@@ -85,13 +87,14 @@ dto=dao.getContentMain(ref);%>
 	<input type="hidden" name="contact" value="<%=dto.getContact()%>">
 	<input type="hidden" name="contactfax" value="<%=dto.getContactfax()%>">
 	<input type="hidden" name="re_step" value="1">
+	<input type="hidden" name="num" value="<%=request.getParameter("num")%>">
 	<input type="hidden" name="ref" value="<%=ref%>">
 	제목 :  <input type="text" name="title"><br>
 	내용 :<textarea rows="10" cols="20" name="content"></textarea><br>
 	방종류 : <select name="roomtype">
-				<option value="1">스탠다드</option>
-				<option value="2">디럭스</option>
-				<option value="3">스위트</option>
+				<option value="스탠다드">스탠다드</option>
+				<option value="디럭스">디럭스</option>
+				<option value="스위트">스위트</option>
 			</select><br>
 	어른가격 : <input type="number" name="aprice">
 	아이가격 : <input type="number" name="kprice">

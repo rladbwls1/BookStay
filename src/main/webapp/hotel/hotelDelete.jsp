@@ -24,7 +24,7 @@ if(re_step==1){
 	%>
 	<script>
 		alert("삭제되었습니다. ");
-		history.go(-1);
+		window.location="hotelContent.jsp?ref=<%=ref%>";
 		
 	</script>
 	<%

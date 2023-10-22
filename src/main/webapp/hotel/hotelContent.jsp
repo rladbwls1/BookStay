@@ -34,11 +34,11 @@ String id = (String)session.getAttribute("sid");
 for(hotelDTO dto : list){
 	%>
 	<form action="/horder/reserveForm.jsp" method="post">
-	<%=dto.getRoomtype() %>
+	<%=dto.getRoomtype()%>
 	<%if(id.equals("admin")){
 	%>
-	<button type="button" onclick="window.location='hotelUpdateForm.jsp?num=<%=dto.getNum()%>&re_step=<%=dto.getRe_step()%>&ref=<%=dto.getRef()%>'">수정</button>
-	<button type="button" onclick="window.location='hotelDelete.jsp?num=<%=dto.getNum()%>&re_step=<%=dto.getRe_step()%>&ref=<%=dto.getRef()%>'">삭제</button>
+	<button type="button" onclick="window.location='hotelUpdateForm.jsp?num=<%=dto.getNum()%>&re_step=<%=dto.getRe_step()%>&ref=<%=ref%>'">수정</button>
+	<button type="button" onclick="window.location='hotelDelete.jsp?num=<%=dto.getNum()%>&re_step=<%=dto.getRe_step()%>&ref=<%=ref%>'">삭제</button>
 	<%	
 	} %> 
 	<button type="submit">예약</button><br />
@@ -53,5 +53,7 @@ for(hotelDTO dto : list){
 }
 %>
 <button type="button" onclick="window.location='hotelWriteForm.jsp?ref=<%=ref%>'">방 등록</button>
+<script>
 
+</script>
 

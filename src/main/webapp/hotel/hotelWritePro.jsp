@@ -18,15 +18,6 @@ String img="";
 String service="";
 if(mr.getParameter("re_step").equals("1")){
 	String upload=mr.getFilesystemName("upload");
-	String roomtype="";
-	
-	if(mr.getParameter("roomtype").equals("1")){
-		roomtype="스탠다드";
-	}else if(mr.getParameter("roomtype").equals("2")){
-		roomtype="디럭스";
-	}else if(mr.getParameter("roomtype").equals("3")){
-		roomtype="스위트";
-	} 
 	dto.setAddress(mr.getParameter("address"));
 	dto.setType(mr.getParameter("type"));
 	dto.setTitle(mr.getParameter("title"));
@@ -34,14 +25,14 @@ if(mr.getParameter("re_step").equals("1")){
 	dto.setContactfax(mr.getParameter("contactfax"));
 	dto.setContact(mr.getParameter("contact"));
 	dto.setRef(Integer.parseInt(mr.getParameter("ref")));
-	dto.setRoomtype(roomtype);
+	dto.setRoomtype(mr.getParameter("roomtype"));
 	dto.setAprice(Integer.parseInt(mr.getParameter("aprice")));
 	dto.setKprice(Integer.parseInt(mr.getParameter("kprice")));
 	dto.setImg(upload);
 	dao.hotelContentInsert(dto);
 	int ref=Integer.parseInt(mr.getParameter("ref"));
 	dao.priceUpdate(ref);
-	response.sendRedirect("hotelContent.jsp?num="+ref);
+	response.sendRedirect("hotelContent.jsp?ref="+ref);
 }else{
 	String upload1=mr.getFilesystemName("upload1");
 	String upload2=mr.getFilesystemName("upload2");
@@ -64,19 +55,8 @@ if(mr.getParameter("re_step").equals("1")){
 	String fax="";
 	if(mr.getParameter("contactfax")==null){
 	fax=" ";
-	
 	}else{
 		fax=mr.getParameter("contactfax");
-	}
-	String roomtype="";
-	if(mr.getParameter("type").equals("1")){
-		roomtype="호텔";
-	}else if(mr.getParameter("roomtype").equals("2")){
-		roomtype="리조트";
-	}else if(mr.getParameter("roomtype").equals("3")){
-		roomtype="모텔";
-	}else if(mr.getParameter("roomtype").equals("4")){
-		roomtype="기타숙소";
 	}
 	dto.setAddress(mr.getParameter("address"));
 	dto.setType(mr.getParameter("type"));

@@ -203,6 +203,7 @@ public class hotelDAO extends OracleDB{
 				dto.setTitle(rs.getString("title"));
 				dto.setImg(rs.getString("img"));
 				dto.setService(rs.getString("service"));
+				dto.setRoomtype(rs.getString("roomtype"));
 				dto.setContact(rs.getString("contact"));
 				dto.setContactfax(rs.getString("contactfax"));
 				dto.setAdultmax(rs.getInt("adultmax"));
@@ -211,7 +212,7 @@ public class hotelDAO extends OracleDB{
 				dto.setCount(rs.getInt("count"));
 				dto.setKidmax(rs.getInt("kidmax"));
 				dto.setKprice(rs.getInt("kprice"));
-				dto.setNum(num);
+				dto.setNum(rs.getInt("num"));
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -254,6 +255,9 @@ public class hotelDAO extends OracleDB{
 			while(rs.next()) {
 				hotelDTO dto= new hotelDTO();
 				dto.setNum(rs.getInt("num"));
+				dto.setRoomtype(rs.getString("roomtype"));
+				dto.setService(rs.getString("service"));
+				dto.setType(rs.getString("type"));
 				dto.setRe_step(rs.getInt("re_step"));
 				dto.setTitle(rs.getString("title"));
 				dto.setContent(rs.getString("content"));
@@ -268,6 +272,8 @@ public class hotelDAO extends OracleDB{
 			close(rs, pstmt, conn);
 		} return list;
 	}
+	
+	
 	public void priceUpdate(int num) {
 		int min=0;
 		try {
@@ -279,7 +285,7 @@ public class hotelDAO extends OracleDB{
 			if(rs.next()) {
 				min=rs.getInt(1);
 			}
-			sql="update hotel aprice=? where num=? ";
+			sql="update hotel set aprice=? where num=? ";
 			pstmt=conn.prepareStatement(sql);
 			pstmt.setInt(1, min);
 			pstmt.setInt(2, num);
@@ -293,27 +299,29 @@ public class hotelDAO extends OracleDB{
 	public void updateContent(hotelDTO dto) {
 		try {
 			conn=getConnection();
-			if(dto.getRe_step()==0) {
-			String sql="update hotel set title=?,content=?,contact=?,contactfax=?,img=? where num=?";
-			pstmt=conn.prepareStatement(sql);
-			pstmt.setString(1, dto.getTitle());
-			pstmt.setString(2, dto.getContent());
-			pstmt.setString(3, dto.getContact());
-			pstmt.setString(4, dto.getContactfax());
-			pstmt.setString(5, dto.getImg());
-			pstmt.setInt(6, dto.getNum());
-			pstmt.executeUpdate();
+			if(dto.getRe_step()==1) {
+				String sql="update hotel set title=?,content=?,roomtype=?,aprice=?,kprice=?,img=? where num=?";	
+				pstmt=conn.prepareStatement(sql);
+				pstmt.setString(1, dto.getTitle());
+				pstmt.setString(2, dto.getContent());
+				pstmt.setString(3, dto.getRoomtype());
+				pstmt.setInt(4, dto.getAprice());
+				System.out.println(dto.getAprice());
+				pstmt.setInt(5, dto.getKprice());
+				pstmt.setString(6, dto.getImg());
+				pstmt.setInt(7, dto.getNum());
+				pstmt.executeUpdate();	
+			
 			}else {
-			String sql="update hotel set title=?,content=?,roomtype=?,aprice=?,kprice=?,img=? where num=?";	
-			pstmt=conn.prepareStatement(sql);
-			pstmt.setString(1, dto.getTitle());
-			pstmt.setString(2, dto.getContent());
-			pstmt.setString(3, dto.getRoomtype());
-			pstmt.setInt(4, dto.getAprice());
-			pstmt.setInt(5, dto.getKprice());
-			pstmt.setString(6, dto.getImg());
-			pstmt.setInt(7, dto.getNum());
-			pstmt.executeUpdate();
+				String sql="update hotel set title=?,content=?,contact=?,contactfax=?,img=? where num=?";
+				pstmt=conn.prepareStatement(sql);
+				pstmt.setString(1, dto.getTitle());
+				pstmt.setString(2, dto.getContent());
+				pstmt.setString(3, dto.getContact());
+				pstmt.setString(4, dto.getContactfax());
+				pstmt.setString(5, dto.getImg());
+				pstmt.setInt(6, dto.getNum());
+				pstmt.executeUpdate();
 			}
 				
 		} catch (Exception e) {

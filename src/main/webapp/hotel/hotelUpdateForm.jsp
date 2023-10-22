@@ -6,6 +6,7 @@
   String id=(String)session.getAttribute("sid");
   int re_step=Integer.parseInt(request.getParameter("re_step"));
   int num=Integer.parseInt(request.getParameter("num"));
+  int ref=Integer.parseInt(request.getParameter("ref"));
   hotelDAO dao = new hotelDAO();
   hotelDTO dto = new hotelDTO();
   dto=dao.getContentMain(num);
@@ -38,8 +39,9 @@
 			<input type="file" name="upload3"><br>
 			<input type="file" name="upload4"><br>
 			<input type="file" name="upload5"><br>
-			<input type="hidden" name="num">
-			<input type="hidden" name="re_step">
+			<input type="hidden" name="num" value="<%=num%>">
+			<input type="hidden" name="ref" value="<%=ref%>">
+			<input type="hidden" name="re_step" value="<%=re_step%>">
 			<button type="submit">수정</button>
  	</form>
  <%}else{%>
@@ -49,28 +51,26 @@
 		방종류 : 
 				<select name="roomtype">
 				<%if(roomtype.equals("스탠다드")) {%>
-					<option value="1" selected>스탠다드</option>
-					<option value="2">디럭스</option>
-					<option value="3">스위트</option>
+					<option value="스탠다드" selected>스탠다드</option>
+					<option value="디럭스">디럭스</option>
+					<option value="스위트">스위트</option>
 				<%}else if(roomtype.equals("디럭스")){%>
-					<option value="1">스탠다드</option>
-					<option value="2" selected>디럭스</option>
-					<option value="3">스위트</option>
+					<option value="스탠다드">스탠다드</option>
+					<option value="디럭스" selected>디럭스</option>
+					<option value="스위트">스위트</option>
 				<%}else if(roomtype.equals("스위트")){%>
-					<option value="1">스탠다드</option>
-					<option value="2">디럭스</option>
-					<option value="3" selected>스위트</option>
+					<option value="스탠다드">스탠다드</option>
+					<option value="디럭스">디럭스</option>
+					<option value="스위트" selected>스위트</option>
 				<%} %>	
 				</select><br>
 		어른가격 : <input type="number" name="aprice" value="<%=aprice%>">
 		아이가격 : <input type="number" name="kprice" value="<%=kprice%>">
 		사진 : <input type="file" name="upload"><br>
-		<input type="hidden" name="num">
-		<input type="hidden" name="re_step">
+		<input type="hidden" name="num" value="<%=num%>">
+		<input type="hidden" name="ref" value="<%=ref%>">
+		<input type="hidden" name="re_step" value="<%=re_step%>">
 		<button type="submit">수정</button>
 	</form>
-	 
-	 
  <%}%>
- 
 

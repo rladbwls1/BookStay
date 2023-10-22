@@ -14,6 +14,7 @@ String enc="UTF-8";
 MultipartRequest mr = new MultipartRequest(request,path,max,enc,df);
 hotelDAO dao = new hotelDAO();
 int num=Integer.parseInt(mr.getParameter("num"));
+int ref=Integer.parseInt(mr.getParameter("ref"));
 int re_step=Integer.parseInt(mr.getParameter("re_step"));
 String img="";
 hotelDTO getdto = new hotelDTO();
@@ -53,22 +54,25 @@ if(re_step==0){
 	setdto.setContent(mr.getParameter("content"));
 	setdto.setContact(mr.getParameter("contact"));
 	setdto.setContactfax(mr.getParameter("contactfax"));
+	setdto.setRe_step(Integer.parseInt(mr.getParameter("re_step")));
 	setdto.setImg(img);
 	dao.updateContent(setdto);
 	response.sendRedirect("views/hlist.jsp");
 }else{
 	String upload=mr.getFilesystemName("upload");
 	if(upload!=null){
-	img=mr.getParameter("upload");
+	img=upload;
 	}
 	setdto.setNum(num);
 	setdto.setTitle(mr.getParameter("title"));
 	setdto.setContent(mr.getParameter("content"));
 	setdto.setRoomtype(mr.getParameter("roomtype"));
 	setdto.setAprice(Integer.parseInt(mr.getParameter("aprice")));
+	System.out.println(mr.getParameter("aprice"));
 	setdto.setKprice(Integer.parseInt(mr.getParameter("kprice")));
+	setdto.setRe_step(Integer.parseInt(mr.getParameter("re_step")));
 	setdto.setImg(img);
 	dao.updateContent(setdto);
-	dao.priceUpdate(num);
-	response.sendRedirect("hotelContent.jsp?num="+num);
+	dao.priceUpdate(ref);
+	response.sendRedirect("hotelContent.jsp?ref="+ref);
 }%>
