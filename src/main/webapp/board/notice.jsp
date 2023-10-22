@@ -5,6 +5,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%
+session.setAttribute("sid", "admin");
 request.setCharacterEncoding("UTF-8");
 boardDAO dao = boardDAO.getInstance();
 ArrayList<boardDTO> list = dao.getList(10);

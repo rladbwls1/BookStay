@@ -121,6 +121,33 @@ public class boardDAO extends OracleDB{
 			close(rs, pstmt, conn);
 		}return list;
 	}
+	
+	public boardDTO getContent(int num) {
+		boardDTO dto = new boardDTO();
+		try {
+			conn=getConnection();
+			String sql="select * from board where num=?";
+			pstmt=conn.prepareStatement(sql);
+			pstmt.setInt(1, num);
+			rs=pstmt.executeQuery();
+			if(rs.next()) {
+				dto.setCategory(rs.getInt("category"));
+				dto.setContent(rs.getString("content"));
+				dto.setId(rs.getString("id"));
+				dto.setNum(rs.getInt("num"));
+				dto.setReg(rs.getTimestamp("reg"));
+				dto.setTitle(rs.getString("title"));
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			close(rs, pstmt, conn);
+		}
+		
+		
+		return dto;
+	}
+	
 	public ArrayList<boardDTO> getMyList(String id){
 		ArrayList<boardDTO> list = new ArrayList<boardDTO>();
 		try {
