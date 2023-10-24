@@ -6,12 +6,17 @@
 <%request.setCharacterEncoding("UTF-8");
 hotelDAO dao = new hotelDAO();
 ArrayList<hotelDTO> list = dao.test();
+boolean result=false;
 for(hotelDTO dto : list){
 	String img=dto.getImg();
+	int [] block ={46,47};
+	result=dao.checkRoom(block,1,dto.getRef());
+	
 	if(img!=null){
 	String [] arrayimg = img.split(",");%>
 	}
 	<img src="BookStay/upload/<%=arrayimg[0]%>">
+	result = <%=result %>
 	<%//dao.priceUpdate(dto.getNum());%>	
 	<%=dto.getTitle()%>&nbsp;<%=dto.getAprice()%>원
 	<a href="hotelContent.jsp?ref=<%=dto.getRef()%>">예약</a>

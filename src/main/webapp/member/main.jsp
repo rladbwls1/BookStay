@@ -14,7 +14,7 @@ if(sid==null) { // 세션이 없다면 수행
 		            if (c.getName().equals("cpw")) { cpw = c.getValue(); }
 		            if (c.getName().equals("cauto")) { cauto = c.getValue(); }
    				}
-       	 // response.sendRedirect("loginPro.jsp"); 
+       	  response.sendRedirect("loginPro.jsp"); 
 		 }
     
     if (cid == null || cpw == null || cauto == null) {

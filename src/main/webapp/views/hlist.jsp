@@ -77,12 +77,16 @@
 <div><%=cnt%>개 중 예약 가능 <b><%=count%></b> 개</div>
 </div>
 <div id="sel1" class="sel"> 
-<%
+<%boolean result = false;
 	for(hotelDTO dto : list){
+		if(block2==null){
+		result=	dao.checkRoom(block2,room1,dto.getNum());
+		
 %>	 
 	<div>
 	<a href="../hotel/hotelContent.jsp?title=<%=dto.getTitle()%>&ref=<%=dto.getRef()%>&block=<%=block2%>">
 		<div>
+		result : 
     	<img src="/Hotel/upload/<%= dto.getImg() %>" style="width:100px;"/>
     	<%= dto.getTitle() %>
     	<%= dto.getAddress() %>
@@ -97,9 +101,11 @@
     		<button type="button" onclick="window.location.href='../hotel/hotelDelete.jsp?num=<%=dto.getNum()%>&re_step=<%=dto.getRe_step()%>'" class="btn btn-danger">삭제</button>
     	<%	
     	}
+		}
     	%>
 	</div>
-<%}%>
+<%//}
+		}%>
 </div>
 <%
 	if(count > 0){

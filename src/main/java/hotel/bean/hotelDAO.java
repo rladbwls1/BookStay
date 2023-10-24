@@ -547,4 +547,50 @@ public class hotelDAO extends OracleDB{
 		}
 		return result;
 	}
+	public boolean checkRoom(int[]block,int roomcount,int ref) {
+		boolean result=false;
+		int count=0;
+		int available=0;
+		String sql="select count(*) from (select * from hotel where re_step=1 and ref=?)";
+		if(block!=null) {
+			sql+="where num not in(";
+		count=block.length;
+		for(int i=0;i<count;i++) {
+			sql+="?,";
+		}
+		sql=sql.substring(0,sql.length()-1);
+		sql+=")";
+		System.out.println(sql);
+		
+		conn=getConnection();
+		try {
+			pstmt=conn.prepareStatement(sql);
+			pstmt.setInt(1, ref);
+			if(count!=0) {
+				for(int i=0;i<block.length;i++)	{
+					pstmt.setInt(i+2, block[i]);
+				}
+			}
+			rs=pstmt.executeQuery();
+			if(rs.next()) {
+				available=rs.getInt(rs.getInt(1));
+			}
+			if(available>=roomcount) {
+				result=true;
+			}
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+		}finally {
+			close(rs, pstmt, conn);
+		}
+		}else {
+			result=true;
+		}
+		
+		
+		
+		return result;
+		
+	}
 }

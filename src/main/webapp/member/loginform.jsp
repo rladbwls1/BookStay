@@ -70,7 +70,7 @@
     <span id="pwError" class="error-message"></span><br/>
     <%// 로그인 실패 시 메시지 또는 다른 동작 수행
     			//로그인이 실팼을경우   +              입력값이 null이지 않을경우 
-   if(request.getParameter("loginFailed") != null     ){%>
+   if(request.getParameter("loginFailed") != null ){%>
     <span class="error-message">아이디나 비밀번호를 다시 확인해주세요.</span><br/>  <%}%>
     자동로그인<input type="checkbox" name="cauto" value="1"> <br>
     <input type="submit" value="Login">
