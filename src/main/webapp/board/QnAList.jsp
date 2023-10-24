@@ -34,17 +34,24 @@ ArrayList<boardDTO> list = dao.getList(category);
 			<a href="javascript:void(0);" onclick="toggleContent('content_<%=d.getNum()%>')"><%=d.getTitle() %></a>
 			<button onclick="window.location='boardUpdateForm.jsp?num=<%=d.getNum()%>&category=<%=d.getCategory()%>'">수정</button>
 			<button onclick="window.location='boardDelete.jsp?num=<%=d.getNum()%>&category=<%=d.getCategory()%>'">삭제</button><br />
-			<div id="content_<%=d.getNum()%>" style="display: none"><%=d.getContent()%></div>
+			<div class="content" id="content_<%=d.getNum()%>" style="display: none"><%=d.getContent()%></div>
 		<%} %>
 	
 <script>
 function toggleContent(contentId) {
     var contentDiv = document.getElementById(contentId);
-    if (contentDiv.style.display === "none") {
-        contentDiv.style.display = "block";
-    } else {
-        contentDiv.style.display = "none";
+    var contents =document.getElementsByClassName("content");
+    for(var i=0; i<contents.length;i++){
+    	var content = contents.item(i);
+    	if (contentDiv.style.display === "none") {
+    		content.style.display="none";
+            contentDiv.style.display = "block";
+        } else {
+        	content.style.display="none";
+            contentDiv.style.display = "none";
+        }
     }
+    
 }
 </script>
 

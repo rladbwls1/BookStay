@@ -11,13 +11,11 @@
 	String title = request.getParameter("title");
 	String checkin = request.getParameter("checkin");
 	String checkout = request.getParameter("checkout");
+	String rortlf = request.getParameter("room");
 	int adult = Integer.parseInt(request.getParameter("adult"));
-	System.out.println(adult);
 	int kids = Integer.parseInt(request.getParameter("kids"));
-	System.out.println(kids);
 	int select = Integer.parseInt(request.getParameter("select"));
-	System.out.println(select);
-	String pcount = "객실, 인원 " + (adult + kids) + "명";
+	String pcount = "객실 " + rortlf + "개, 인원 " + (adult + kids) + "명";
 %>
 <!DOCTYPE html>
 <html>
@@ -87,10 +85,11 @@
       var kidsValue = kidsInput.value;
       var startValue = startInput.value;
       var endValue = endInput.value;
-      var selectValue = "<%= select%>"
+      var rorValue = "<%= rortlf%>";
+      var selectValue = "<%= select%>";
       
       form.action = 'hlist.jsp?title=' + titleValue + '&checkin=' + startValue + '&checkout=' + endValue
-	  + '&adult=' + adultValue + '&kids=' + kidsValue + '&select=1&check=1,2,3,4'; 
+	  + '&adult=' + adultValue + '&kids=' + kidsValue + '&room=' + rorValue + '&select=1&check=1,2,3,4'; 
     });
 </script>
 <script src="/Hotel/resources/js/date.js"></script>

@@ -7,6 +7,14 @@
 <%
 request.setCharacterEncoding("UTF-8");
 String id = (String)session.getAttribute("sid");
+if(!id.equals("admin")){
+	%>
+	<script>
+		alert("관리자만 접근할수 있습니다.");
+		window.location="../member/main.jsp";
+	</script>
+	<%
+}
 String path=request.getRealPath("/upload");
 int max = 1024 * 1024 * 10;
 DefaultFileRenamePolicy df = new DefaultFileRenamePolicy();
@@ -20,14 +28,7 @@ String img="";
 hotelDTO getdto = new hotelDTO();
 hotelDTO setdto = new hotelDTO();
 getdto=dao.getContentMain(num);
-if(!id.equals("admin")){
-	%>
-	<script>
-		alert("관리자만 접근할수 있습니다.");
-		window.location="/login/main.jsp";
-	</script>
-	<%
-}
+
 if(re_step==0){
 	String upload1=mr.getFilesystemName("upload1");
 	String upload2=mr.getFilesystemName("upload2");

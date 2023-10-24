@@ -4,6 +4,14 @@
     pageEncoding="UTF-8"%>
 <% request.setCharacterEncoding("UTF-8");
   String id=(String)session.getAttribute("sid");
+  if(!id.equals("admin")){
+	  %>
+	  <script>
+	  	alert("관리자만 접근할수 있습니다.");
+	  	window.location="../member/main.jsp";
+	  </script>
+ <%}%>
+ <%
   int re_step=Integer.parseInt(request.getParameter("re_step"));
   int num=Integer.parseInt(request.getParameter("num"));
   int ref=Integer.parseInt(request.getParameter("ref"));
@@ -18,14 +26,8 @@
   int aprice=dto.getAprice();
   int kprice=dto.getKprice();
   String img=dto.getImg();
-  
-  if(!id.equals("admin")){
-	  %>
-	  <script>
-	  	alert("관리자만 접근할수 있습니다.");
-	  	window.location="member/main.jsp";
-	  </script>
- <%}%>
+  %>
+
  <%if(re_step==0){
 	 %>
 	 <form action="hotelUpdatePro.jsp" method="post" enctype="multipart/form-data">

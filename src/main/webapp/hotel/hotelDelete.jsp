@@ -8,7 +8,7 @@ if(!id.equals("admin")){
 	%>
 	<script>
 		alert("관리자만 접근할수 있습니다.");
-		window.location="/login/main.jsp";
+		window.location="../member/main.jsp";
 	</script>
 	<%
 }

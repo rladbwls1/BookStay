@@ -1,5 +1,6 @@
 <%@ page contentType="text/html; charset=utf-8"%>
-<%request.setCharacterEncoding("UTF-8"); 
+<%request.setCharacterEncoding("UTF-8");
+
 if(session.getAttribute("sid")==null){
 	%>
 	<sciprt>
@@ -8,6 +9,7 @@ if(session.getAttribute("sid")==null){
 	</sciprt>	
 	<%
 }
+String id = (String)session.getAttribute("sid");
 %>
 <html>
 <head>
@@ -22,12 +24,7 @@ if(session.getAttribute("sid")==null){
     <div class="container">
         <form action="processOrder.jsp" class="form-horizontal" method="post">
             <input type="hidden" name="cartId" />
-            <div class="form-group row">
-                <label class="col-sm-2">id</label>
-                <div class="col-sm-3">
-                    <input name="id" type="text" class="form-control" />
-                </div>
-            </div>
+            <input type="hidden" name="id" value=<%=id%>>
             <div class="form-group row">
                 <label class="col-sm-2">체크인</label>
                 <div class="col-sm-3">

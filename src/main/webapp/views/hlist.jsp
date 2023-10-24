@@ -14,12 +14,25 @@
 	int adult1 = Integer.parseInt(request.getParameter("adult"));
 	int kid1 = Integer.parseInt(request.getParameter("kids"));
 	int sel1 = Integer.parseInt(request.getParameter("select"));
+	int room1 = Integer.parseInt(request.getParameter("room"));
 	String check1 = request.getParameter("check");
+	
+	int pageSize = 10;
+	String pageNum = request.getParameter("pageNum");
+	if(pageNum == null){
+		pageNum = "1";
+	}
+	int cPage = Integer.parseInt(pageNum);
+	int start = (cPage - 1) * pageSize + 1;
+	int end = cPage * pageSize;
+	
+	String url = "&title=" + title1 + "&checkin=" + checkin1 + "&checkout=" + checkout1 + "&adult=" + adult1 + "&kids=" + kid1 + 
+			 "&room=" + room1 + "&select=" + sel1 + "&check=" + check1;
 	//int category= 0;  
 	hotelDAO dao = new hotelDAO();
-	ArrayList<hotelDTO> list = dao.hotelList(sel1, check1, title1, checkin1, checkout1, adult1, kid1); 
-	
-	int count = dao.count(title1, checkin1, checkout1, adult1, kid1);
+	ArrayList<hotelDTO> list = dao.hotelList(sel1, check1, title1, checkin1, checkout1, adult1, kid1, start, end); 
+	int cnt = dao.count(title1);
+	int count = dao.count(title1, check1, checkin1, checkout1, adult1, kid1);
 	
 	ArrayList<hotelDTO> block = dao.HotelBlock(checkin1, checkout1); 
 	StringBuilder block1 = new StringBuilder();
@@ -61,33 +74,56 @@
 	</div>
 </form>
 <div>
-<b>총 <%= count %> 개</b>
+<div><%=cnt%>개 중 예약 가능 <b><%=count%></b> 개</div>
 </div>
-<div id="sel1" class="sel" style="display:block;"> 
+<div id="sel1" class="sel"> 
 <%
 	for(hotelDTO dto : list){
 %>	 
 	<div>
-	<a href="hotelcontent.jsp?title=<%=dto.getTitle()%>&ref=<%=dto.getRef()%>&block=<%=block2%>">
+	<a href="../hotel/hotelContent.jsp?title=<%=dto.getTitle()%>&ref=<%=dto.getRef()%>&block=<%=block2%>">
 		<div>
     	<img src="/Hotel/upload/<%= dto.getImg() %>" style="width:100px;"/>
     	<%= dto.getTitle() %>
     	<%= dto.getAddress() %>
     	<%= dto.getAprice() %>
     	<%= dto.getKprice() %>
-    	<div><button type="button" class="btn btn-warning">예약</button></div>
+    	<div><button type="button" class="btn btn-warning" onclick="window.location='../hotel/hotelContent.jsp?ref=<%=dto.getRef()%>&block=<%=block2%>'">예약</button></div>
 		</div>
 	</a>
     	<%
     	if(id.equals("admin")){
     	%>	
-    		<button type="button" onclick="window.location.href='hotelDelete.jsp'" class="btn btn-danger">삭제</button>
+    		<button type="button" onclick="window.location.href='../hotel/hotelDelete.jsp?num=<%=dto.getNum()%>&re_step=<%=dto.getRe_step()%>'" class="btn btn-danger">삭제</button>
     	<%	
     	}
     	%>
 	</div>
 <%}%>
 </div>
+<%
+	if(count > 0){
+		int pageCnt = count / pageSize + (count % pageSize == 0 ? 0 : 1);
+		int startPage = (int)(cPage / 10)* 10 + 1;
+		int pageB = 10;
+		int endPage = startPage + pageB - 1;
+		if(endPage > pageCnt){
+			endPage = pageCnt;
+		}
+		%>
+		<div id="page">
+		<%if(startPage > 10){%>
+			<a href="hlist.jsp?pageNum=<%=startPage-10%><%=url%>"><button class="button">이전</button></a>
+		<%}
+		for(int i = startPage; i <= endPage; i++){
+		%> <a href="hlist.jsp?pageNum=<%=i %><%=url%>"><button class="button"><%=i %></button></a>	
+		<%}
+		if(endPage < pageCnt){
+		%>	<a href="hlist.jsp?pageNum=<%=startPage+10 %><%=url%>"><button class="button">다음</button></a>	
+		<%}
+	}
+%>
+		</div>
 <script>
 	var sel1Input = document.querySelector('input[name="sel1"]');
 	var hselect = document.getElementById("hselect");
@@ -141,8 +177,9 @@ checkboxes.forEach(function(checkbox) {
 		var kvalue = kInput.value;
         //alert("선택한 항목: " + selectedValues.join(", "));
         var sel = "<%=sel1%>";
+        var room = "<%=room1%>";
         ot.action = 'hlist.jsp?title=' + tvalue + '&checkin=' + civalue + '&checkout=' + covalue
-  	  	+ '&adult=' + avalue + '&kids=' + kvalue + '&select=' + sel + '&check=' + selectedValues; 
+  	  	+ '&adult=' + avalue + '&kids=' + kvalue + '&room=' + room + '&select=' + sel + '&check=' + selectedValues; 
         ot.submit();
     });
 });
@@ -189,3 +226,4 @@ checkboxes.forEach(function(checkbox) {
 		    }
 		}
 </script>
+ 

@@ -3,13 +3,12 @@
     pageEncoding="UTF-8"%>
 <jsp:useBean id="dto" class="hotel.bean.hotelDTO"/>
 <%request.setCharacterEncoding("UTF-8");
-session.setAttribute("sid", "admin");
 String id = (String)session.getAttribute("sid");
 if(!id.equals("admin")){
 	%>
 	<script>
 		alert("관리자만 접근할수 있습니다.");
-		window.location="/login/main.jsp";
+		window.location="../member/main.jsp";
 	</script>
 	<%
 	

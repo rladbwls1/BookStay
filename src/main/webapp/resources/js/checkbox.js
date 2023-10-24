@@ -1,7 +1,3 @@
-const checkedTypes = [];
-function clearCheckedTypes() {
-  checkedTypes.length = 0;
-}
 document.querySelector('#checkAll');
 checkAll.addEventListener('click', function(){
     const isChecked = checkAll.checked;

@@ -4,6 +4,7 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
 
 import hotel.db.OracleDB;
 
@@ -31,7 +32,7 @@ public class MemberDAO extends  OracleDB {
 	    } catch (SQLException e) {
 	        e.printStackTrace(); // 또는 다른 오류 처리 방법을 고려합니다.
 	    }
-	    
+	   
 	    return result;
 	}
 
@@ -44,12 +45,9 @@ public class MemberDAO extends  OracleDB {
 	        try {
 	            String sql = "select * from member where id=? and pw=?";
 	            pstmt = conn.prepareStatement(sql);
-
 	           	pstmt.setString(1,dto.getId());
 	 		   	pstmt.setString(2,dto.getPw());
-
 	            rs = pstmt.executeQuery();
-
 	            if (rs.next()) {
 	                result = true;
 	            }
@@ -60,6 +58,10 @@ public class MemberDAO extends  OracleDB {
 	        close(rs, pstmt, conn);
 	        return result;
 	    }
+	    
+
+	  
+	    
 	
 	public void insertMember(MemberDTO member)throws Exception {
 		try{			
@@ -125,6 +127,7 @@ public class MemberDAO extends  OracleDB {
                     dto.setBirth(rs.getString("birth"));
                     dto.setAddr(rs.getString("addr"));
                     dto.setPnum(rs.getString("pnum"));
+                    dto.setHeart(rs.getString("heart"));
                 }
             } catch (Exception e) {
                 e.printStackTrace();
@@ -133,64 +136,77 @@ public class MemberDAO extends  OracleDB {
             return dto;
         }
     
-    public MemberDTO getMember(String id) throws Exception {
+    
+    public int updateMember(MemberDTO member)    {
+        int result= 0;
         Connection conn = null;
         PreparedStatement pstmt = null;
         ResultSet rs = null;
-        MemberDTO mb = null;
 
+        
+        conn = getConnection();
         try {
-            conn = getConnection();
-            pstmt = conn.prepareStatement("SELECT * FROM Membership WHERE id = ?");
-            pstmt.setString(1, id);
-            rs = pstmt.executeQuery();
-
-            if (rs.next()) {
-                mb = new MemberDTO();
-                mb.setId(rs.getString("id"));
-                mb.setPw(rs.getString("pw"));
-                mb.setName(rs.getString("name"));
-                mb.setEmail(rs.getString("email"));
-                mb.setBirth(rs.getString("birth"));
-                mb.setAddr(rs.getString("addr"));
-                mb.setPnum(rs.getString("pnum"));
-            }
-        } catch (SQLException e) {
+        String sql = "UPDATE member SET pw=?, email=?, birth=?, addr=?, pnum=? WHERE id=?";
+              pstmt = conn.prepareStatement(sql);
+          pstmt.setString(1, member.getPw());
+          pstmt.setString(2, member.getEmail());
+          pstmt.setString(3, member.getBirth());
+          pstmt.setString(4, member.getAddr());
+          pstmt.setString(5, member.getPnum());
+          pstmt.setString(6, member.getId());
+     
+          result = pstmt.executeUpdate();
+        } catch(Exception e) {
             e.printStackTrace();
-            // 또는 로그에 더 자세한 오류 메시지를 기록할 수 있습니다.
-            throw new Exception("데이터베이스에서 사용자 정보를 가져오는 중 오류 발생: " + e.getMessage());
-        } finally {
-            // 리소스 해제
-            if (rs != null) {
-                rs.close();
-            }
-            if (pstmt != null) {
-                pstmt.close();
-            }
-            if (conn != null) {
-                conn.close();
-            }
-        }
-
-        return mb;
-    }
+         }finally {
+        	  close(rs, pstmt, conn);
+		}
+      
+         return result;
+      }
     
-    public boolean updateMember(MemberDTO member) {
-        try (Connection conn = getConnection();
-             PreparedStatement pstmt = conn.prepareStatement("UPDATE member SET name=?, email=?, addr=?, pnum=? WHERE id=?")) {
-            pstmt.setString(1, member.getName());
-            pstmt.setString(2, member.getEmail());
-            pstmt.setString(3, member.getAddr());
-            pstmt.setString(4, member.getPnum());
-            pstmt.setString(5, member.getId());
-
-            int rowsUpdated = pstmt.executeUpdate();
-
-            return rowsUpdated > 0; // 반환값으로 업데이트 성공 여부를 알릴 수 있음
-        } catch (SQLException e) {
-            e.printStackTrace();
-            return false;
-        }
-    }
-
+	public void updateHeart(String id,String heart) {
+		try {
+			conn=getConnection();
+			String sql="update member set heart=? where id=?";
+			pstmt=conn.prepareStatement(sql);
+			pstmt.setString(1, heart);
+			pstmt.setString(2, id);
+			pstmt.executeUpdate();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}	finally {
+			close(rs, pstmt, conn);
+		}
+	}
+	public ArrayList<hotelDTO> getHearts(String [] heart){
+		ArrayList<hotelDTO> list = new ArrayList<hotelDTO>();
+		try {
+			if(heart==null) {return list;}
+			conn=getConnection();
+			for(int i=0; i<heart.length; i++) {
+				String sql="select * from hotel where num=?";
+				pstmt=conn.prepareStatement(sql);
+				pstmt.setInt(1, Integer.parseInt(heart[i]));
+				rs=pstmt.executeQuery();
+				if(rs.next()) {
+					hotelDTO dto = new hotelDTO();
+					dto.setNum(rs.getInt("num"));
+					dto.setImg(rs.getString("img"));
+					dto.setTitle(rs.getString("title"));
+					dto.setRef(rs.getInt("ref"));
+					dto.setAprice(rs.getInt("aprice"));
+					dto.setAddress(rs.getString("address"));
+					list.add(dto);
+				}
+			}
+		
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			close(rs, pstmt, conn);
+		}return list;
+			
+		
+	}
 }

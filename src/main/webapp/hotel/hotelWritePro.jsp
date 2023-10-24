@@ -7,6 +7,16 @@
     pageEncoding="UTF-8"%>
 <jsp:useBean id="dto" class="hotel.bean.hotelDTO"/>
 <%request.setCharacterEncoding("UTF-8");
+String id = (String)session.getAttribute("sid");
+if(!id.equals("admin")){
+	%>
+	<script>
+		alert("관리자만 접근할수 있습니다.");
+		window.location="../member/main.jsp";
+	</script>
+	<%
+	
+} 
 String path=request.getRealPath("/upload");
 int max = 1024 * 1024 * 10;
 DefaultFileRenamePolicy df = new DefaultFileRenamePolicy();

@@ -9,8 +9,18 @@ public class MemberDTO {
 	private String addr;
 	private String pnum;
    private String cauto;
+   private String heart;
+   
+   
+   
    
  
+public String getHeart() {
+	return heart;
+}
+public void setHeart(String heart) {
+	this.heart = heart;
+}
 public String getCauto() {
 	return cauto;
 }

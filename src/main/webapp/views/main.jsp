@@ -8,21 +8,29 @@
 <script type="text/javascript" src="https://cdn.jsdelivr.net/momentjs/latest/moment.min.js"></script>
 <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.min.js"></script>
 <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.css" />
+<script>
+	function loc(v1){
+		var v2 = document.getElementById('start').value;
+		var v3 = document.getElementById('end').value;
+		var v4 = document.getElementById('adult').value;
+		var v5 = document.getElementById('kids').value;
+		document.location.href = 'hlist.jsp?title='+v1+'&checkin='+v2+'&checkout='+v3+'&adult='+v4+'&kids='+v5+'&select=1&check=1,2,3,4';
+	}
+</script>
 <!DOCTYPE html>
 <html>
 <head>
 <meta charset="UTF-8">
 <title>Hotel_Main</title>
-<link rel="stylesheet" href="/Hotel/resources/css/main.css"/>
+<link rel="stylesheet" href="/BookStay/resources/css/main.css"/>
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-4bw+/aepP/YC94hEpVNVgiZdgIC5+VKNBQNGCHeKRQN+PtmoHDEXuppvnDJzQIu9" crossorigin="anonymous">
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-HwwvtgBNo3bZJJLYd8oVXjrBZt8cqVSpeBNS5n7C8IVInixGAoxmnlMuBnhbgrkm" crossorigin="anonymous"></script>
 </head>
 <body>
 
 <%@ include file="menu.jsp" %>
-<% session.setAttribute("sid", "admin"); %>
 <div id="main">
-	<img src="/Hotel/resources/img/header.png" id="main_img">
+	<img src="/BookStay/resources/img/header.png" id="main_img">
 	<form method="post" id="searchForm">
 		<input type="text" id="text" name="title"/>
 		<input type="text" id="date" name="datetimes"/>
@@ -30,10 +38,13 @@
 		<input type="hidden" id="end" name="checkout"/>
 		<input type="button" value="객실 1개, 인원 2명" id="popBtn"/>
 		<div class="popup" id="popup">
-			<h5>객실</h5>
-			<p>성인 <input type="number" name="adult" value="2"/></p><br>
-			<p>어린이 (만 17세 미만) <input type="number" name="kids" value="0"/></p>
+		<div id="pop">
+			<h5>객실1</h5>
+			<p>성인 <input type="number" id="adult" name="adult" value="2"/></p><br>
+			<p>어린이 (만 17세 미만) <input type="number" id="kids" name="kids" value="0"/></p>
+		</div>
 			<input type="button" id="cadd" value="객실 추가"/>
+			<input type="hidden" id="rortlf" name="rortlf" value="1"/>
 			<input type="button" id="cBtn" onclick="updateButtonValue()" value="적용"/>
 		</div>
 		<button id="sub" type="submit" class="btn btn-success">검색하기</button>
@@ -69,20 +80,21 @@
 	 for(hotelDTO dto : list){
 	 %> 
 	 <div>
-		<img src="/Hotel/upload/<%= dto.getImg() %>" style="width:100px;"/>
+		<img src="/BookStay/upload/<%= dto.getImg() %>" style="width:100px;"/>
 		<%= dto.getTitle() %>
 		<%= dto.getKprice() %>
-		<input type="hidden" id="loc" value="<%=loc %>"/>	
 	</div>
 	<% }%>
-		<button type="button" onclick="location();">
-		<%=loc%>호텔 전체 보기</button>	 
+		<button type="button" onclick="loc('<%=loc%>');">
+		<%=loc%> 호텔 전체 보기</button>	 
 	</div>
 <%}%>
 </div>
 </body>
-<script src="/Hotel/resources/js/today.js"></script>
-<script src="/Hotel/resources/js/btn.js"></script>
+<script src="/BookStay/resources/js/ee.js"></script>
+<script src="/BookStay/resources/js/today.js"></script>
+<script src="/BookStay/resources/js/count.js"></script>
+<script src="/BookStay/resources/js/btn.js"></script>
 <script>
 	var form = document.getElementById('searchForm');
 	var titleInput = form.querySelector('input[name="title"]');
@@ -92,6 +104,7 @@
 	var kidsInput = form.querySelector('input[name="kids"]');
 	var startInput = form.querySelector('input[name="checkin"]'); 
 	var endInput = form.querySelector('input[name="checkout"]');
+	var rortlf = form.querySelector('input[name="rortlf"]');
 	
 	document.getElementById('sub').addEventListener('click', function () {
 	  var titleValue = titleInput.value;
@@ -101,16 +114,11 @@
 	  var kidsValue = kidsInput.value;
 	  var startValue = startInput.value;
 	  var endValue = endInput.value;
+	  var rorValue = rortlf.value;
       var hselect = 0
 	  form.action = 'hlist.jsp?title=' + titleValue + '&checkin=' + startValue + '&checkout=' + endValue
-	  + '&adult=' + adultValue + '&kids=' + kidsValue + '&select=1&check=1,2,3,4'; 
+	  + '&adult=' + adultValue + '&kids=' + kidsValue + '&room=' + rorValue + '&select=1&check=1,2,3,4'; 
     });
-	var loc1 = document.getElementById('location');
-	function location(){
-		var locValue = loc1.value;
-		document.location.href='hlist.jsp?title=' + locValue + '&checkin=' + startValue + '&checkout=' + endValue
-			  + '&adult=' + adultValue + '&kids=' + kidsValue + '&select=1&check=1,2,3,4';		
-	}
 </script>
 <script>
 	function su(){
@@ -122,8 +130,7 @@
 </script>
 <script>
 </script>
-<script src="/Hotel/resources/js/count.js"></script>
-<script src="/Hotel/resources/js/date.js"></script>
-<script src="/Hotel/resources/js/popup.js"></script>
-<script src="/Hotel/resources/js/pop.js"></script>
+<script src="/BookStay/resources/js/date.js"></script>
+<script src="/BookStay/resources/js/popup.js"></script>
+<script src="/BookStay/resources/js/pop.js"></script>
 </html>

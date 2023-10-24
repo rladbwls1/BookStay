@@ -5,10 +5,10 @@
 
 
 <form action="deletepro.jsp" method="post">
-    <label for="id">아이디:</label>
+    <label for="id">아이디: </label>
     <input type="text" name="id" id="id" required>
     <br />
-    <label for="pw">비밀번호:</label>
+    <label for="pw">비밀번호: </label>
     <input type="password" name="pw" id="pw" required>
     <br />
     <button type="submit">삭제</button>
