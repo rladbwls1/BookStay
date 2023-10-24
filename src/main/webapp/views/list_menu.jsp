@@ -11,18 +11,48 @@
 	String title = request.getParameter("title");
 	String checkin = request.getParameter("checkin");
 	String checkout = request.getParameter("checkout");
-	String rortlf = request.getParameter("room");
+	int rortlf = Integer.parseInt(request.getParameter("room"));
 	int adult = Integer.parseInt(request.getParameter("adult"));
 	int kids = Integer.parseInt(request.getParameter("kids"));
 	int select = Integer.parseInt(request.getParameter("select"));
-	String pcount = "객실 " + rortlf + "개, 인원 " + (adult + kids) + "명";
+	int roomValues = 0;
+	int kidsValues = 0;
+	int[] roomValue = new int[rortlf];
+	int[] kidsValue = new int[rortlf];
+	for (int i = 0; i < rortlf; i++) {
+		String adultParam = request.getParameter("a" + (i + 1));
+	    String kidsParam = request.getParameter("k" + (i + 1));
+	    
+	    int adultValues = 2; 
+	    int kidsValuee = 0; 
+
+	    if (adultParam != null) {
+	        adultValues = Integer.parseInt(adultParam);
+	    }
+
+	    if (kidsParam != null) {
+	        kidsValuee = Integer.parseInt(kidsParam);
+	    }
+
+	    roomValues += adultValues;
+	    kidsValues += kidsValuee;
+	    
+	    roomValue[i] = adultValues;
+	    kidsValue[i] = kidsValuee; 
+	    
+	    %>
+	    <input type="hidden" id="r<%=i+1%>" value="<%= roomValue[i]%>"/>
+	    <input type="hidden" id="k<%=i+1%>" value="<%= kidsValue[i]%>"/>
+	<%}
+	String pcount = "객실 " + rortlf + "개, 인원 " + (roomValues + kidsValues) + "명";
+
 %>
 <!DOCTYPE html>
 <html>
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
-<link rel="stylesheet" href="/Hotel/resources/css/list_menu.css"/>
+<link rel="stylesheet" href="/BookStay/resources/css/list_menu.css"/>
 </head>
 <body>
 	<body>
@@ -33,23 +63,24 @@
 		<div>고객센터</div>
 	</div>
 	<div id="main">
-		<a href="main.jsp"><img id="logo" src="/Hotel/resources/img/logo.svg"/></a>
+		<a href="main.jsp"><img id="logo" src="/BookStay/resources/img/logo.svg"/></a>
 	</div>
 	<div id="button">
 	  <div class="button-link">
 	    <a href="main.jsp">
-	      <img id="home" src="/Hotel/resources/img/home.svg" alt="홈" />
+	      <img id="home" src="/BookStay/resources/img/home.svg" alt="홈" />
 	      <span>홈</span>
 	    </a>
 	  </div>
 	  <div class="button-link">
 	    <a href="mypage.jsp">
-	      <img id="mypage" src="/Hotel/resources/img/mypage.svg" alt="마이" />
+	      <img id="mypage" src="/BookStay/resources/img/mypage.svg" alt="마이" />
 	      <span>마이</span>
 	    </a>
 	  </div>
 	</div>
 	<div id="main">
+	<input type="hidden" id = "tcnt" value="<%= rortlf%>"/>
 	<form method="post" id="searchForm">
 		<input type="text" name="title" value="<%=title%>"/>
 		<input type="text" name="datetimes" value="<%=checkin %> - <%=checkout %>" />
@@ -57,42 +88,52 @@
 		<input type="hidden" id="end" name="checkout" value="<%=checkout %>"/>
 		<input type="button" value="<%=pcount %>" id="popBtn"/>
 		<div class="popup" id="popup">
-			<h5>객실</h5>
-			<p>성인 <input type="number" name="adult" value="<%=adult%>"/></p><br>
-			<p>어린이 (만 17세 미만) <input type="number" name="kids" value="<%=kids%>"/></p>
-			<input type="button" id="cBtn" onclick="updateButtonValue()" value="적용">
+		<div id="pop">
+			<h5>객실1</h5>
+			<p>성인 <input type="number" id="adult1" name="adult" value="<%=adult%>" max="4" min="1"/></p><br>
+			<p>어린이 (만 17세 미만) <input type="number" id="kids1" name="kids" value="<%=kids%>" max="4" min="0"/></p>	
+			<%for (int i = 1; i < rortlf; i++) {
+			    int adultValue = Integer.parseInt(request.getParameter("a" + (i + 1)));
+			    int kidsValue1 = Integer.parseInt(request.getParameter("k" + (i + 1)));
+		
+			    roomValue[i] = adultValue;
+			    kidsValue[i] = kidsValue1;  
+			    
+	  %>
+	  <div id="pop<%=i+1 %>">  
+	  <h5>객실<%=i+1%></h5>
+    <p>성인 <input type="number" id="adult<%=i+1%>" name="adult<%=i+1%>" value="<%=roomValue[i] %>" max="4" min="1"/></p><br>
+    <p>어린이 (만 17세 미만) <input type="number" id="kids<%=i+1%>" name="kids<%=i+1%>" value="<%=kidsValue[i] %>" max="4" min="0"/></p>
+    <button type="button" class="btn btn-danger cRemove">객실 삭제</button>
+    </div>
+	<%}%>
+    </div>
+			<input type="button" id="cadd" value="객실 추가"/>
+			<input type="hidden" id="rortlf" name="rortlf" value="<%=rortlf%>"/>
+			<input type="button" id="cBtn" onclick="updateButtonValue()" value="적용"/>
 		</div>
-		<button id="sbtn" type="submit" class="btn btn-success">검색하기</button>
+		<button id="sub" type="submit" class="btn btn-success">검색하기</button>
 		<input type="hidden" name="category" id="hvalue" value="0"/>
 	</form>
+	<div id="p"></div>
 </div>
 </body>
+<!-- 
 <script>
-    var form = document.getElementById('searchForm');
-    var titleInput = form.querySelector('input[name="title"]');
-    var checkinInput = form.querySelector('input[name="checkin"]');
-    var checkoutInput = form.querySelector('input[name="checkout"]');
-    var adultInput = form.querySelector('input[name="adult"]');
-    var kidsInput = form.querySelector('input[name="kids"]');
-    var startInput = form.querySelector('input[name="checkin"]'); 
-    var endInput = form.querySelector('input[name="checkout"]');
-    
-    document.getElementById('sbtn').addEventListener('click', function () {
-      var titleValue = titleInput.value;
-      var checkinValue = checkinInput.value;
-      var checkoutValue = checkoutInput.value;
-      var adultValue = adultInput.value;
-      var kidsValue = kidsInput.value;
-      var startValue = startInput.value;
-      var endValue = endInput.value;
-      var rorValue = "<%= rortlf%>";
-      var selectValue = "<%= select%>";
-      
-      form.action = 'hlist.jsp?title=' + titleValue + '&checkin=' + startValue + '&checkout=' + endValue
-	  + '&adult=' + adultValue + '&kids=' + kidsValue + '&room=' + rorValue + '&select=1&check=1,2,3,4'; 
-    });
+const deleteButtons = document.querySelectorAll('.cRemove');
+
+//각 "객실 삭제" 버튼에 이벤트 리스너를 할당합니다.
+deleteButtons.forEach((button) => {
+ button.addEventListener('click', function () {
+     // 클릭된 버튼의 부모 요소를 찾아서 삭제합니다.
+     const pop = this.closest('div');
+     pop.parentNode.removeChild(pop);
+ });
+});
 </script>
-<script src="/Hotel/resources/js/date.js"></script>
-<script src="/Hotel/resources/js/popup.js"></script>
-<script src="/Hotel/resources/js/count.js"></script>
+ -->
+<script src="/BookStay/resources/js/ee.js"></script>
+<script src="/BookStay/resources/js/date.js"></script>
+<script src="/BookStay/resources/js/popup.js"></script>
+<script src="/BookStay/resources/js/count.js"></script>
 </html>

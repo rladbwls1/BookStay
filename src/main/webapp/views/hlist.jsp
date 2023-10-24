@@ -16,6 +16,31 @@
 	int sel1 = Integer.parseInt(request.getParameter("select"));
 	int room1 = Integer.parseInt(request.getParameter("room"));
 	String check1 = request.getParameter("check");
+	int[] roomValue1 = new int[rortlf];
+	int[] kidsValue1 = new int[rortlf];
+	String val="";
+	for (int i = 0; i < rortlf; i++) {
+		String adultParam = request.getParameter("a" + (i + 1));
+	    String kidsParam = request.getParameter("k" + (i + 1));
+	    
+	    int adultValues = 2; 
+	    int kidsValuee = 0; 
+
+	    if (adultParam != null) {
+	        adultValues = Integer.parseInt(adultParam);
+	    }
+
+	    if (kidsParam != null) {
+	        kidsValuee = Integer.parseInt(kidsParam);
+	    }
+
+	    roomValues += adultValues;
+	    kidsValues += kidsValuee;
+	    
+	    roomValue1[i] = adultValues;
+	    kidsValue1[i] = kidsValuee; 
+	    val += "&a" + (i+1) + "=" + roomValue1[i] + "&k" + (i+1) + "=" + kidsValue1[i];
+	}
 	
 	int pageSize = 10;
 	String pageNum = request.getParameter("pageNum");
@@ -47,6 +72,8 @@
 	}
 	String block2 = block1.toString();
 %>
+<input type="hidden" id="vel"/>
+<input type="text" id="block" value="<%=block2%>"/>
 <form id="option" method="post">
 	<div>
 	<input type="hidden" name="title1" value="<%= title1%>">
@@ -66,7 +93,7 @@
 	</div>
 	<div>
 		<p>숙소 유형</p>
-		<input type="checkbox" id="checkAll" value="0" checked/>전체
+		<input type="checkbox" id="checkAll" value="0"/>전체
 		<input type="checkbox" class="chk" name="chk"  value="1" />호텔
 		<input type="checkbox" class="chk" name="chk" value="2" />리조트
 		<input type="checkbox" class="chk" name="chk" value="3" />모텔
@@ -77,35 +104,51 @@
 <div><%=cnt%>개 중 예약 가능 <b><%=count%></b> 개</div>
 </div>
 <div id="sel1" class="sel"> 
-<%boolean result = false;
+<%
 	for(hotelDTO dto : list){
-		if(block2==null){
-		result=	dao.checkRoom(block2,room1,dto.getNum());
-		
+		Integer check = dao.checkRoom(block2, dto.getNum());
 %>	 
 	<div>
-	<a href="../hotel/hotelContent.jsp?title=<%=dto.getTitle()%>&ref=<%=dto.getRef()%>&block=<%=block2%>">
+	<input type="text" value="<%=check %>"/>
+	<%
+		if (check >= room1){
+	%>
+	<a href="hotelcontent.jsp?title=<%=dto.getTitle()%>&ref=<%=dto.getRef()%>&block=<%=block2%>">
 		<div>
-		result : 
-    	<img src="/Hotel/upload/<%= dto.getImg() %>" style="width:100px;"/>
+    	<img src="/BookStay/upload/<%= dto.getImg() %>" style="width:100px;"/>
     	<%= dto.getTitle() %>
     	<%= dto.getAddress() %>
     	<%= dto.getAprice() %>
     	<%= dto.getKprice() %>
-    	<div><button type="button" class="btn btn-warning" onclick="window.location='../hotel/hotelContent.jsp?ref=<%=dto.getRef()%>&block=<%=block2%>'">예약</button></div>
+    	<div><button type="button" class="btn btn-warning">예약</button></div>
 		</div>
 	</a>
+		<%
+    	if(id.equals("admin")){
+    	%>	
+    		<button type="button" onclick="window.location.href='hotelDelete.jsp'" class="btn btn-danger">삭제</button>
+    	<%	
+    	}
+    	%>
+	<%}else{ %>
+		<div>
+    	<img src="/BookStay/upload/<%= dto.getImg() %>" style="width:100px;"/>
+    	<%= dto.getTitle() %>
+    	<%= dto.getAddress() %>
+    	<%= dto.getAprice() %>
+    	<%= dto.getKprice() %>
+    	<div><button type="button" class="btn btn-warning">예약 불가</button></div>
+		</div>
     	<%
     	if(id.equals("admin")){
     	%>	
-    		<button type="button" onclick="window.location.href='../hotel/hotelDelete.jsp?num=<%=dto.getNum()%>&re_step=<%=dto.getRe_step()%>'" class="btn btn-danger">삭제</button>
+    		<button type="button" onclick="window.location.href='hotelDelete.jsp'" class="btn btn-danger">삭제</button>
     	<%	
     	}
-		}
     	%>
+		<%} %>
 	</div>
-<%//}
-		}%>
+<%}%>
 </div>
 <%
 	if(count > 0){
@@ -119,13 +162,13 @@
 		%>
 		<div id="page">
 		<%if(startPage > 10){%>
-			<a href="hlist.jsp?pageNum=<%=startPage-10%><%=url%>"><button class="button">이전</button></a>
+			<a href="hlist.jsp?pageNum=<%=startPage-10%><%=url%><%=val%>"><button class="button">이전</button></a>
 		<%}
 		for(int i = startPage; i <= endPage; i++){
-		%> <a href="hlist.jsp?pageNum=<%=i %><%=url%>"><button class="button"><%=i %></button></a>	
+		%> <a href="hlist.jsp?pageNum=<%=i %><%=url%><%=val%>"><button class="button"><%=i %></button></a>	
 		<%}
 		if(endPage < pageCnt){
-		%>	<a href="hlist.jsp?pageNum=<%=startPage+10 %><%=url%>"><button class="button">다음</button></a>	
+		%>	<a href="hlist.jsp?pageNum=<%=startPage+10 %><%=url%><%=val%>"><button class="button">다음</button></a>	
 		<%}
 	}
 %>
@@ -144,6 +187,17 @@
 	}
 </script>
 <script>
+	val =""; 
+	var vel = document.getElementById('vel');
+	var tcnt = document.getElementById('tcnt').value;
+	for(var i= 1; i <= tcnt; i++){
+		var r = document.getElementById('r' + i).value;
+			var k = document.getElementById('k' + i).value;
+		val += '&a' + i + '=' + r + '&k' + i + '=' + k;
+	}
+	vel.value = val;
+</script>
+<script>
 var ot = document.getElementById("option");
 var hselect = document.getElementById("hselect");
 var tInput = ot.querySelector('input[name="title1"]')
@@ -153,6 +207,7 @@ var aInput = ot.querySelector('input[name="adult1"]')
 var kInput = ot.querySelector('input[name="kid1"]')
 var checkAll = document.getElementById("checkAll");
 var checkboxes = document.querySelectorAll(".chk");
+var vel = document.getElementById('vel').value;
 var c1Input = document.querySelector('input[name="c1"]');
 
 var c1Value = c1Input.value.split(','); // c1의 value를 쉼표로 분리
@@ -163,34 +218,68 @@ checkboxes.forEach(function(checkbox) {
 });
 
 checkAll.addEventListener("click", function() {
+	checkAll.checked = true;
     checkboxes.forEach(function(checkbox) {
         checkbox.checked = checkAll.checked;
     });
 });
 
-checkboxes.forEach(function(checkbox) {
-    checkbox.addEventListener("click", function() {
-        var selectedCheckboxes = Array.from(checkboxes).filter(function(checkbox) {
-            return checkbox.checked;
-        });
-        var selectedValues = selectedCheckboxes.map(function(checkbox) {
-            return checkbox.value;
-        });
-        var tvalue = tInput.value;
-		var civalue = ciInput.value;
-		var covalue = coInput.value;
-		var avalue = aInput.value;
-		var kvalue = kInput.value;
-        //alert("선택한 항목: " + selectedValues.join(", "));
-        var sel = "<%=sel1%>";
-        var room = "<%=room1%>";
-        ot.action = 'hlist.jsp?title=' + tvalue + '&checkin=' + civalue + '&checkout=' + covalue
-  	  	+ '&adult=' + avalue + '&kids=' + kvalue + '&room=' + room + '&select=' + sel + '&check=' + selectedValues; 
-        ot.submit();
+function updateCheckAll() {
+    checkAll.checked = [...checkboxes].every(checkbox => checkbox.checked);
+}
+
+// 초기 로드 시 .chk 버튼들을 확인하고, 전체 버튼 업데이트
+checkboxes.forEach(checkbox => {
+    checkbox.addEventListener('change', updateCheckAll);
+    updateCheckAll();
+});
+
+// 전체 버튼 클릭 시, .chk 버튼들의 checked 상태를 동기화
+checkAll.addEventListener('change', () => {
+    checkboxes.forEach(checkbox => {
+        checkbox.checked = checkAll.checked;
     });
 });
+
+function updateSelection() {
+    var selectedCheckboxes = Array.from(checkboxes).filter(function(checkbox) {
+        return checkbox.checked;
+    });
+
+    var selectedValues = selectedCheckboxes.map(function(checkbox) {
+        return checkbox.value;
+    });
+
+    var tvalue = tInput.value;
+    var civalue = ciInput.value;
+    var covalue = coInput.value;
+    var avalue = aInput.value;
+    var kvalue = kInput.value;
+    var sel = "<%=sel1%>";
+    var room = "<%=room1%>";
+
+    ot.action = 'hlist.jsp?title=' + tvalue + '&checkin=' + civalue + '&checkout=' + covalue
+        + '&adult=' + avalue + '&kids=' + kvalue + '&room=' + room + '&select=' + sel + '&check=' + selectedValues + vel;
+    ot.submit();
+}
+
+checkAll.addEventListener("click", function() {
+    if (checkAll.checked) {
+        var allValues = Array.from(checkboxes).map(function(checkbox) {
+            return checkbox.value;
+        });
+        selectedValues = allValues;
+    } else {
+        selectedValues = [];
+    }
+    updateSelection();
+});
+
+checkboxes.forEach(function(checkbox) {
+    checkbox.addEventListener("click", updateSelection);
+});
 </script>
-<!--<script src="/Hotel/resources/js/checkbox.js"></script> -->
+<!--<script src="/BookStay/resources/js/checkbox.js"></script> -->
 <script>
 	const select1 = document.getElementById("hselect");
 	var sel = document.querySelectorAll(".sel");
@@ -211,6 +300,7 @@ checkboxes.forEach(function(checkbox) {
 	var coInput = ot.querySelector('input[name="checkout1"]')
 	var aInput = ot.querySelector('input[name="adult1"]')
 	var kInput = ot.querySelector('input[name="kid1"]')
+	var vel = document.getElementById('vel').value;
 	
 	hselect.addEventListener("change", function(){
 		var tvalue = tInput.value;
@@ -219,9 +309,10 @@ checkboxes.forEach(function(checkbox) {
 		var avalue = aInput.value;
 		var kvalue = kInput.value;
 		var cvalue = "<%=check1%>";
+		var room = "<%=room1%>";
 		var selectedValue = hselect.value;
         ot.action = 'hlist.jsp?title=' + tvalue + '&checkin=' + civalue + '&checkout=' + covalue
-  	  + '&adult=' + avalue + '&kids=' + kvalue + '&select=' + selectedValue + '&check=' + cvalue; 
+  	  + '&adult=' + avalue + '&kids=' + kvalue  + '&room=' + room + '&select=' + selectedValue + '&check=' + cvalue + val; 
         ot.submit();
 	});
 		var options = hselect.options;

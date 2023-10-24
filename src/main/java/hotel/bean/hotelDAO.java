@@ -13,97 +13,89 @@ public class hotelDAO extends OracleDB{
 	private PreparedStatement pstmt = null;
 	private ResultSet rs = null;
 	
-	public ArrayList<hotelDTO> hotelList(int category, String type, String title, String checkin, String checkout, int adult, int kid){
+	public ArrayList<hotelDTO> hotelList(int sel, String check, String title, String checkin, String checkout, int adult, int kid, int start, int end){
 		ArrayList<hotelDTO> list = new ArrayList<>();
 		String sql="";
-		
-		conn = getConnection();
-		if(category == 0) {
-			sql = "select * from hotel where (title like ? or address like ?)";
-			if(type == "all") {
-				sql += " ";
-			  } else if (type == "hotel") {
-			    sql += " and type = '호텔'";
-			  } else if (type == "resort") {
-			    sql += " and type = '리조트'";
-			  } else if (type == "motel") { 
-			    sql += " and type = '모텔'";
-			  } else if (type == "other") {
-			    sql += " and type = '기타'";
-			  }
-			  sql += " and adultmax >= ? and kidmax >= ?";
-		}else if(category == 1) {
-			  sql = "select * from hotel where (title like ? or address like ?)";
-			  if(type == "all") {
-					sql += " ";
-			  } else if (type == "hotel") {
-			    sql += " and type = '호텔'";
-			  } else if (type == "resort") {
-			    sql += " and type = '리조트'";
-			  } else if (type == "motel") { 
-			    sql += " and type = '모텔'";
-			  } else if (type == "other") {
-			    sql += " and type = '기타'";
-			  }
-			  sql += " and adultmax >= ? and kidmax >= ? order by count desc";
-		}else if(category == 2) {	
-			sql = "select * from hotel where (title like ? or address like ?)"; 
-			if(type == "all") {
-				sql += " ";
-			} else if (type == "hotel") {
-				sql += " and type = '호텔'";
-			} else if (type == "resort") {
-			    sql += " and type = '리조트'";
-	   	  	} else if (type == "motel") {
-	   	  		sql += " and type = '모텔'";
-			} else if (type == "other") {
-				sql += " and type = '기타'";
-			}  
-			sql += " and adultmax >= ? and kidmax >= ? order by aprice desc";
-		}else if(category == 3) {	
-			sql = "select * from hotel where (title like ? or address like ?)"; 
-			if(type == "all") {
-				sql += " ";
-			} else if (type == "hotel") {
-				sql += " and type = '호텔'";
-			} else if (type == "resort") {
-			    sql += " and type = '리조트'";
-	   	  	} else if (type == "motel") {
-	   	  		sql += " and type = '모텔'";
-			} else if (type == "other") {
-				sql += " and type = '기타'";
-			}  
-			sql += " and adultmax >= ? and kidmax >= ? order by aprice asc";
-		}else if(category == 4) {	
-			sql = "select * from hotel where (title like ? or address like ?)"; 
-			if(type == "all") {
-				sql += " ";
-			} else if (type == "hotel") {
-				sql += " and type = '호텔'";
-			} else if (type == "resort") {
-			    sql += " and type = '리조트'";
-	   	  	} else if (type == "motel") {
-	   	  		sql += " and type = '모텔'";
-			} else if (type == "other") {
-				sql += " and type = '기타'";
-			}  
-			sql += " and adultmax >= ? and kidmax >= ? order by aprice  asc";
+		String[] chk = check.split(",");
+		String[] typeArray = new String[chk.length];
+		for (int i = 0; i < chk.length; i++) {
+		    if ("1".equals(chk[i])) {
+		        typeArray[i] = "호텔";
+		    } else if ("2".equals(chk[i])) {
+		        typeArray[i] = "리조트";
+		    } else if ("3".equals(chk[i])) {
+		        typeArray[i] = "모텔";
+		    } else if ("4".equals(chk[i])) {
+		    	typeArray[i] = "기타";
+		    }
 		}
+		
+		if (sel == 5) {
+		    sql = "SELECT h.*, r.average_value " +
+		          "FROM hotel h " +
+		          "LEFT JOIN ( " +
+		          "    SELECT ref, ROUND(AVG(jumsu), 1) AS average_value " +
+		          "    FROM review " +
+		          "    GROUP BY ref " +
+		          ") r ON h.ref = r.ref " +
+		          "WHERE (h.title LIKE ? OR h.address LIKE ?) " +
+		          "AND h.type IN (";
+		    for (int i = 0; i < typeArray.length; i++) {
+		        sql += (i == 0 ? "?" : ", ?");
+		    }
+		    sql += ") " +
+		          "AND h.adultmax >= ? " +
+		          "AND h.kidmax >= ? " +
+		          "AND h.re_step = 0 " +
+		          "AND ROWNUM BETWEEN ? AND ? " +
+		          "ORDER BY r.average_value DESC NULLS LAST";
+		} else {
+		
+			sql = "select * from "
+					+ " (select b.* , rownum r from "
+					+ " (select * from hotel where (title like ? or address like ?) "
+					+ " and type in (";
+			for (int i = 0; i < typeArray.length; i++) {
+			    sql += (i == 0 ? "?" : ", ?");
+			}
+			sql += ") and adultmax >= ? and kidmax >= ? and re_step = 0 ";
+			
+			if(sel == 1) {
+				sql += ")b)";			
+			}else if(sel == 2) {
+				sql += " order by count desc)b)";			
+			}else if(sel == 3) {
+				sql += " order by aprice desc)b)";			
+			}else if(sel == 4) {
+				sql += " order by aprice asc)b)";			
+			}
+			sql += " where r >= ? and r <= ?";
+		}
+
+		conn = getConnection();
 		try {
 			pstmt = conn.prepareStatement(sql);
 			String query = "%" + title + "%";
 			pstmt.setString(1, query);
 			pstmt.setString(2, query);
-			pstmt.setInt(3, adult);
-			pstmt.setInt(4, kid);
+		    for (int i = 0; i < typeArray.length; i++) {
+		        pstmt.setString(i + 3, typeArray[i]);
+		    }
+		    pstmt.setInt(typeArray.length + 3, adult); 
+		    pstmt.setInt(typeArray.length + 4, kid); 
+		    pstmt.setInt(typeArray.length + 5, start);
+		    pstmt.setInt(typeArray.length + 6, end);
+
 			rs = pstmt.executeQuery();
 			while(rs.next()) {
 				hotelDTO dto = new hotelDTO();
+				dto.setNum(rs.getInt("num"));
 				dto.setTitle(rs.getString("title"));
 				dto.setAddress(rs.getString("address"));
 				dto.setAprice(rs.getInt("aprice"));
 				dto.setKprice(rs.getInt("kprice"));
 				dto.setImg(rs.getString("img"));
+				dto.setRef(rs.getInt("ref"));
 				list.add(dto);
 			}
 		}catch(Exception e) {
@@ -114,31 +106,6 @@ public class hotelDAO extends OracleDB{
 		return list;
 	}
 	
-	
-	public int count(String title, String checkin, String checkout, int adult, int kid) {
-		conn = getConnection();
-		int result = 0;
-		try {
-			String sql = "select count(*) from hotel "
-					+ " where title like ? or address like ? and "
-					+ "	adultmax >= ? and kidmax >= ? and re_step=0";
-			pstmt = conn.prepareStatement(sql);
-			String query = "%" + title + "%";
-			pstmt.setString(1, query);
-			pstmt.setString(2, query);
-			pstmt.setInt(3, adult);
-			pstmt.setInt(4, kid);
-			rs = pstmt.executeQuery();
-			while(rs.next()) {
-				result = rs.getInt(1);
-			}
-		}catch(Exception e) {
-			e.printStackTrace();
-		}finally {
-			close(rs, pstmt, conn);
-		}
-		return result;
-	}
 	public void hotelMainInsert(hotelDTO dto) {
 			int maxnum=0;
 		try {
@@ -345,252 +312,268 @@ public class hotelDAO extends OracleDB{
 		}return list;
 		
 	}
-	public ArrayList<hotelDTO> hotelList(int sel, String check, String title, String checkin, String checkout, int adult, int kid, int start, int end){
-		ArrayList<hotelDTO> list = new ArrayList<>();
-		String sql="";
-		String[] chk = check.split(",");
-		String[] typeArray = new String[chk.length];
-		for (int i = 0; i < chk.length; i++) {
-		    if ("1".equals(chk[i])) {
-		        typeArray[i] = "호텔";
-		    } else if ("2".equals(chk[i])) {
-		        typeArray[i] = "리조트";
-		    } else if ("3".equals(chk[i])) {
-		        typeArray[i] = "모텔";
-		    } else if ("4".equals(chk[i])) {
-		    	typeArray[i] = "기타";
-		    }
-		}
-		sql = "select * from "
-				+ " (select b.* , rownum r from "
-				+ " (select * from hotel where (title like ? or address like ?) "
-				+ " and type in (";
-		for (int i = 0; i < typeArray.length; i++) {
-		    sql += (i == 0 ? "?" : ", ?");
-		}
-		sql += ") and adultmax >= ? and kidmax >= ? ";
-		
-		if(sel == 1) {
-			sql += ")b)";			
-		}else if(sel == 2) {
-			sql += " order by count desc)b)";			
-		}else if(sel == 3) {
-			sql += " order by aprice desc)b)";			
-		}else if(sel == 4) {
-			sql += " order by aprice asc)b)";			
-		}else if(sel == 5) {
-			sql += " order by count desc)b)";			
-		}
-		sql += " where r >= ? and r <= ? and re_step=0";
-		//sql += " and adultmax >= ? and kidmax >= ? order by count desc";
-		//sql += " and adultmax >= ? and kidmax >= ? order by aprice desc";
-		//sql += " and adultmax >= ? and kidmax >= ? order by aprice asc";
-		//sql += " and adultmax >= ? and kidmax >= ? order by aprice asc";
-		// SELECT * 
-		//FROM horder 
-		//WHERE checkin >= '2023-10-31' OR checkout <= '2023-10-20';
-
-		conn = getConnection();
-		try {
-			pstmt = conn.prepareStatement(sql);
-			String query = "%" + title + "%";
-			pstmt.setString(1, query);
-			pstmt.setString(2, query);
-		    for (int i = 0; i < typeArray.length; i++) {
-		        pstmt.setString(i + 3, typeArray[i]);
-		    }
-		    pstmt.setInt(typeArray.length + 3, adult); 
-		    pstmt.setInt(typeArray.length + 4, kid); 
-		    pstmt.setInt(typeArray.length + 5, start);
-		    pstmt.setInt(typeArray.length + 6, end);
-
-			rs = pstmt.executeQuery();
-			while(rs.next()) {
-				hotelDTO dto = new hotelDTO();
-				dto.setTitle(rs.getString("title"));
-				dto.setAddress(rs.getString("address"));
-				dto.setAprice(rs.getInt("aprice"));
-				dto.setKprice(rs.getInt("kprice"));
-				dto.setImg(rs.getString("img"));
-				dto.setRef(rs.getInt("ref"));
-				list.add(dto);
+	 public ArrayList<hotelDTO> hotelList(int sel, String check, String title, String checkin, String checkout, int [] adult, int [] kid, int start, int end){
+			ArrayList<hotelDTO> list = new ArrayList<>();
+			int maxRoomValue = 0;
+			int maxKidValue = 0;
+			String sql="";
+			for (int i = 0; i < adult.length; i++) {
+			    if (adult[i] > maxRoomValue) {
+			        maxRoomValue = adult[i];
+			    }
 			}
-		}catch(Exception e) {
-			e.printStackTrace();
-		}finally {
-			close(rs, pstmt, conn);
-		}
-		return list;
-	}
-	
-	public ArrayList<hotelDTO> hothotel(String loc){
-		ArrayList<hotelDTO> list = new ArrayList<>();
-		conn = getConnection();
-		String sql="";
-		try {
-			if(loc.equals("대구")) {
-				sql = "select * from "
-						+ " (select * from hotel where address like ? and address not like'%해운대구%' order by count desc) "
-						+ " where rownum <= 9";
-			}else {
-				sql = "select * from "
-					+ " (select * from hotel where address like ? order by count desc) "
-					+ " where rownum <= 9";
-			}
-			pstmt = conn.prepareStatement(sql);
-			String query = "%" + loc + "%";
-			pstmt.setString(1, query);
-			rs = pstmt.executeQuery();
-			while(rs.next()) {
-				hotelDTO dto = new hotelDTO();
-				dto.setImg(rs.getString("img"));
-				dto.setTitle(rs.getString("title"));
-				dto.setKprice(rs.getInt("kprice"));
-				list.add(dto);
-			}
-		}catch(Exception e) {
-			e.printStackTrace();
-		}finally {
-			close(rs, pstmt, conn);
-		}
-		return list;
-		
-	}
-	
-	public ArrayList<hotelDTO> HotelBlock(String chkin, String chkout) {
-		ArrayList<hotelDTO> list = new ArrayList<>();
-		conn = getConnection();
-		try {
-			String sql = "select * "
-					+ " from horder "
-					+ "where (checkin < to_date(?) AND checkout > to_date(?))";
-			pstmt = conn.prepareStatement(sql);
-			pstmt.setString(1, chkout);
-			pstmt.setString(2, chkin);
-			rs = pstmt.executeQuery();
-			while(rs.next()) {
-				hotelDTO dto = new hotelDTO();
-				dto.setRef(rs.getInt("ref"));
-				list.add(dto);
-			}
-		}catch(Exception e) {
-			e.printStackTrace();
-		}finally {
-			close(rs, pstmt, conn);
-		}
-		return list;
-	}
-	
-	public int count(String title, String check, String checkin, String checkout, int adult, int kid) {
-		String sql="";
-		String[] chk = check.split(",");
-		String[] typeArray = new String[chk.length];
-		for (int i = 0; i < chk.length; i++) {
-		    if ("1".equals(chk[i])) {
-		        typeArray[i] = "호텔";
-		    } else if ("2".equals(chk[i])) {
-		        typeArray[i] = "리조트";
-		    } else if ("3".equals(chk[i])) {
-		        typeArray[i] = "모텔";
-		    } else if ("4".equals(chk[i])) {
-		    	typeArray[i] = "기타";
-		    }
-		}
-		sql = "select count(*) from hotel where (title like ? or address like ?) and type in (";
-		for (int i = 0; i < typeArray.length; i++) {
-		    sql += (i == 0 ? "?" : ", ?");
-		}
-		sql += ") and adultmax >= ? and kidmax >= ? ";
-		conn = getConnection();
-		int result = 0;
-		try {
-			pstmt = conn.prepareStatement(sql);
-			String query = "%" + title + "%";
-			pstmt.setString(1, query);
-			pstmt.setString(2, query);
-		    for (int i = 0; i < typeArray.length; i++) {
-		        pstmt.setString(i + 3, typeArray[i]);
-		    }
-		    pstmt.setInt(typeArray.length + 3, adult); 
-		    pstmt.setInt(typeArray.length + 4, kid); 
-
-			rs = pstmt.executeQuery();
-			while(rs.next()) {
-				result = rs.getInt(1);
-			}
-		}catch(Exception e) {
-			e.printStackTrace();
-		}finally {
-			close(rs, pstmt, conn);
-		}
-		return result;
-	}
-	
-	public int count(String title) {
-		conn = getConnection();
-		int result = 0;
-		try {
-			String sql = "select count(*) from hotel "
-					+ " where title like ? or address like ?";
-			pstmt = conn.prepareStatement(sql);
-			String query = "%" + title + "%";
-			pstmt.setString(1, query);
-			pstmt.setString(2, query);
-			rs = pstmt.executeQuery();
-			while(rs.next()) {
-				result = rs.getInt(1);
-			}
-		}catch(Exception e) {
-			e.printStackTrace();
-		}finally {
-			close(rs, pstmt, conn);
-		}
-		return result;
-	}
-	public boolean checkRoom(int[]block,int roomcount,int ref) {
-		boolean result=false;
-		int count=0;
-		int available=0;
-		String sql="select count(*) from (select * from hotel where re_step=1 and ref=?)";
-		if(block!=null) {
-			sql+="where num not in(";
-		count=block.length;
-		for(int i=0;i<count;i++) {
-			sql+="?,";
-		}
-		sql=sql.substring(0,sql.length()-1);
-		sql+=")";
-		System.out.println(sql);
-		
-		conn=getConnection();
-		try {
-			pstmt=conn.prepareStatement(sql);
-			pstmt.setInt(1, ref);
-			if(count!=0) {
-				for(int i=0;i<block.length;i++)	{
-					pstmt.setInt(i+2, block[i]);
+			for (int i = 0; i < kid.length; i++) {
+				if (kid[i] > maxKidValue) {
+					maxKidValue = kid[i];
 				}
 			}
-			rs=pstmt.executeQuery();
-			if(rs.next()) {
-				available=rs.getInt(rs.getInt(1));
-			}
-			if(available>=roomcount) {
-				result=true;
+			String[] chk = check.split(",");
+			String[] typeArray = new String[chk.length];
+			for (int i = 0; i < chk.length; i++) {
+			    if ("1".equals(chk[i])) {
+			        typeArray[i] = "호텔";
+			    } else if ("2".equals(chk[i])) {
+			        typeArray[i] = "리조트";
+			    } else if ("3".equals(chk[i])) {
+			        typeArray[i] = "모텔";
+			    } else if ("4".equals(chk[i])) {
+			    	typeArray[i] = "기타";
+			    }
 			}
 			
-		} catch (Exception e) {
-			e.printStackTrace();
-		}finally {
-			close(rs, pstmt, conn);
+			if (sel == 5) {
+			    sql = "SELECT h.*, r.average_value " +
+			          "FROM hotel h " +
+			          "LEFT JOIN ( " +
+			          "    SELECT ref, ROUND(AVG(jumsu), 1) AS average_value " +
+			          "    FROM review " +
+			          "    GROUP BY ref " +
+			          ") r ON h.ref = r.ref " +
+			          "WHERE (h.title LIKE ? OR h.address LIKE ?) " +
+			          "AND h.type IN (";
+			    for (int i = 0; i < typeArray.length; i++) {
+			        sql += (i == 0 ? "?" : ", ?");
+			    }
+			    sql += ") " +
+			          "AND h.adultmax >= ? " +
+			          "AND h.kidmax >= ? " +
+			          "AND h.re_step = 0 " +
+			          "AND ROWNUM BETWEEN ? AND ? " +
+			          "ORDER BY r.average_value DESC NULLS LAST";
+			} else {
+			
+				sql = "select * from "
+						+ " (select b.* , rownum r from "
+						+ " (select * from hotel where (title like ? or address like ?) "
+						+ " and type in (";
+				for (int i = 0; i < typeArray.length; i++) {
+				    sql += (i == 0 ? "?" : ", ?");
+				}
+				sql += ") and adultmax >= ? and kidmax >= ? and re_step = 0 ";
+				
+				if(sel == 1) {
+					sql += ")b)";			
+				}else if(sel == 2) {
+					sql += " order by count desc)b)";			
+				}else if(sel == 3) {
+					sql += " order by aprice desc)b)";			
+				}else if(sel == 4) {
+					sql += " order by aprice asc)b)";			
+				}
+				sql += " where r >= ? and r <= ?";
+			}
+
+			conn = getConnection();
+			try {
+				pstmt = conn.prepareStatement(sql);
+				String query = "%" + title + "%";
+				pstmt.setString(1, query);
+				pstmt.setString(2, query);
+			    for (int i = 0; i < typeArray.length; i++) {
+			        pstmt.setString(i + 3, typeArray[i]);
+			    }
+			    pstmt.setInt(typeArray.length + 3, maxRoomValue); 
+			    pstmt.setInt(typeArray.length + 4, maxKidValue); 
+			    pstmt.setInt(typeArray.length + 5, start);
+			    pstmt.setInt(typeArray.length + 6, end);
+
+				rs = pstmt.executeQuery();
+				while(rs.next()) {
+					hotelDTO dto = new hotelDTO();
+					dto.setNum(rs.getInt("num"));
+					dto.setTitle(rs.getString("title"));
+					dto.setAddress(rs.getString("address"));
+					dto.setAprice(rs.getInt("aprice"));
+					dto.setKprice(rs.getInt("kprice"));
+					dto.setImg(rs.getString("img"));
+					dto.setRef(rs.getInt("ref"));
+					list.add(dto);
+				}
+			}catch(Exception e) {
+				e.printStackTrace();
+			}finally {
+				close(rs, pstmt, conn);
+			}
+			return list;
 		}
-		}else {
-			result=true;
+		
+		public ArrayList<hotelDTO> hothotel(String loc){
+			ArrayList<hotelDTO> list = new ArrayList<>();
+			conn = getConnection();
+			String sql="";
+			try {
+				if(loc.equals("대구")) {
+					sql = "select * from "
+							+ " (select * from hotel where address like ? and address not like'%해운대구%' order by count desc) "
+							+ " where rownum <= 9";
+				}else {
+					sql = "select * from "
+						+ " (select * from hotel where address like ? order by count desc) "
+						+ " where rownum <= 9";
+				}
+				pstmt = conn.prepareStatement(sql);
+				String query = "%" + loc + "%";
+				pstmt.setString(1, query);
+				rs = pstmt.executeQuery();
+				while(rs.next()) {
+					hotelDTO dto = new hotelDTO();
+					dto.setImg(rs.getString("img"));
+					dto.setTitle(rs.getString("title"));
+					dto.setKprice(rs.getInt("kprice"));
+					list.add(dto);
+				}
+			}catch(Exception e) {
+				e.printStackTrace();
+			}finally {
+				close(rs, pstmt, conn);
+			}
+			return list;
+		}
+		
+		public ArrayList<hotelDTO> HotelBlock(String chkin, String chkout) {
+			ArrayList<hotelDTO> list = new ArrayList<>();
+			conn = getConnection();
+			try {
+				String sql = "select * "
+						+ " from horder "
+						+ "where (checkin < to_date(?) AND checkout > to_date(?))";
+				pstmt = conn.prepareStatement(sql);
+				pstmt.setString(1, chkout);
+				pstmt.setString(2, chkin);
+				rs = pstmt.executeQuery();
+				while(rs.next()) {
+					hotelDTO dto = new hotelDTO();
+					dto.setRef(rs.getInt("ref"));
+					list.add(dto);
+				}
+			}catch(Exception e) {
+				e.printStackTrace();
+			}finally {
+				close(rs, pstmt, conn);
+			}
+			return list;
+		}
+		
+		public int count(String title, String check, String checkin, String checkout, int adult, int kid) {
+			String sql="";
+			String[] chk = check.split(",");
+			String[] typeArray = new String[chk.length];
+			for (int i = 0; i < chk.length; i++) {
+			    if ("1".equals(chk[i])) {
+			        typeArray[i] = "호텔";
+			    } else if ("2".equals(chk[i])) {
+			        typeArray[i] = "리조트";
+			    } else if ("3".equals(chk[i])) {
+			        typeArray[i] = "모텔";
+			    } else if ("4".equals(chk[i])) {
+			    	typeArray[i] = "기타";
+			    }
+			}
+			sql = "select count(*) from hotel where (title like ? or address like ?) and type in (";
+			for (int i = 0; i < typeArray.length; i++) {
+			    sql += (i == 0 ? "?" : ", ?");
+			}
+			sql += ") and adultmax >= ? and kidmax >= ? and re_step = 0";
+			conn = getConnection();
+			int result = 0;
+			try {
+				pstmt = conn.prepareStatement(sql);
+				String query = "%" + title + "%";
+				pstmt.setString(1, query);
+				pstmt.setString(2, query);
+			    for (int i = 0; i < typeArray.length; i++) {
+			        pstmt.setString(i + 3, typeArray[i]);
+			    }
+			    pstmt.setInt(typeArray.length + 3, adult); 
+			    pstmt.setInt(typeArray.length + 4, kid); 
+
+				rs = pstmt.executeQuery();
+				while(rs.next()) {
+					result = rs.getInt(1);
+				}
+			}catch(Exception e) {
+				e.printStackTrace();
+			}finally {
+				close(rs, pstmt, conn);
+			}
+			return result;
 		}
 		
 		
+		public int count(String title) {
+			conn = getConnection();
+			int result = 0;
+			try {
+				String sql = "select count(*) from hotel "
+						+ " where (title like ? or address like ?) and re_step = 0";
+				pstmt = conn.prepareStatement(sql);
+				String query = "%" + title + "%";
+				pstmt.setString(1, query);
+				pstmt.setString(2, query);
+				rs = pstmt.executeQuery();
+				while(rs.next()) {
+					result = rs.getInt(1);
+				}
+			}catch(Exception e) {
+				e.printStackTrace();
+			}finally {
+				close(rs, pstmt, conn);
+			}
+			return result;
+		}
 		
-		return result;
-		
-	}
+		public int checkRoom(String block, int num) {
+			String[] bk1 = block.split(",");
+			String [] typeArray = new String[bk1.length];
+			int result = 0;
+			String sql="";
+			if(block!=null) {
+				sql="select count(*) from (select * from hotel "
+						+ " where re_step=1 and ref=?) where num not in( ";
+				for(int i=0;i<typeArray.length;i++) {
+					sql+=(i == 0 ? "?" : ", ?");
+				}
+				sql+=" )";
+			}else if(block==null) {
+				sql="select count(*) from (select * from hotel where re_step=1 and ref=?)";
+			}
+			conn=getConnection();
+			try {
+				pstmt=conn.prepareStatement(sql);
+				pstmt.setInt(1, num);
+				for (int i = 0; i < typeArray.length; i++) {
+			        pstmt.setString(i + 2, bk1[i]);
+			    }
+				rs=pstmt.executeQuery();
+				if(rs.next()) {
+					result=rs.getInt(1);
+				}
+			} catch (Exception e) {
+				e.printStackTrace();
+			}finally {
+				close(rs, pstmt, conn);
+			}
+			return result;
+		}
+	
 }

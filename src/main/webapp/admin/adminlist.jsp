@@ -61,5 +61,6 @@
             }
         %>
     </table>
+    <input type="button" value="뒤로가기" onclick="location.href='../memeber/memberinfo.jsp'">
 </body>
 </html>

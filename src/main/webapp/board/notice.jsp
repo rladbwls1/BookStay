@@ -37,7 +37,7 @@ if(id.equals("admin")){
 	<button type="button" onclick="window.location='writeForm.jsp'">공지글 작성</button>
 	<%
 }
-%>
+%><button type="button" onclick="window.location='QnAList.jsp'">자주묻는질문</button>
 <script>
 function toggleContent(contentId) {
     var contentDiv = document.getElementById(contentId);
