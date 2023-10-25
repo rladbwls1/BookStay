@@ -18,11 +18,43 @@
 <!DOCTYPE html>
 <html>
 <head>
+<style>
+   
+    .table-container {
+        text-align: center;
+    }
+			table {		
+            display: flex;
+              margin: 0;
+            border-collapse: collapse;
+            border: 1px solid #ccc; /* 테이블 테두리 스타일 설정 (선택 사항) */
+        }
+        th, td {
+            border: 1px solid #ccc; /* 셀 테두리 스타일 설정 (선택 사항) */
+            padding: 8px 12px;
+        }	
+		td:nth-child(1){
+			width:200px;
+		}
+		td:nth-child(2){
+			width:400px;
+		}
+	 h1 {
+            text-align: center;
+        }
+     .button-container {
+            align-items: center;   
+        display: inline-block;
+        left:700px;
+    }
+
+</style>
     <title>어서오세요</title>
 </head>
 <body>
-<h2>마이페이지</h2>
-<table border="1">
+    <h2>마이페이지</h2>
+
+<table border="1"  class="table-container">
     <tr>
         <td>아이디</td>
         <td><%= userId %></td>
@@ -52,8 +84,11 @@
         <td><%= user.getPnum() %></td>
     </tr>
 </table>
-<input type="button" value="뒤로가기" onclick="location.href='main.jsp'">
-<a href="logout.jsp">로그아웃</a>
+<input type="button" value="뒤로가기" onclick="location.href='main.jsp'" class="button-container">
+<input type="button" value="로그아웃" onclick="location.href='logout.jsp'" class="button-container">
+<input type="button" value="회원정보수정" onclick="location.href='updateFirst.jsp'" class="button-container">
+<input type="button" value="회원탈퇴" onclick="location.href='delete.jsp'" class="button-container">
+
 </body>
 </html>
 <%

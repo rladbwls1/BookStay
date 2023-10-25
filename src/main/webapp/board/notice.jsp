@@ -5,6 +5,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%
+session.setAttribute("sid", "admin");
 request.setCharacterEncoding("UTF-8");
 boardDAO dao = boardDAO.getInstance();
 ArrayList<boardDTO> list = dao.getList(10);
@@ -36,7 +37,7 @@ if(id.equals("admin")){
 	<button type="button" onclick="window.location='writeForm.jsp'">공지글 작성</button>
 	<%
 }
-%>
+%><button type="button" onclick="window.location='QnAList.jsp'">자주묻는질문</button>
 <script>
 function toggleContent(contentId) {
     var contentDiv = document.getElementById(contentId);

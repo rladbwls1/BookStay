@@ -1,8 +1,7 @@
+<%@page import="hotel.bean.boardDTO"%>
 <%@page import="hotel.bean.boardDAO"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-    <jsp:useBean id="dto" class="hotel.bean.boardDTO"/>
-    <jsp:setProperty property="*" name="dto"/>
 <%request.setCharacterEncoding("UTf-8");%>
 
 <%
@@ -15,7 +14,12 @@ if(!session.getAttribute("sid").equals("admin")){
 	</script>
 	<%
 	
-} %>
+} 
+boardDTO dto = new boardDTO();
+boardDAO dao = boardDAO.getInstance();
+int num=Integer.parseInt(request.getParameter("num"));
+dto=dao.getContent(num);
+%>
 <form action="boardUpdatePro.jsp" method="post">
 	제목 :<input type="text" name="title" value="<%=dto.getTitle()%>"><br />
 	내용 :<textarea rows="7" cols="30" name="content"><%=dto.getContent() %></textarea><br />

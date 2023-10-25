@@ -10,17 +10,23 @@
 <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.css" />
 <!DOCTYPE html>
 <html>
-<head>
-<meta charset="UTF-8">
-<title>Hotel_Main</title>
-<link rel="stylesheet" href="/Hotel/resources/css/main.css"/>
-<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-4bw+/aepP/YC94hEpVNVgiZdgIC5+VKNBQNGCHeKRQN+PtmoHDEXuppvnDJzQIu9" crossorigin="anonymous">
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-HwwvtgBNo3bZJJLYd8oVXjrBZt8cqVSpeBNS5n7C8IVInixGAoxmnlMuBnhbgrkm" crossorigin="anonymous"></script>
+<head> 
+	function loc(v1){
+		var v2 = document.getElementById('start').value;
+		var v3 = document.getElementById('end').value;
+		var v4 = document.getElementById('adult1').value;
+		var v5 = document.getElementById('kids1').value;
+		var v6 = document.getElementById('rortlf').value;
+		document.location.href = 'hlist.jsp?title='+v1+'&checkin='+v2+'&checkout='+v3+'&adult='+v4+'&kids='+v5+'&room='+v6+'&select=2&check=1,2,3,4';
+	}
+</script>
 </head>
 <body>
+
 <%@ include file="menu.jsp" %>
+<% session.setAttribute("sid",  "admin"); %>
 <div id="main">
-	<img src="/Hotel/resources/img/header.png" id="main_img">
+	<img src="/BookStay/resources/img/header.png" id="main_img">
 	<form method="post" id="searchForm">
 		<input type="text" id="text" name="title"/>
 		<input type="text" id="date" name="datetimes"/>
@@ -28,156 +34,65 @@
 		<input type="hidden" id="end" name="checkout"/>
 		<input type="button" value="객실 1개, 인원 2명" id="popBtn"/>
 		<div class="popup" id="popup">
-			<h5>객실</h5>
-			<p>성인 <input type="number" name="adult" value="2"/></p><br>
-			<p>어린이 (만 17세 미만) <input type="number" name="kids" value="0"/></p>
+		<div id="pop">
+			<h5>객실1</h5>
+			<p>성인 <input type="number" id="adult1" name="adult" value="2" max="4" min="1"/></p><br>
+			<p>어린이 (만 17세 미만) <input type="number" id="kids1" name="kids" value="0" max="4" min="0"/></p>
+		</div>
 			<input type="button" id="cadd" value="객실 추가"/>
+			<input type="hidden" id="rortlf" name="rortlf" value="1"/>
 			<input type="button" id="cBtn" onclick="updateButtonValue()" value="적용"/>
 		</div>
 		<button id="sub" type="submit" class="btn btn-success">검색하기</button>
 		<input type="hidden" name="category" value="0"/>
 	</form>
+	<div id="p"></div>
 </div>
 <div id="h_content">
 	<h2>도시별 인기 호텔</h2>
 	<div id="hot_hotel">
 		<button class="hobtn" id="hobtn1" data-target="list1">서울</button>
-		<button class="hobtn" data-target="list2">경주</button>
-		<button class="hobtn" data-target="list3">여수</button>
-		<button class="hobtn" data-target="list4">부산</button>
-		<button class="hobtn" data-target="list5">전주</button>
-		<button class="hobtn" data-target="list6">대전</button>
-		<button class="hobtn" data-target="list7">제주도</button>
-		<button class="hobtn" data-target="list8">인천</button>
+		<button class="hobtn" data-target="list2">부산</button>
+		<button class="hobtn" data-target="list3">제주도</button>
+		<button class="hobtn" data-target="list4">인천</button>
+		<button class="hobtn" data-target="list5">여수</button>
+		<button class="hobtn" data-target="list6">수원</button>
+		<button class="hobtn" data-target="list7">대전</button>
+		<button class="hobtn" data-target="list8">광주</button>
+		<button class="hobtn" data-target="list9">대구</button>
+		<button class="hobtn" data-target="list10">속초</button>
 	</div>
 	<%
 	request.setCharacterEncoding("UTF-8");
+	ArrayList<hotelDTO> list;
+	hotelDAO dao = new hotelDAO();
+	String[] types = {"서울", "부산", "제주도", "인천", "여수", "수원", "대전", "광주", "대구", "속초"};
+
+	for(int i=0; i <types.length; i++){
+		list = dao.hothotel(types[i]);
+		String loc = types[i];
 	%>
-	<div id="list1">
-		<%
-		hotelDAO dao = new hotelDAO();
-		ArrayList<hotelDTO> list = dao.hothotel("서울"); 
-		for(hotelDTO dto : list){
-		%>	 
-		<div>
-			<img src="/Hotel/upload/<%= dto.getImg() %>" style="width:100px;"/>
-			<%= dto.getTitle() %>
-			<%= dto.getKprice() %>
-		</div>
-		<%}%>
-		<div>
-			<button>서울 호텔 전체 보기</button>
-		</div>
+	<div id="list<%=i+1%>" class="list" style="<%= ( i == 0) ? "display:block;" : "display:none;" %>">
+	 <%
+	 for(hotelDTO dto : list){
+	 %> 
+	 <div>
+		<img src="/BookStay/upload/<%= dto.getImg() %>" style="width:100px;"/>
+		<%= dto.getTitle() %>
+		<%= dto.getKprice() %>
 	</div>
-	<div id="list2">
-		<%
-		ArrayList<hotelDTO> list1 = dao.hothotel("경주"); 
-		for(hotelDTO dto : list1){
-		%>	 
-		<div>
-			<img src="/Hotel/upload/<%= dto.getImg() %>" style="width:100px;"/>
-			<%= dto.getTitle() %>
-			<%= dto.getKprice() %>
-		</div>
-		<%}%>
-		<div>
-			<button>경주 호텔 전체 보기</button>
-		</div>
+	<% }%>
+		<button type="button" onclick="loc('<%=loc%>');">
+		<%=loc%> 호텔 전체 보기</button>	 
 	</div>
-	<div id="list3">
-		<%
-		ArrayList<hotelDTO> list2 = dao.hothotel("여수"); 
-		for(hotelDTO dto : list2){
-		%>	 
-		<div>
-			<img src="/Hotel/upload/<%= dto.getImg() %>" style="width:100px;"/>
-			<%= dto.getTitle() %>
-			<%= dto.getKprice() %>
-		</div>
-		<%}%>
-		<div>
-			<button>여수 호텔 전체 보기</button>
-		</div>
-	</div>
-	<div id="list4">
-		<%
-		ArrayList<hotelDTO> list3 = dao.hothotel("부산"); 
-		for(hotelDTO dto : list3){
-		%>	 
-		<div>
-			<img src="/Hotel/upload/<%= dto.getImg() %>" style="width:100px;"/>
-			<%= dto.getTitle() %>
-			<%= dto.getKprice() %>
-		</div>
-		<%}%>
-		<div>
-			<button>부산 호텔 전체 보기</button>
-		</div>
-	</div>
-	<div id="list5">
-		<%
-		ArrayList<hotelDTO> list4 = dao.hothotel("전주"); 
-		for(hotelDTO dto : list4){
-		%>	 
-		<div>
-			<img src="/Hotel/upload/<%= dto.getImg() %>" style="width:100px;"/>
-			<%= dto.getTitle() %>
-			<%= dto.getKprice() %>
-		</div>
-		<%}%>
-		<div>
-			<button>전주 호텔 전체 보기</button>
-		</div>
-	</div>
-	<div id="list6">
-		<%
-		ArrayList<hotelDTO> list5 = dao.hothotel("대전"); 
-		for(hotelDTO dto : list5){
-		%>	 
-		<div>
-			<img src="/Hotel/upload/<%= dto.getImg() %>" style="width:100px;"/>
-			<%= dto.getTitle() %>
-			<%= dto.getKprice() %>
-		</div>
-		<%}%>
-		<div>
-			<button>대전 호텔 전체 보기</button>
-		</div>
-	</div>
-	<div id="list7">
-		<%
-		ArrayList<hotelDTO> list6 = dao.hothotel("제주도"); 
-		for(hotelDTO dto : list6){
-		%>	 
-		<div>
-			<img src="/Hotel/upload/<%= dto.getImg() %>" style="width:100px;"/>
-			<%= dto.getTitle() %>
-			<%= dto.getKprice() %>
-		</div>
-		<%}%>
-		<div>
-			<button>제주도 호텔 전체 보기</button>
-		</div>
-	</div>
-	<div id="list8">
-		<%
-		ArrayList<hotelDTO> list7 = dao.hothotel("인천"); 
-		for(hotelDTO dto : list7){
-		%>	 
-		<div>
-			<img src="/Hotel/upload/<%= dto.getImg() %>" style="width:100px;"/>
-			<%= dto.getTitle() %>
-			<%= dto.getKprice() %>
-		</div>
-		<%}%>
-		<div>
-			<button>인천 호텔 전체 보기</button>
-		</div>
-	</div>
+<%}%>
 </div>
 </body>
-<script src="/Hotel/resources/js/today.js"></script>
-<script src="/Hotel/resources/js/btn.js"></script>
+<script src="/BookStay/resources/js/aa.js"></script>
+<script src="/BookStay/resources/js/today.js"></script>
+<script src="/BookStay/resources/js/count.js"></script>
+<script src="/BookStay/resources/js/btn.js"></script>
+<!--  
 <script>
 	var form = document.getElementById('searchForm');
 	var titleInput = form.querySelector('input[name="title"]');
@@ -187,6 +102,7 @@
 	var kidsInput = form.querySelector('input[name="kids"]');
 	var startInput = form.querySelector('input[name="checkin"]'); 
 	var endInput = form.querySelector('input[name="checkout"]');
+	var rortlf = form.querySelector('input[name="rortlf"]');
 	
 	document.getElementById('sub').addEventListener('click', function () {
 	  var titleValue = titleInput.value;
@@ -196,21 +112,14 @@
 	  var kidsValue = kidsInput.value;
 	  var startValue = startInput.value;
 	  var endValue = endInput.value;
-      var hselect = 0
+	  var rorValue = rortlf.value;
+      var hselect = 0;
+      
 	  form.action = 'hlist.jsp?title=' + titleValue + '&checkin=' + startValue + '&checkout=' + endValue
-	  + '&adult=' + adultValue + '&kids=' + kidsValue; 
+	  + '&adult=' + adultValue + '&kids=' + kidsValue + '&room=' + rorValue + '&select=1&check=1,2,3,4'; 
     });
-</script>
-<script>
-	function su(){
-		var hotel = document.getElementById('hothotel');
-		var su = hotel.querySelector('button[name="su"]');
-		var suValue = su.value;
-		alert(suValue);
-	}
-</script>
-<script src="/Hotel/resources/js/count.js"></script>
-<script src="/Hotel/resources/js/date.js"></script>
-<script src="/Hotel/resources/js/popup.js"></script>
-<script src="/Hotel/resources/js/pop.js"></script>
+</script>-->
+<script src="/BookStay/resources/js/date.js"></script>
+<script src="/BookStay/resources/js/popup.js"></script>
+<script src="/BookStay/resources/js/pop.js"></script>
 </html>

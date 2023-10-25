@@ -80,20 +80,14 @@ public class HOrderDAO extends OracleDB {
 
 	    return orders;
 	}
-
-
-    
     public void insertOrder(HOrderDTO order)throws Exception {
 
 		try{			
 			conn = getConnection();
 			  
  	        String sql = "INSERT INTO horder (renum, id, num, Checkin, Checkout, Adult, Kid, State, Paytype, Reg, AdultCount) VALUES "
- 	        		+ " (horder_seq.nextval, ?, ?, ?, ?, ?, ?, ?, ?, SYSDATE, ?)";
- 	        
+ 	        		+ " (horder_seq.nextval, ?, ?,to_char(?,'YYYY-MM-DD'), to_char(?,'YYYY-MM-DD'), ?, ?, ?, ?, SYSDATE, ?)";
  	        pstmt = conn.prepareStatement(sql);
- 	        
- 	      
  	        pstmt.setString(1, order.getId());
  	        pstmt.setInt(2, order.getNum());
  	        pstmt.setString(3, order.getCheckin());
@@ -103,12 +97,7 @@ public class HOrderDAO extends OracleDB {
  	        pstmt.setInt(7, order.getState());
 	        pstmt.setString(8, order.getPaytype());
 	        pstmt.setInt(9, order.getAdultCount());
-
-
  	        pstmt.executeUpdate();
-				
-				
-			
 		}catch (Exception ex) {
    	        ex.printStackTrace();
    	    } finally {

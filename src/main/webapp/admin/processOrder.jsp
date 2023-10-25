@@ -1,6 +1,7 @@
 <%@ page contentType="text/html; charset=utf-8" %>
 <%@ page import="hotel.bean.HOrderDTO" %>
 <%@ page import="hotel.bean.HOrderDAO" %>
+<%@page import="java.sql.Timestamp"%>
 <!DOCTYPE html>
 <html> 
 <head>
@@ -17,7 +18,7 @@
         int kid = 0;
         int state = 0;
         String paytype = request.getParameter("paytype");
-        int adultCount = 0;
+      
         
         
         try {
@@ -44,12 +45,7 @@
                 throw new Exception("상태(state) 값이 누락되었습니다.");
             }
             
-            if (request.getParameter("adultcount") != null && !request.getParameter("adultcount").isEmpty()) {
-                adultCount = Integer.parseInt(request.getParameter("adultcount"));
-            } else {
-                
-                throw new Exception("성인 수(adultcount)가 누락되었습니다.");
-            }
+            
         } catch (NumberFormatException e) {
             // 숫자로 변환할 수 없는 경우
             out.println("<h1>숫자 형식으로 입력해야 하는 항목이 올바르지 않습니다.</h1>");
@@ -70,8 +66,9 @@
         order.setKid(kid);
         order.setState(state);
         order.setPaytype(paytype);
-        order.setAdultCount(adultCount);
-
+       
+        String userId = (String) session.getAttribute("sid"); // 사용자 아이디 가져오기
+        if (userId != null && userId.equals(id)) {
         HOrderDAO dao = new HOrderDAO();
 
         try {
@@ -79,12 +76,21 @@
             dao.insertOrder(order);
     %>
             <h1>예약이 완료되었습니다!</h1>
+            <input type="button" value="메인" onclick="location.href='/BookStay/memeber/main.jsp'">
     <%
         } catch (Exception e) {
     %>
             <h1>예약 처리 중 오류가 발생했습니다.</h1>
     <%
             e.printStackTrace();
+        }
+    } else {
+    %>
+     <script>
+                alert("사용자 아이디 정보가 일치하지 않습니다. 예약할 수 없습니다.");
+                window.location = "/BookStay/memeber/main.jsp"; 
+            </script>
+    <%
         }
     %>
 </body>

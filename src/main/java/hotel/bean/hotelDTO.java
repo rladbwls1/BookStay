@@ -4,20 +4,21 @@ public class hotelDTO {
 	private int num;
 	private String type;
 	private String title;
+	private String content;
 	private String contactfax;
 	private String contact;
 	private String service;
 	private int aprice;
 	private int kprice;
-	private String img;
-	
-	public String getImg() {
-		return img;
-	}
-	public void setImg(String img) {
-		this.img = img;
-	}
 	private String address;
+	private String img;
+	private int ref;
+	private int re_step;
+	private String roomtype;
+	private int adultmax;
+	private int kidmax;
+	private int count;
+	
 	public int getNum() {
 		return num;
 	}
@@ -35,6 +36,12 @@ public class hotelDTO {
 	}
 	public void setTitle(String title) {
 		this.title = title;
+	}
+	public String getContent() {
+		return content;
+	}
+	public void setContent(String content) {
+		this.content = content;
 	}
 	public String getContactfax() {
 		return contactfax;
@@ -72,4 +79,48 @@ public class hotelDTO {
 	public void setAddress(String address) {
 		this.address = address;
 	}
+	public String getImg() {
+		return img;
+	}
+	public void setImg(String img) {
+		this.img = img;
+	}
+	public int getRef() {
+		return ref;
+	}
+	public void setRef(int ref) {
+		this.ref = ref;
+	}
+	public int getRe_step() {
+		return re_step;
+	}
+	public void setRe_step(int re_step) {
+		this.re_step = re_step;
+	}
+	public String getRoomtype() {
+		return roomtype;
+	}
+	public void setRoomtype(String roomtype) {
+		this.roomtype = roomtype;
+	}
+	public int getAdultmax() {
+		return adultmax;
+	}
+	public void setAdultmax(int adultmax) {
+		this.adultmax = adultmax;
+	}
+	public int getKidmax() {
+		return kidmax;
+	}
+	public void setKidmax(int kidmax) {
+		this.kidmax = kidmax;
+	}
+	public int getCount() {
+		return count;
+	}
+	public void setCount(int count) {
+		this.count = count;
+	}
+	
+	
 }
