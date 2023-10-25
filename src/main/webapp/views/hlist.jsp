@@ -55,9 +55,9 @@
 			 "&room=" + room1 + "&select=" + sel1 + "&check=" + check1;
 	//int category= 0;  
 	hotelDAO dao = new hotelDAO();
-	ArrayList<hotelDTO> list = dao.hotelList(sel1, check1, title1, checkin1, checkout1, adult1, kid1, start, end); 
+	ArrayList<hotelDTO> list = dao.hotelList(sel1, check1, title1, checkin1, checkout1, roomValue1, kidsValue1, start, end); 
 	int cnt = dao.count(title1);
-	int count = dao.count(title1, check1, checkin1, checkout1, adult1, kid1);
+	int count = dao.count(title1, check1, checkin1, checkout1, roomValue1, kidsValue1);
 	
 	ArrayList<hotelDTO> block = dao.HotelBlock(checkin1, checkout1); 
 	StringBuilder block1 = new StringBuilder();
@@ -111,9 +111,9 @@
 	<div>
 	<input type="text" value="<%=check %>"/>
 	<%
-		if (check >= room1){
+		if (check >= room1 || block2 == ""){
 	%>
-	<a href="hotelcontent.jsp?title=<%=dto.getTitle()%>&ref=<%=dto.getRef()%>&block=<%=block2%>">
+	<a href="/BookStay/hotel/hotelContent.jsp?title=<%=dto.getTitle()%>&ref=<%=dto.getRef()%>&block=<%=block2%>">
 		<div>
     	<img src="/BookStay/upload/<%= dto.getImg() %>" style="width:100px;"/>
     	<%= dto.getTitle() %>
@@ -146,7 +146,7 @@
     	<%	
     	}
     	%>
-		<%} %>
+		<%}%>
 	</div>
 <%}%>
 </div>
