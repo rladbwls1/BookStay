@@ -10,11 +10,14 @@ public class MemberDTO {
 	private String pnum;
    private String cauto;
    private String heart;
+   private int grade;	//0 : 일반 , 11:로그아웃상태 , 81 : 휴면  , 82 : 블랙리스트
    
-   
-   
-   
- 
+public int getGrade() {
+	return grade;
+}
+public void setGrade(int grade) {
+	this.grade = grade;
+}
 public String getHeart() {
 	return heart;
 }

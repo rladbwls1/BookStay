@@ -15,7 +15,15 @@ public class HOrderDTO {
 	private String paytype;
 	private int adultcount;
 	private int kidcount;
+	private String name;
 	
+	
+	public String getName() {
+		return name;
+	}
+	public void setName(String name) {
+		this.name = name;
+	}
 	public int getRef() {
 		return ref;
 	}

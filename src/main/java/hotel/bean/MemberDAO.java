@@ -206,7 +206,23 @@ public class MemberDAO extends  OracleDB {
 		} finally {
 			close(rs, pstmt, conn);
 		}return list;
-			
-		
+	}
+	public int checkGrade(String id) {
+		int grade = 11;
+		try {
+			conn=getConnection();
+			String sql = "select grade from member where id=?";
+			pstmt=conn.prepareStatement(sql);
+			pstmt.setString(1, id);
+			rs=pstmt.executeQuery();
+			if(rs.next()) {
+				grade=rs.getInt(1);
+			}
+			System.out.println(grade);
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			close(rs, pstmt, conn);
+		} return grade;
 	}
 }

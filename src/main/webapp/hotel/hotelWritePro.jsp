@@ -1,3 +1,4 @@
+<%@page import="hotel.bean.MemberDAO"%>
 <%@page import="hotel.bean.hotelDAO"%>
 <%@page import="hotel.bean.hotelDTO"%>
 <%@page import="com.oreilly.servlet.multipart.DefaultFileRenamePolicy"%>
@@ -7,16 +8,17 @@
     pageEncoding="UTF-8"%>
 <jsp:useBean id="dto" class="hotel.bean.hotelDTO"/>
 <%request.setCharacterEncoding("UTF-8");
-String id = (String)session.getAttribute("sid");
-if(!id.equals("admin")){
-	%>
-	<script>
-		alert("관리자만 접근할수 있습니다.");
-		window.location="../member/main.jsp";
-	</script>
-	<%
+MemberDAO mdao = MemberDAO.getInstance();
+String sid = (String) session.getAttribute("sid");
+int id= mdao.checkGrade(sid);
+if (id!=99){
 	
-} 
+	 %>
+	  <script>
+	  	alert("관리자만 접근할수 있습니다.");
+	  	window.location="../views/main.jsp";
+	  </script>
+<%}
 String path=request.getRealPath("/upload");
 int max = 1024 * 1024 * 10;
 DefaultFileRenamePolicy df = new DefaultFileRenamePolicy();

@@ -1,3 +1,4 @@
+<%@page import="hotel.bean.MemberDAO"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-4bw+/aepP/YC94hEpVNVgiZdgIC5+VKNBQNGCHeKRQN+PtmoHDEXuppvnDJzQIu9" crossorigin="anonymous">
@@ -5,16 +6,17 @@
 <%request.setCharacterEncoding("UTf-8");%>
 
 <%
-String id = (String)session.getAttribute("sid");
-if(!id.equals("admin")){
-	%>
-	<script>
-		alert("관리자만 접근할수 있습니다.");
-		window.location="/login/main.jsp";
-	</script>
-	<%
+MemberDAO mdao = MemberDAO.getInstance();
+String sid = (String) session.getAttribute("sid");
+int id= mdao.checkGrade(sid);
+if (id!=99){
 	
-} %>
+	 %>
+	  <script>
+	  	alert("관리자만 접근할수 있습니다.");
+	  	window.location="../views/main.jsp";
+	  </script>
+<%}%>
 <%@ include file="../views/menu.jsp" %>
 <form action="writePro.jsp" method="post">
 	<select name="category">

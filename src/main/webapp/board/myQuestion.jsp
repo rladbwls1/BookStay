@@ -1,3 +1,4 @@
+<%@page import="hotel.bean.MemberDAO"%>
 <%@page import="hotel.bean.hotelDAO"%>
 <%@page import="java.text.SimpleDateFormat"%>
 <%@page import="hotel.bean.boardDTO"%>
@@ -9,18 +10,20 @@
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-HwwvtgBNo3bZJJLYd8oVXjrBZt8cqVSpeBNS5n7C8IVInixGAoxmnlMuBnhbgrkm" crossorigin="anonymous"></script>
 <%
 request.setCharacterEncoding("UTF-8");
-String id = (String)session.getAttribute("sid");
-if(id==null){
-	%>
-		<script>
-			alert("로그인을 먼저 해주세요");
-			window.location="../views/main.jsp";
-		</script>
-	<% 
-}
+MemberDAO mdao = MemberDAO.getInstance();
+String nid = (String) session.getAttribute("sid");
+int id= mdao.checkGrade(nid);
+if (id!=11){
+	
+	 %>
+	  <script>
+	  	alert("관리자만 접근할수 있습니다.");
+	  	window.location="../views/main.jsp";
+	  </script>
+<%}
 boardDAO dao = boardDAO.getInstance();
 hotelDAO check = new hotelDAO();
-ArrayList<boardDTO> list = dao.getMyList(id);
+ArrayList<boardDTO> list = dao.getMyList(nid);
 SimpleDateFormat df=new SimpleDateFormat("yyyy-MM-dd");
 %>
 <%@ include file="../views/menu.jsp" %>
@@ -42,10 +45,10 @@ SimpleDateFormat df=new SimpleDateFormat("yyyy-MM-dd");
 	<%if(dto.getId().equals("admin")){}else{ %>
 	<div class="board-item">
 		<a href="javascript:void(0);" onclick="toggleContent('content_<%=dto.getNum()%>');"><%=title%></a>
-		<%if(!check.checkNull(id)&&id.equals(dto.getId())){ %>
+		<%if(id!=11&&nid.equals(dto.getId())){ %>
 		<button type="button" onclick="window.location='boardDelete.jsp?category=<%=dto.getCategory()%>&num=<%=dto.getNum()%>'">삭제</button>
 		<%} %>
-		<%if(!check.checkNull(id)&&id.equals("admin")){ %>
+		<%if(id==99){ %>
 		<button type="button" onclick="window.location='question.jsp?ref=<%=dto.getRef()%>'">답변작성</button>
 		<%} %>
 		<br>

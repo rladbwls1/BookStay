@@ -1,87 +1,63 @@
+<%@page import="hotel.bean.adminDAO"%>
+<%@page import="hotel.bean.adminDTO"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
 <%@ page import="hotel.bean.MemberDTO" %>
 <%@ page import="hotel.bean.MemberDAO" %>
    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-4bw+/aepP/YC94hEpVNVgiZdgIC5+VKNBQNGCHeKRQN+PtmoHDEXuppvnDJzQIu9" crossorigin="anonymous">
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-HwwvtgBNo3bZJJLYd8oVXjrBZt8cqVSpeBNS5n7C8IVInixGAoxmnlMuBnhbgrkm" crossorigin="anonymous"></script>
-<jsp:useBean id="dao" class="hotel.bean.MemberDAO" />
-<jsp:useBean id="dto" class="hotel.bean.MemberDTO" />
-
+<style>
+	table, th, td{border : 1px solid #bcbcbc;}
+	table{width : 50%}
+</style>
+<%request.setCharacterEncoding("UTF-8");
+MemberDAO mdao = MemberDAO.getInstance();
+String sid = (String) session.getAttribute("sid");
+int id= mdao.checkGrade(sid);
+if (id!=99){
+	 %>
+	  <script>
+	  	alert("관리자만 접근할수 있습니다.");
+	  	window.location="../views/main.jsp";
+	  </script>
+<%}else{%>
 <%
-    request.setCharacterEncoding("UTF-8");
-
-    String userId = (String) session.getAttribute("sid"); // 사용자 아이디 가져오기
-
-    if (userId != null) {
-        MemberDTO user = dao.myInfo(userId); // 사용자 정보 조회
-        
-
-        if (user != null) {
-            // 여기서 user 객체를 사용하여 사용자 정보에 접근할 수 있습니다.
-             if ("admin".equals(userId)) {
-            
+  adminDAO dao=adminDAO.getInstance();
+  adminDTO dto = dao.getPreView();
 %>
-<%@ include file="../views/menu.jsp" %>
-<html>
-<head>
-    <title>어서오세요</title>
-</head>
-<body>
-<h2>마이페이지</h2>
-<hr />
 
-<button onclick="window.location='myQuestion.jsp'">1:1문의글 보기</button>
-<hr />
-<table border="1">
-    <tr>
-        <td>아이디</td>
-        <td><%= userId %></td>
-    </tr>
-    <tr>
-        <td>비밀번호</td>
-        <td><%= user.getPw() %></td>
-    </tr>
-    <tr>
-        <td>이름</td>
-        <td><%= user.getName() %></td>
-    </tr>
-    <tr>
-        <td>이메일</td>
-        <td><%= user.getEmail() %></td>
-    </tr>
-    <tr>
-        <td>생일</td>
-        <td><%= user.getBirth() %></td>
-    </tr>
-    <tr>
-        <td>주소</td>
-        <td><%= user.getAddr() %></td>
-    </tr>
-    <tr>
-        <td>전화번호</td>
-        <td><%= user.getPnum() %></td>
-    </tr>
+<button type="button" onclick="window.location='/BookStay/admin/adminMain.jsp'">요약정보</button>
+<button type="button" onclick="window.location='/BookStay/admin/adminlist.jsp'">예약목록 </button>
+<button type="button" onclick="window.location='/BookStay/board/notice.jsp'">공지사항 </button>
+<button type="button" onclick="window.location='/BookStay/board/QnAList.jsp'">자주하는질문 </button>
+<button type="button" onclick="window.location='/BookStay/admin/myQuestion.jsp'">1:1문의[<%=dto.getNoanswer() %>] </button>
+<button type="button" onclick="window.location='/BookStay/admin/hotelWriteForm.jsp'">숙박업소 글등록 </button><hr />
+
+<table>
+	<tr>
+		<td>진행중예약</td><td><%=dto.getOngoingReserve() %>건</td>
+		<td>오늘예약 </td><td><%=dto.getTodayReserve() %>건</td>
+	</tr>
+	<tr>
+		<td>이번달예약</td><td><%=dto.getThisMonthReserve() %>건</td>
+		<td>지난달예약</td><td><%=dto.getLastMonthReserve() %>건</td>
+	</tr>
+	<tr>
+		<td>종료된예약</td><td><%=dto.getLastReserve() %>건</td>
+		<td>오늘투숙객</td><td>성인 :<%=dto.getTodayAdult() %>명/아이: <%=dto.getTodaykids() %>명 </td>
+	</tr>
+	<tr>
+		<td>내일투숙객</td><td>성인 :<%=dto.getTomorrowAdult() %>명/아이: <%=dto.getTommorowkids() %>명</td>
+		<td>오늘매출</td><td><%=dto.getTodaySales() %>원</td>
+	</tr>
+	<tr>
+		<td>이번달매출</td><td><%=dto.getThisMonthSales() %>원</td>
+		<td>지난달매출</td><td><%=dto.getLastMonthSales() %>원</td>
+	</tr>
+	<tr>
+		<td >미답변문의</td><td><%=dto.getNoanswer() %>건</td>
+	</tr>
+	
 </table>
-<input type="button" value="뒤로가기" onclick="location.href='/BookStay/views/main.jsp'">
-<a href="logout.jsp">로그아웃</a>
-<a href="/BookStay/admin/adminlist.jsp">관리자 예약 내역 확인</a>
-</body>
 
-<% 	
-             }
-        } else {
-    %>
-    <script>
-        alert("사용자 정보를 가져오는 중 오류가 발생했습니다.");
-        window.location = "loginform.jsp";
-    </script>
-    <%
-        }
-        } else {
-    %>
-    <script>
-        alert("세션이 만료되었거나 로그인하지 않았습니다. 다시 로그인해주세요.");
-        window.location = "loginform.jsp";
-    </script>
-    <%
-        }
-    %>
+<%} %>
+

@@ -72,6 +72,7 @@ public class HOrderDAO extends OracleDB {
 	            order.setKid(rs.getInt("kid"));
 	            order.setPaytype(rs.getString("paytype"));
 	            order.setReg(rs.getTimestamp("reg"));
+	            order.setName(rs.getString("name"));
 	            orders.add(order);
 	        }
 	    } catch (SQLException e) {

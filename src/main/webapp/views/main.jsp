@@ -1,3 +1,4 @@
+<%@page import="hotel.bean.MemberDAO"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ page import="hotel.bean.hotelDTO" %>
@@ -22,13 +23,16 @@
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-4bw+/aepP/YC94hEpVNVgiZdgIC5+VKNBQNGCHeKRQN+PtmoHDEXuppvnDJzQIu9" crossorigin="anonymous">
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-HwwvtgBNo3bZJJLYd8oVXjrBZt8cqVSpeBNS5n7C8IVInixGAoxmnlMuBnhbgrkm" crossorigin="anonymous"></script>
 <%
-	String id="";
-	if(session.getAttribute("sid")==null){
-		id="guest";
-	}else{
-		id=(String)session.getAttribute("sid");
-	}
-%>
+MemberDAO mdao = MemberDAO.getInstance();
+String sid = (String) session.getAttribute("sid");
+int id= mdao.checkGrade(sid);
+if (id>=80&&id<90){
+	 %>
+	  <script>
+	  	alert("해당아이디로 접근할수없습니다.");
+	  	window.location="../views/main.jsp";
+	  </script>
+<%}%>
 <script>
 	function loc(v1){
 		var v2 = document.getElementById('start').value;

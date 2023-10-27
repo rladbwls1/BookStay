@@ -8,11 +8,9 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-4bw+/aepP/YC94hEpVNVgiZdgIC5+VKNBQNGCHeKRQN+PtmoHDEXuppvnDJzQIu9" crossorigin="anonymous">
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-HwwvtgBNo3bZJJLYd8oVXjrBZt8cqVSpeBNS5n7C8IVInixGAoxmnlMuBnhbgrkm" crossorigin="anonymous"></script>
 <%request.setCharacterEncoding("UTF-8");
-String id = "guest";
-if(session.getAttribute("sid")!=null){
-	id=(String)session.getAttribute("sid");
-}
- request.setCharacterEncoding("UTF-8");
+MemberDAO mdao = MemberDAO.getInstance();
+String sid = (String) session.getAttribute("sid");
+int id= mdao.checkGrade(sid);
  int ref= Integer.parseInt(request.getParameter("ref"));
  String checkin= request.getParameter("checkin");
  String checkout= request.getParameter("checkout");
@@ -35,8 +33,7 @@ if(session.getAttribute("sid")!=null){
  }
  }
  MemberDTO mdto = new MemberDTO();
- MemberDAO mdao = new MemberDAO();
- mdto=mdao.myInfo(id);
+ mdto=mdao.myInfo(sid);
  String heart=mdto.getHeart();
 %>
 <%@ include file="../views/menu.jsp" %>
@@ -63,7 +60,7 @@ for(hotelDTO dto : list){
 	%>
 	<form action="../admin/payment.jsp" method="post">
 	<%=dto.getRoomtype()%>
-	<%if(id.equals("admin")){
+	<%if(id==99){
 	%>
 	<button type="button" onclick="window.location='hotelUpdateForm.jsp?num=<%=dto.getNum()%>&re_step=<%=dto.getRe_step()%>&ref=<%=ref%>'">수정</button>
 	<button type="button" onclick="window.location='hotelDelete.jsp?num=<%=dto.getNum()%>&re_step=<%=dto.getRe_step()%>&ref=<%=ref%>'">삭제</button>
@@ -83,7 +80,7 @@ for(hotelDTO dto : list){
 	<%
 	
 }
-%><%if(id.equals("admin")){%>
+%><%if(id==99){%>
 <button type="button" onclick="window.location='hotelWriteForm.jsp?ref=<%=ref%>&block=<%=block%>'">방 등록</button>
 <%} %>
 <script>

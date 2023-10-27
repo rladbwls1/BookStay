@@ -1,3 +1,4 @@
+<%@page import="hotel.bean.MemberDAO"%>
 <%@page import="hotel.bean.hotelDAO"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
@@ -5,17 +6,17 @@
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-HwwvtgBNo3bZJJLYd8oVXjrBZt8cqVSpeBNS5n7C8IVInixGAoxmnlMuBnhbgrkm" crossorigin="anonymous"></script>
 <jsp:useBean id="dto" class="hotel.bean.hotelDTO"/>
 <%request.setCharacterEncoding("UTF-8");
-String id = (String)session.getAttribute("sid");
-if(!id.equals("admin")){
-	%>
-	<script>
-		alert("관리자만 접근할수 있습니다.");
-		window.location="../member/main.jsp";
-	</script>
-	<%
+MemberDAO mdao = MemberDAO.getInstance();
+String sid = (String) session.getAttribute("sid");
+int id= mdao.checkGrade(sid);
+if (id!=99){
 	
-} 
-%>
+	 %>
+	  <script>
+	  	alert("관리자만 접근할수 있습니다.");
+	  	window.location="../views/main.jsp";
+	  </script>
+<%}%>
 <%@ include file="../views/menu.jsp" %>
 <%hotelDAO dao = new hotelDAO();
 

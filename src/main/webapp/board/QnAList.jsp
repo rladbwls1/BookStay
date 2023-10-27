@@ -1,3 +1,4 @@
+<%@page import="hotel.bean.MemberDAO"%>
 <%@page import="hotel.bean.boardDTO"%>
 <%@page import="java.text.SimpleDateFormat"%>
 <%@page import="java.util.ArrayList"%>
@@ -9,12 +10,9 @@
 <jsp:useBean id="dto" class="hotel.bean.boardDTO"/>
 <%
 request.setCharacterEncoding("UTF-8");
-String id="";
-if(session.getAttribute("sid")==null){
-	id="guest";
-}else{
-	id=(String)session.getAttribute("sid");
-}
+MemberDAO mdao = MemberDAO.getInstance();
+String sid = (String) session.getAttribute("sid");
+int id= mdao.checkGrade(sid);
 boardDAO dao = boardDAO.getInstance();
 int category = 20;	
 if(request.getParameter("category")!=null){
@@ -46,7 +44,7 @@ ArrayList<boardDTO> list = dao.getList(category);
 		<%} %>
 		<br>
 		<% 
-if(id.equals("admin")){
+if(id==99){
 	%>
 	<button type="button" onclick="window.location='writeForm.jsp'">QnA글 작성</button>
 	<%

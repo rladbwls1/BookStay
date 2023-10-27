@@ -1,3 +1,4 @@
+<%@page import="hotel.bean.MemberDAO"%>
 <%@page import="hotel.bean.boardDTO"%>
 <%@page import="hotel.bean.boardDAO"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
@@ -7,15 +8,17 @@
 <%request.setCharacterEncoding("UTf-8");%>
 
 <%
-if(!session.getAttribute("sid").equals("admin")){
-	%>
-	<script>
-		alert("관리자만 접근할수 있습니다.");
-		window.location="/login/main.jsp";
-	</script>
-	<%
+MemberDAO mdao = MemberDAO.getInstance();
+String sid = (String) session.getAttribute("sid");
+int id= mdao.checkGrade(sid);
+if (id!=99){
 	
-} 
+	 %>
+	  <script>
+	  	alert("관리자만 접근할수 있습니다.");
+	  	window.location="../views/main.jsp";
+	  </script>
+<%}
 boardDTO dto = new boardDTO();
 boardDAO dao = boardDAO.getInstance();
 int num=Integer.parseInt(request.getParameter("num"));
