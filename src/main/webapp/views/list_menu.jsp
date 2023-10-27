@@ -110,29 +110,36 @@
     </div>
 			<input type="button" id="cadd" value="객실 추가"/>
 			<input type="hidden" id="rortlf" name="rortlf" value="<%=rortlf%>"/>
-			<input type="button" id="cBtn" onclick="updateButtonValue()" value="적용"/>
+			<button type="button" id="cad" onclick="eValue">적용</button>
 		</div>
-		<button id="sub" type="submit" class="btn btn-success">검색하기</button>
+		<button id="subb" type="submit" class="btn btn-success">검색하기</button>
 		<input type="hidden" name="category" id="hvalue" value="0"/>
 	</form>
 	<div id="p"></div>
 </div>
 </body>
-<!-- 
-<script>
-const deleteButtons = document.querySelectorAll('.cRemove');
-
-//각 "객실 삭제" 버튼에 이벤트 리스너를 할당합니다.
-deleteButtons.forEach((button) => {
- button.addEventListener('click', function () {
-     // 클릭된 버튼의 부모 요소를 찾아서 삭제합니다.
-     const pop = this.closest('div');
-     pop.parentNode.removeChild(pop);
- });
-});
-</script>
- -->
 <script src="/BookStay/resources/js/ee.js"></script>
+<script>
+document.querySelectorAll('.num1').forEach(function(numElement) {
+	  var numInput = numElement.querySelector('input');
+	  var deButton = numElement.querySelector('.de');
+	  var inButton = numElement.querySelector('.in');
+
+	  deButton.addEventListener('click', () => {
+	    var cValue = parseInt(numInput.value, 10);
+	    if (!isNaN(cValue) && cValue > 0) {
+	      numInput.value = cValue - 1;
+	    }
+	  });
+
+	  inButton.addEventListener('click', () => {
+	    var cValue = parseInt(numInput.value, 10);
+	    if (!isNaN(cValue) && cValue < parseInt(numInput.getAttribute('max'), 10)) {
+	      numInput.value = cValue + 1;
+	    }
+	  });
+	});
+</script>
 <script src="/BookStay/resources/js/date.js"></script>
 <script src="/BookStay/resources/js/popup.js"></script>
 <script src="/BookStay/resources/js/count.js"></script>

@@ -1,8 +1,8 @@
+<%@page import="hotel.bean.boardDAO"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%
 request.setCharacterEncoding("UTF-8");
-session.setAttribute("sid","admin");
 if(!session.getAttribute("sid").equals("admin")){
 	%>
 	<script>
@@ -13,9 +13,10 @@ if(!session.getAttribute("sid").equals("admin")){
 	
 } %>
 <%
+boardDAO dao = boardDAO.getInstance();
 int num = Integer.parseInt(request.getParameter("num"));
 int category = Integer.parseInt(request.getParameter("category"));
-
+dao.boardDelete(num,category);
 if(category==10){%>
 %>
 <script>
@@ -30,6 +31,6 @@ if(category==10){%>
 <%}else if(category ==30){%>
 	<script>
 	alert("삭제 되었습니다.");
-	window.location="question.jsp";
+	window.location="myQuestion.jsp";
 </script>
 <%}%>

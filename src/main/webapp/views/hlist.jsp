@@ -6,7 +6,12 @@
 <%@ page import="java.util.ArrayList" %>
 <%@ include file="list_menu.jsp" %>
 <%
-	String id = (String)session.getAttribute("sid");
+	String id="";
+	if(session.getAttribute("sid")==null){
+		id="guest";
+	}else{
+		id=(String)session.getAttribute("sid");
+	}
 	request.setCharacterEncoding("UTF-8");
 	String title1 = request.getParameter("title");
 	String checkin1 = request.getParameter("checkin");
@@ -131,6 +136,23 @@
     	}
     	%>
 	<%}else{ %>
+		<%
+    	if(id.equals("admin")){
+    	%>	
+    	<a href="/BookStay/hotel/hotelContent.jsp?title=<%=dto.getTitle()%>&ref=<%=dto.getRef()%>&block=<%=block2%>">
+    		<div>
+	    	<img src="/BookStay/upload/<%= dto.getImg() %>" style="width:100px;"/>
+	    	<%= dto.getTitle() %>
+	    	<%= dto.getAddress() %>
+	    	<%= dto.getAprice() %>
+	    	<%= dto.getKprice() %>
+	    	<div><button type="button" class="btn btn-warning">예약 불가</button></div>
+			</div>
+			</a>
+    		<button type="button" onclick="window.location.href='hotelDelete.jsp'" class="btn btn-danger">삭제</button>
+    	<%	
+    	}else{
+    	%>
 		<div>
     	<img src="/BookStay/upload/<%= dto.getImg() %>" style="width:100px;"/>
     	<%= dto.getTitle() %>
@@ -139,16 +161,9 @@
     	<%= dto.getKprice() %>
     	<div><button type="button" class="btn btn-warning">예약 불가</button></div>
 		</div>
-    	<%
-    	if(id.equals("admin")){
-    	%>	
-    		<button type="button" onclick="window.location.href='hotelDelete.jsp'" class="btn btn-danger">삭제</button>
-    	<%	
-    	}
-    	%>
 		<%}%>
 	</div>
-<%}%>
+<%}}%>
 </div>
 <%
 	if(count > 0){
@@ -172,7 +187,7 @@
 		<%}
 	}
 %>
-		</div>
+		</div>	
 <script>
 	var sel1Input = document.querySelector('input[name="sel1"]');
 	var hselect = document.getElementById("hselect");

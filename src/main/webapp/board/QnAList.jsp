@@ -4,10 +4,17 @@
 <%@page import="hotel.bean.boardDAO"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-4bw+/aepP/YC94hEpVNVgiZdgIC5+VKNBQNGCHeKRQN+PtmoHDEXuppvnDJzQIu9" crossorigin="anonymous">
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-HwwvtgBNo3bZJJLYd8oVXjrBZt8cqVSpeBNS5n7C8IVInixGAoxmnlMuBnhbgrkm" crossorigin="anonymous"></script>
 <jsp:useBean id="dto" class="hotel.bean.boardDTO"/>
 <%
 request.setCharacterEncoding("UTF-8");
-String id = (String)session.getAttribute("sid");
+String id="";
+if(session.getAttribute("sid")==null){
+	id="guest";
+}else{
+	id=(String)session.getAttribute("sid");
+}
 boardDAO dao = boardDAO.getInstance();
 int category = 20;	
 if(request.getParameter("category")!=null){
@@ -15,6 +22,7 @@ if(request.getParameter("category")!=null){
 }
 ArrayList<boardDTO> list = dao.getList(category);
 %>
+<%@ include file="../views/menu.jsp" %>
 <div>
 자주묻는질문
 </div>
@@ -36,6 +44,13 @@ ArrayList<boardDTO> list = dao.getList(category);
 			<button onclick="window.location='boardDelete.jsp?num=<%=d.getNum()%>&category=<%=d.getCategory()%>'">삭제</button><br />
 			<div class="content" id="content_<%=d.getNum()%>" style="display: none"><%=d.getContent()%></div>
 		<%} %>
+		<br>
+		<% 
+if(id.equals("admin")){
+	%>
+	<button type="button" onclick="window.location='writeForm.jsp'">QnA글 작성</button>
+	<%
+}%>
 	
 <script>
 function toggleContent(contentId) {

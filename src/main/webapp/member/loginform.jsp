@@ -78,5 +78,6 @@
 	
     <button onclick="window.location='loginform.jsp'">아이디 | 비밀번호 찾기</button>
     <button onclick="window.location='memberForm.jsp'">회원가입하기</button>
+    <button onclick="window.location='/BookStay/views/main.jsp'">메인</button>
 </body>
 </html>

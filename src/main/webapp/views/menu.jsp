@@ -15,15 +15,30 @@
           <a class="nav-link" href="/BookStay/member/main.jsp">로그인</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link" href="/BookStay/board/notice.jsp">고객센터</a>
+          <a class="nav-link" href="/BookStay/board/notice.jsp">공지사항</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="/BookStay/board/QnAList.jsp">자주묻는질문</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="/BookStay/member/memberinfo.jsp">내정보수정</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="/BookStay/admin/adminlist.jsp">나의예약정보</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="/BookStay/review/hotelReview.jsp">찜목록보기</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="../board/myQuestion.jsp">1:1문의</a>
         </li>
         <li class="nav-item dropdown">
           <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
             고객센터
           </a>
           <ul class="dropdown-menu">
-            <li><a class="dropdown-item" href="BookStay/board/notice.jsp">공지사항</a></li>
-            <li><a class="dropdown-item" href="BookStay/board/QnAList.jsp">자주묻는질문</a></li>
+            <li><a class="dropdown-item" href="../board/notice.jsp">공지사항</a></li>
+            <li><a class="dropdown-item" href="../board/QnAList.jsp">자주묻는질문</a></li>
           </ul>
         </li>
         <li class="nav-item dropdown">
@@ -31,10 +46,10 @@
             MyPage
           </a>
           <ul class="dropdown-menu">
-            <li><a class="dropdown-item" href="BookStay/member/memberinfo.jsp">내정보수정</a></li>
-            <li><a class="dropdown-item" href="BookStay/admin/adminlist.jsp">나의예약정보</a></li>
-             <li><a class="dropdown-item" href="BookStay/review/hotelReview.jsp">찜목록보기</a></li>
-              <li><a class="dropdown-item" href="BookStay/board/myQuestion.jsp">1:1문의</a></li>
+            <li><a class="dropdown-item" href="../member/memberinfo.jsp">내정보수정</a></li>
+            <li><a class="dropdown-item" href="../admin/adminlist.jsp">나의예약정보</a></li>
+             <li><a class="dropdown-item" href="../review/hotelReview.jsp">찜목록보기</a></li>
+              <li><a class="dropdown-item" href="../board/myQuestion.jsp">1:1문의</a></li>
           </ul>
         </li>
         <li class="nav-item">

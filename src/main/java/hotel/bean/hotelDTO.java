@@ -19,6 +19,7 @@ public class hotelDTO {
 	private int kidmax;
 	private int count;
 	
+	
 	public int getNum() {
 		return num;
 	}

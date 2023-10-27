@@ -27,6 +27,13 @@ hotelDAO dao = new hotelDAO();
 String img="";
 String service="";
 if(mr.getParameter("re_step").equals("1")){
+	String block="";
+	System.out.println(mr.getParameter("block"));
+	if(mr.getParameter("block")!=null){
+		block=mr.getParameter("block");
+	}else{
+		block="0";
+	}
 	String upload=mr.getFilesystemName("upload");
 	dto.setAddress(mr.getParameter("address"));
 	dto.setType(mr.getParameter("type"));
@@ -42,7 +49,7 @@ if(mr.getParameter("re_step").equals("1")){
 	dao.hotelContentInsert(dto);
 	int ref=Integer.parseInt(mr.getParameter("ref"));
 	dao.priceUpdate(ref);
-	response.sendRedirect("hotelContent.jsp?ref="+ref);
+	response.sendRedirect("hotelContent.jsp?ref="+ref+"&block="+block);
 }else{
 	String upload1=mr.getFilesystemName("upload1");
 	String upload2=mr.getFilesystemName("upload2");
@@ -77,7 +84,7 @@ if(mr.getParameter("re_step").equals("1")){
 	dto.setService(service);
 	dto.setImg(img);
 	dao.hotelMainInsert(dto);
-	response.sendRedirect("hotelList.jsp");
+	response.sendRedirect("/BookStay/views/main.jsp");
 }
 %>
 

@@ -4,14 +4,21 @@
 <%@page import="hotel.bean.boardDAO"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-4bw+/aepP/YC94hEpVNVgiZdgIC5+VKNBQNGCHeKRQN+PtmoHDEXuppvnDJzQIu9" crossorigin="anonymous">
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-HwwvtgBNo3bZJJLYd8oVXjrBZt8cqVSpeBNS5n7C8IVInixGAoxmnlMuBnhbgrkm" crossorigin="anonymous"></script>
 <%
-session.setAttribute("sid", "admin");
 request.setCharacterEncoding("UTF-8");
+String id="";
+if(session.getAttribute("sid")==null){
+	id="guest";
+}else{
+	id=(String)session.getAttribute("sid");
+}
 boardDAO dao = boardDAO.getInstance();
 ArrayList<boardDTO> list = dao.getList(10);
 SimpleDateFormat df=new SimpleDateFormat("yyyy-MM-dd");
-String id = (String)session.getAttribute("sid");
 %>
+<%@ include file="../views/menu.jsp" %>
 <div>
 공지사항
 </div>

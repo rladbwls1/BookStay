@@ -15,7 +15,7 @@
 %>
     <script>
         alert("관리자페이지입니다");
-        window.location="../memeber/main.jsp";
+        window.location="/BookStay/views/main.jsp";
     </script>
 <%
     }

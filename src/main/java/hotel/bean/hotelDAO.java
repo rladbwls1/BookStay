@@ -490,5 +490,8 @@ public class hotelDAO extends OracleDB{
 			}
 			return result;
 		}
+		public boolean checkNull(String str) {
+			return str==null || str.isEmpty();
+		}
 	
 }

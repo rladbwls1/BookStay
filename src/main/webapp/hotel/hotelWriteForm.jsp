@@ -1,6 +1,8 @@
 <%@page import="hotel.bean.hotelDAO"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-4bw+/aepP/YC94hEpVNVgiZdgIC5+VKNBQNGCHeKRQN+PtmoHDEXuppvnDJzQIu9" crossorigin="anonymous">
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-HwwvtgBNo3bZJJLYd8oVXjrBZt8cqVSpeBNS5n7C8IVInixGAoxmnlMuBnhbgrkm" crossorigin="anonymous"></script>
 <jsp:useBean id="dto" class="hotel.bean.hotelDTO"/>
 <%request.setCharacterEncoding("UTF-8");
 String id = (String)session.getAttribute("sid");
@@ -13,11 +15,12 @@ if(!id.equals("admin")){
 	<%
 	
 } 
-
-hotelDAO dao = new hotelDAO();
+%>
+<%@ include file="../views/menu.jsp" %>
+<%hotelDAO dao = new hotelDAO();
 
 	if(request.getParameter("ref")==null){
-		int ref = Integer.parseInt(request.getParameter("ref"));
+		
 %>
 <form action="hotelWritePro.jsp" method="post" enctype="multipart/form-data">
 	제목 :  <input type="text" name="title"><br>
@@ -72,7 +75,6 @@ hotelDAO dao = new hotelDAO();
 	주차(공간 제한)<input type="checkbox" name="services" value="주차(공간 제한)">
 	루프탑 테라스<input type="checkbox" name="services" value="루프탑 테라스">
 	<input type="hidden" name="re_step" value="0">
-	<input type="hidden" name="ref" value="<%=ref%>">
 	<input type="hidden" name="num" value="<%=request.getParameter("num")%>">
 	<input type="submit" value="등록">
 </form>
@@ -86,8 +88,10 @@ dto=dao.getContentMain(ref);%>
 	<input type="hidden" name="contact" value="<%=dto.getContact()%>">
 	<input type="hidden" name="contactfax" value="<%=dto.getContactfax()%>">
 	<input type="hidden" name="re_step" value="1">
+	<input type="hidden" name="service" value="<%=dto.getService()%>">
 	<input type="hidden" name="num" value="<%=request.getParameter("num")%>">
 	<input type="hidden" name="ref" value="<%=ref%>">
+	<input type="hidden" name="block" value="<%=request.getParameter("block")%>">
 	제목 :  <input type="text" name="title"><br>
 	내용 :<textarea rows="10" cols="20" name="content"></textarea><br>
 	방종류 : <select name="roomtype">

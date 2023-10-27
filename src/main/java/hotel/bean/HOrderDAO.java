@@ -35,7 +35,7 @@ public class HOrderDAO extends OracleDB {
 	                HOrderDTO order = new HOrderDTO();
 	                order.setRenum(rs.getInt("renum"));
 	                order.setId(rs.getString("id"));
-	                order.setNum(rs.getInt("num"));
+	                order.setRef(rs.getInt("ref"));
 	                order.setCheckin(rs.getString("checkin")); // 데이터베이스 컬럼 이름을 확인하고 수정
 	                order.setCheckout(rs.getString("checkout"));
 	                order.setAdult(rs.getInt("adult"));
@@ -85,11 +85,11 @@ public class HOrderDAO extends OracleDB {
 		try{			
 			conn = getConnection();
 			  
- 	        String sql = "INSERT INTO horder (renum, id, num, Checkin, Checkout, Adult, Kid, State, Paytype, Reg, AdultCount) VALUES "
+ 	        String sql = "INSERT INTO horder (renum, id, ref, Checkin, Checkout, Adult, Kid, State, Paytype, Reg, AdultCount) VALUES "
  	        		+ " (horder_seq.nextval, ?, ?,to_char(?,'YYYY-MM-DD'), to_char(?,'YYYY-MM-DD'), ?, ?, ?, ?, SYSDATE, ?)";
  	        pstmt = conn.prepareStatement(sql);
  	        pstmt.setString(1, order.getId());
- 	        pstmt.setInt(2, order.getNum());
+ 	        pstmt.setInt(2, order.getRef());
  	        pstmt.setString(3, order.getCheckin());
  	        pstmt.setString(4, order.getCheckout());
  	        pstmt.setInt(5, order.getAdult());

@@ -76,7 +76,7 @@
             dao.insertOrder(order);
     %>
             <h1>예약이 완료되었습니다!</h1>
-            <input type="button" value="메인" onclick="location.href='/BookStay/memeber/main.jsp'">
+            <input type="button" value="메인" onclick="location.href='/BookStay/views/main.jsp'">
     <%
         } catch (Exception e) {
     %>
@@ -88,7 +88,7 @@
     %>
      <script>
                 alert("사용자 아이디 정보가 일치하지 않습니다. 예약할 수 없습니다.");
-                window.location = "/BookStay/memeber/main.jsp"; 
+                window.location = "/BookStay/views/main.jsp"; 
             </script>
     <%
         }

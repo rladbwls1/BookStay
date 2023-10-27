@@ -5,7 +5,6 @@
 <jsp:setProperty property="*" name="dto"/>
 <%
 request.setCharacterEncoding("UTF-8");
-session.setAttribute("sid","admin");
 if(!session.getAttribute("sid").equals("admin")){
 	%>
 	<script> 

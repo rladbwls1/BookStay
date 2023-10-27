@@ -2,6 +2,8 @@
 <%@page import="hotel.bean.hotelDAO"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-4bw+/aepP/YC94hEpVNVgiZdgIC5+VKNBQNGCHeKRQN+PtmoHDEXuppvnDJzQIu9" crossorigin="anonymous">
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-HwwvtgBNo3bZJJLYd8oVXjrBZt8cqVSpeBNS5n7C8IVInixGAoxmnlMuBnhbgrkm" crossorigin="anonymous"></script>
 <% request.setCharacterEncoding("UTF-8");
   String id=(String)session.getAttribute("sid");
   if(!id.equals("admin")){
@@ -27,7 +29,7 @@
   int kprice=dto.getKprice();
   String img=dto.getImg();
   %>
-
+<%@ include file="../views/menu.jsp" %>
  <%if(re_step==0){
 	 %>
 	 <form action="hotelUpdatePro.jsp" method="post" enctype="multipart/form-data">
