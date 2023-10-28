@@ -1,3 +1,4 @@
+<%@page import="hotel.bean.MemberDAO"%>
 <%@page import="hotel.bean.hotelDAO"%>
 <%@page import="hotel.bean.hotelDTO"%>
 <%@page import="com.oreilly.servlet.multipart.DefaultFileRenamePolicy"%>
@@ -7,16 +8,17 @@
     pageEncoding="UTF-8"%>
 <jsp:useBean id="dto" class="hotel.bean.hotelDTO"/>
 <%request.setCharacterEncoding("UTF-8");
-String id = (String)session.getAttribute("sid");
-if(!id.equals("admin")){
-	%>
-	<script>
-		alert("관리자만 접근할수 있습니다.");
-		window.location="../member/main.jsp";
-	</script>
-	<%
+MemberDAO mdao = MemberDAO.getInstance();
+String sid = (String) session.getAttribute("sid");
+int id= mdao.checkGrade(sid);
+if (id!=99){
 	
-} 
+	 %>
+	  <script>
+	  	alert("관리자만 접근할수 있습니다.");
+	  	window.location="../views/main.jsp";
+	  </script>
+<%}
 String path=request.getRealPath("/upload");
 int max = 1024 * 1024 * 10;
 DefaultFileRenamePolicy df = new DefaultFileRenamePolicy();
@@ -27,6 +29,13 @@ hotelDAO dao = new hotelDAO();
 String img="";
 String service="";
 if(mr.getParameter("re_step").equals("1")){
+	String block="";
+	System.out.println(mr.getParameter("block"));
+	if(mr.getParameter("block")!=null){
+		block=mr.getParameter("block");
+	}else{
+		block="0";
+	}
 	String upload=mr.getFilesystemName("upload");
 	dto.setAddress(mr.getParameter("address"));
 	dto.setType(mr.getParameter("type"));
@@ -42,14 +51,12 @@ if(mr.getParameter("re_step").equals("1")){
 	dao.hotelContentInsert(dto);
 	int ref=Integer.parseInt(mr.getParameter("ref"));
 	dao.priceUpdate(ref);
-	response.sendRedirect("hotelContent.jsp?ref="+ref);
+	response.sendRedirect("hotelContent.jsp?ref="+ref+"&block="+block);
 }else{
 	String upload1=mr.getFilesystemName("upload1");
 	String upload2=mr.getFilesystemName("upload2");
 	String upload3=mr.getFilesystemName("upload3");
-	String upload4=mr.getFilesystemName("upload4");
-	String upload5=mr.getFilesystemName("upload5");
-	String [] arrayupload = {upload1,upload2,upload3,upload4,upload5};
+	String [] arrayupload = {upload1,upload2,upload3};
 	String [] arrayservice = mr.getParameterValues("services");
 	for(int i=0;i<arrayupload.length; i++){
 		if(arrayupload[i]==null){
@@ -77,7 +84,7 @@ if(mr.getParameter("re_step").equals("1")){
 	dto.setService(service);
 	dto.setImg(img);
 	dao.hotelMainInsert(dto);
-	response.sendRedirect("hotelList.jsp");
+	response.sendRedirect("/BookStay/views/main.jsp");
 }
 %>
 

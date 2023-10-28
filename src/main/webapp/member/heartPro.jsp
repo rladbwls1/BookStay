@@ -47,6 +47,7 @@ if(heart==null){
 	}
 
 dao.updateHeart(id, nheart);
+dao.allupdateHeart();
 %>
 <script>
 	alert("찜목록이 수정되었습니다. ");

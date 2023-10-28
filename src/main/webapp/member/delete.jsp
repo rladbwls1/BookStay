@@ -15,4 +15,5 @@
 </form>
 
 <button onclick="window.location='loginform.jsp'">로그인다시 하기  </button>
-<button onclick="window.location='loginform.jsp'">아이디 | 비밀번호 찾기 </button>
+<button onclick="window.location='Findidpw.jsp'">아이디 | 비밀번호 찾기 </button>
+<button onclick="window.location='../views/main.jsp'">메인 </button>

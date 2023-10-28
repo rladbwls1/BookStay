@@ -11,6 +11,12 @@ String sid = (String) session.getAttribute("sid");
 dto.setId(sid);
 
 // MemberDTO 객체에서 정보를 가져와서 필드에 저장
+	 String id = request.getParameter("pw");
+	 String email = request.getParameter("email");
+    String name = request.getParameter("name");
+    String birth = request.getParameter("birth");
+    String addr = request.getParameter("addr");
+    String pnum = request.getParameter("pnum");
 
 %>
 

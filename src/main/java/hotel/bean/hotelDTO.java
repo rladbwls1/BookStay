@@ -18,6 +18,9 @@ public class hotelDTO {
 	private int adultmax;
 	private int kidmax;
 	private int count;
+	private int status;
+	private int heartcount;
+	
 	
 	public int getNum() {
 		return num;
@@ -120,6 +123,18 @@ public class hotelDTO {
 	}
 	public void setCount(int count) {
 		this.count = count;
+	}
+	public int getStatus() {
+		return status;
+	}
+	public void setStatus(int status) {
+		this.status = status;
+	}
+	public int getHeartcount() {
+		return heartcount;
+	}
+	public void setHeartcount(int heartcount) {
+		this.heartcount = heartcount;
 	}
 	
 	

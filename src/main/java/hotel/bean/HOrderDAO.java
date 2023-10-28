@@ -35,7 +35,7 @@ public class HOrderDAO extends OracleDB {
 	                HOrderDTO order = new HOrderDTO();
 	                order.setRenum(rs.getInt("renum"));
 	                order.setId(rs.getString("id"));
-	                order.setNum(rs.getInt("num"));
+	                order.setRef(rs.getInt("ref"));
 	                order.setCheckin(rs.getString("checkin")); // 데이터베이스 컬럼 이름을 확인하고 수정
 	                order.setCheckout(rs.getString("checkout"));
 	                order.setAdult(rs.getInt("adult"));
@@ -43,8 +43,8 @@ public class HOrderDAO extends OracleDB {
 	                order.setState(rs.getInt("state"));
 	                order.setReg(rs.getTimestamp("reg"));
 	                order.setPaytype(rs.getString("paytype"));
-	                order.setAdultCount(rs.getInt("adultcount"));
-	                order.setKidCount(rs.getInt("kidcount"));
+	                order.setAdult(rs.getInt("adult"));
+	                order.setKid(rs.getInt("kid"));
 	                orders.add(order);
 	            }
 	        }
@@ -72,6 +72,7 @@ public class HOrderDAO extends OracleDB {
 	            order.setKid(rs.getInt("kid"));
 	            order.setPaytype(rs.getString("paytype"));
 	            order.setReg(rs.getTimestamp("reg"));
+	            order.setName(rs.getString("name"));
 	            orders.add(order);
 	        }
 	    } catch (SQLException e) {
@@ -85,18 +86,17 @@ public class HOrderDAO extends OracleDB {
 		try{			
 			conn = getConnection();
 			  
- 	        String sql = "INSERT INTO horder (renum, id, num, Checkin, Checkout, Adult, Kid, State, Paytype, Reg, AdultCount) VALUES "
- 	        		+ " (horder_seq.nextval, ?, ?,to_char(?,'YYYY-MM-DD'), to_char(?,'YYYY-MM-DD'), ?, ?, ?, ?, SYSDATE, ?)";
+ 	        String sql = "INSERT INTO horder (renum, id, ref, Checkin, Checkout, Adult, Kid, State, Paytype, Reg, AdultCount) VALUES "
+ 	        		+ " (horder_seq.nextval, ?, ?,to_date(?,'YYYY-MM-DD'), to_date(?,'YYYY-MM-DD'), ?, ?, ?, ?, SYSDATE)";
  	        pstmt = conn.prepareStatement(sql);
  	        pstmt.setString(1, order.getId());
- 	        pstmt.setInt(2, order.getNum());
+ 	        pstmt.setInt(2, order.getRef());
  	        pstmt.setString(3, order.getCheckin());
  	        pstmt.setString(4, order.getCheckout());
  	        pstmt.setInt(5, order.getAdult());
  	        pstmt.setInt(6, order.getKid());
  	        pstmt.setInt(7, order.getState());
 	        pstmt.setString(8, order.getPaytype());
-	        pstmt.setInt(9, order.getAdultCount());
  	        pstmt.executeUpdate();
 		}catch (Exception ex) {
    	        ex.printStackTrace();

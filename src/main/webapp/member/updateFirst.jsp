@@ -1,6 +1,12 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-
+    
+    <%@ page import="hotel.bean.MemberDAO" %>   
+<%@ page import="hotel.bean.MemberDTO" %>
+   <% String sid = (String) session.getAttribute("sid");
+    
+	 String id = request.getParameter("pw");
+%>
 <h1>회원정보수정을 하시려면 확인을 위해 비밀번호를 입력해주세요</h1>
 
 

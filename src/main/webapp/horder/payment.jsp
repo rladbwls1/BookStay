@@ -29,12 +29,10 @@
     <div class="container">
         <form action="processOrder.jsp" class="form-horizontal" method="post">
             
-            <div class="form-group row">
-                <label class="col-sm-2">id</label>
-                <div class="col-sm-3">
-                    <input name="id" type="text" class="form-control" />
-                </div>
-            </div>
+          
+                    <input name="id" type="hidden" value=<%=userId%>/>
+                    <input name="ref" type="hidden" value=<%=request.getParameter("ref") %>>
+            
             <div class="form-group row">
                 <label class="col-sm-2">체크인</label>
                 <div class="col-sm-3">
@@ -71,8 +69,6 @@
                     <input name="state" type="text" class="form-control" value="1" />
                 </div>
             </div>
-            
-                    
                     <input type="submit" class="btn btn-primary" value="등록" />
                     <a href="../memeber/main.jsp" class="btn btn-secondary" role="button"> 취소 </a>
                 </div>

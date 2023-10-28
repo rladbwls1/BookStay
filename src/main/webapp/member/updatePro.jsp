@@ -2,33 +2,51 @@
 <%@ page import="hotel.bean.MemberDTO" %>
 <%@ page import="hotel.bean.MemberDAO" %>
 
-+<jsp:useBean id="member" class="hotel.bean.MemberDTO" >
+<jsp:useBean id="member" class="hotel.bean.MemberDTO" >
 <jsp:setProperty name="member" property="*" />
 </jsp:useBean>
-<% request.setCharacterEncoding("UTF-8");%>
+
+<% request.setCharacterEncoding("UTF-8"); %>
 
 <%
-	String id = (String) session.getAttribute("sid");
+    String sid = (String) session.getAttribute("id");
+ 
+    MemberDAO manager = MemberDAO.getInstance();
+    int updateResult = manager.updateMember(member);
+	 String id = request.getParameter("id");
+	 String email = request.getParameter("email");
+   String name = request.getParameter("name");
+   String birth = request.getParameter("birth");
+   String addr = request.getParameter("addr");
+   String pnum = request.getParameter("pnum");
+String pw=request.getParameter("pw"); 
+%>
 
-	member.setId(id);
-	
-	MemberDAO manager = MemberDAO.getInstance();
-	
-		manager.updateMember(member);
-
-%><table width="270" border="0" cellspacing="0" cellpadding="5" align="center">
-  <tr > 
-    <td height="39"  align="center">
+<table width="270" border="0" cellspacing="0" cellpadding="5" align="center">
+  <tr> 
+    <td height="39" align="center">
   </tr>
   <tr>
-    <td  align="center"> 
-      <p>입력하신 내용대로 수정이 완료되었습니다.</p>
+    <td align="center"> 
+      <p>
+        <% if (updateResult == 1) { %>
+          <script>alert("수정이 잘되었습니다");
+      	window.location="../views/main.jsp";
+      	</script>
+              		
+        <% } else { %>
+          <script>alert("어딘가 잘못되었습니다");
+          
+          window.location="/BookStay/member/updateFirst.jsp";</script>
+              			
+        <% } %>
+      </p>
     </td>
   </tr>
   <tr>
-    <td  > 
+    <td> 
       <form>
-	    <input type="button" value="메인으로" onclick="window.location='main.jsp'">
+        <input type="button" value="메인으로" onclick="window.location='../views/main.jsp'">
       </form>
     </td>
   </tr>

@@ -6,10 +6,12 @@
 <jsp:useBean id="dto" class="hotel.bean.MemberDTO"/>
 
 <%
+System.out.println("여기");
 String id = request.getParameter("id");
 String pw = request.getParameter("pw");
 
-int result = dao.delete(id, pw);
+int result = dao.moveDataToQuitMember (id, pw);
+
 
 if (result == 1) {
     session.invalidate(); // 세션 무효화

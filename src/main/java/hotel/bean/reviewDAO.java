@@ -41,7 +41,36 @@ public class reviewDAO extends OracleDB {
 	}
 
 	
-	 
+	public void insertReview(reviewDTO review) {
+        
+
+        try {
+           
+            conn = getConnection();
+
+           
+            String sql = "INSERT INTO review (num, id, jumsu, content, ref, reg) VALUES (review_seq.nextval, ?, ?, ?, ?, sysdate)";
+
+            
+            pstmt = conn.prepareStatement(sql);
+
+            
+            pstmt.setString(1, review.getId());
+            pstmt.setInt(2, review.getJumsu());
+            pstmt.setString(3, review.getContent());
+            pstmt.setInt(4, review.getRef());
+
+           
+            pstmt.executeUpdate();
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            
+           close(rs, pstmt, conn);
+        }
+
+        
+    }
 	
 
 }

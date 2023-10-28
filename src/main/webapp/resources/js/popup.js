@@ -1,6 +1,6 @@
 var popBtn = document.getElementById("popBtn");
 var popup = document.querySelector(".popup");
-var cBtn = document.getElementById("cBtn");
+var cBtn = document.getElementById("cad");
 
 popBtn.addEventListener("click", function(){
 	if(popup.classList.contains('on')){
@@ -16,5 +16,3 @@ cBtn.addEventListener("click", function(){
 		popup.classList.add('on');
 	}
 });
-
-

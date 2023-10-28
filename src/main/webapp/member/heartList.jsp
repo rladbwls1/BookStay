@@ -17,6 +17,7 @@ if(id==null){
 MemberDTO dto=new MemberDTO();
 MemberDAO dao=new MemberDAO();
 dto=dao.myInfo(id);
+dao.allupdateHeart();
 %>
 <%=id %>님 찜목록
 <hr/>

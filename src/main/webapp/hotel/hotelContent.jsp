@@ -5,9 +5,13 @@
 <%@page import="hotel.bean.hotelDAO"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-4bw+/aepP/YC94hEpVNVgiZdgIC5+VKNBQNGCHeKRQN+PtmoHDEXuppvnDJzQIu9" crossorigin="anonymous">
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-HwwvtgBNo3bZJJLYd8oVXjrBZt8cqVSpeBNS5n7C8IVInixGAoxmnlMuBnhbgrkm" crossorigin="anonymous"></script>
 <%request.setCharacterEncoding("UTF-8");
-String id = (String)session.getAttribute("sid");
- request.setCharacterEncoding("UTF-8");
+MemberDAO mdao = MemberDAO.getInstance();
+String id = (String) session.getAttribute("sid");
+int grade= mdao.checkGrade(id);
+
  int ref= Integer.parseInt(request.getParameter("ref"));
  String checkin= request.getParameter("checkin");
  String checkout= request.getParameter("checkout");
@@ -17,21 +21,28 @@ String id = (String)session.getAttribute("sid");
  hotelDTO maindto=dao.getContentMain(ref);
  ArrayList<hotelDTO> list=dao.getContent(ref);
  String mainimg=maindto.getImg();
- String block = request.getParameter("block");
+ String block = "0";
+ System.out.println(request.getParameter("block"));
+ if(request.getParameter("block")!=null){
+  block = request.getParameter("block");
+		 }
+ 
  String[] imgArray={"default1.jpg","default2.jpg","default3.jpg","default4.jpg","default5.jpg"};
+ if(!dao.checkNull(mainimg)){
  if(mainimg.contains(",")){
 	 imgArray=mainimg.split(",");
  }
+ }
  MemberDTO mdto = new MemberDTO();
- MemberDAO mdao = new MemberDAO();
  mdto=mdao.myInfo(id);
  String heart=mdto.getHeart();
 %>
+<%@ include file="../views/menu.jsp" %>
 <hr />
 <%=maindto.getTitle() %><br>
 <%=maindto.getAddress() %><br>
 <%=maindto.getAprice() %>
-<button type="button" onclick="">후기</button>
+<button type="button" onclick="window.location='../review/hotelWriteForm.jsp?ref=<%=ref%>'">후기</button>
 <% if(heart!=null&&heart.contains(Integer.toString(ref))){%>
 <button type="button" onclick="window.location='../member/heartPro.jsp?num=<%=maindto.getNum()%>&ref=<%=ref%>'">찜취소하기</button>
 <%}else{ %>
@@ -48,8 +59,9 @@ String id = (String)session.getAttribute("sid");
 for(hotelDTO dto : list){
 	%>
 	<form action="../admin/payment.jsp" method="post">
+	<input type="hidden" name="ref" value="<%=ref%>">
 	<%=dto.getRoomtype()%>
-	<%if(id.equals("admin")){
+	<%if(grade==99){
 	%>
 	<button type="button" onclick="window.location='hotelUpdateForm.jsp?num=<%=dto.getNum()%>&re_step=<%=dto.getRe_step()%>&ref=<%=ref%>'">수정</button>
 	<button type="button" onclick="window.location='hotelDelete.jsp?num=<%=dto.getNum()%>&re_step=<%=dto.getRe_step()%>&ref=<%=ref%>'">삭제</button>
@@ -69,8 +81,8 @@ for(hotelDTO dto : list){
 	<%
 	
 }
-%><%if(id.equals("admin")){%>
-<button type="button" onclick="window.location='hotelWriteForm.jsp?ref=<%=ref%>'">방 등록</button>
+%><%if(grade==99){%>
+<button type="button" onclick="window.location='hotelWriteForm.jsp?ref=<%=ref%>&block=<%=block%>'">방 등록</button>
 <%} %>
 <script>
 

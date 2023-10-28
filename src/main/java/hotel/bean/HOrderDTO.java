@@ -5,7 +5,7 @@ import java.sql.Timestamp;
 public class HOrderDTO {
 	private int renum;
 	private String id;
-	private int num;
+	private int ref;
 	private String checkin;
 	private String checkout;
 	private int adult;
@@ -15,7 +15,33 @@ public class HOrderDTO {
 	private String paytype;
 	private int adultcount;
 	private int kidcount;
+	private String name;
 	
+	
+	public String getName() {
+		return name;
+	}
+	public void setName(String name) {
+		this.name = name;
+	}
+	public int getRef() {
+		return ref;
+	}
+	public void setRef(int ref) {
+		this.ref = ref;
+	}
+	public int getAdultcount() {
+		return adultcount;
+	}
+	public void setAdultcount(int adultcount) {
+		this.adultcount = adultcount;
+	}
+	public int getKidcount() {
+		return kidcount;
+	}
+	public void setKidcount(int kidcount) {
+		this.kidcount = kidcount;
+	}
 	public int getAdultCount() {
 		return adultcount;
 	}
@@ -39,12 +65,6 @@ public class HOrderDTO {
 	}
 	public void setId(String id) {
 		this.id = id;
-	}
-	public int getNum() {
-		return num;
-	}
-	public void setNum(int num) {
-		this.num = num;
 	}
 	public String getCheckin() {
 		return checkin;
