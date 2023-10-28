@@ -7,7 +7,7 @@
     <jsp:setProperty property="*" name="dto"/>
 
 <%
-	//String sid=(String)session.getAttribute("sid");
+	String sid=(String)session.getAttribute("sid");
 	request.setCharacterEncoding("UTF-8");
 	Cookie[] cookies = request.getCookies();
 	if(cookies!=null){
@@ -24,6 +24,8 @@
     }
 	}
     boolean result =dao.loginCheck(dto);
+    
+    
     	if(result){
     		if(dto.getCauto()!=null && dto.getCauto().equals("1")){
     			Cookie c1=new Cookie("cid",dto.getId());
@@ -39,7 +41,7 @@
     			
     		}
     			session.setAttribute("sid", dto.getId());
-    	        response.sendRedirect("main.jsp");
+    	        response.sendRedirect("../views/main.jsp");
     	        
     	}else{response.sendRedirect("loginform.jsp?loginFailed=true");
     	

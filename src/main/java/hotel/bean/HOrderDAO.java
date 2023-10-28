@@ -43,8 +43,8 @@ public class HOrderDAO extends OracleDB {
 	                order.setState(rs.getInt("state"));
 	                order.setReg(rs.getTimestamp("reg"));
 	                order.setPaytype(rs.getString("paytype"));
-	                order.setAdultCount(rs.getInt("adultcount"));
-	                order.setKidCount(rs.getInt("kidcount"));
+	                order.setAdult(rs.getInt("adult"));
+	                order.setKid(rs.getInt("kid"));
 	                orders.add(order);
 	            }
 	        }
@@ -87,7 +87,7 @@ public class HOrderDAO extends OracleDB {
 			conn = getConnection();
 			  
  	        String sql = "INSERT INTO horder (renum, id, ref, Checkin, Checkout, Adult, Kid, State, Paytype, Reg, AdultCount) VALUES "
- 	        		+ " (horder_seq.nextval, ?, ?,to_char(?,'YYYY-MM-DD'), to_char(?,'YYYY-MM-DD'), ?, ?, ?, ?, SYSDATE, ?)";
+ 	        		+ " (horder_seq.nextval, ?, ?,to_date(?,'YYYY-MM-DD'), to_date(?,'YYYY-MM-DD'), ?, ?, ?, ?, SYSDATE)";
  	        pstmt = conn.prepareStatement(sql);
  	        pstmt.setString(1, order.getId());
  	        pstmt.setInt(2, order.getRef());
@@ -97,7 +97,6 @@ public class HOrderDAO extends OracleDB {
  	        pstmt.setInt(6, order.getKid());
  	        pstmt.setInt(7, order.getState());
 	        pstmt.setString(8, order.getPaytype());
-	        pstmt.setInt(9, order.getAdultCount());
  	        pstmt.executeUpdate();
 		}catch (Exception ex) {
    	        ex.printStackTrace();

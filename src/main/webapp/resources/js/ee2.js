@@ -1,29 +1,36 @@
 var count = 1;
 var totalAdults = 0;
 var totalKids = 0;
+  var cnt = document.getElementById('tcnt');
+  var tcnt = cnt.value;
+  if(tcnt == 0){
+	  count = 1;  
+  }else{
+	  count = tcnt;
+  }
 
 document.getElementById('cadd').addEventListener('click', function() {
   var popup = document.getElementById('pop');
+  count++;
+
   var newContent = document.createElement('div');
   newContent.id = `pop${count}`;
-  newContent.classList.add('rortlf');
-  count += 1;
   newContent.innerHTML = `
   	<hr>
     <h5>객실${count}</h5>
-    <div>성인 <input type="number" id="adult${count}" name="adult" value="2"  max="4" min="1"/></div>
-    <div>어린이 (만 17세 미만) <input type="number" id="kids${count}" name="kids" value="0"  max="4" min="0"/></div>
+    <p>성인 <input type="number" id="adult${count}" name="adult${count}" value="2" max="4" min="1"/></p><br>
+    <p>어린이 (만 17세 미만) <input type="number" id="kids${count}" name="kids${count}" value="0" max="4" min="0"/></p>
     <button type="button" class="btn btn-danger cRemove">객실 삭제</button>
     <hr>
   `;
-  
+
   popup.appendChild(newContent);
   
   newContent.querySelector('.cRemove').addEventListener('click', function() {
-    count -= 1;
     popup.removeChild(newContent);
+    count -= 1;
 
-	var remainingRooms = popup.getElementsByClassName('cRemove');
+    var remainingRooms = popup.getElementsByClassName('cRemove');
     for (var i = 0; i < remainingRooms.length; i++) {
       var room = remainingRooms[i];
       var roomDiv = room.closest('div');
@@ -31,10 +38,8 @@ document.getElementById('cadd').addEventListener('click', function() {
       var inputs = roomDiv.querySelectorAll('input');
       var newIdSuffix = i + 2;
 
-      // 객실 번호 수정
       h5.textContent = `객실${newIdSuffix}`;
 
-      // 입력 필드의 id 및 name 수정
       for (var input of inputs) {
         var oldId = input.id;
         input.id = oldId.replace(/\d+$/, newIdSuffix);
@@ -66,12 +71,15 @@ document.querySelectorAll('.cRemove').forEach(function(button) {
     });
   });
 });
+var val="";
+var totalror;
 var url="";
-document.getElementById('cad').addEventListener('click', function() {
   var totalAdults = 0;
   var totalKids = 0;
   var adultValues = [];
   var kidsValues = [];
+
+document.getElementById('cad').addEventListener('click', function() {
   var rortlf = document.getElementById('rortlf');
   var popBtn = document.getElementById('popBtn');
 
@@ -81,13 +89,12 @@ document.getElementById('cad').addEventListener('click', function() {
   for (var i = 1; i <= count; i++) {
 
     var adultValue = parseInt(document.getElementById('adult' + i).value);
-    var kidsValue = parseInt(document.getElementById('kids' + i).value);
+    var kidsValue1 = parseInt(document.getElementById('kids' + i).value);
 
     totalAdults += adultValue;
-    totalKids += kidsValue;
-
+    totalKids += kidsValue1;
     adultValues.push(adultValue);
-    kidsValues.push(kidsValue);
+    kidsValues.push(kidsValue1);
 
     var nContent = document.createElement('div');
     nContent.innerHTML = `
@@ -95,27 +102,36 @@ document.getElementById('cad').addEventListener('click', function() {
       <input type="hidden" id="k${i}" name="k${i}" value="${kidsValues[i - 1]}"/>
     `;
     p.appendChild(nContent);
- 	var totalror = totalAdults+totalKids;
+ 	totalror = totalAdults+totalKids;
     popBtn.value = "객실 " + count + "개, 인원 " + totalror + "명";
     var adultValue = parseInt(document.getElementById(`a${i}`).value);
-    var kidsValue = parseInt(document.getElementById(`k${i}`).value);
+    var kidsValue2 = parseInt(document.getElementById(`k${i}`).value);
  
-    url += `&a${i}=` + adultValue + `&k${i}=` + kidsValue;
+    url += `&a${i}=` + adultValue + `&k${i}=` + kidsValue1;
   }
-  
   console.log(url);
   rortlf.value = count;
-  // 총 성인 및 어린이 값 업데이트
+  cadUrl = url;
   console.log('총 성인: ' + totalAdults + ', 총 어린이: ' + totalKids);
+  
 });
+
+function ad(){
+	for (var i = 1; i <= count; i++) {
+	    var adultValue = parseInt(document.getElementById(`a${i}`).value);
+    	var kidsValue2 = parseInt(document.getElementById(`k${i}`).value);
+ 	}
+    	url += `&a${i}=` + adultValue + `&k${i}=` + kidsValue1;
+}
+
 function upRoomCount() {
  
   for (var i = 1; i <= count; i++) {
     adultValue = parseInt(document.getElementById('adult' + i).value);
-    kidsValue = parseInt(document.getElementById('kids' + i).value);
+    kidsValue1 = parseInt(document.getElementById('kids' + i).value);
 	
     totalAdults -= adultValue;
-    totalKids -= kidsValue;
+    totalKids -= kidsValue1;
     //updateButtonValue();
     //alert('총 성인: ' + totalAdults + ', 총 어린이: ' + totalKids);
   }
@@ -131,15 +147,25 @@ function upRoomCount() {
 	var startInput = form.querySelector('input[name="checkin"]'); 
 	var endInput = form.querySelector('input[name="checkout"]');
 	var rortlf = form.querySelector('input[name="rortlf"]');
+	var popBtn = document.getElementById('popBtn');
 	
-	document.getElementById('sub').addEventListener('click', function () {
-	  var titleValue = titleInput.value;
-	  var adultValue = adultInput.value;
-	  var kidsValue = kidsInput.value;
-	  var startValue = startInput.value;
-	  var endValue = endInput.value;
-	  var rorValue = rortlf.value;
-      
-	  form.action = 'hlist.jsp?title=' + titleValue + '&checkin=' + startValue + '&checkout=' + endValue
-	  + '&adult=' + adultValue + '&kids=' + kidsValue + '&room=' + rorValue + '&select=1&check=1,2,3,4'+url; 
-    });
+	document.getElementById('subb').addEventListener('click', function () {
+		
+  var titleValue = titleInput.value;
+  var adultValue = adultInput.value;
+  var kidsValue1 = kidsInput.value;
+  var startValue = startInput.value;
+  var endValue = endInput.value;
+  var rorValue = rortlf.value;
+  console.log("ddd" + url);
+  
+  if(url == ""){
+	  ad();
+    form.action = '/BookStay/views/hlist.jsp?title=' + titleValue + '&checkin=' + startValue + '&checkout=' + endValue
+      + '&adult=' + adultValue + '&kids=' + kidsValue1 + '&room=' + rorValue + '&select=1&check=1,2,3,4' + url;
+  }else{
+    form.action = '/BookStay/views/hlist.jsp?title=' + titleValue + '&checkin=' + startValue + '&checkout=' + endValue
+      + '&adult=' + adultValue + '&kids=' + kidsValue1 + '&room=' + rorValue + '&select=1&check=1,2,3,4' + url;
+}
+
+});

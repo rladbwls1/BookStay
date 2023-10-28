@@ -30,7 +30,7 @@ if (id!=99){
 <button type="button" onclick="window.location='/BookStay/board/notice.jsp'">공지사항 </button>
 <button type="button" onclick="window.location='/BookStay/board/QnAList.jsp'">자주하는질문 </button>
 <button type="button" onclick="window.location='/BookStay/admin/myQuestion.jsp'">1:1문의[<%=dto.getNoanswer() %>] </button>
-<button type="button" onclick="window.location='/BookStay/admin/hotelWriteForm.jsp'">숙박업소 글등록 </button><hr />
+<button type="button" onclick="window.location='/BookStay/hotel/hotelWriteForm.jsp'">숙박업소 글등록 </button><hr />
 
 <table>
 	<tr>

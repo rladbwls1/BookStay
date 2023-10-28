@@ -8,10 +8,10 @@
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-HwwvtgBNo3bZJJLYd8oVXjrBZt8cqVSpeBNS5n7C8IVInixGAoxmnlMuBnhbgrkm" crossorigin="anonymous"></script>
 <%request.setCharacterEncoding("UTF-8");
 MemberDAO mdao = MemberDAO.getInstance();
-String sid = (String) session.getAttribute("sid");
-int id= mdao.checkGrade(sid);
+String id = (String) session.getAttribute("sid");
+int grade= mdao.checkGrade(id);
 
- if(id==11){
+ if(grade==11){
 	 %>
 	 <script>
 	 	alert("로그인을 먼저해주세요");

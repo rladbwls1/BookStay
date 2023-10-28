@@ -8,7 +8,7 @@ if(request.getParameter("ref")!=null){
 }
 %>
 
-<form action="testReviewPro.jsp" method="post" enctype="multipart/form-data">
+<form action="testReviewPro.jsp" method="post">
 <div class="container">
 <img id="img" src="../resources/img/heart0.jpeg" height="30" width="180"><br>
 1<input type="radio" name="jumsu" value="1" onclick="changeImg(1)">
@@ -19,7 +19,6 @@ if(request.getParameter("ref")!=null){
 </div>
 <br>
 내용 : <textarea rows="5" cols="15" name="content"></textarea><br>
-사진 : <input type="file" name="image"><br>
 <input type="hidden" name="ref" value="<%=ref%>">
 <input type="submit" value="댓글등록">
 </form>

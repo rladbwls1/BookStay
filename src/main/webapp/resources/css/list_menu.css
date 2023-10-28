@@ -1,7 +1,10 @@
 @charset "UTF-8";
+*{
+	box-sizing: border-box;
+	margin: 0;
+	padding: 0;
+}
 body{
-	width: 90%;
-	margin: 0 auto;
 	padding-top: 20px;
 }
 #login{
@@ -13,8 +16,14 @@ body{
 	cursor: pointer;
 }
 #logo{
-	margin-left: 20px;
+	position: absolute;
+	top: 0;
+	margin: 30px 0 0;
 	width: 180px;
+	font-size: 30px;
+	font-weight: 800;
+	padding: 10px;
+	z-index: 150;
 }
 a{
 	text-decoration: none;
@@ -24,9 +33,17 @@ a{
 	right: 0;
 }
 #main{
-	display: inline-block;
+	width: 100%;
+	margin: 100px 0 30px;
+	border: 1px solid gainsboro;
+	border-width: 1px 0;
+	height: 70px;
 }
-
+#subb{
+	position: absolute;
+	right: 0;
+	height: 40px;
+}
 .button-link {
     text-align: center;
 }
@@ -60,12 +77,9 @@ a{
 	width: 50px;
 }
 #searchForm{
+	height: 45px;
 	width: 100%;
     box-sizing: border-box;
-	margin: 0 auto;
-	border: 1px solid black;
-	border-width: 1px 0;
-	position: relative;
 }
 #searchForm input{
 	border: none;
@@ -73,3 +87,136 @@ a{
 #popBtn{
 	background-color: white;
 }
+#header{
+	width: 90%;
+	margin: 0 auto;
+}
+#content, #search{
+	width: 75%;
+	margin: 0 auto;
+}
+#content{
+	position: relative;
+}
+#search{
+	position: relative;
+}
+#h_sel{
+	position: absolute;
+	right: 0;
+	text-align: right;
+	display: inline-block;
+}
+#all_h{
+	display: inline-block;
+}
+.list_s img{
+	width: 150px;
+}
+.list_s{
+	width: 800px;
+}
+.grid {
+    display: grid;
+	justify-content: center;
+    grid-template-rows: 90%;
+    grid-template-columns: 30% 70%;
+}
+.box{	  
+	border: none;
+	padding: 10px;
+}
+#box2{
+	padding-left: 80px;
+}
+#h_chk ul{
+	list-style: none;
+}
+#h_chk ul li{
+	margin: 10px 0;
+}
+#h_chk p{
+	font-size: 18px;
+	font-weight: 800;
+}
+#h_chk{
+	width: 230px;
+	display: inline-block;
+	border: 1px solid black;
+	border-radius: 10px;
+	padding: 10px 20px;
+}
+#h_select{
+	position: absolute;
+	top: 0;
+}
+#searchForm #date{
+	width: 200px;
+}
+#searchForm #text{
+	position: absolute;
+	left: 0;
+	border-radius: 35px;
+	width: 30%;
+}
+#searchForm input{
+	height: 66px;
+	border: none;
+}
+#subb{
+	position: absolute;
+	height: 68px;
+	width: 120px;
+}
+#searchForm input[type="button"]{
+	background-color: white;
+}
+#searchForm{
+	background-color: white;
+}
+#title{
+	width: 400px;
+	margin-right: 120px;
+}
+#date{
+	margin-right: 120px;
+}
+
+/* 객실 추가 css */
+#popup{
+	width: 350px;
+	position: absolute;
+	top: 75px;
+	left: 60%;
+	box-shadow: 1px 1px 3px black;
+	padding: 20px 10px;
+	border-radius: 5px;
+}
+#popup h5{
+	font-size: 18px;
+	font-weight: 800;
+}
+#popup input[type="number"]{
+	width: 50px;
+	height: 30px;
+}
+#popup input[type="button"]{
+	border: 1px solid black;
+}
+#popup #cad{
+	width: 200px;
+	background-color: green;
+	color: white;
+	border-radius: 5px;
+	height: 50px;
+}
+#popup #cadd{
+	height: 50px;
+	padding: 0 18px;
+	border-radius: 5px;
+}
+#popup {
+  max-height: 500px;
+  overflow-y: auto; 
+}
+/* 객실 추가 css */

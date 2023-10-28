@@ -11,19 +11,19 @@
 <%
 request.setCharacterEncoding("UTF-8");
 MemberDAO mdao = MemberDAO.getInstance();
-String nid = (String) session.getAttribute("sid");
-int id= mdao.checkGrade(nid);
-if (id!=11){
+String id = (String) session.getAttribute("sid");
+int grade= mdao.checkGrade(id);
+if (grade!=11){
 	
 	 %>
 	  <script>
-	  	alert("관리자만 접근할수 있습니다.");
+	  	alert("로그인 후 이용해주세요");
 	  	window.location="../views/main.jsp";
 	  </script>
 <%}
 boardDAO dao = boardDAO.getInstance();
 hotelDAO check = new hotelDAO();
-ArrayList<boardDTO> list = dao.getMyList(nid);
+ArrayList<boardDTO> list = dao.getMyList(id);
 SimpleDateFormat df=new SimpleDateFormat("yyyy-MM-dd");
 %>
 <%@ include file="../views/menu.jsp" %>
@@ -45,10 +45,10 @@ SimpleDateFormat df=new SimpleDateFormat("yyyy-MM-dd");
 	<%if(dto.getId().equals("admin")){}else{ %>
 	<div class="board-item">
 		<a href="javascript:void(0);" onclick="toggleContent('content_<%=dto.getNum()%>');"><%=title%></a>
-		<%if(id!=11&&nid.equals(dto.getId())){ %>
+		<%if(grade!=11&&id.equals(dto.getId())){ %>
 		<button type="button" onclick="window.location='boardDelete.jsp?category=<%=dto.getCategory()%>&num=<%=dto.getNum()%>'">삭제</button>
 		<%} %>
-		<%if(id==99){ %>
+		<%if(grade==99){ %>
 		<button type="button" onclick="window.location='question.jsp?ref=<%=dto.getRef()%>'">답변작성</button>
 		<%} %>
 		<br>

@@ -1,3 +1,4 @@
+<%@page import="hotel.bean.MemberDAO"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
     <%@ page import = "hotel.bean.reviewDTO" %>
@@ -6,6 +7,7 @@
     
 <html>
 <head>
+<%request.setCharacterEncoding("UTF-8"); %>
     <style>
 .flexbox {
 			
@@ -35,6 +37,18 @@
 			line-height: 50px;
 		}
 </style>
+<%
+MemberDAO mdao = MemberDAO.getInstance();
+String nid = (String) session.getAttribute("sid");
+int id= mdao.checkGrade(nid);
+if (id!=11){
+	
+	 %>
+	  <script>
+	  	alert("로그인 후 이용해주세요");
+	  	window.location="../views/main.jsp";
+	  </script>
+<%}%>
     <title>호텔 리뷰 페이지</title>
 </head>
 <body>
@@ -46,11 +60,7 @@
     List<reviewDTO> reviews = dao.getReviewHotel(ref);
     
 %>
-
-
     <h2>호텔 리뷰</h2>
-   
-    
         <%
         for (reviewDTO review : reviews) {
         %>
@@ -64,9 +74,6 @@
         <%
         }
         %>
-   
+        <button onclick="window.location='hotelWriteForm?num=<%=ref%>'">글작성</button>
 </body>
 </html>
-
-
-<button onclick="window.location='hotelWriteForm?num=37'">글작성</button>

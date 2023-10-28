@@ -9,8 +9,9 @@
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-HwwvtgBNo3bZJJLYd8oVXjrBZt8cqVSpeBNS5n7C8IVInixGAoxmnlMuBnhbgrkm" crossorigin="anonymous"></script>
 <%request.setCharacterEncoding("UTF-8");
 MemberDAO mdao = MemberDAO.getInstance();
-String sid = (String) session.getAttribute("sid");
-int id= mdao.checkGrade(sid);
+String id = (String) session.getAttribute("sid");
+int grade= mdao.checkGrade(id);
+
  int ref= Integer.parseInt(request.getParameter("ref"));
  String checkin= request.getParameter("checkin");
  String checkout= request.getParameter("checkout");
@@ -33,7 +34,7 @@ int id= mdao.checkGrade(sid);
  }
  }
  MemberDTO mdto = new MemberDTO();
- mdto=mdao.myInfo(sid);
+ mdto=mdao.myInfo(id);
  String heart=mdto.getHeart();
 %>
 <%@ include file="../views/menu.jsp" %>
@@ -41,7 +42,7 @@ int id= mdao.checkGrade(sid);
 <%=maindto.getTitle() %><br>
 <%=maindto.getAddress() %><br>
 <%=maindto.getAprice() %>
-<button type="button" onclick="">후기</button>
+<button type="button" onclick="window.location='../review/hotelWriteForm.jsp?ref=<%=ref%>'">후기</button>
 <% if(heart!=null&&heart.contains(Integer.toString(ref))){%>
 <button type="button" onclick="window.location='../member/heartPro.jsp?num=<%=maindto.getNum()%>&ref=<%=ref%>'">찜취소하기</button>
 <%}else{ %>
@@ -56,11 +57,11 @@ int id= mdao.checkGrade(sid);
 <hr/>
 <% 
 for(hotelDTO dto : list){
-	System.out.println(dto.getNum());
 	%>
 	<form action="../admin/payment.jsp" method="post">
+	<input type="hidden" name="ref" value="<%=ref%>">
 	<%=dto.getRoomtype()%>
-	<%if(id==99){
+	<%if(grade==99){
 	%>
 	<button type="button" onclick="window.location='hotelUpdateForm.jsp?num=<%=dto.getNum()%>&re_step=<%=dto.getRe_step()%>&ref=<%=ref%>'">수정</button>
 	<button type="button" onclick="window.location='hotelDelete.jsp?num=<%=dto.getNum()%>&re_step=<%=dto.getRe_step()%>&ref=<%=ref%>'">삭제</button>
@@ -80,7 +81,7 @@ for(hotelDTO dto : list){
 	<%
 	
 }
-%><%if(id==99){%>
+%><%if(grade==99){%>
 <button type="button" onclick="window.location='hotelWriteForm.jsp?ref=<%=ref%>&block=<%=block%>'">방 등록</button>
 <%} %>
 <script>

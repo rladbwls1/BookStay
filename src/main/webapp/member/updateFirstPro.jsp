@@ -8,19 +8,19 @@
     <jsp:setProperty property="*" name="dto"/>
   
     <% 
-  	  dto.setId((String)session.getAttribute("sid"));
+    	String sid = (String) session.getAttribute("sid");
+    	dto.setId(sid);
+    	
   	 boolean result= dao.loginCheck(dto);
     		
   			
-    	if(result ==true){
- 
-    		 String updatePw=request.getParameter("pw"); 
-    		 %> <script>window.location="update.jsp";</script>
-    		 <%}else{%>
-    		 	<script> 
-    			alert("비밀번호를 확인하세요 ");	
-    			window.location="updateFirst.jsp";
-    		</script>
+		if(result ==true){
+    	%> <script>window.location="update.jsp";</script>
+		<%}else{%>
+   		 	<script> 
+   			alert("비밀번호를 확인하세요 ");	
+   			window.location="updateFirst.jsp";
+   		</script>
    
     		
     		<% 	}	%>

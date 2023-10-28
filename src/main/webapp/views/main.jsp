@@ -12,8 +12,8 @@
 <script type="text/javascript" src="https://cdn.jsdelivr.net/momentjs/latest/moment.min.js"></script>
 <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.min.js"></script>
 <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.css" />
-<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-4bw+/aepP/YC94hEpVNVgiZdgIC5+VKNBQNGCHeKRQN+PtmoHDEXuppvnDJzQIu9" crossorigin="anonymous">
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-HwwvtgBNo3bZJJLYd8oVXjrBZt8cqVSpeBNS5n7C8IVInixGAoxmnlMuBnhbgrkm" crossorigin="anonymous"></script>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@8/swiper-bundle.min.css"/>
+<script src="https://cdn.jsdelivr.net/npm/swiper@8/swiper-bundle.min.js"></script>
 <!DOCTYPE html>
 <html>
 <head>
@@ -24,15 +24,9 @@
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-HwwvtgBNo3bZJJLYd8oVXjrBZt8cqVSpeBNS5n7C8IVInixGAoxmnlMuBnhbgrkm" crossorigin="anonymous"></script>
 <%
 MemberDAO mdao = MemberDAO.getInstance();
-String sid = (String) session.getAttribute("sid");
-int id= mdao.checkGrade(sid);
-if (id>=80&&id<90){
-	 %>
-	  <script>
-	  	alert("해당아이디로 접근할수없습니다.");
-	  	window.location="../views/main.jsp";
-	  </script>
-<%}%>
+String id = (String) session.getAttribute("sid");
+int grade= mdao.checkGrade(id);
+%>
 <script>
 	function loc(v1){
 		var v2 = document.getElementById('start').value;
@@ -75,42 +69,59 @@ if (id>=80&&id<90){
 	}
 	String block2 = block1.toString();
 %>
-<%@ include file="../views/menu.jsp" %>
 <div id="bg">
-<div id="login">
-		<div><a href="login.jsp">로그인</a></div>
-		<div><a href="memberForm.jsp">회원가입</a></div>
-		<div>예약확인</div>
-		<div>고객센터</div>
-	</div>
 <div id="bg_img">
-	<swiper-container class="mySwiper" pagination="true" pagination-clickable="true" navigation="true" space-between="30"
-    centered-slides="true" autoplay-delay="2500" autoplay-disable-on-interaction="false">
-    <swiper-slide><img src="/BookStay/resources/img/bg1.gif"/></swiper-slide>
-    <swiper-slide><img src="/BookStay/resources/img/bg2.jpg"/></swiper-slide>
-    <swiper-slide><img src="/BookStay/resources/img/bg3.jpg"/></swiper-slide>
-    <swiper-slide><img src="/BookStay/resources/img/bg4.jpg"/></swiper-slide>
-  </swiper-container>
+	<div class="swiper">
+	  <!-- Additional required wrapper -->
+	  <div class="swiper-wrapper">
+	    <!-- Slides -->
+	    <div class="swiper-slide"><img src="/BookStay/resources/img/bg2.jpg"/></div>
+	    <div class="swiper-slide"><img src="/BookStay/resources/img/bg3.jpg"/></div>
+	    <div class="swiper-slide"><img src="/BookStay/resources/img/bg4.jpg"/></div>
+	  </div>
+	  <!-- If we need pagination -->
+	  <div class="swiper-pagination"></div>
+	
+	  <!-- If we need navigation buttons -->
+	  <div class="swiper-button-prev"></div>
+	  <div class="swiper-button-next"></div>
+	
+	  <!-- If we need scrollbar -->
+	  <div class="swiper-scrollbar"></div>
+	</div>
 </div>
-	<div id="main">
-		<a href="main.jsp"><img id="logo" src="/BookStay/resources/img/logo.svg"/></a>
+<div id="logo">
+	<a href="main.jsp">
+		BookStay
+	</a>
+</div>
+<div id="login">
+<%if(grade==11) { // 세션이 없다면 수행
+    String cid = null, cpw = null, cauto = null;
+    Cookie[] cookies = request.getCookies();
+  
+    	if (cookies != null) {
+       		 for (Cookie c : cookies) {
+		            if (c.getName().equals("cid")) { cid = c.getValue(); }
+		            if (c.getName().equals("cpw")) { cpw = c.getValue(); }
+		            if (c.getName().equals("cauto")) { cauto = c.getValue(); }
+   				}  
+ 		   				}
+    	response.sendRedirect("/BookStay/member/loginPro.jsp");	
+    
+    if (cid == null || cpw == null || cauto == null) { %>
+		<div><a href="/BookStay/member/loginform.jsp">로그인</a></div>
+		<div><a href="/BookStay/member/memberForm.jsp">회원가입</a></div>
+		<%}				
+		}if(grade==0 || grade==99){ %>
+		<div><a href="/BookStay/member/logout.jsp">로그아웃</a></div>
+		<div><a href="/BookStay/member/memberinfo.jsp">MyPage</a></div>
+		<%}%>
+		<div>고객센터</div>
+		<%if(grade==99){ %>
+		<div><a href="/BookStay/admin/adminMain.jsp">관리자페이지</a></div>
+		<%} %>	
 	</div>
-	<div id="button">
-	  <div class="button-link">
-	    <a href="main.jsp">
-	      <img id="home" src="/BookStay/resources/img/home.svg" alt="홈" />
-	      <span>홈</span>
-	    </a>
-	  </div>
-	  <div class="button-link">
-	    <a href="mypage.jsp">
-	      <img id="mypage" src="/BookStay/resources/img/mypage.svg" alt="마이" />
-	      <span>마이</span>
-	    </a>
-	  </div>
-	</div>
-
-  <script src="https://cdn.jsdelivr.net/npm/swiper@10/swiper-element-bundle.min.js"></script>
 <div id="main1">
 	<form method="post" id="searchForm">
 		<input type="text" id="text" name="title"/>
@@ -119,10 +130,12 @@ if (id>=80&&id<90){
 		<input type="hidden" id="end" name="checkout"/>
 		<input type="button" value="객실 1개, 인원 2명" id="popBtn"/>
 		<div class="popup" id="popup">
-		<div id="pop">
+		<div id="pop0">
 			<h5>객실1</h5>
-			<p>성인 <input type="number" id="adult1" name="adult" value="2" max="4" min="1"/></p><br>
-			<p>어린이 (만 17세 미만) <input type="number" id="kids1" name="kids" value="0" max="4" min="0"/></p>
+			<div>성인 <input type="number" id="adult1" name="adult" value="2" max="4" min="1"/></div>
+			<div>어린이 (만 17세 미만) <input type="number" id="kids1" name="kids" value="0" max="4" min="0"/></div>
+		</div>
+		<div id="pop">
 		</div>
 			<input type="button" id="cadd" value="객실 추가"/>
 			<input type="hidden" id="rortlf" name="rortlf" value="1"/>
@@ -147,6 +160,7 @@ if (id>=80&&id<90){
 		<button class="hobtn" data-target="list9">대구</button>
 		<button class="hobtn" data-target="list10">속초</button>
 	</div>
+	<div id="hh">
 	<%
 	request.setCharacterEncoding("UTF-8");
 	ArrayList<hotelDTO> list;
@@ -157,25 +171,74 @@ if (id>=80&&id<90){
 		String loc = types[i];
 	%>
 	<div id="list<%=i+1%>" class="list" style="<%= ( i == 0) ? "display:block;" : "display:none;" %>">
+	<div class="grid">
 	 <%
 	 for(hotelDTO dto : list){
 	 %> 
-	 <a id="hoth" href="/BookStay/hotel/hotelContent.jsp?title=<%=dto.getTitle()%>&ref=<%=dto.getRef()%>&block=<%=block2%>">
-	 <div>
-		<img src="/BookStay/upload/<%= dto.getImg() %>" style="width:100px;"/>
+	 <a id="hoth" href="/BookStay/hotel/hotelContent.jsp?title=<%=dto.getTitle()%>&ref=<%=dto.getRef()%>&block=<%=block2%>
+	&checkin=<%=start%>&checkout=<%=end%>&adult=2&kids=0&room=1&select=1&check=1,2,3,4">
+	 <div class="box">
+		<img src="/BookStay/upload/<%= dto.getImg() %>"/>
+		<div class="h_box">
 		<%= dto.getTitle() %>
 		<%= dto.getKprice() %>
+		</div>	
 	</div>
 	</a>
 	<% }%>
-		<button type="button" onclick="loc('<%=loc%>');">
+	</div>
+		<button type="button" id="hBtn" onclick="loc('<%=loc%>');">
 		<%=loc%> 호텔 전체 보기</button>	 
 	</div>
 <%}%>
+	</div>
+<button onclick="topFunction()" id="myBtn"><img src="/BookStay/resources/img/arrow-top.png"></button>
+</div>
+<div class="footer">
+<ul id="footer2">
+        <li>
+          <span>COMPANY</span>
+          BookStay
+        </li>
+        <li>
+          <span> OWNER</span>
+          SONG.J.H
+        </li>
+        <li>
+          <span>E-mail</span>
+          aa4281@naver.com
+        </li>
+        <li>
+          <span>CALL</span>
+           Seongsu: 070.8118.1751 | yongsan: 02.2012.1751
+        </li>
+      </ul>
+      <ul id="footer3">
+        <li>
+          <span>BUSINESS LICENSE</span>
+          Seongsu: 142-85-26752 | yongsan: 478-85-01330
+        </li>
+      </ul>
+      <ul id="footer4">
+        <li>
+          <span>ADDRESS</span>
+          Seongsu: 28, Seongsuil-ro 8-gil, Seongdong-gu, Seoul, Republic of
+          Korea | Yongsan: 7F, 55, Hangang-daero 23-gil, Yongsan-gu, Seoul,
+          Republic of Korea
+        </li>
+      </ul>
+      <p>
+        &copy; BookStay All right reserve / design by MOSEN / Hosting by
+        CAFE24 / Agreement / 개인정보취급방침 / Guide
+      </p>
+	<img src="/BookStay/resources/img/face.png"/>
+	<img src="/BookStay/resources/img/instar.png"/>
 </div>
 </div>
 </body>
+<script src="/BookStay/resources/js/scroll.js"></script>
 <script src="/BookStay/resources/js/aa.js"></script>
+<script src="/BookStay/resources/js/sw.js"></script>
 <script src="/BookStay/resources/js/today.js"></script>
 <script src="/BookStay/resources/js/count.js"></script>
 <script src="/BookStay/resources/js/btn.js"></script>

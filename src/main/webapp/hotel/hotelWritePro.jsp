@@ -56,9 +56,7 @@ if(mr.getParameter("re_step").equals("1")){
 	String upload1=mr.getFilesystemName("upload1");
 	String upload2=mr.getFilesystemName("upload2");
 	String upload3=mr.getFilesystemName("upload3");
-	String upload4=mr.getFilesystemName("upload4");
-	String upload5=mr.getFilesystemName("upload5");
-	String [] arrayupload = {upload1,upload2,upload3,upload4,upload5};
+	String [] arrayupload = {upload1,upload2,upload3};
 	String [] arrayservice = mr.getParameterValues("services");
 	for(int i=0;i<arrayupload.length; i++){
 		if(arrayupload[i]==null){

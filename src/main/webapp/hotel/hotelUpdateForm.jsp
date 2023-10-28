@@ -7,9 +7,9 @@
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-HwwvtgBNo3bZJJLYd8oVXjrBZt8cqVSpeBNS5n7C8IVInixGAoxmnlMuBnhbgrkm" crossorigin="anonymous"></script>
 <% request.setCharacterEncoding("UTF-8");
 MemberDAO mdao = MemberDAO.getInstance();
-String sid = (String) session.getAttribute("sid");
-int id= mdao.checkGrade(sid);
-if (id!=99){
+String id = (String) session.getAttribute("sid");
+int grade= mdao.checkGrade(id);
+if (grade!=99){
 	
 	 %>
 	  <script>

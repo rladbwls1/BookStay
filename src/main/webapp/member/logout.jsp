@@ -16,5 +16,5 @@
         }
     }
 
-    response.sendRedirect("main.jsp");
+    response.sendRedirect("../views/main.jsp");
 %>
