@@ -100,14 +100,15 @@ int grade= mdao.checkGrade(id);
     String cid = null, cpw = null, cauto = null;
     Cookie[] cookies = request.getCookies();
   
-    	if (cookies != null) {
+    	if (cookies != null ) {
        		 for (Cookie c : cookies) {
 		            if (c.getName().equals("cid")) { cid = c.getValue(); }
 		            if (c.getName().equals("cpw")) { cpw = c.getValue(); }
 		            if (c.getName().equals("cauto")) { cauto = c.getValue(); }
    				}  
- 		   				}
-    	response.sendRedirect("/BookStay/member/loginPro.jsp");	
+       		if(cid != null && cpw != null && cauto != null){
+    	response.sendRedirect("/BookStay/member/loginPro.jsp");}	
+    	}
     
     if (cid == null || cpw == null || cauto == null) { %>
 		<div><a href="/BookStay/member/loginform.jsp">로그인</a></div>
