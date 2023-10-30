@@ -142,7 +142,7 @@ int grade= mdao.checkGrade(id);
 			<input type="hidden" id="rortlf" name="rortlf" value="1"/>
 			<input type="button" id="cad" value="적용"/>
 		</div>
-		<button id="sub" type="submit" class="btn btn-success">검색하기</button>
+		<button id="subb" type="submit" class="btn btn-success">검색하기</button>
 		<input type="hidden" name="category" value="0"/>
 	</form>
 	<div id="p"></div>

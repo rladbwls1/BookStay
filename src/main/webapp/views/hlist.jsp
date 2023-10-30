@@ -6,7 +6,6 @@
 <%@ page import="java.util.ArrayList" %>
 <%@ include file="list_menu.jsp" %>
 <%
-	String id="";
 	if(session.getAttribute("sid")==null){
 		id="guest";
 	}else{
@@ -82,25 +81,6 @@
 <input type="hidden" id="vel"/>
 <input type="hidden" id="block" value="<%=block2%>"/>
 <div id="all_h">
-<form id="option1" method="post">
-	<div id="h_sel">
-	<input type="hidden" name="title1" value="<%= title1%>">
-	<input type="hidden" name="checkin1" value="<%= checkin1%>">
-	<input type="hidden" name="checkout1" value="<%= checkout1%>">
-	<input type="hidden" name="adult1" value="<%= adult1%>">
-	<input type="hidden" name="kid1" value="<%= kid1%>">
-	<input type="hidden" name="sel1" value="<%= sel1%>">
-	<input type="hidden" name="c1" value="<%= check1 %>">
-		<select id="hselect">
-			<option value="1">최신순</option>
-			<option value="2">인기순</option>
-			<option value="3">가격높은순</option>
-			<option value="4">가격낮은순</option>
-			<option value="5">평점순</option>
-		</select>
-	</div>
-</form>
-
 <div class="grid">
 <div class="box">
 <form id="option" method="post">
@@ -121,6 +101,24 @@
 			<li><input type="checkbox" class="chk" name="chk" value="4" />기타숙소</li>
 		</ul>
 	</div>
+	
+	<div id="h_sel">
+	<input type="hidden" name="title1" value="<%= title1%>">
+	<input type="hidden" name="checkin1" value="<%= checkin1%>">
+	<input type="hidden" name="checkout1" value="<%= checkout1%>">
+	<input type="hidden" name="adult1" value="<%= adult1%>">
+	<input type="hidden" name="kid1" value="<%= kid1%>">
+	<input type="hidden" name="sel1" value="<%= sel1%>">
+	<input type="hidden" name="c1" value="<%= check1 %>">
+		<select id="hselect">
+			<option value="1">최신순</option>
+			<option value="2">인기순</option>
+			<option value="6">조회순</option>
+			<option value="3">가격높은순</option>
+			<option value="4">가격낮은순</option>
+			<option value="5">평점순</option>
+		</select>
+	</div>
 </form>
 </div>
 <div class="box" id="box2">
@@ -137,14 +135,19 @@
 		if (check >= room1 || block2 == ""){
 	%>
 	<a href="/BookStay/hotel/hotelContent.jsp?title=<%=dto.getTitle()%>&ref=<%=dto.getRef()%>&block=<%=block2%>
-	&checkin=<%=checkin1%>&checkout=<%=checkout1%>&adult=<%=adult1%>&kids=<%=kid1%>&room=<%=room1 %>
+	&checkin=<%=checkin1%>&checkout=<%=checkout1%>&adult=<%=adult1%>&kids=<%=kid1%>&room=<%=room1%>
 	&select=<%=sel1%>&check=<%=check1%><%=val%>">
 		<div class="list_s">
+		<div>
     	<img src="/BookStay/upload/<%= dto.getImg() %>"/>
-    	<%= dto.getTitle() %>
-    	<%= dto.getAddress() %>
-    	<%= dto.getAprice() %>
-    	<div><button type="button" class="btn btn-warning">예약</button></div>
+    	</div>
+    	<div class="mar">
+    	<div class="title"><%= dto.getTitle() %></div>
+    	<div class="addr"><%= dto.getAddress() %></div>
+    	<div class="qnrktp">세금 및 부가세 불포함</div>
+    	<div class="apr"><%= dto.getAprice() %>원</div>
+    	</div>
+    	<div class="rBtn"><button type="button" class="btn btn-success">예약</button></div>
 		</div>
 	</a>
 		<%
@@ -160,27 +163,35 @@
     	if(id.equals("admin")){
     	%>	
     	<a href="/BookStay/hotel/hotelContent.jsp?title=<%=dto.getTitle()%>&ref=<%=dto.getRef()%>&block=<%=block2%>">
+    		<div class="list_s">
     		<div>
-	    	<img src="/BookStay/upload/<%= dto.getImg() %>" style="width:100px;"/>
-	    	<%= dto.getTitle() %>
-	    	<%= dto.getAddress() %>
-	    	<%= dto.getAprice() %>
-	    	<%= dto.getKprice() %>
+	    	<img src="/BookStay/upload/<%= dto.getImg() %>"/>
+    		</div>
+    		<div class="mar">
+    		<div class="title"><%= dto.getTitle() %></div>
+    		<div class="addr"><%= dto.getAddress() %></div>
+    		<div class="apr"><%= dto.getAprice() %>원</div>
 	    	<div><button type="button" class="btn btn-warning">예약 불가</button></div>
+	    	</div>
 			</div>
 			</a>
     		<button type="button" onclick="window.location.href='hotelDelete.jsp'" class="btn btn-danger">삭제</button>
+    		<hr>
     	<%	
     	}else{
     	%>
 		<div class="list_s">
-    	<img src="/BookStay/upload/<%= dto.getImg() %>" style="width:100px;"/>
-    	<%= dto.getTitle() %>
-    	<%= dto.getAddress() %>
-    	<%= dto.getAprice() %>
-    	<%= dto.getKprice() %>
+		<div>
+    	<img src="/BookStay/upload/<%= dto.getImg() %>"/>
+    	</div>
+    	<div class="mar">
+    	<div class="title"><%= dto.getTitle() %></div>
+    	<div class="addr"><%= dto.getAddress() %></div>
+    	<div class="apr"><%= dto.getAprice() %>원</div>
     	<div><button type="button" class="btn btn-warning">예약 불가</button></div>
 		</div>
+		</div>
+		<hr>
 		<%}%>
 	</div>
 <%}}%>
@@ -213,7 +224,9 @@
 	}
 %>
 		</div>	
-		</div>
+		<%@ include file="footer.jsp" %>
+		
+		</body>
 <script>
 	var sel1Input = document.querySelector('input[name="sel1"]');
 	var hselect = document.getElementById("hselect");
