@@ -106,9 +106,10 @@ int grade= mdao.checkGrade(id);
 		            if (c.getName().equals("cpw")) { cpw = c.getValue(); }
 		            if (c.getName().equals("cauto")) { cauto = c.getValue(); }
    				}  
- 		   				}
-    	response.sendRedirect("/BookStay/member/loginPro.jsp");	
-    
+ 		   	}
+    	if (cid != null && cpw != null && cauto != null) {
+    		response.sendRedirect("/BookStay/member/loginPro.jsp");	
+    	}
     if (cid == null || cpw == null || cauto == null) { %>
 		<div><a href="/BookStay/member/loginform.jsp">로그인</a></div>
 		<div><a href="/BookStay/member/memberForm.jsp">회원가입</a></div>
