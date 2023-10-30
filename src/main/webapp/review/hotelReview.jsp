@@ -5,6 +5,9 @@
     <%@ page import = "hotel.bean.reviewDAO" %>
     <%@page import="java.util.List"%>
     
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-4bw+/aepP/YC94hEpVNVgiZdgIC5+VKNBQNGCHeKRQN+PtmoHDEXuppvnDJzQIu9" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-HwwvtgBNo3bZJJLYd8oVXjrBZt8cqVSpeBNS5n7C8IVInixGAoxmnlMuBnhbgrkm" crossorigin="anonymous"></script>
+    
 <html>
 <head>
 <%request.setCharacterEncoding("UTF-8"); %>
@@ -12,7 +15,7 @@
 .flexbox {
 			
 			width: 500px;
-			height: 115px;
+			height: 125px;
 			border-radius: 25px;
 			border: solid 3px #D5D5D5;
 			padding: 20px; 
@@ -30,7 +33,7 @@
 		.item {
 			
 			width: 80px;
-			height: 10px;
+			height: 15px;
 			margin: 10px;
 			font-size: 15px;
 			text-align: center;
@@ -41,7 +44,8 @@
     <title>호텔 리뷰 페이지</title>
 </head>
 <body>
-    <h1>호텔 리뷰 페이지</h1>
+<div style="margin:auto;text-align:center;">
+    <h1>hotel review page</h1>
 
     <%
     String ref = request.getParameter("ref");
@@ -53,7 +57,7 @@
         <%
         for (reviewDTO review : reviews) {
         %>
-        <div id="wrap" class="flexbox">
+        <div id="wrap" class="flexbox" style="margin:auto;text-align:center;">
 		<div class="item"><%= review.getId() %></div> 
 		<div class="item"><%= review.getJumsu() %></div>
 		<div class="item"><%= review.getContent() %></div> 
@@ -63,7 +67,8 @@
         <%
         }
         %>
-        <button onclick="window.location='/BookStay/review/reviewWriteForm.jsp?ref=<%=ref%>'">글작성</button>
+        <button class="btn btn-success" onclick="window.location='/BookStay/review/reviewWriteForm.jsp?ref=<%=ref%>'">글작성</button>
         <input type="hidden" name="ref" value="<%= request.getParameter("ref") %>">
+        </div>
 </body>
 </html>

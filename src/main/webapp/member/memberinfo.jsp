@@ -19,6 +19,11 @@
              if ("admin".equals(userId)) {
             
 %>
+
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-4bw+/aepP/YC94hEpVNVgiZdgIC5+VKNBQNGCHeKRQN+PtmoHDEXuppvnDJzQIu9" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-HwwvtgBNo3bZJJLYd8oVXjrBZt8cqVSpeBNS5n7C8IVInixGAoxmnlMuBnhbgrkm" crossorigin="anonymous"></script>
+    
+
 <html>
 <head>
 <style>
@@ -84,11 +89,11 @@
     </tr>
 </table>
 
-<input type="button" value="메인" onclick="location.href='../views/main.jsp'" class="button-container">
-<input type="button" value="로그아웃" onclick="location.href='logout.jsp'" class="button-container">
-<input type="button" value="회원정보수정" onclick="location.href='updateFirst.jsp'" class="button-container">
-<input type="button" value="회원탈퇴" onclick="location.href='delete.jsp'" class="button-container">
-<input type="button" value="관리자 예약내역 확인" onclick="location.href='/BookStay/admin/adminMain.jsp'" class="button-container">
+<input type="button" value="메인" onclick="location.href='../views/main.jsp'" class="btn btn-success">
+<input type="button" value="로그아웃" onclick="location.href='logout.jsp'" class="btn btn-success">
+<input type="button" value="회원정보수정" onclick="location.href='updateFirst.jsp'" class="btn btn-success">
+<input type="button" value="회원탈퇴" onclick="location.href='delete.jsp'" class="btn btn-success">
+<input type="button" value="관리자 예약내역 확인" onclick="location.href='/BookStay/admin/adminMain.jsp'" class="btn btn-success">
 
 </body>
 
@@ -96,43 +101,26 @@
             } else {
 %>
 
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-4bw+/aepP/YC94hEpVNVgiZdgIC5+VKNBQNGCHeKRQN+PtmoHDEXuppvnDJzQIu9" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-HwwvtgBNo3bZJJLYd8oVXjrBZt8cqVSpeBNS5n7C8IVInixGAoxmnlMuBnhbgrkm" crossorigin="anonymous"></script>
+    
+
 <head>
 <style>
-   
-    .table-container {
-        text-align: center;
-    }
-         table {      
-            display: flex;
-              margin: 0;
-            border-collapse: collapse;
-            border: 1px solid #ccc; /* 테이블 테두리 스타일 설정 (선택 사항) */
-        }
-        th, td {
-            border: 1px solid #ccc; /* 셀 테두리 스타일 설정 (선택 사항) */
-            padding: 8px 12px;
-        }   
-      td:nth-child(1){
-         width:200px;
-      }
-      td:nth-child(2){
-         width:400px;
-      }
-    h1 {
-            text-align: center;
-        }
-     .button-container {
-            align-items: center;   
-        display: inline-block;
-        left:700px;
-    }
-
+  table, th, td {
+    border: 1px solid #bcbcbc;
+  }
+  table {
+  margin: auto;
+  text-align:center;
+  }
 </style>
     <title>어서오세요</title>
 </head>
 <body>
-<h2>마이페이지</h2>
-<table border="1">
+<div style="margin:auto;text-align:center;">
+<h2>마이페이지</h2> <br>
+<table class="table table-hover" border="1">
     <tr>
         <td>아이디</td>
         <td><%= userId %></td>
@@ -162,13 +150,14 @@
         <td><%= user.getPnum() %></td>
     </tr>
 </table>
+<br>
 
-<input type="button" value="메인" onclick="location.href='../views/main.jsp'" class="button-container">
-<input type="button" value="로그아웃" onclick="location.href='logout.jsp'" class="button-container">
-<input type="button" value="회원정보수정" onclick="location.href='updateFirst.jsp'" class="button-container">
-<input type="button" value="회원탈퇴" onclick="location.href='delete.jsp'" class="button-container">
-<input type="button" value="예약내역 확인" onclick="location.href='memberlist.jsp'" class="button-container">
-
+<input type="button" value="메인" class="btn btn-success" onclick="location.href='../views/main.jsp'" >
+<input type="button" value="로그아웃" onclick="location.href='logout.jsp'" class="btn btn-success">
+<input type="button" value="회원정보수정" onclick="location.href='updateFirst.jsp'" class="btn btn-success">
+<input type="button" value="회원탈퇴" onclick="location.href='delete.jsp'" class="btn btn-success">
+<input type="button" value="예약내역 확인" onclick="location.href='memberlist.jsp'" class="btn btn-success">
+</div>
 </body>
 </html>
 

@@ -19,6 +19,10 @@
                  
 %>
 
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-4bw+/aepP/YC94hEpVNVgiZdgIC5+VKNBQNGCHeKRQN+PtmoHDEXuppvnDJzQIu9" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-HwwvtgBNo3bZJJLYd8oVXjrBZt8cqVSpeBNS5n7C8IVInixGAoxmnlMuBnhbgrkm" crossorigin="anonymous"></script>
+    
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -26,8 +30,9 @@
     <title>호텔 리뷰 작성</title>
 </head>
 <body>
+<div style="margin:auto;text-align:center;">
     <h1>호텔 리뷰 작성</h1>
-
+<br>
     <form action="reviewWritePro.jsp" method="post">
         
         <input type="hidden" id="id" name="id" value="<%=userId %>">
@@ -47,11 +52,11 @@
         <textarea id="content" name="content" rows="10" cols="40" required></textarea><br>
 
         <input type="hidden" name="ref" value="<%= request.getParameter("ref") %>">
-        
-        <input type="submit" value="작성">
-        <button onclick="window.location='/BookStay/views/main.jsp'">취소</button>
+        <br>
+        <input type="submit" class="btn btn-success" value="작성">
+        <button class="btn btn-success" onclick="window.location='/BookStay/views/main.jsp'">취소</button>
     </form>
-
+</div>
 
 </body>
 </html>

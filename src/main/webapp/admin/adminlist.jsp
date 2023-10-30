@@ -28,6 +28,11 @@
 SimpleDateFormat sf = new SimpleDateFormat("yyyy-MM-dd");
 	
 %>
+
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-4bw+/aepP/YC94hEpVNVgiZdgIC5+VKNBQNGCHeKRQN+PtmoHDEXuppvnDJzQIu9" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-HwwvtgBNo3bZJJLYd8oVXjrBZt8cqVSpeBNS5n7C8IVInixGAoxmnlMuBnhbgrkm" crossorigin="anonymous"></script>
+    
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -36,7 +41,7 @@ SimpleDateFormat sf = new SimpleDateFormat("yyyy-MM-dd");
 <body>
 
     <h1>관리자 예약 내역 확인</h1>
-    <table>
+    <table class="table table-hover">
         <tr>
             <th>예약 번호</th>
             <th>고객명</th>

@@ -73,7 +73,7 @@
 	    </a>
 	  </div>
 	  <div class="button-link">
-	    <a href="mypage.jsp">
+	    <a href="/BookStay/member/memberinfo.jsp">
 	      <img id="mypage" src="/BookStay/resources/img/mypage.svg" alt="마이" />
 	      <span>마이</span>
 	    </a>
