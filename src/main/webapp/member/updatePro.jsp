@@ -1,3 +1,4 @@
+
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
 <%@ page import="hotel.bean.MemberDTO" %>
 <%@ page import="hotel.bean.MemberDAO" %>
@@ -9,19 +10,18 @@
 <% request.setCharacterEncoding("UTF-8"); %>
 
 <%
-    String sid = (String) session.getAttribute("id");
- 
+ 									//1030도준수정
     MemberDAO manager = MemberDAO.getInstance();
-    int updateResult = manager.updateMember(member);
-	 String id = request.getParameter("id");
+		String pw=request.getParameter("pw");
 	 String email = request.getParameter("email");
-   String name = request.getParameter("name");
-   String birth = request.getParameter("birth");
    String addr = request.getParameter("addr");
    String pnum = request.getParameter("pnum");
-String pw=request.getParameter("pw"); 
+
 %>
 
+  
+<% System.out.println(pw+","+email+","+addr+","+pnum); 
+ String updateResult=MemberDAO.getInstance().updateMember2(pw,email,addr,pnum);%>
 <table width="270" border="0" cellspacing="0" cellpadding="5" align="center">
   <tr> 
     <td height="39" align="center">
@@ -29,7 +29,7 @@ String pw=request.getParameter("pw");
   <tr>
     <td align="center"> 
       <p>
-        <% if (updateResult == 1) { %>
+        <% if (updateResult == null) { %>
           <script>alert("수정이 잘되었습니다");
       	window.location="../views/main.jsp";
       	</script>
