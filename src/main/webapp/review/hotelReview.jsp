@@ -37,18 +37,7 @@
 			line-height: 50px;
 		}
 </style>
-<%
-MemberDAO mdao = MemberDAO.getInstance();
-String nid = (String) session.getAttribute("sid");
-int id= mdao.checkGrade(nid);
-if (id!=11){
-	
-	 %>
-	  <script>
-	  	alert("로그인 후 이용해주세요");
-	  	window.location="../views/main.jsp";
-	  </script>
-<%}%>
+
     <title>호텔 리뷰 페이지</title>
 </head>
 <body>
@@ -74,6 +63,7 @@ if (id!=11){
         <%
         }
         %>
-        <button onclick="window.location='hotelWriteForm?num=<%=ref%>'">글작성</button>
+        <button onclick="window.location='/BookStay/review/reviewWriteForm.jsp?ref=<%=ref%>'">글작성</button>
+        <input type="hidden" name="ref" value="<%= request.getParameter("ref") %>">
 </body>
 </html>

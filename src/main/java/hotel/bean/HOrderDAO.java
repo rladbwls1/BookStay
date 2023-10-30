@@ -86,17 +86,18 @@ public class HOrderDAO extends OracleDB {
 		try{			
 			conn = getConnection();
 			  
- 	        String sql = "INSERT INTO horder (renum, id, ref, Checkin, Checkout, Adult, Kid, State, Paytype, Reg, AdultCount) VALUES "
- 	        		+ " (horder_seq.nextval, ?, ?,to_date(?,'YYYY-MM-DD'), to_date(?,'YYYY-MM-DD'), ?, ?, ?, ?, SYSDATE)";
+ 	        String sql = "INSERT INTO horder (renum, id, name, ref, Checkin, Checkout, Adult, Kid, State, Paytype, Reg) VALUES "
+ 	        		+ " (horder_seq.nextval, ?, ?, ?,to_date(?,'YYYY-MM-DD'), to_date(?,'YYYY-MM-DD'), ?, ?, ?, ?, SYSDATE)";
  	        pstmt = conn.prepareStatement(sql);
  	        pstmt.setString(1, order.getId());
- 	        pstmt.setInt(2, order.getRef());
- 	        pstmt.setString(3, order.getCheckin());
- 	        pstmt.setString(4, order.getCheckout());
- 	        pstmt.setInt(5, order.getAdult());
- 	        pstmt.setInt(6, order.getKid());
- 	        pstmt.setInt(7, order.getState());
-	        pstmt.setString(8, order.getPaytype());
+ 	        pstmt.setString(2, order.getName());
+ 	        pstmt.setInt(3, order.getRef());
+ 	        pstmt.setString(4, order.getCheckin());
+ 	        pstmt.setString(5, order.getCheckout());
+ 	        pstmt.setInt(6, order.getAdult());
+ 	        pstmt.setInt(7, order.getKid());
+ 	        pstmt.setInt(8, order.getState());
+	        pstmt.setString(9, order.getPaytype());
  	        pstmt.executeUpdate();
 		}catch (Exception ex) {
    	        ex.printStackTrace();

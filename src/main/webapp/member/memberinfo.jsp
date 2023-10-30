@@ -88,7 +88,8 @@
 <input type="button" value="로그아웃" onclick="location.href='logout.jsp'" class="button-container">
 <input type="button" value="회원정보수정" onclick="location.href='updateFirst.jsp'" class="button-container">
 <input type="button" value="회원탈퇴" onclick="location.href='delete.jsp'" class="button-container">
-<a href="/BookStay/admin/adminlist.jsp">관리자 예약 내역 확인</a>
+<input type="button" value="관리자 예약내역 확인" onclick="location.href='/BookStay/admin/adminMain.jsp'" class="button-container">
+
 </body>
 
 <%
@@ -96,6 +97,37 @@
 %>
 
 <head>
+<style>
+   
+    .table-container {
+        text-align: center;
+    }
+         table {      
+            display: flex;
+              margin: 0;
+            border-collapse: collapse;
+            border: 1px solid #ccc; /* 테이블 테두리 스타일 설정 (선택 사항) */
+        }
+        th, td {
+            border: 1px solid #ccc; /* 셀 테두리 스타일 설정 (선택 사항) */
+            padding: 8px 12px;
+        }   
+      td:nth-child(1){
+         width:200px;
+      }
+      td:nth-child(2){
+         width:400px;
+      }
+    h1 {
+            text-align: center;
+        }
+     .button-container {
+            align-items: center;   
+        display: inline-block;
+        left:700px;
+    }
+
+</style>
     <title>어서오세요</title>
 </head>
 <body>
@@ -131,11 +163,12 @@
     </tr>
 </table>
 
-<input type="button" value="뒤로가기" onclick="location.href='main.jsp'" class="button-container">
+<input type="button" value="메인" onclick="location.href='../views/main.jsp'" class="button-container">
 <input type="button" value="로그아웃" onclick="location.href='logout.jsp'" class="button-container">
 <input type="button" value="회원정보수정" onclick="location.href='updateFirst.jsp'" class="button-container">
 <input type="button" value="회원탈퇴" onclick="location.href='delete.jsp'" class="button-container">
-<a href="memberlist.jsp">예약 내역 확인</a>
+<input type="button" value="예약내역 확인" onclick="location.href='memberlist.jsp'" class="button-container">
+
 </body>
 </html>
 

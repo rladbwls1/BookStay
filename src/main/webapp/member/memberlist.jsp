@@ -17,14 +17,16 @@
         
 
         if (orders != null && !orders.isEmpty()) {
-            HOrderDTO order = orders.get(0); 
+            
             
 
             
 %>
 <!DOCTYPE html>
 <html>
-<% String reg = new SimpleDateFormat("yyyy-MM-dd").format(order.getReg());
+<% 
+for(HOrderDTO order : orders) { 
+String reg = new SimpleDateFormat("yyyy-MM-dd").format(order.getReg());
             	String checkin = order.getCheckin().substring(0,11);
             	String checkout = order.getCheckout().substring(0,11);%>
 <head>
@@ -57,9 +59,11 @@
         <td>결제수단</td>
         <td><%= order.getPaytype() %></td>
     </tr>
-</table>
+    <%} %>
+</table> </br>
 <input type="button" value="뒤로가기" onclick="location.href='memberinfo.jsp'">
-<a href="logout.jsp">로그아웃</a>
+<input type="button" value="로그아웃" onclick="location.href='logout.jsp'">
+
 </body>
 </html>
 <%

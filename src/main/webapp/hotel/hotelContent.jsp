@@ -42,7 +42,7 @@ int grade= mdao.checkGrade(id);
 <%=maindto.getTitle() %><br>
 <%=maindto.getAddress() %><br>
 <%=maindto.getAprice() %>
-<button type="button" onclick="window.location='../review/hotelWriteForm.jsp?ref=<%=ref%>'">후기</button>
+<button type="button" onclick="window.location='../review/hotelReview.jsp?ref=<%=ref%>'">후기</button>
 <% if(heart!=null&&heart.contains(Integer.toString(ref))){%>
 <button type="button" onclick="window.location='../member/heartPro.jsp?num=<%=maindto.getNum()%>&ref=<%=ref%>'">찜취소하기</button>
 <%}else{ %>
@@ -58,7 +58,7 @@ int grade= mdao.checkGrade(id);
 <% 
 for(hotelDTO dto : list){
 	%>
-	<form action="../admin/payment.jsp" method="post">
+	<form action="../horder/payment.jsp" method="post">
 	<input type="hidden" name="ref" value="<%=ref%>">
 	<%=dto.getRoomtype()%>
 	<%if(grade==99){

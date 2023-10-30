@@ -70,7 +70,8 @@
                 </div>
             </div>
                     <input type="submit" class="btn btn-primary" value="등록" />
-                    <a href="../memeber/main.jsp" class="btn btn-secondary" role="button"> 취소 </a>
+                    <input type="button" class="btn btn-secondary" value="취소" onclick="location.href='../views/main.jsp'" />
+                    
                 </div>
             </div>
         </form>

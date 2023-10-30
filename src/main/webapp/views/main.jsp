@@ -1,7 +1,7 @@
-<%@page import="hotel.bean.MemberDAO"%>
+<%@ page import="hotel.bean.MemberDAO"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<%@ page import="hotel.bean.hotelDTO" %>
+<%@ page import="hotel.bean.hotelDTO" %> 
 <%@ page import="hotel.bean.hotelDAO" %>
 <%@ page import="java.sql.*" %>
 <%@ page import="java.util.Date" %>

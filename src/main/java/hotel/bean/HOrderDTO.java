@@ -13,8 +13,6 @@ public class HOrderDTO {
 	private int state;
 	private Timestamp reg;
 	private String paytype;
-	private int adultcount;
-	private int kidcount;
 	private String name;
 	
 	
@@ -29,30 +27,6 @@ public class HOrderDTO {
 	}
 	public void setRef(int ref) {
 		this.ref = ref;
-	}
-	public int getAdultcount() {
-		return adultcount;
-	}
-	public void setAdultcount(int adultcount) {
-		this.adultcount = adultcount;
-	}
-	public int getKidcount() {
-		return kidcount;
-	}
-	public void setKidcount(int kidcount) {
-		this.kidcount = kidcount;
-	}
-	public int getAdultCount() {
-		return adultcount;
-	}
-	public void setAdultCount(int adultCount) {
-		this.adultcount = adultcount;
-	}
-	public int getKidCount() {
-		return kidcount;
-	}
-	public void setKidCount(int kidCount) {
-		this.kidcount = kidcount;
 	}
 	public int getRenum() {
 		return renum;

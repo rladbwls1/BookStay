@@ -30,7 +30,7 @@
 
     <form action="reviewWritePro.jsp" method="post">
         
-        <input type="hidden" id="id" name="<%=userId%>">
+        <input type="hidden" id="id" name="id" value="<%=userId %>">
    
 
         <div class="container">
