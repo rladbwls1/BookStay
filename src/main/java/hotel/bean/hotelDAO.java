@@ -524,6 +524,87 @@ public class hotelDAO extends OracleDB{
 			return str==null || str.isEmpty();
 		}
 		
+		public ArrayList<hotelDTO> getAdminHotelList(){
+			ArrayList<hotelDTO> list = new ArrayList<hotelDTO>();
+			try {
+				conn=getConnection();
+				String sql = "select * from hotel where re_step=0 and status=0";
+				pstmt=conn.prepareStatement(sql);
+				rs=pstmt.executeQuery();
+				while(rs.next()) {
+					hotelDTO dto = new hotelDTO();
+					dto.setAddress(rs.getString("address"));
+					dto.setTitle(rs.getString("title"));
+					dto.setImg(rs.getString("img"));
+					dto.setService(rs.getString("service"));
+					dto.setRoomtype(rs.getString("roomtype"));
+					dto.setContact(rs.getString("contact"));
+					dto.setContactfax(rs.getString("contactfax"));
+					dto.setAdultmax(rs.getInt("adultmax"));
+					dto.setAprice(rs.getInt("aprice"));
+					dto.setContent(rs.getString("content"));
+					dto.setCount(rs.getInt("count"));
+					dto.setKidmax(rs.getInt("kidmax"));
+					dto.setKprice(rs.getInt("kprice"));
+					dto.setNum(rs.getInt("num"));
+					dto.setHeartcount(rs.getInt("heartcount"));
+					list.add(dto);
+				}
+			} catch (Exception e) {
+				e.printStackTrace();
+			} finally {
+				close(rs, pstmt, conn);
+			} return list;
+		}
+		
+		public ArrayList<hotelDTO> getClientHotelList(){
+			ArrayList<hotelDTO> list = new ArrayList<hotelDTO>();
+			try {
+				conn=getConnection();
+				String sql = "select * from hotel where re_step=0 and status=10";
+				pstmt=conn.prepareStatement(sql);
+				rs=pstmt.executeQuery();
+				while(rs.next()) {
+					hotelDTO dto = new hotelDTO();
+					dto.setAddress(rs.getString("address"));
+					dto.setTitle(rs.getString("title"));
+					dto.setImg(rs.getString("img"));
+					dto.setService(rs.getString("service"));
+					dto.setRoomtype(rs.getString("roomtype"));
+					dto.setContact(rs.getString("contact"));
+					dto.setContactfax(rs.getString("contactfax"));
+					dto.setAdultmax(rs.getInt("adultmax"));
+					dto.setAprice(rs.getInt("aprice"));
+					dto.setContent(rs.getString("content"));
+					dto.setCount(rs.getInt("count"));
+					dto.setKidmax(rs.getInt("kidmax"));
+					dto.setKprice(rs.getInt("kprice"));
+					dto.setNum(rs.getInt("num"));
+					dto.setHeartcount(rs.getInt("heartcount"));
+					list.add(dto);
+				}
+				
+			} catch (Exception e) {
+				e.printStackTrace();
+			} finally {
+				close(rs, pstmt, conn);
+			} return list;
+		}
+		public void changeHotelStatus(int ref,int status) {
+			try {
+				conn=getConnection();
+				String sql = "update hotel set status=? where ref=?";
+				pstmt=conn.prepareStatement(sql);
+				pstmt.setInt(1, status);
+				pstmt.setInt(2, ref);
+				pstmt.executeUpdate();
+			} catch (Exception e) {
+				e.printStackTrace();
+			} finally {
+				close(rs, pstmt, conn);
+			} 
+		}
+		
 	 
 	
 }

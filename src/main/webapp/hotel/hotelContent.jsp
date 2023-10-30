@@ -79,7 +79,6 @@ for(hotelDTO dto : list){
 	</form>
 	<hr />
 	<%
-	
 }
 %><%if(grade==99){%>
 <button type="button" onclick="window.location='hotelWriteForm.jsp?ref=<%=ref%>&block=<%=block%>'">방 등록</button>
@@ -87,4 +86,10 @@ for(hotelDTO dto : list){
 <script>
 
 </script>
+
+
+
+
+
+
 

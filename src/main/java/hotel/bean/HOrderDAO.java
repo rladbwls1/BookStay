@@ -57,7 +57,7 @@ public class HOrderDAO extends OracleDB {
 	
 	public List<HOrderDTO> getOrdersAdmin() {
 	    List<HOrderDTO> orders = new ArrayList<>();
-	    String query = "SELECT * FROM horder order by renum asc";
+	    String query = "select * from horder o,hotel h where o.ref=h.num order by o.renum asc";
 
 	    try (Connection conn = getConnection();
 	         PreparedStatement stmt = conn.prepareStatement(query);
@@ -73,6 +73,11 @@ public class HOrderDAO extends OracleDB {
 	            order.setPaytype(rs.getString("paytype"));
 	            order.setReg(rs.getTimestamp("reg"));
 	            order.setName(rs.getString("name"));
+	            order.setState(rs.getInt("state"));
+	            order.setPaid(rs.getInt("paid"));
+	            order.setAprice(rs.getInt("aprice"));
+	            order.setKprice(rs.getInt("kprice"));
+	            order.setRoomtype(rs.getString("roomtype"));
 	            orders.add(order);
 	        }
 	    } catch (SQLException e) {

@@ -6,13 +6,14 @@
 <%@ page import="java.util.ArrayList" %>
 <%@ include file="list_menu.jsp" %>
 <%
+request.setCharacterEncoding("UTF-8");
 	String id="";
 	if(session.getAttribute("sid")==null){
 		id="guest";
 	}else{
 		id=(String)session.getAttribute("sid");
 	}
-	request.setCharacterEncoding("UTF-8");
+	
 	String title1 = request.getParameter("title");
 	String checkin1 = request.getParameter("checkin");
 	String checkout1 = request.getParameter("checkout");
@@ -214,6 +215,7 @@
 %>
 		</div>	
 		</div>
+
 <script>
 	var sel1Input = document.querySelector('input[name="sel1"]');
 	var hselect = document.getElementById("hselect");

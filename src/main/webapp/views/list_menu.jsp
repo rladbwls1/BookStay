@@ -143,4 +143,5 @@ document.querySelectorAll('.num1').forEach(function(numElement) {
 <script src="/BookStay/resources/js/date.js"></script>
 <script src="/BookStay/resources/js/popup.js"></script>
 <script src="/BookStay/resources/js/count.js"></script>
+<script src="/BookStay/resources/js/ee.js"></script>
 </html>

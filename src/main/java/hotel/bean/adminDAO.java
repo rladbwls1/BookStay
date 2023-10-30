@@ -100,6 +100,48 @@ public class adminDAO extends OracleDB{
 		}return dto;
 		
 	}
+	public void paidUpdate(int renum,int paid) {
+		try {
+			conn=getConnection();
+			String sql = "update horder set paid=paid+? where renum=?";
+			pstmt=conn.prepareStatement(sql);
+			pstmt.setInt(1, paid);
+			pstmt.setInt(2, renum);
+			pstmt.executeUpdate();
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			close(rs, pstmt, conn);
+			
+		}
+	}
+	public void reserveStatusUpdate(int renum) {
+		try {
+			conn=getConnection();
+			String sql="update horder set state=1 where renum=?";
+			pstmt=conn.prepareStatement(sql);
+			pstmt.setInt(1, renum);
+			pstmt.executeUpdate();
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			close(rs, pstmt, conn);
+		}
+	}
+	public void reserveStatusUpdate(int renum,String etc) {
+		try {
+			conn=getConnection();
+			String sql="update horder set state=2,etc=? where renum=?";
+			pstmt=conn.prepareStatement(sql);
+			pstmt.setString(1, etc);
+			pstmt.setInt(2, renum);
+			pstmt.executeUpdate();
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			close(rs, pstmt, conn);
+		}
+	}
 	
 	
 	
