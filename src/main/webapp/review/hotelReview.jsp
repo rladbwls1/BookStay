@@ -52,11 +52,15 @@
     reviewDAO dao = new reviewDAO();
     List<reviewDTO> reviews = dao.getReviewHotel(ref);
     
+    
 %>
     <h2>호텔 리뷰</h2>
+    
+            <p>평균 점수: <%= dao.getAvgJumsu(ref) %></p>    
         <%
         for (reviewDTO review : reviews) {
         %>
+        
         <div id="wrap" class="flexbox" style="margin:auto;text-align:center;">
 		<div class="item"><%= review.getId() %></div> 
 		<div class="item"><%= review.getJumsu() %></div>
@@ -67,8 +71,10 @@
         <%
         }
         %>
+        
         <button class="btn btn-success" onclick="window.location='/BookStay/review/reviewWriteForm.jsp?ref=<%=ref%>'">글작성</button>
         <input type="hidden" name="ref" value="<%= request.getParameter("ref") %>">
         </div>
+
 </body>
 </html>

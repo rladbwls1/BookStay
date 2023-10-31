@@ -8,6 +8,10 @@
 <%
     request.setCharacterEncoding("UTF-8");
 
+	MemberDAO mdao = MemberDAO.getInstance();
+	String id = (String) session.getAttribute("sid");
+	int grade= mdao.checkGrade(id);
+
     String userId = (String) session.getAttribute("sid"); // 사용자 아이디 가져오기
 
     if (userId != null) {
@@ -106,6 +110,7 @@
     
 
 <head>
+
 <style>
   table, th, td {
     border: 1px solid #bcbcbc;
@@ -118,9 +123,87 @@
     <title>어서오세요</title>
 </head>
 <body>
-<div style="margin:auto;text-align:center;">
+
+<div id="header">
+	<div id="login">
+		<%if(grade==11) { // 세션이 없다면 수행
+    String cid = null, cpw = null, cauto = null;
+    Cookie[] cookies = request.getCookies();
+  
+    	if (cookies != null) {
+       		 for (Cookie c : cookies) {
+		            if (c.getName().equals("cid")) { cid = c.getValue(); }
+		            if (c.getName().equals("cpw")) { cpw = c.getValue(); }
+		            if (c.getName().equals("cauto")) { cauto = c.getValue(); }
+   				}  
+ 		   	}
+    	if (cid != null && cpw != null && cauto != null) {
+    		response.sendRedirect("/BookStay/member/loginPro.jsp");	
+    	}
+    if (cid == null || cpw == null || cauto == null) { %>
+		<div><a href="/BookStay/member/loginform.jsp">로그인</a></div>
+		<div><a href="/BookStay/member/memberForm.jsp">회원가입</a></div>
+		<%}				
+		}if(grade==0 || grade==99){ %>
+		<div><a href="/BookStay/member/logout.jsp">로그아웃</a></div>
+		<div><a href="/BookStay/member/memberinfo.jsp">MyPage</a></div>
+		<%}%>
+		<div>고객센터</div>
+		<%if(grade==99){ %>
+		<div><a href="/BookStay/admin/adminMain.jsp">관리자페이지</a></div>
+		<%} %>	
+	</div>
+	<div id="logo">
+		<a href="main.jsp">
+			BookStay
+		</a>
+	</div>
+	</div>
+
+</div>
 <h2>마이페이지</h2> <br>
-<table class="table table-hover" border="1">
+<div class="col-md-3" style="width:200px; height:150px; border:1px; float:left;">
+<!-- 사이드 바 메뉴-->
+  <!-- 패널 타이틀1 -->
+<div class="panel panel-info">
+    <div class="panel-heading">
+      <h3 class="panel-title">Panel Title</h3>
+    </div>
+    <!-- 사이드바 메뉴목록1 -->
+    <ul class="list-group">
+      <li class="list-group-item"><a href="/BookStay/member/updateFirst.jsp">회원정보 수정</a></li>
+      <li class="list-group-item"><a href="/BookStay/member/delete.jsp">회원 탈퇴</a></li>
+      <li class="list-group-item"><a href="/BookStay/member/logout.jsp">로그아웃</a></li>
+    </ul>
+</div>
+  <!-- 패널 타이틀2 -->
+<div class="panel panel-default">
+  <div class="panel-heading">
+    <h3 class="panel-title">Panel Title</h3>
+  </div>
+    <!-- 사이드바 메뉴목록2 -->
+      <ul class="list-group">
+        <li class="list-group-item"><a href="../views/main.jsp">메인</a></li>
+        <li class="list-group-item"><a href="/BookStay/member/memberlist.jsp">예약 내역 확인</a></li>
+      </ul>
+</div>      
+  <!-- 패널 타이틀3 -->
+<div class="panel panel-info">
+  <div class="panel-heading">
+    <h3 class="panel-title">Panel Title</h3>
+  </div>
+      <!-- 사이드바 메뉴목록3 -->
+      <ul class="list-group">
+        <li class="list-group-item"><a href="#">About</a></li>
+        <li class="list-group-item"><a href="#">Help</a></li>
+      </ul>
+    </div>
+</div> 
+<br>
+
+<div class="d-flex justify-content-center">
+<div class="w-50 p-3">
+<table class="table table-hover" border="1" >
     <tr>
         <td>아이디</td>
         <td><%= userId %></td>
@@ -149,14 +232,13 @@
         <td>전화번호</td>
         <td><%= user.getPnum() %></td>
     </tr>
+
 </table>
+</div>
+
 <br>
 
-<input type="button" value="메인" class="btn btn-success" onclick="location.href='../views/main.jsp'" >
-<input type="button" value="로그아웃" onclick="location.href='logout.jsp'" class="btn btn-success">
-<input type="button" value="회원정보수정" onclick="location.href='updateFirst.jsp'" class="btn btn-success">
-<input type="button" value="회원탈퇴" onclick="location.href='delete.jsp'" class="btn btn-success">
-<input type="button" value="예약내역 확인" onclick="location.href='memberlist.jsp'" class="btn btn-success">
+
 </div>
 </body>
 </html>

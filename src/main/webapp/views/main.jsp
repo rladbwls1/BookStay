@@ -1,7 +1,7 @@
-<%@ page import="hotel.bean.MemberDAO"%>
+<%@page import="hotel.bean.MemberDAO"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<%@ page import="hotel.bean.hotelDTO" %> 
+<%@ page import="hotel.bean.hotelDTO" %>
 <%@ page import="hotel.bean.hotelDAO" %>
 <%@ page import="java.sql.*" %>
 <%@ page import="java.util.Date" %>
@@ -142,7 +142,7 @@ int grade= mdao.checkGrade(id);
 			<input type="hidden" id="rortlf" name="rortlf" value="1"/>
 			<input type="button" id="cad" value="적용"/>
 		</div>
-		<button id="sub" type="submit" class="btn btn-success">검색하기</button>
+		<button id="subb" type="submit" class="btn btn-success">검색하기</button>
 		<input type="hidden" name="category" value="0"/>
 	</form>
 	<div id="p"></div>

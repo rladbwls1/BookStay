@@ -72,5 +72,32 @@ public class reviewDAO extends OracleDB {
         
     }
 	
+	public double getAvgJumsu(String hotelNum) {
+	    double avgJumsu = 0;
+
+	    try {
+	        conn = getConnection();
+	        String sql = "select round(avg(jumsu), 1) as avg_jumsu from review where ref = ?";
+	        pstmt = conn.prepareStatement(sql);
+	        pstmt.setString(1, hotelNum);
+
+	        rs = pstmt.executeQuery();
+
+	        if (rs.next()) {
+	            avgJumsu = rs.getDouble("avg_jumsu");
+	        }
+	    } catch (Exception e) {
+	        e.printStackTrace();
+	    } finally {
+	        close(rs, pstmt, conn);
+	    }
+	    
+	    return avgJumsu;
+	}
+
+
+
+
+	
 
 }

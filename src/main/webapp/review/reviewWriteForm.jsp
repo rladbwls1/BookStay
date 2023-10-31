@@ -38,13 +38,33 @@
         <input type="hidden" id="id" name="id" value="<%=userId %>">
    
 
-        <div class="container">
+        <div class="form-check">
         <img id="img" src="../resources/img/heart0.jpeg" height="30" width="180"><br>
-        1<input type="radio" name="jumsu" value="1" onclick="changeImg(1)">
-        2<input type="radio" name="jumsu" value="2" onclick="changeImg(2)">
-        3<input type="radio" name="jumsu" value="3" onclick="changeImg(3)">
-        4<input type="radio" name="jumsu" value="4" onclick="changeImg(4)">
-        5<input type="radio" name="jumsu" value="5" onclick="changeImg(5)">
+        <label class="form-check-label" for="flexRadioDefault1">
+    
+  </label>
+</div>
+<script>
+function changeImg(num){
+	if(num==1){
+		document.getElementById("img").src="../resources/img/heart1.jpeg";
+	}else if(num==2){
+		document.getElementById("img").src="../resources/img/heart2.jpeg";
+	}else if(num==3){
+		document.getElementById("img").src="../resources/img/heart3.jpeg";
+	}else if(num==4){
+		document.getElementById("img").src="../resources/img/heart4.jpeg";
+	}else if(num==5){
+		document.getElementById("img").src="../resources/img/heart5.jpeg";
+	}
+}
+</script>
+		<div class="container">
+        1<input class="form-check-input" id="flexRadioDefault1" type="radio" name="jumsu" value="1" onclick="changeImg(1)">
+        2<input class="form-check-input" id="flexRadioDefault1" type="radio" name="jumsu" value="2" onclick="changeImg(2)">
+        3<input class="form-check-input" id="flexRadioDefault1" type="radio" name="jumsu" value="3" onclick="changeImg(3)">
+        4<input class="form-check-input" id="flexRadioDefault1" type="radio" name="jumsu" value="4" onclick="changeImg(4)">
+        5<input class="form-check-input" id="flexRadioDefault1" type="radio" name="jumsu" value="5" onclick="changeImg(5)">
         </div>
         <br>
 

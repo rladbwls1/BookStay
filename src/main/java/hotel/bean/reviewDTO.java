@@ -10,6 +10,17 @@ public class reviewDTO {
 	private Timestamp reg;
 	private int jumsu;
 	private int ref;
+	    private double avgJumsu;
+
+	    public double getAvgJumsu() {
+	        return avgJumsu;
+	    }
+
+	    public void setAvgJumsu(double avgJumsu) {
+	        this.avgJumsu = avgJumsu;
+	    }
+
+	    
 	public int getRef() {
 		return ref;
 	}
@@ -52,4 +63,5 @@ public class reviewDTO {
 	public void setJumsu(int jumsu) {
 		this.jumsu = jumsu;
 	}
+	
 }
