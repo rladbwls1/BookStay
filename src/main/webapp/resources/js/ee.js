@@ -1,4 +1,10 @@
 var count = 1;
+function qq(){
+var room1 = document.getElementById('rr').value;
+if(room1 > 1){
+	count = room1;
+	}
+}
 var totalAdults = 0;
 var totalKids = 0;
 
@@ -69,12 +75,12 @@ document.querySelectorAll('.cRemove').forEach(function(button) {
 var val="";
 var totalror;
 var url="";
+
+document.getElementById('cad').addEventListener('click', function() {
   var totalAdults = 0;
   var totalKids = 0;
   var adultValues = [];
   var kidsValues = [];
-
-document.getElementById('cad').addEventListener('click', function() {
   var rortlf = document.getElementById('rortlf');
   var popBtn = document.getElementById('popBtn');
 

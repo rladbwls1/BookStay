@@ -357,6 +357,30 @@ public class hotelDAO extends OracleDB {
 		}
 		return dto;
 	}
+	
+	public boolean getTest(ArrayList<hotelDTO> list, int num[], int room) {
+		boolean gt = false;
+		int st = 0;
+		String rt = "";
+	
+		for(int i=0; i<room; i++) {
+			for(hotelDTO dto : list) {
+					if(!rt.contains(Integer.toString(dto.getNum()))) {
+						if(num[i] <= dto.getAdultmax()) {
+							rt += Integer.toString(dto.getNum()) +",";
+							st++;
+					}
+				}
+			}
+		}
+		if(st == room) {
+			gt = true;
+		}
+		System.out.println("1."+rt);
+		System.out.println("2."+st);
+		System.out.println("3."+gt);
+		return gt;
+	}
 
 	public void hotelContentInsert(hotelDTO dto) {
 		try {

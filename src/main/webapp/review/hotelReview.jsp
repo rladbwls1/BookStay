@@ -74,6 +74,6 @@ if (id!=11){
         <%
         }
         %>
-        <button onclick="window.location='hotelWriteForm?num=<%=ref%>'">글작성</button>
+        <button onclick="window.location='reviewWriteForm?num=<%=ref%>'">글작성</button>
 </body>
 </html>

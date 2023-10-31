@@ -49,7 +49,6 @@
 	    <input type="hidden" id="k<%=i+1%>" value="<%= kidsValue[i]%>"/>
 	<%}
 	String pcount = "객실 " + rortlf + "개, 인원 " + (roomValues + kidsValues) + "명";
-
 %>
 <!DOCTYPE html>
 <html>

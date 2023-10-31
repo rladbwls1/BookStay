@@ -5,6 +5,8 @@
 <%@page import="hotel.bean.hotelDAO"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@8/swiper-bundle.min.css"/>
+<script src="https://cdn.jsdelivr.net/npm/swiper@8/swiper-bundle.min.js"></script>
 <script type="text/javascript" src="https://cdn.jsdelivr.net/jquery/latest/jquery.min.js"></script>
 <script type="text/javascript" src="https://cdn.jsdelivr.net/momentjs/latest/moment.min.js"></script>
 <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.min.js"></script>
@@ -12,6 +14,7 @@
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-HwwvtgBNo3bZJJLYd8oVXjrBZt8cqVSpeBNS5n7C8IVInixGAoxmnlMuBnhbgrkm" crossorigin="anonymous"></script>
 <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.css" />
 <link rel="stylesheet" href="/BookStay/resources/css/list_menu.css"/>
+<link rel="stylesheet" href="/BookStay/resources/css/hotelContent.css"/>
 <%request.setCharacterEncoding("UTF-8");
 MemberDAO mdao = MemberDAO.getInstance();
 String id = (String) session.getAttribute("sid");
@@ -78,6 +81,8 @@ String title = request.getParameter("title");
 	String pcount = "객실 " + rortlf + "개, 인원 " + (roomValues + kidsValues) + "명";
 
 %>
+<body onload="qq();">
+<input type="hidden" id="rr" value="<%=rortlf%>">
 	<div id="header">
 	<div id="login">
 		<%if(grade==11) { // 세션이 없다면 수행
@@ -155,29 +160,57 @@ String title = request.getParameter("title");
 	<div id="p"></div>
 	</div>
 </div>
-<hr />
-<%=maindto.getTitle() %><br>
-<%=maindto.getAddress() %><br>
-<%=maindto.getAprice() %>
-<button type="button" onclick="window.location='../review/hotelWriteForm.jsp?ref=<%=ref%>'">후기</button>
+<div id="list">
+<div id="list_s">
+<div>
+<div id="title1"><%=maindto.getTitle() %></div>
+<div id="addr"><%=maindto.getAddress() %></div>
+</div>
+<div id="apr"><%=maindto.getAprice() %>원</div>
+<div id="bmo">
 <% if(heart!=null&&heart.contains(Integer.toString(ref))){%>
 <button type="button" onclick="window.location='../member/heartPro.jsp?num=<%=maindto.getNum()%>&ref=<%=ref%>'">찜취소하기</button>
 <%}else{ %>
-<button type="button" onclick="window.location='../member/heartPro.jsp?num=<%=maindto.getNum()%>&ref=<%=ref%>'">찜하기</button>
+<button type="button" id="heart" onclick="window.location='../member/heartPro.jsp?num=<%=maindto.getNum()%>&ref=<%=ref%>'">
+	<img src="/BookStay/resources/img/heart.png">
+</button>
+</div>
 <%} %>
+<button id="gnBtn" type="button" onclick="window.location='../review/hotelReview.jsp?ref=<%=ref%>'">후기</button>
+</div>
+<div id="bg_img">
+	<div class="swiper">
+	  <div class="swiper-wrapper">
 <%for(int i=0;i<imgArray.length; i++){
 	%>
+	<div class="swiper-slide main_img">
 		<img src="/BookStay/upload/<%=imgArray[i]%>">
+	</div>	
 	<%
 } %>
-
-<hr/>
+	  </div>
+	  <div class="swiper-pagination"></div>
+	
+	  <div class="swiper-button-prev"></div>
+	  <div class="swiper-button-next"></div>
+	
+	</div>
+</div>
+<hr id="hr"/>
 <% 
 for(hotelDTO dto : list){
 	%>
-	<form action="../admin/payment.jsp" method="post">
+	<div id="box1">
+	<form class="form" action="../admin/payment.jsp" method="post">
 	<input type="hidden" name="ref" value="<%=ref%>">
-	<%=dto.getRoomtype()%>
+	<div>
+	<img src="/BookStay/upload/<%=dto.getImg()%>">
+	</div>
+	<div id="box2">
+	<div class="title2"><%=dto.getRoomtype()%></div>
+	<div class="content"><%=dto.getContent() %></div>
+	<div>성인 : <%=dto.getAprice() %></div>
+	<div>아동 : <%=dto.getKprice()%></div>
 	<%if(grade==99){
 	%>
 	<button type="button" onclick="window.location='hotelUpdateForm.jsp?num=<%=dto.getNum()%>&re_step=<%=dto.getRe_step()%>&ref=<%=ref%>'">수정</button>
@@ -189,22 +222,32 @@ for(hotelDTO dto : list){
 	<%}else{ %> 
 	<button type="submit">예약</button><br />
 	<%} %>
-	<%=dto.getContent() %><br />
-	성인 : <%=dto.getAprice() %><br />
-	아동 : <%=dto.getKprice()%><br />
-	<img src="/BookStay/upload/<%=dto.getImg()%>">
+	</div>
 	</form>
+	</div>
 	<hr />
 	<%
-	
 }
 %><%if(grade==99){%>
 <button type="button" onclick="window.location='hotelWriteForm.jsp?ref=<%=ref%>&block=<%=block%>'">방 등록</button>
 <%} %>
+<div class="tnrqkr">
+	<p>숙박 시설 정보</p>
+</div>
+<div class="tnrqkr">
+	<p>숙박 위치</p>
+</div>
+<div class="tnrqkr">
+	<p>편의시설</p>
+</div>
+</div>	
+</body>
 <script src="/BookStay/resources/js/ee.js"></script>
 <script src="/BookStay/resources/js/ee2.js"></script>
 <script src="/BookStay/resources/js/date.js"></script>
 <script src="/BookStay/resources/js/popup.js"></script>
 <script src="/BookStay/resources/js/count.js"></script>
 <script src="/BookStay/resources/js/menubar.js"></script>
+<script src="/BookStay/resources/js/sw2.js"></script>
+
 

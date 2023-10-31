@@ -22,6 +22,7 @@
 	String check1 = request.getParameter("check");
 	int[] roomValue1 = new int[rortlf];
 	int[] kidsValue1 = new int[rortlf];
+	int[] test = new int[rortlf];
 	String val="";
 	for (int i = 0; i < rortlf; i++) {
 		String adultParam = request.getParameter("a" + (i + 1));
@@ -40,6 +41,8 @@
 
 	    roomValues += adultValues;
 	    kidsValues += kidsValuee;
+	    
+	    test[i] = adultValues + kidsValuee;
 	    
 	    roomValue1[i] = adultValues;
 	    kidsValue1[i] = kidsValuee; 
@@ -76,10 +79,12 @@
 	}
 	String block2 = block1.toString();
 %>
+<body onload="qq();">
 <div id="con_top">
 <div id="content">
 <input type="hidden" id="vel"/>
 <input type="hidden" id="block" value="<%=block2%>"/>
+<input type="hidden" id="rr" value="<%=room1%>"/>
 <div id="all_h">
 <div class="grid">
 <div class="box">
@@ -128,11 +133,14 @@
 <%
 	for(hotelDTO dto : list){
 		Integer check = dao.checkRoom(block2, dto.getNum());
+		ArrayList<hotelDTO> li2 = dao.getContent(dto.getRef());
+		boolean zt = dao.getTest(li2, test, room1);
 %>	 
 	<div class="list_c">
 	<input type="hidden" value="<%=check %>"/>
 	<%
 		if (check >= room1 || block2 == ""){
+	 		
 	%>
 	<a href="/BookStay/hotel/hotelContent.jsp?title=<%=dto.getTitle()%>&ref=<%=dto.getRef()%>&block=<%=block2%>
 	&checkin=<%=checkin1%>&checkout=<%=checkout1%>&adult=<%=adult1%>&kids=<%=kid1%>&room=<%=room1%>
