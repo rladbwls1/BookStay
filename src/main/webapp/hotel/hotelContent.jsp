@@ -3,6 +3,9 @@
 <%@page import="java.util.ArrayList"%>
 <%@page import="hotel.bean.hotelDTO"%>
 <%@page import="hotel.bean.hotelDAO"%>
+<%@ page import = "hotel.bean.reviewDTO" %>
+<%@ page import = "hotel.bean.reviewDAO" %>
+<%@page import="java.util.List"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@8/swiper-bundle.min.css"/>
@@ -22,6 +25,8 @@ int grade= mdao.checkGrade(id);
 
  int ref= Integer.parseInt(request.getParameter("ref"));
  hotelDAO dao = new hotelDAO();
+ reviewDAO re = new reviewDAO();
+ List<reviewDTO> reviews = re.getReviewHotel(ref);
  hotelDTO maindto=dao.getContentMain(ref);
  ArrayList<hotelDTO> list=dao.getContent(ref);
  String mainimg=maindto.getImg();
@@ -176,7 +181,39 @@ String title = request.getParameter("title");
 </button>
 </div>
 <%} %>
-<button id="gnBtn" type="button" onclick="window.location='../review/hotelReview.jsp?ref=<%=ref%>'">후기</button>
+<button id="gnBtn" type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#staticBackdrop">
+  후기
+</button>
+
+<!-- Modal -->
+<div class="modal fade custom-modal" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" class="modal-dialog-centered">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h1 class="modal-title fs-5" id="staticBackdropLabel"><%=title %> 리뷰</h1>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+      <div id="chd">총 평점</div>
+      <div>
+        <%
+        for (reviewDTO review : reviews) {
+        %>
+        <div class="modal_box">
+		<div class="item"><%= review.getId() %></div> 
+		<div class="item"><%= review.getJumsu() %></div>
+		<div class="item"><%= review.getContent() %></div> 
+		<div class="item"><%= review.getReg() %></div> 
+		</div>
+        <%
+        }
+        %>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<!-- <button id="gnBtn" type="button" onclick="window.location='../review/hotelReview.jsp?ref=<%=ref%>'">후기</button> -->
 </div>
 <div id="bg_img">
 	<div class="swiper">

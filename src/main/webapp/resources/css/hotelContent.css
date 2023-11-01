@@ -117,3 +117,26 @@ html,
 #hr{
 	margin: 70px 0 20px;
 }
+#staticBackdropLabel{
+	text-align: center;
+}
+.modal-body{
+	display: grid;
+	grid-template-rows: 50%;
+    grid-template-columns: 30% 70%;
+}
+.modal_box{
+	border: 1px solid gainsboro;
+	border-radius: 5px;
+	margin-bottom: 10px;
+	height: 150px;
+	padding: 10px;
+}
+#chd{
+	background-color: rgb(241, 241, 241);
+	margin-right: 10px;
+	height: 250px;
+}
+.custom-modal {
+    max-height: 80vh; 
+}

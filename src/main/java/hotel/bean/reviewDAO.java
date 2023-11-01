@@ -13,14 +13,14 @@ public class reviewDAO extends OracleDB {
 	private PreparedStatement pstmt=null;
 	private ResultSet rs=null;
 	
-	public List<reviewDTO> getReviewHotel(String hotelNum) {
+	public List<reviewDTO> getReviewHotel(int hotelNum) {
 	    List<reviewDTO> reviews = new ArrayList<>();
 
 	    try {
 	        conn = getConnection();
 	        String sql = "SELECT * FROM review WHERE ref = ?";
 	        pstmt = conn.prepareStatement(sql);
-	        pstmt.setString(1, hotelNum);
+	        pstmt.setInt(1, hotelNum);
 
 	        rs = pstmt.executeQuery();
 

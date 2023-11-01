@@ -55,7 +55,7 @@ if (id!=11){
     <h1>호텔 리뷰 페이지</h1>
 
     <%
-    String ref = request.getParameter("ref");
+    int ref = Integer.parseInt(request.getParameter("ref"));
     reviewDAO dao = new reviewDAO();
     List<reviewDTO> reviews = dao.getReviewHotel(ref);
     
