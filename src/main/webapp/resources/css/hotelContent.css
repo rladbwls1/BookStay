@@ -91,7 +91,7 @@ html,
 	display: grid;
 	grid-template-rows: 50%;
     grid-template-columns: 50% 50%;
-    white-space: normal; /* 텍스트가 줄 바꿈되도록 설정 */
+    word-wrap: break-word;
     overflow: hidden; 
 }
 .form img{
@@ -106,10 +106,11 @@ html,
 	padding-bottom: 25px;
 	margin-bottom: 25px;
 }
-#box2{
+#box3{
 	padding-left: 30px;
 }
 .content{
+    word-wrap: break-word;
 	display: inline-block;
 	color: darkgray;
 	font-size: 18px;

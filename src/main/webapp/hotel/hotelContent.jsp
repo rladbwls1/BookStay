@@ -243,7 +243,7 @@ for(hotelDTO dto : list){
 	<div>
 	<img src="/BookStay/upload/<%=dto.getImg()%>">
 	</div>
-	<div id="box2">
+	<div id="box3">
 	<div class="title2"><%=dto.getRoomtype()%></div>
 	<div class="content"><%=dto.getContent() %></div>
 	<div>성인 : <%=dto.getAprice() %></div>
