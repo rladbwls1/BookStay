@@ -10,6 +10,10 @@
 <%
     request.setCharacterEncoding("UTF-8");
 
+MemberDAO mdao = MemberDAO.getInstance();
+String id = (String) session.getAttribute("sid");
+int grade= mdao.checkGrade(id);
+
     String userId = (String) session.getAttribute("sid"); 
 
     if (userId != null) {
@@ -28,8 +32,67 @@
 <head>
     <meta charset="UTF-8">
     <title>호텔 리뷰 작성</title>
+    <link rel="stylesheet" href="/BookStay/resources/css/list_menu.css"/>
 </head>
 <body>
+<div id="header">
+	<div id="login">
+		<%if(grade==11) { // 세션이 없다면 수행
+    String cid = null, cpw = null, cauto = null;
+    Cookie[] cookies = request.getCookies();
+  
+    	if (cookies != null) {
+       		 for (Cookie c : cookies) {
+		            if (c.getName().equals("cid")) { cid = c.getValue(); }
+		            if (c.getName().equals("cpw")) { cpw = c.getValue(); }
+		            if (c.getName().equals("cauto")) { cauto = c.getValue(); }
+   				}  
+ 		   	}
+    	if (cid != null && cpw != null && cauto != null) {
+    		response.sendRedirect("/BookStay/member/loginPro.jsp");	
+    	}
+    if (cid == null || cpw == null || cauto == null) { %>
+		<div><a href="/BookStay/member/loginform.jsp">로그인</a></div>
+		<div><a href="/BookStay/member/memberForm.jsp">회원가입</a></div>
+		<%}				
+		}if(grade==0 || grade==99){ %>
+		<div><a href="/BookStay/member/logout.jsp">로그아웃</a></div>
+		<div><a href="/BookStay/member/memberinfo.jsp">MyPage</a></div>
+		<%}%>
+		<div>고객센터</div>
+		<%if(grade==99){ %>
+		<div><a href="/BookStay/admin/adminMain.jsp">관리자페이지</a></div>
+		<%} %>	
+	</div>
+	<div id="logo">
+		<a href="main.jsp">
+			BookStay
+		</a>
+	</div>
+	</div>
+	<style>
+	
+body {
+   padding-top: 20px; /* 페이지의 상단 여백을 늘립니다. */
+}
+
+#header {
+    margin-bottom: 100px; /* 헤더 아래에 여백을 추가합니다. */
+}
+
+h1.display-3 {
+    margin-top: 50px; /* h1 요소를 아래로 이동시킵니다. */
+}
+
+#content {
+    margin-top: 50px; /* 컨텐츠 영역을 아래로 이동시킵니다. */
+}
+
+#content textarea {
+    margin-top: 100px; /* textarea를 아래로 이동시킵니다. */
+}
+	
+	</style>
 <div style="margin:auto;text-align:center;">
     <h1>호텔 리뷰 작성</h1>
 <br>
@@ -69,7 +132,7 @@ function changeImg(num){
         <br>
 
         <label for="content">리뷰 내용</label> <br>
-        <textarea id="content" name="content" rows="10" cols="40" required></textarea><br>
+        <textarea id="content" name="content" style="width: 35%;" rows="13" cols="40" required></textarea><br>
 
         <input type="hidden" name="ref" value="<%= request.getParameter("ref") %>">
         <br>

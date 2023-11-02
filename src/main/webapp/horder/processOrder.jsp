@@ -3,6 +3,9 @@
 <%@ page import="hotel.bean.HOrderDTO" %>
 <%@ page import="hotel.bean.HOrderDAO" %>
 <%@page import="java.sql.Timestamp"%>
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-4bw+/aepP/YC94hEpVNVgiZdgIC5+VKNBQNGCHeKRQN+PtmoHDEXuppvnDJzQIu9" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-HwwvtgBNo3bZJJLYd8oVXjrBZt8cqVSpeBNS5n7C8IVInixGAoxmnlMuBnhbgrkm" crossorigin="anonymous"></script>
+    
 <!DOCTYPE html>
 <html> 
 <head>
@@ -85,8 +88,17 @@
             // 예약 정보 저장
             dao.insertOrder(order);
     %>
-            <h1>예약이 완료되었습니다!</h1>
-            <input type="button" value="메인" onclick="location.href='/BookStay/views/main.jsp'">
+    <div style="margin:auto;text-align:center;">
+    <div style="margin-bottom: 20px;">
+            <h2>예약이 완료되었습니다!</h2>
+            </div>
+            <div id="main" style="margin-bottom: 20px;">
+		<a href="main.jsp"><img id="end" src="/BookStay/resources/img/end.png"/></a>
+	</div>
+	<div style="margin-bottom: 20px;">
+            <input type="button" class="btn btn-outline-primary" value="메인" onclick="location.href='/BookStay/views/main.jsp'" >
+            </div>
+            </div>
     <%
         } catch (Exception e) {
     %>

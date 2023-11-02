@@ -110,7 +110,7 @@
     
 
 <head>
-
+<link rel="stylesheet" href="/BookStay/resources/css/list_menu.css"/>
 <style>
   table, th, td {
     border: 1px solid #bcbcbc;
