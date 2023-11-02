@@ -161,7 +161,7 @@
 		<%
     	if(id.equals("admin")){
     	%>	
-    		<div><button type="button" onclick="window.location.href='hotelDelete.jsp'" class="btn btn-danger">삭제</button></div>
+    		<div class="xx"><button type="button" onclick="window.location.href='hotelDelete.jsp'" class="btn btn-danger">삭제</button></div>
     	<%	
     	}
     	%>
@@ -178,9 +178,10 @@
     		<div class="mar">
     		<div class="title"><%= dto.getTitle() %></div>
     		<div class="addr"><%= dto.getAddress() %></div>
+    		<div class="qnrktp">세금 및 부가세 불포함</div>
     		<div class="apr"><%= dto.getAprice() %>원</div>
-	    	<div><button type="button" class="btn btn-warning">예약 불가</button></div>
 	    	</div>
+	    	<div class="rBtn"><button type="button" class="btn btn-warning">예약 불가</button></div>
 			</div>
 			</a>
     		<button type="button" onclick="window.location.href='hotelDelete.jsp'" class="btn btn-danger">삭제</button>
@@ -195,9 +196,10 @@
     	<div class="mar">
     	<div class="title"><%= dto.getTitle() %></div>
     	<div class="addr"><%= dto.getAddress() %></div>
+    	<div class="qnrktp">세금 및 부가세 불포함</div>
     	<div class="apr"><%= dto.getAprice() %>원</div>
-    	<div><button type="button" class="btn btn-warning">예약 불가</button></div>
 		</div>
+    	<div class="rBtn"><button type="button" class="btn btn-warning">예약 불가</button></div>
 		</div>
 		<hr>
 		<%}%>
@@ -232,7 +234,7 @@
 	}
 %>
 		</div>	
-		<%@ include file="footer.jsp" %>
+		<!-- <%@ include file="footer.jsp" %> -->
 		
 		</body>
 <script>

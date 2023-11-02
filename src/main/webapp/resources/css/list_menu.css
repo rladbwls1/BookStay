@@ -110,13 +110,13 @@ a{
 }
 #all_h{
 	display: inline-block;
-	min-height: 900px;
+	min-height: 1200px;
 }
 .list_s img{
-	width: 150px;
+	width: 180px;
+	height: 100%;
 }
 .list_s{
-	min-width: 800px;
 	display: flex;
 }
 .list_c{
@@ -127,6 +127,7 @@ a{
 	justify-content: center;
     grid-template-rows: 90%;
     grid-template-columns: 25% 70%;
+    min-width: 1200px;
 }
 .box{	  
 	border: none;
@@ -191,8 +192,6 @@ a{
 	margin-right: 120px;
 }
 .rBtn{
-	position: absolute;
-	right: 0;
 	display: inline-block;
 	margin-top: 110px;
 }
@@ -222,7 +221,15 @@ a{
 	font-size: 12px;
 	color: gainsboro;
 }
-
+#option{
+	min-width: 300px;
+}
+.xx{
+	position: absolute;
+	right: 160px;
+	top: 10px;
+	margin-top: 100px;
+}
 
 
 /* 스크롤 내렸을 때 검색창 고정 css */

@@ -2,6 +2,10 @@ const swiper = new Swiper('.swiper', {
       // Optional parameters
       direction: 'horizontal',
       loop: true,
+      
+      autoplay: {
+        delay: 3000, // 3 seconds delay between slides
+      },
 
       // If we need pagination
       pagination: {

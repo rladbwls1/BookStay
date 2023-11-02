@@ -182,28 +182,28 @@ String title = request.getParameter("title");
 </div>
 <%} %>
 <button id="gnBtn" type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#staticBackdrop">
-  후기
+  <%= re.getAvgJumsu(ref)%> /5 후기(<%= re.getcount(ref)%>)
 </button>
 
 <!-- Modal -->
 <div class="modal fade custom-modal" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
-  <div class="modal-dialog modal-dialog-scrollable modal-lg" class="modal-dialog-centered">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg modal-dialog-centered">
     <div class="modal-content">
       <div class="modal-header">
         <h1 class="modal-title fs-5" id="staticBackdropLabel"><%=title %> 리뷰</h1>
         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
       <div class="modal-body">
-      <div id="chd">총 평점</div>
+      <div id="chd">총 평점 <%= re.getAvgJumsu(ref)%></div>
       <div>
-        <%
+        <% 
         for (reviewDTO review : reviews) {
         %>
         <div class="modal_box">
-		<div class="item"><%= review.getId() %></div> 
-		<div class="item"><%= review.getJumsu() %></div>
-		<div class="item"><%= review.getContent() %></div> 
-		<div class="item"><%= review.getReg() %></div> 
+		<div class="item" id="rid"><%= review.getId() %> 님</div> 
+		<div class="item" id="rjumsu"><b><%= review.getJumsu() %></b> /5</div>
+		<div class="item" id="rcon"><%= review.getContent() %></div> 
+		<div class="item" id="rreg"><%= review.getReg() %></div> 
 		</div>
         <%
         }
@@ -246,8 +246,9 @@ for(hotelDTO dto : list){
 	<div id="box3">
 	<div class="title2"><%=dto.getRoomtype()%></div>
 	<div class="content"><%=dto.getContent() %></div>
-	<div>성인 : <%=dto.getAprice() %></div>
-	<div>아동 : <%=dto.getKprice()%></div>
+	<div id="hcapr">
+	<div class="hca">성인 : <%=dto.getAprice() %>원</div>
+	<div class="hca2">아동 : <%=dto.getKprice()%>원</div>
 	<%if(grade==99){
 	%>
 	<button type="button" onclick="window.location='hotelUpdateForm.jsp?num=<%=dto.getNum()%>&re_step=<%=dto.getRe_step()%>&ref=<%=ref%>'">수정</button>
@@ -255,10 +256,11 @@ for(hotelDTO dto : list){
 	<%	
 	} %>
 	<%if(block.contains(Integer.toString(dto.getNum()))) {%>
-	<button type="button" disabled>예약불가</button><br />
+	<button class="hcBtn" type="button" style="background-color:#FFCD4B;" disabled>예약불가</button><br />
 	<%}else{ %> 
-	<button type="submit">예약</button><br />
+	<button class="hcBtn" type="submit" class="btn btn-success">예약</button><br />
 	<%} %>
+	</div>
 	</div>
 	</form>
 	</div>
@@ -266,16 +268,28 @@ for(hotelDTO dto : list){
 	<%
 }
 %><%if(grade==99){%>
-<button type="button" onclick="window.location='hotelWriteForm.jsp?ref=<%=ref%>&block=<%=block%>'">방 등록</button>
+<button id="addroom" type="button" onclick="window.location='hotelWriteForm.jsp?ref=<%=ref%>&block=<%=block%>'">방 등록</button>
 <%} %>
 <div class="tnrqkr">
-	<p>숙박 시설 정보</p>
+	<p class="hr2">숙박 시설 정보</p>
+<table id="infor" border="1">
+    <tr>
+        <td style="width: 200px;" class="inforbg">체크인/체크아웃</td>
+        <td>dddd</td>
+        <td class="inforbg">연락처</td>
+        <td>dddd</td>
+    </tr>
+    <tr>
+        <td class="inforbg">시설 및 서비스</td>
+        <td colspan="3"></td>
+    </tr>
+</table>
 </div>
 <div class="tnrqkr">
-	<p>숙박 위치</p>
+	<p class="hr2">숙박 위치</p>
 </div>
 <div class="tnrqkr">
-	<p>편의시설</p>
+	<p class="hr2">편의시설</p>
 </div>
 </div>	
 </body>

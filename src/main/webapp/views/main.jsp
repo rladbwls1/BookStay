@@ -161,7 +161,7 @@ int grade= mdao.checkGrade(id);
 	<%
 	request.setCharacterEncoding("UTF-8");
 	ArrayList<hotelDTO> list;
-	String[] types = {"서울", "부산", "제주도", "인천", "여수", "수원", "대전", "광주", "대구", "속초"};
+	String[] types = {"서울", "부산", "제주", "인천", "여수", "수원", "대전", "광주", "대구", "속초"};
 
 	for(int i=0; i <types.length; i++){
 		list = dao.hothotel(types[i]);
@@ -178,7 +178,7 @@ int grade= mdao.checkGrade(id);
 		<img src="/BookStay/upload/<%= dto.getImg() %>"/>
 		<div class="h_box">
 		<%= dto.getTitle() %>
-		<%= dto.getKprice() %>
+		<%= dto.getPrice() %>
 		</div>	
 	</div>
 	</a>

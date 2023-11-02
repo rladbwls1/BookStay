@@ -16,7 +16,6 @@ document.getElementById('cadd').addEventListener('click', function() {
   newContent.classList.add('rortlf');
   count++;
   newContent.innerHTML = `
-  	<hr>
     <h5>객실${count}</h5>
     <div>성인 <input type="number" id="adult${count}" name="adult${count}" value="2" max="4" min="1"/></div>
     <div>어린이 (만 17세 미만) <input type="number" id="kids${count}" name="kids${count}" value="0" max="4" min="0"/></div>

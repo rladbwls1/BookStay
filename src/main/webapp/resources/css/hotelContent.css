@@ -42,6 +42,7 @@ html,
 	border-radius: 15px;
 }
 #list{
+	position: relative;
 	width: 65%;
 	margin: 0 auto;
 }
@@ -93,6 +94,7 @@ html,
     grid-template-columns: 50% 50%;
     word-wrap: break-word;
     overflow: hidden; 
+    position: relative;
 }
 .form img{
 	width: 100%;
@@ -127,6 +129,7 @@ html,
     grid-template-columns: 30% 70%;
 }
 .modal_box{
+	position: relative;
 	border: 1px solid gainsboro;
 	border-radius: 5px;
 	margin-bottom: 10px;
@@ -140,4 +143,60 @@ html,
 }
 .custom-modal {
     max-height: 80vh; 
+}
+#rreg{
+	position: absolute;
+	right: 0;
+	top: 0;
+}
+#hcapr{
+	position: relative;
+	border: 1px solid gainsboro;
+	border-radius: 15px;	
+	margin-top: 30px;
+	height: 180px;
+	padding: 20px 30px;
+}
+.hcBtn{
+	position: absolute;
+	right: 40px;
+	bottom: 40px;
+	width: 150px;
+	height: 40px;
+	border-radius: 10px;
+	border: none;
+	background-color: green;
+	color: white;
+}
+.hca{
+	margin-bottom: 10px;
+}
+.hca, .hca2{
+	font-size: 20px;
+}
+#infor{
+	width: 100%;
+	margin-bottom: 50px;
+}
+#infor td{
+	border: 1px solid gainsboro;
+	padding: 10px;
+}
+.hr2{
+	border: 2px solid black;
+	border-width: 0 0 2px;
+	margin: 70px 0 30px;
+	padding-bottom: 20px;
+}
+.tnrqkr p{
+	font-size: 17px;
+	font-weight: 600;
+}
+.inforbg{
+	background-color: #F1EFEF;
+	font-weight: 600;
+}
+#addroom{
+	position: absolute;
+	top: 0;
 }

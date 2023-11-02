@@ -96,8 +96,7 @@ public class hotelDAO extends OracleDB {
 				dto.setNum(rs.getInt("num"));
 				dto.setTitle(rs.getString("title"));
 				dto.setAddress(rs.getString("address"));
-				dto.setAprice(rs.getInt("aprice"));
-				dto.setKprice(rs.getInt("kprice"));
+				dto.setPrice(rs.getInt("price"));
 				dto.setImg(rs.getString("img"));
 				dto.setRef(rs.getInt("ref"));
 				list.add(dto);
@@ -157,7 +156,7 @@ public class hotelDAO extends OracleDB {
 				hotelDTO dto = new hotelDTO();
 				dto.setImg(rs.getString("img"));
 				dto.setTitle(rs.getString("title"));
-				dto.setKprice(rs.getInt("kprice"));
+				dto.setPrice(rs.getInt("price"));
 				dto.setRef(rs.getInt("ref"));
 				list.add(dto);
 			}
@@ -342,11 +341,10 @@ public class hotelDAO extends OracleDB {
 				dto.setContact(rs.getString("contact"));
 				dto.setContactfax(rs.getString("contactfax"));
 				dto.setAdultmax(rs.getInt("adultmax"));
-				dto.setAprice(rs.getInt("aprice"));
+				dto.setPrice(rs.getInt("price"));
 				dto.setContent(rs.getString("content"));
 				dto.setCount(rs.getInt("count"));
 				dto.setKidmax(rs.getInt("kidmax"));
-				dto.setKprice(rs.getInt("kprice"));
 				dto.setNum(rs.getInt("num"));
 				dto.setHeartcount(rs.getInt("heartcount"));
 			}
@@ -385,20 +383,19 @@ public class hotelDAO extends OracleDB {
 	public void hotelContentInsert(hotelDTO dto) {
 		try {
 			conn = getConnection();
-			String sql = "insert into hotel(num,type,title,content,contactfax,contact,aprice,kprice,address,img,ref,re_step,roomtype) "
-					+ " values(hotel_seq.nextval,?,?,?,?,?,?,?,?,?,?,1,?)";
+			String sql = "insert into hotel(num,type,title,content,contactfax,contact,price,address,img,ref,re_step,roomtype) "
+					+ " values(hotel_seq.nextval,?,?,?,?,?,?,?,?,?,1,?)";
 			pstmt = conn.prepareStatement(sql);
 			pstmt.setString(1, dto.getType());
 			pstmt.setString(2, dto.getTitle());
 			pstmt.setString(3, dto.getContent());
 			pstmt.setString(4, dto.getContactfax());
 			pstmt.setString(5, dto.getContact());
-			pstmt.setInt(6, dto.getAprice());
-			pstmt.setInt(7, dto.getKprice());
-			pstmt.setString(8, dto.getAddress());
-			pstmt.setString(9, dto.getImg());
-			pstmt.setInt(10, dto.getRef());
-			pstmt.setString(11, dto.getRoomtype());
+			pstmt.setInt(6, dto.getPrice());
+			pstmt.setString(7, dto.getAddress());
+			pstmt.setString(8, dto.getImg());
+			pstmt.setInt(9, dto.getRef());
+			pstmt.setString(10, dto.getRoomtype());
 			pstmt.executeUpdate();
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -425,8 +422,7 @@ public class hotelDAO extends OracleDB {
 				dto.setTitle(rs.getString("title"));
 				dto.setContent(rs.getString("content"));
 				dto.setImg(rs.getString("img"));
-				dto.setAprice(rs.getInt("aprice"));
-				dto.setKprice(rs.getInt("kprice"));
+				dto.setPrice(rs.getInt("price"));
 				list.add(dto);
 			}
 		} catch (Exception e) {
@@ -464,14 +460,12 @@ public class hotelDAO extends OracleDB {
 		try {
 			conn = getConnection();
 			if (dto.getRe_step() == 1) {
-				String sql = "update hotel set title=?,content=?,roomtype=?,aprice=?,kprice=?,img=? where num=?";
+				String sql = "update hotel set title=?,content=?,roomtype=?,price=?,img=? where num=?";
 				pstmt = conn.prepareStatement(sql);
 				pstmt.setString(1, dto.getTitle());
 				pstmt.setString(2, dto.getContent());
 				pstmt.setString(3, dto.getRoomtype());
-				pstmt.setInt(4, dto.getAprice());
-				System.out.println(dto.getAprice());
-				pstmt.setInt(5, dto.getKprice());
+				pstmt.setInt(4, dto.getPrice());
 				pstmt.setString(6, dto.getImg());
 				pstmt.setInt(7, dto.getNum());
 				pstmt.executeUpdate();
@@ -526,7 +520,7 @@ public class hotelDAO extends OracleDB {
 				dto.setAddress(rs.getString("address"));
 				dto.setTitle(rs.getString("title"));
 				dto.setImg(rs.getString("img"));
-				dto.setAprice(rs.getInt("aprice"));
+				dto.setPrice(rs.getInt("price"));
 				dto.setRe_step(rs.getInt("re_step"));
 				dto.setNum(rs.getInt("num"));
 				dto.setRef(rs.getInt("ref"));
