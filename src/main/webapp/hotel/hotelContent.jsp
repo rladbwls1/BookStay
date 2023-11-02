@@ -171,7 +171,7 @@ String title = request.getParameter("title");
 <div id="title1"><%=maindto.getTitle() %></div>
 <div id="addr"><%=maindto.getAddress() %></div>
 </div>
-<div id="apr"><%=maindto.getAprice() %>원</div>
+<div id="apr"><%=maindto.getPrice() %>원</div>
 <div id="bmo">
 <% if(heart!=null&&heart.contains(Integer.toString(ref))){%>
 <button type="button" onclick="window.location='../member/heartPro.jsp?num=<%=maindto.getNum()%>&ref=<%=ref%>'">찜취소하기</button>
@@ -247,8 +247,7 @@ for(hotelDTO dto : list){
 	<div class="title2"><%=dto.getRoomtype()%></div>
 	<div class="content"><%=dto.getContent() %></div>
 	<div id="hcapr">
-	<div class="hca">성인 : <%=dto.getAprice() %>원</div>
-	<div class="hca2">아동 : <%=dto.getKprice()%>원</div>
+	<div class="hca">성인 : <%=dto.getPrice() %>원</div>
 	<%if(grade==99){
 	%>
 	<button type="button" onclick="window.location='hotelUpdateForm.jsp?num=<%=dto.getNum()%>&re_step=<%=dto.getRe_step()%>&ref=<%=ref%>'">수정</button>

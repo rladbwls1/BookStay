@@ -153,7 +153,7 @@
     	<div class="title"><%= dto.getTitle() %></div>
     	<div class="addr"><%= dto.getAddress() %></div>
     	<div class="qnrktp">세금 및 부가세 불포함</div>
-    	<div class="apr"><%= dto.getAprice() %>원</div>
+    	<div class="apr"><%= dto.getPrice() %>원</div>
     	</div>
     	<div class="rBtn"><button type="button" class="btn btn-success">예약</button></div>
 		</div>
@@ -179,7 +179,7 @@
     		<div class="title"><%= dto.getTitle() %></div>
     		<div class="addr"><%= dto.getAddress() %></div>
     		<div class="qnrktp">세금 및 부가세 불포함</div>
-    		<div class="apr"><%= dto.getAprice() %>원</div>
+    		<div class="apr"><%= dto.getPrice() %>원</div>
 	    	</div>
 	    	<div class="rBtn"><button type="button" class="btn btn-warning">예약 불가</button></div>
 			</div>
@@ -197,7 +197,7 @@
     	<div class="title"><%= dto.getTitle() %></div>
     	<div class="addr"><%= dto.getAddress() %></div>
     	<div class="qnrktp">세금 및 부가세 불포함</div>
-    	<div class="apr"><%= dto.getAprice() %>원</div>
+    	<div class="apr"><%= dto.getPrice() %>원</div>
 		</div>
     	<div class="rBtn"><button type="button" class="btn btn-warning">예약 불가</button></div>
 		</div>
