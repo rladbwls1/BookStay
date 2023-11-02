@@ -70,121 +70,148 @@ if (grade!=99){
 	<div id="list">
 	<ul id="ul1">
 	  <li><button type="button" onclick="window.location='/BookStay/admin/adminMain.jsp'">요약정보</button></li>
-	  <li><button type="button" onclick="window.location='/BookStay/admin/adminlist.jsp'">예약목록 </button></li>
+	  <li><button type="button" id="btn2">예약목록 </button></li>
 	  <li><button type="button" onclick="window.location='/BookStay/board/notice.jsp'">공지사항 </button></li>
 	  <li><button type="button" onclick="window.location='/BookStay/board/QnAList.jsp'">자주하는질문 </button></li>
 	  <li><button type="button" onclick="window.location='/BookStay/admin/myQuestion.jsp'">1:1문의[<%=dto.getNoanswer() %>] </button></li>
 	  <li><button type="button" onclick="window.location='/BookStay/hotel/hotelWriteForm.jsp'">숙박업소 글등록</button></li>
 	</ul>
+	<div id="f1">
 	<div id="tbcal">
-	<div>
 	<ul class="nav nav-tabs">
 	  <li class="nav-item">
 	    <a class="nav-link active" aria-current="page">요약정보</a>
 	  </li>
 	</ul>
-	</div>
 <table id="tb" border="1">
 	<tr>
-		<td>진행중예약</td><td><%=dto.getOngoingReserve() %>건</td>
-		<td>오늘예약 </td><td><%=dto.getTodayReserve() %>건</td>
+		<td class="t1">진행중예약</td><td><%=dto.getOngoingReserve() %>건</td>
+		<td class="t1">오늘예약 </td><td><%=dto.getTodayReserve() %>건</td>
 	</tr>
 	<tr>
-		<td>이번달예약</td><td><%=dto.getThisMonthReserve() %>건</td>
-		<td>지난달예약</td><td><%=dto.getLastMonthReserve() %>건</td>
+		<td class="t1">이번달예약</td><td><%=dto.getThisMonthReserve() %>건</td>
+		<td class="t1">지난달예약</td><td><%=dto.getLastMonthReserve() %>건</td>
 	</tr>
 	<tr>
-		<td>종료된예약</td><td><%=dto.getLastReserve() %>건</td>
-		<td>오늘투숙객</td><td>성인 :<%=dto.getTodayAdult() %>명/아이: <%=dto.getTodaykids() %>명 </td>
+		<td class="t1">종료된예약</td><td><%=dto.getLastReserve() %>건</td>
+		<td class="t1">오늘투숙객</td><td>성인 :<%=dto.getTodayAdult() %>명/아이: <%=dto.getTodaykids() %>명 </td>
 	</tr>
 	<tr>
-		<td>내일투숙객</td><td>성인 :<%=dto.getTomorrowAdult() %>명/아이: <%=dto.getTommorowkids() %>명</td>
-		<td>오늘매출</td><td><%=dto.getTodaySales() %>원</td>
+		<td class="t1">내일투숙객</td><td>성인 :<%=dto.getTomorrowAdult() %>명/아이: <%=dto.getTommorowkids() %>명</td>
+		<td class="t1">오늘매출</td><td><%=dto.getTodaySales() %>원</td>
 	</tr>
 	<tr>
-		<td>이번달매출</td><td><%=dto.getThisMonthSales() %>원</td>
-		<td>지난달매출</td><td><%=dto.getLastMonthSales() %>원</td>
+		<td class="t1">이번달매출</td><td><%=dto.getThisMonthSales() %>원</td>
+		<td class="t1">지난달매출</td><td><%=dto.getLastMonthSales() %>원</td>
 	</tr>
 	<tr>
-		<td >미답변문의</td><td><%=dto.getNoanswer() %>건</td>
+		<td class="t1">미답변문의</td><td><%=dto.getNoanswer() %>건</td>
 	</tr>
 	
 </table>
 
 <%} %>
-<div id="calendarBox">
-	<div id="btn1"><button id="btn" style="display: none;">Month</button></div>
-        <div id="calendar"></div>
+<div id="calendarBox" style="margin-bottom: 50px; position:relative;">
+  <div id="btn1"><button id="btn" style="display: none;">Month</button></div>
+  <div id="calendar"></div>
+</div>
+</div>
+<div class="modal fade" id="myModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title"></h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">닫기</button>
+      </div>
     </div>
-    <div class="modal fade" id="myModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-        <div class="modal-dialog">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title"></h5>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                </div>
-                <div class="modal-body">
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">닫기</button>
-                </div>
-            </div>
-        </div>
-    </div>
-   </div> 
-   </div>
-        <script type="text/javascript">
-        document.addEventListener('DOMContentLoaded', function() {
-            var calendarEl = document.getElementById('calendar');
-            var calendar = new FullCalendar.Calendar(calendarEl, {
-                initialView: 'dayGridMonth',
-                locale: 'ko', // 한국어 설정
-                headerToolbar: {
-                	 start: 'prev', 
-                     center: 'title', 
-                     end: 'next'
-                },
-                selectable: true,
-                droppable: true,
-                editable: false,
-                events: [
-                    <% for (hotelDTO dto : cal) { %>
-                    {
-                        title: '<%= dto.getTitle() %>',
-                        start: '<%= dto.getContent() %>',
-                        end: '<%= dto.getContact() %>',
-                        extendedProps: {
-                            reservationId: '<%= dto.getContact() %>',
-                            kidmax: '<%= dto.getKidmax() %>',
-                            content: '<%= dto.getContent() %>',
-                            service: '<%= dto.getService() %>',
-                            adultmax: '<%= dto.getAdultmax() %>'
-                        },
-                    },
-                    <% } %>
-                ],
-                eventClick: function(info) {
-                    var eventTitle = info.event.title;
-                    var additionalInfo = 'Adult Max: ' + info.event.extendedProps.adultmax + '<br>' +
-                                        'Kid Max: ' + info.event.extendedProps.kidmax + '<br>' +
-                                        'Service: ' + info.event.extendedProps.service + '<br>' +
-                                        'Content: ' + info.event.extendedProps.content;
+  </div>
+</div>
+<%@ include file="adminlist.jsp" %>
+</div>
+</div>
+<script type="text/javascript">
+  document.addEventListener('DOMContentLoaded', function() {
+    var calendarEl = document.getElementById('calendar');
+    var calendar = new FullCalendar.Calendar(calendarEl, {
+      initialView: 'dayGridMonth',
+      locale: 'ko',
+      headerToolbar: {
+        start: 'prev',
+        center: 'title',
+        end: 'next'
+      },
+      selectable: true,
+      droppable: true,
+      editable: false,
+      events: [
+        <% for (hotelDTO dto : cal) { %>
+        {
+          title: '<%= dto.getTitle() %>',
+          start: '<%= dto.getContent() %>',
+          end: '<%= dto.getContact() %>',
+          extendedProps: {
+            reservationId: '<%= dto.getContact() %>',
+            kidmax: '<%= dto.getKidmax() %>',
+            content: '<%= dto.getContent() %>',
+            service: '<%= dto.getService() %>',
+            adultmax: '<%= dto.getAdultmax() %>'
+          },
+        },
+        <% } %>
+      ],
+      eventClick: function(info) {
+        var eventTitle = info.event.title;
+        var additionalInfo = 'Adult Max: ' + info.event.extendedProps.adultmax + '<br>' +
+          'Kid Max: ' + info.event.extendedProps.kidmax + '<br>' +
+          'Service: ' + info.event.extendedProps.service + '<br>' +
+          'Content: ' + info.event.extendedProps.content;
 
-                    $('#myModal').modal('show');
+        $('#myModal').modal('show');
 
-                    $('.modal-title').text(eventTitle);
-                    $('.modal-body').html(additionalInfo);
-                },
-                dateClick: function(info) {
-                    calendar.changeView('dayGridDay', info.dateStr);
-                    document.getElementById('btn').style.display = 'block';
-                },
-            });
-            
-            calendar.render();
-            document.getElementById('btn').addEventListener('click', function() {
-                calendar.changeView('dayGridMonth');
-                document.getElementById('btn').style.display = 'none';
-            });
-        });
-    </script>
+        $('.modal-title').text(eventTitle);
+        $('.modal-body').html(additionalInfo);
+      },
+      dateClick: function(info) {
+        calendar.changeView('dayGridDay', info.dateStr);
+        document.getElementById('btn').style.display = 'block';
+      },
+      eventRender: function(info) {
+        var maxEventsToShow = 3;
+        var eventCount = info.event.start;
+        var events = calendar.getEvents();
+
+        if (eventCount) {
+          var sameDateEvents = events.filter(function(event) {
+            return (
+              event.start.getDate() === eventCount.getDate() &&
+              event.start.getMonth() === eventCount.getMonth() &&
+              event.start.getFullYear() === eventCount.getFullYear()
+            );
+          });
+
+          if (sameDateEvents.length > maxEventsToShow) {
+            var visibleEvents = sameDateEvents.slice(0, maxEventsToShow);
+            var remainingEventsCount = sameDateEvents.length - maxEventsToShow;
+            info.el.querySelector('.fc-title').innerHTML = visibleEvents
+              .map(function(event) {
+                return event.title;
+              })
+              .join('<br>') + '<br>... +' + remainingEventsCount;
+          }
+        }
+      },
+    });
+
+    calendar.render();
+    document.getElementById('btn').addEventListener('click', function() {
+      calendar.changeView('dayGridMonth');
+      document.getElementById('btn').style.display = 'none';
+    });
+  });
+</script>
+<script src="/BookStay/resources/js/click.js"></script>

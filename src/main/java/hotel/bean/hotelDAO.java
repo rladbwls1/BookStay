@@ -67,9 +67,9 @@ public class hotelDAO extends OracleDB {
 			} else if (sel == 2) {
 				sql += " order by count desc)b)";
 			} else if (sel == 3) {
-				sql += " order by aprice desc)b)";
+				sql += " order by price desc)b)";
 			} else if (sel == 4) {
-				sql += " order by aprice asc)b)";
+				sql += " order by price asc)b)";
 			} else if (sel == 6) {
 				sql += " order by heartcount desc)b)";
 			}

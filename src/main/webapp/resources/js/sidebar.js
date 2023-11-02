@@ -1,5 +1,5 @@
 window.onscroll = function() {
-  var menu = document.getElementById("main");
+  var menu = document.getElementById("ul1");
   var header = document.getElementById("header");
   if (window.pageYOffset > header.clientHeight) {
     menu.classList.add("fixed-menu");

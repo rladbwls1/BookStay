@@ -247,7 +247,7 @@ for(hotelDTO dto : list){
 	<div class="title2"><%=dto.getRoomtype()%></div>
 	<div class="content"><%=dto.getContent() %></div>
 	<div id="hcapr">
-	<div class="hca">성인 : <%=dto.getPrice() %>원</div>
+	<div class="hca">가격 : <%=dto.getPrice() %>원</div>
 	<%if(grade==99){
 	%>
 	<button type="button" onclick="window.location='hotelUpdateForm.jsp?num=<%=dto.getNum()%>&re_step=<%=dto.getRe_step()%>&ref=<%=ref%>'">수정</button>

@@ -6,35 +6,16 @@
 <%@ page import="hotel.bean.MemberDTO" %>
 <%@ page import="hotel.bean.MemberDAO" %>
 <%@ page import="java.util.List" %> 
-
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-4bw+/aepP/YC94hEpVNVgiZdgIC5+VKNBQNGCHeKRQN+PtmoHDEXuppvnDJzQIu9" crossorigin="anonymous">
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-HwwvtgBNo3bZJJLYd8oVXjrBZt8cqVSpeBNS5n7C8IVInixGAoxmnlMuBnhbgrkm" crossorigin="anonymous"></script>
 <%
-	request.setCharacterEncoding("UTF-8");
-    // 세션에서 사용자 ID 가져오기
-    MemberDAO dao = MemberDAO.getInstance();
-    String sid = (String) session.getAttribute("sid");
-    int id= dao.checkGrade(sid);
-    // 사용자 ID가 관리자 ID ("admin")와 일치하는지 확인
-    if (id!=99) {
-%>
-    <script>
-        alert("관리자페이지입니다");
-        window.location="/BookStay/views/main.jsp";
-    </script>
-<%
-    }
-%>
-<%
-
 SimpleDateFormat sf = new SimpleDateFormat("yyyy-MM-dd");
 	
 %>
 <!DOCTYPE html>
 <html>
-<head>
-    <title>관리자 예약 확인</title>
-</head>
 <body>
-
+<div id="block2">
     <h1>관리자 예약 내역 확인</h1>
     <table>
         <tr>
@@ -78,5 +59,6 @@ SimpleDateFormat sf = new SimpleDateFormat("yyyy-MM-dd");
         %>
     </table>
     <input type="button" value="뒤로가기" onclick="location.href='../memeber/memberinfo.jsp'">
+</div>
 </body>
 </html>

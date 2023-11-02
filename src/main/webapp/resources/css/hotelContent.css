@@ -90,7 +90,7 @@ html,
 }
 .form{
 	display: grid;
-	grid-template-rows: 50%;
+	grid-template-rows: 100%;
     grid-template-columns: 50% 50%;
     word-wrap: break-word;
     overflow: hidden; 
@@ -98,6 +98,7 @@ html,
 }
 .form img{
 	width: 100%;
+	height: auto;
 	border-radius: 15px;	
 }
 .title2{

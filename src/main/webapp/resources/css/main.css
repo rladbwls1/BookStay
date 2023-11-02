@@ -148,6 +148,7 @@ body{
 	justify-content: center;
     grid-template-rows: 120px 120px 120px;
     grid-template-columns: 350px 350px 350px;
+    margin-bottom: 80px;
 }
 .box{	  
 	border: none;
@@ -156,9 +157,25 @@ body{
 	justify-content: center;
 	padding: 10px;
 	justify-content: space-around;
+	text-align: left;
+	position: relative;
 }
 .box img{
 	width: 100px;
+}
+.pri{
+	position: absolute;
+	right: 15px;
+	bottom: 10px;
+}
+.b3{
+	flex: 1;
+}
+.b2{
+	flex: 2;
+}
+#b{
+	font-size: 20px;
 }
 #h_content h2{
 	margin-bottom: 50px;
@@ -252,7 +269,7 @@ main{
 	color: black;
 }
 #hh{
-	min-height: 700px;
+	min-height: 820px;
 }
 
 /* 미디어쿼리 css */

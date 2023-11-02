@@ -28,7 +28,10 @@ body{
 	padding: 10px;
 	z-index: 150;
 }
-a{
+#block2{
+	display: none;
+}
+#header a{
 	text-decoration: none;
 	color: black;
 }
@@ -44,7 +47,7 @@ a{
 
 
 
- 캘린더 css */
+/* 캘린더 css */
 #clendarBox {
 	margin-top: 100px;
      width: 50%;
@@ -57,35 +60,41 @@ a{
      text-decoration: none;
      color:black;
 }
+.fc-dayGridDay .fc-day {
+  height: 60px; 
+  overflow: hidden; 
+}
 .fc-col-header-cell-cushion, .fc-daygrid-day-number{
  	text-decoration: none;
      color:black;
 } 
 #btn1{
  	position: absolute;
-     top: 40px; 
+     top: 20px; 
      left: 0; 
 }
  #btn{
  	display: none;
   	border: none;
+  	border-radius: 5px;
    	background-color: #2C3E50;
    	color: white;
     height: 28px;
+    padding: 5px;
 }
 
-
+#list{
+	display: flex;
+}
 
 #ul1 {
+  flex: 1;
   display: inline-block;
   list-style-type: none;
-  margin: 0;
-  padding: 0;
   width: 17%;
-  float: left;
   background-color: #F0F0F0;
-  height: 100%;
-  margin-right: 15px;
+  padding: 0 !important;
+  margin:0 !important;
 }
 
 #ul1 li button {
@@ -97,8 +106,12 @@ a{
   border: none;
 }
 #tbcal{
+	padding: 0 30px 0;
 	display: flex;
 	flex-direction: column;
+}
+#f1{
+	flex: 3.8;
 }
 #calendar{
 	margin-top: 50px;
@@ -110,11 +123,17 @@ a{
   background-color: #555;
   color: white;
 }
+.nav{
+	margin-top: 20px;
+}
+.t1{
+	background-color: #EEEEEE;
+}
 #tb{
 	width: 100%;
 	height: 200px;
-	float: left;
 }
 #tb td{
 	border: 1px solid black;
+	padding-left: 10px;
 }
