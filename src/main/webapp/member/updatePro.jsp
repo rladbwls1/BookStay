@@ -9,7 +9,7 @@
 <% request.setCharacterEncoding("UTF-8"); %>
 
 <%
-    String sid = (String) session.getAttribute("id");
+    String sid = (String) session.getAttribute("sid");
  
     MemberDAO manager = MemberDAO.getInstance();
     int updateResult = manager.updateMember(member);
@@ -29,7 +29,8 @@ String pw=request.getParameter("pw");
   <tr>
     <td align="center"> 
       <p>
-        <% if (updateResult == 1) { %>
+        <% if (updateResult == 1) { 
+        	manager.humanRelease(sid);%>
           <script>alert("수정이 잘되었습니다");
       	window.location="../views/main.jsp";
       	</script>

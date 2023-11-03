@@ -1,8 +1,10 @@
 package hotel.bean;
 
+import java.sql.Array;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.util.ArrayList;
 
 import hotel.db.OracleDB;
 
@@ -166,6 +168,41 @@ public class adminDAO extends OracleDB{
 		} finally {
 			close(rs, pstmt, conn);
 		} return paid;
+	}
+	
+	public ArrayList<MemberDTO> getAllMember(){
+		ArrayList<MemberDTO> list = new ArrayList<MemberDTO>();
+		try {
+			conn=getConnection();
+			String sql="select * from member";
+			pstmt=conn.prepareStatement(sql);
+			rs=pstmt.executeQuery();
+			while(rs.next()) {
+				MemberDTO dto = new MemberDTO();
+				dto.setId(rs.getString("id"));
+				dto.setName(rs.getString("name"));
+				dto.setGrade(rs.getInt("grade"));
+				list.add(dto);
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			close(rs, pstmt, conn);
+		} return list;
+	}
+	public void changeGrade(String id,int grade) {
+		try {
+			conn=getConnection();
+			String sql="update member set grade=? where id=?";
+			pstmt=conn.prepareStatement(sql);
+			pstmt.setInt(1, grade);
+			pstmt.setString(2, id);
+			pstmt.executeUpdate();
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			close(rs, pstmt, conn);
+		} 
 	}
 	
 	
