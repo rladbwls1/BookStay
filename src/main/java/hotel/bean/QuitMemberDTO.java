@@ -2,7 +2,6 @@
 package hotel.bean; //1030 도준 생성
 
 public class QuitMemberDTO {
-	private int num;
 	private String id;
 	private String pw;
 	private String name;
@@ -11,13 +10,8 @@ public class QuitMemberDTO {
 	private String pnum;
 	private String addr;
 	private String joindate;
-	private String deletedate;
-	public int getNum() {
-		return num;
-	}
-	public void setNum(int num) {
-		this.num = num;
-	}
+
+	
 	public String getId() {
 		return id;
 	}
@@ -60,12 +54,7 @@ public class QuitMemberDTO {
 	public void setJoindate(String joindate) {
 		this.joindate = joindate;
 	}
-	public String getDeletedate() {
-		return deletedate;
-	}
-	public void setDeletedate(String deletedate) {
-		this.deletedate = deletedate;
-	}
+	
 	public String getName() {
 		return name;
 	}

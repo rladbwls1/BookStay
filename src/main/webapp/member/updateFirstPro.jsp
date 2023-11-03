@@ -15,7 +15,13 @@
     		
   			
 		if(result ==true){
-    	%> <script>window.location="update.jsp";</script>
+			
+    	%> 
+    	<script>    
+    	window.location="update.jsp";
+    	
+    	</script>
+    	
 		<%}else{%>
    		 	<script> 
    			alert("비밀번호를 확인하세요 ");	
