@@ -176,12 +176,12 @@ public class boardDAO extends OracleDB{
 		return dto;
 	}
 	
-	public ArrayList<boardDTO> getMyList(String id){
+	public ArrayList<boardDTO> getMyList(int grade,String id){
 		ArrayList<boardDTO> list = new ArrayList<boardDTO>();
 		try {
 			conn=getConnection();
 			String sql="";
-			if(id.equals("admin")) {
+			if(grade == 99) {
 				sql="select * from board where category=30 and re_step=0 order by reg";
 				pstmt=conn.prepareStatement(sql);
 			}else {

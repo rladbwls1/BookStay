@@ -51,12 +51,13 @@ if (grade!=99){
 	String reg=df.format(dto.getReg());
 	String content=dto.getContent();
 	%><div class="board-item">
-		<a class="title" href="javascript:void(0);" onclick="toggleContent('content_<%=dto.getNum()%>');"><%=title%></a>
+		<div class="board">
+		<a class="title c3" href="javascript:void(0);" onclick="toggleContent('content_<%=dto.getNum()%>');"><%=title%></a>
 		<%if(grade==99){ %>
 		<button class="c1" onclick="window.location='boardUpdateForm.jsp?num=<%=dto.getNum()%>&category=<%=dto.getCategory()%>'">수정</button>
 		<button class="c2" onclick="window.location='boardDelete.jsp?num=<%=dto.getNum()%>&category=<%=dto.getCategory()%>'">삭제</button>
+		</div>
 		<%} %>
-		<br>
 		<%=reg%><br>
 		<div id="content_<%=dto.getNum()%>" style="display: none;"><%=dto.getContent()%></div>
 	</div><%

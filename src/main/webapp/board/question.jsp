@@ -6,11 +6,9 @@
     pageEncoding="UTF-8"%>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-4bw+/aepP/YC94hEpVNVgiZdgIC5+VKNBQNGCHeKRQN+PtmoHDEXuppvnDJzQIu9" crossorigin="anonymous">
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-HwwvtgBNo3bZJJLYd8oVXjrBZt8cqVSpeBNS5n7C8IVInixGAoxmnlMuBnhbgrkm" crossorigin="anonymous"></script>
+<link rel="stylesheet" href="/BookStay/resources/css/question.css"/>
+<%@ include file="../views/main_bar.jsp" %>
 <%request.setCharacterEncoding("UTF-8");
-MemberDAO mdao = MemberDAO.getInstance();
-String id = (String) session.getAttribute("sid");
-int grade= mdao.checkGrade(id);
-
  if(grade==11){
 	 %>
 	 <script>
@@ -20,7 +18,6 @@ int grade= mdao.checkGrade(id);
 	 <%
  }
 %>
-<%@ include file="../views/menu.jsp" %>
 <%String ref=request.getParameter("ref");
 hotelDAO hdao = new hotelDAO();
 boardDAO bdao=boardDAO.getInstance();
@@ -31,22 +28,51 @@ if(hdao.checkNull(ref)){
 	dto=bdao.getContent(Integer.parseInt(ref));
 }
 %>
-<form name="form" action="writePro.jsp" method="post">
+<%if(ref.equals("0")){ %>
+<div id="list">
+<h2>문의글 작성</h2>
+<form id="form1" name="form" action="writePro.jsp" method="post">
 <input type="hidden" name="id">
 <input type="hidden" name="category" value="30">
 <input type="hidden" name="ref" value="<%=ref%>">
-<%if(ref.equals("0")){ %>
-제목<input type="text" id="title "name="title" required><br/>
-내용<br/>
-<textarea rows="6" cols="30" id="content" name="content" required></textarea>
+<table id="tb">
+<tr>
+	<td class="title">제목</td>
+	<td><input type="text" id="title "name="title" required></td>
+</tr>	
+<tr>
+	<td class="title">내용</td>
+	<td><textarea rows="6" cols="30" id="content" name="content" required></textarea></td>
+</tr>
+</table>
+<button id="btn" type="submit">작성</button>
+</form>
+</div>
 <input type="hidden" name="re_step" value="0">
 <%}else{ %>
-제목<input type="text" id="title "name="title" value="[답변]<%=dto.getTitle()%>" readonly><br/>
-내용<br/>
-문의내용 : <textarea rows="6" cols="30" readonly><%=dto.getContent() %></textarea><br>
-답변글<textarea rows="6" cols="30" id="content" name="content" required></textarea><br>
-<input type="hidden" name="re_step" value="1">
-<%} %>
-<button type="submit">작성</button>
+<div id="list">
+<h2>문의글 답변 작성</h2>
+<form id="form2" name="form" action="writePro.jsp" method="post">
+<input type="hidden" name="id">
+<input type="hidden" name="category" value="30">
+<input type="hidden" name="ref" value="<%=ref%>">
+<table id="tb">
+	<tr>
+		<td class="title">제목</td>
+		<td><input type="text" id="title "name="title" value="[답변]<%=dto.getTitle()%>" readonly></td>
+	</tr>
+	<tr>
+		<td class="title">문의내용</td>
+		<td><textarea rows="6" cols="30" readonly><%=dto.getContent() %></textarea></td>
+	</tr>
+	<tr>
+		<td class="title">답변</td>
+		<td><textarea rows="6" cols="30" id="content" name="content" required></textarea></td>
+	</tr>
+<input type="hidden" name="re_step" value="1"/>
+</table>
+<button id="btn" type="submit">작성</button>
 </form>
+</div>
+<%} %>
 

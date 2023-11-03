@@ -5,23 +5,18 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-4bw+/aepP/YC94hEpVNVgiZdgIC5+VKNBQNGCHeKRQN+PtmoHDEXuppvnDJzQIu9" crossorigin="anonymous">
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-HwwvtgBNo3bZJJLYd8oVXjrBZt8cqVSpeBNS5n7C8IVInixGAoxmnlMuBnhbgrkm" crossorigin="anonymous"></script>
 <jsp:useBean id="dto" class="hotel.bean.hotelDTO"/>
+<link rel="stylesheet" href="/BookStay/resources/css/hotelwriteform.css"/>
+<%@ include file="../views/main_bar.jsp" %>
 <%request.setCharacterEncoding("UTF-8");
-MemberDAO mdao = MemberDAO.getInstance();
-String sid = (String) session.getAttribute("sid");
-int id= mdao.checkGrade(sid);
-if (id!=99){
-	
+if (grade!=99){
 	 %>
 	  <script>
 	  	alert("관리자만 접근할수 있습니다.");
 	  	window.location="../views/main.jsp";
 	  </script>
 <%}%>
-<%@ include file="../views/menu.jsp" %>
 <%hotelDAO dao = new hotelDAO();
-
 	if(request.getParameter("ref")==null){
-		
 %>
 <form action="hotelWritePro.jsp" method="post" enctype="multipart/form-data">
 	제목 :  <input type="text" name="title"><br>
@@ -41,7 +36,7 @@ if (id!=99){
 		<input type="file" name="upload2"><br>
 		<input type="file" name="upload3"><br>
 	서비스 :<br>
-	<table>
+	<table id="table1">
 	<tr>
 		<td>레스토랑<input type="checkbox" name="services" value="레스토랑"></td>
 		<td>스파<input type="checkbox" name="services" value="스파"></td>

@@ -150,6 +150,9 @@ body{
     grid-template-columns: 350px 350px 350px;
     margin-bottom: 80px;
 }
+#popBtn{
+	margin-left: 50px;
+}
 .box{	  
 	border: none;
 	display: flex;

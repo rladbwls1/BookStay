@@ -21,11 +21,21 @@ boardDAO dao = boardDAO.getInstance();
 int num=Integer.parseInt(request.getParameter("num"));
 dto=dao.getContent(num);
 %>
-<%@ include file="../views/menu.jsp" %>
-<form action="boardUpdatePro.jsp" method="post">
-	제목 :<input type="text" name="title" value="<%=dto.getTitle()%>"><br />
-	내용 :<textarea rows="7" cols="30" name="content"><%=dto.getContent() %></textarea><br />
+<div id="list">
+<h2>공지사항 수정</h2>
+<form id="form1" action="boardUpdatePro.jsp" method="post">
+	<table id="tb">
+		<tr>
+			<td class="title">제목</td>
+			<td><input type="text" name="title" value="<%=dto.getTitle()%>"></td>
+		</tr>
+		<tr>
+			<td class="title">내용</td>
+			<td><textarea rows="7" cols="30" name="content"><%=dto.getContent() %></textarea></td>
+		</tr>			
 	<input type="hidden" name="category" value="<%=dto.getCategory() %>">
 	<input type="hidden" name="num" value="<%=dto.getNum()%>">
-	<input type="submit" value="수정">
+	<input id="btn" type="submit" value="수정">
+	</table>
 </form>
+</div>

@@ -12,6 +12,7 @@
 	border: none;
 }
 #form1 textarea{
+	padding-top: 5px;
 	width: 100%;
 	height: 200px;
 	border: none;

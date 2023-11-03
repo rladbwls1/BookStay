@@ -68,14 +68,22 @@
 	padding: 15px 10px;
 	margin-top: 10px;
 }
+.c3{
+	flex: 1;
+}
 .c1{
-	margin-left: 30px;
 	color: white;
 	border: none;
 	border-radius: 5px;
+	padding: 5px;
 	background-color: #105652;
+	margin-right: 10px;
+}
+.board{
+	display: flex;
 }
 .c2{
+	padding: 5px;
 	background-color: #FBD148;
 	color: white;
 	border: none;
@@ -90,4 +98,5 @@
 	color: white;
 	border-radius: 5px;
 	height: 40px;
+	margin-bottom: 30px;
 }
