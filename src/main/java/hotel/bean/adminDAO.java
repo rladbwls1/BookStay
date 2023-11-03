@@ -73,19 +73,19 @@ public class adminDAO extends OracleDB{
 				dto.setTomorrowAdult(rs.getInt("adult"));
 				dto.setTommorowkids(rs.getInt("kid"));
 			}
-			sql="select sum(((aprice*adult)+(kprice*kid)))  from (select * from horder r,hotel h where r.ref=h.num)where checkin = to_char(sysdate,'YYYY-MM-DD')"; //9
+			sql="select sum(price*(adult+kid))  from (select * from horder r,hotel h where r.ref=h.num)where checkin = to_char(sysdate,'YYYY-MM-DD')"; //9
 			pstmt=conn.prepareStatement(sql);
 			rs=pstmt.executeQuery();
 			if(rs.next()) {
 				dto.setTodaySales(rs.getInt(1));
 			}
-			sql="select sum(((aprice*adult)+(kprice*kid)))  from (select * from horder r,hotel h where r.ref=h.num)where checkin between (trunc(SYSDATE,'MM')) and to_char(sysdate,'YYYY-MM-DD')"; //10
+			sql="select sum(price*(adult+kid))  from (select * from horder r,hotel h where r.ref=h.num)where checkin between (trunc(SYSDATE,'MM')) and to_char(sysdate,'YYYY-MM-DD')"; //10
 			pstmt=conn.prepareStatement(sql);
 			rs=pstmt.executeQuery();
 			if(rs.next()) {
 				dto.setThisMonthSales(rs.getInt(1));
 			}
-			sql="select sum(((aprice*adult)+(kprice*kid)))  from (select * from horder r,hotel h where r.ref=h.num)where checkin between (add_months(trunc(SYSDATE,'MM'),-1)) and trunc(sysdate,'MM')-1"; //11
+			sql="select sum(price*(adult+kid))  from (select * from horder r,hotel h where r.ref=h.num)where checkin between (add_months(trunc(SYSDATE,'MM'),-1)) and trunc(sysdate,'MM')-1"; //11
 			pstmt=conn.prepareStatement(sql);
 			rs=pstmt.executeQuery();
 			if(rs.next()) {

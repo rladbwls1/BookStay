@@ -208,6 +208,9 @@ String title = request.getParameter("title");
         <%
         }
         %>
+        <div>
+        <button class="btn btn-success" onclick="window.location='/BookStay/review/reviewWriteForm.jsp?ref=<%=ref %>'">글작성</button>
+        </div>
         </div>
       </div>
     </div>
@@ -238,7 +241,7 @@ String title = request.getParameter("title");
 for(hotelDTO dto : list){
 	%>
 	<div id="box1">
-	<form class="form" action="../admin/payment.jsp" method="post">
+	<form class="form" action="../horder/payment.jsp" method="post">
 	<input type="hidden" name="ref" value="<%=ref%>">
 	<div>
 	<img src="/BookStay/upload/<%=dto.getImg()%>">
@@ -250,8 +253,8 @@ for(hotelDTO dto : list){
 	<div class="hca">가격 : <%=dto.getPrice() %>원</div>
 	<%if(grade==99){
 	%>
-	<button type="button" onclick="window.location='hotelUpdateForm.jsp?num=<%=dto.getNum()%>&re_step=<%=dto.getRe_step()%>&ref=<%=ref%>'">수정</button>
-	<button type="button" onclick="window.location='hotelDelete.jsp?num=<%=dto.getNum()%>&re_step=<%=dto.getRe_step()%>&ref=<%=ref%>'">삭제</button>
+	<button class="bt1" type="button" onclick="window.location='hotelUpdateForm.jsp?num=<%=dto.getNum()%>&re_step=<%=dto.getRe_step()%>&ref=<%=ref%>'">수정</button>
+	<button class="bt2" type="button" onclick="window.location='hotelDelete.jsp?num=<%=dto.getNum()%>&re_step=<%=dto.getRe_step()%>&ref=<%=ref%>'">삭제</button>
 	<%	
 	} %>
 	<%if(block.contains(Integer.toString(dto.getNum()))) {%>

@@ -61,7 +61,7 @@ if (grade!=99){
 		<%} %>	
 	</div>
 	<div id="logo">
-		<a href="main.jsp">
+		<a href="../views/main.jsp">
 			BookStay
 		</a>
 	</div>
@@ -69,12 +69,12 @@ if (grade!=99){
 	<hr id="hr"/>
 	<div id="list">
 	<ul id="ul1">
-	  <li><button type="button" onclick="window.location='/BookStay/admin/adminMain.jsp'">요약정보</button></li>
-	  <li><button type="button" id="btn2">예약목록 </button></li>
-	  <li><button type="button" onclick="window.location='/BookStay/board/notice.jsp'">공지사항 </button></li>
-	  <li><button type="button" onclick="window.location='/BookStay/board/QnAList.jsp'">자주하는질문 </button></li>
-	  <li><button type="button" onclick="window.location='/BookStay/admin/myQuestion.jsp'">1:1문의[<%=dto.getNoanswer() %>] </button></li>
-	  <li><button type="button" onclick="window.location='/BookStay/hotel/hotelWriteForm.jsp'">숙박업소 글등록</button></li>
+	  <li><button id="bn1" type="button" onclick="window.location='/BookStay/admin/adminMain.jsp'">요약정보</button></li>
+	  <li><button id="bn2" type="button" onclick="window.location='/BookStay/admin/adminlist.jsp'">예약목록 </button></li>
+	  <li><button id="bn3" type="button" onclick="window.location='/BookStay/board/notice.jsp'">공지사항 </button></li>
+	  <li><button id="bn4" type="button" onclick="window.location='/BookStay/board/QnAList.jsp'">자주하는질문 </button></li>
+	  <li><button id="bn5" type="button" onclick="window.location='/BookStay/board/myQuestion.jsp'">1:1문의[<%=dto.getNoanswer() %>] </button></li>
+	  <li><button id="bn6" type="button" onclick="window.location='/BookStay/hotel/hotelWriteForm.jsp'">숙박업소 글등록</button></li>
 	</ul>
 	<div id="f1">
 	<div id="tbcal">
@@ -131,7 +131,6 @@ if (grade!=99){
     </div>
   </div>
 </div>
-<%@ include file="adminlist.jsp" %>
 </div>
 </div>
 <script type="text/javascript">
@@ -145,6 +144,7 @@ if (grade!=99){
         center: 'title',
         end: 'next'
       },
+      dayMaxEvents: true,
       selectable: true,
       droppable: true,
       editable: false,
@@ -180,31 +180,6 @@ if (grade!=99){
         calendar.changeView('dayGridDay', info.dateStr);
         document.getElementById('btn').style.display = 'block';
       },
-      eventRender: function(info) {
-        var maxEventsToShow = 3;
-        var eventCount = info.event.start;
-        var events = calendar.getEvents();
-
-        if (eventCount) {
-          var sameDateEvents = events.filter(function(event) {
-            return (
-              event.start.getDate() === eventCount.getDate() &&
-              event.start.getMonth() === eventCount.getMonth() &&
-              event.start.getFullYear() === eventCount.getFullYear()
-            );
-          });
-
-          if (sameDateEvents.length > maxEventsToShow) {
-            var visibleEvents = sameDateEvents.slice(0, maxEventsToShow);
-            var remainingEventsCount = sameDateEvents.length - maxEventsToShow;
-            info.el.querySelector('.fc-title').innerHTML = visibleEvents
-              .map(function(event) {
-                return event.title;
-              })
-              .join('<br>') + '<br>... +' + remainingEventsCount;
-          }
-        }
-      },
     });
 
     calendar.render();
@@ -214,4 +189,3 @@ if (grade!=99){
     });
   });
 </script>
-<script src="/BookStay/resources/js/click.js"></script>

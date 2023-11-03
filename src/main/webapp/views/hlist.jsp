@@ -80,14 +80,11 @@
 	String block2 = block1.toString();
 %>
 <body onload="qq();">
-<div id="con_top">
-<div id="content">
 <input type="hidden" id="vel"/>
 <input type="hidden" id="block" value="<%=block2%>"/>
 <input type="hidden" id="rr" value="<%=room1%>"/>
-<div id="all_h">
 <div class="grid">
-<div class="box">
+<div class="box" id="box11">
 <form id="option" method="post">
 	<div id="h_chk">
 		<input type="hidden" name="title1" value="<%= title1%>">
@@ -205,9 +202,6 @@
 		<%}%>
 	</div>
 <%}}%>
-</div>
-</div>
-</div>
 </div>
 </div>
 </div>

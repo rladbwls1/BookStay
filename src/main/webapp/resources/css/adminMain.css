@@ -88,30 +88,41 @@ body{
 }
 
 #ul1 {
+  border-right: 1px solid gainsboro;
   flex: 1;
   display: inline-block;
   list-style-type: none;
   width: 17%;
-  background-color: #F0F0F0;
+  background-color: white;
   padding: 0 !important;
   margin:0 !important;
 }
 
-#ul1 li button {
+#bn3, #bn2, #bn4, #bn5, #bn6 {
   width: 100%;
   display: block;
   color: #000;
   padding: 8px 16px;
   text-decoration: none;
   border: none;
+  background-color: white;
+}
+#bn1{
+	width: 100%;
+	  display: block;
+	  color: white;
+	  padding: 8px 16px;
+	  text-decoration: none;
+	  border: none;
+	  background-color: #555;
 }
 #tbcal{
-	padding: 0 30px 0;
 	display: flex;
 	flex-direction: column;
 }
 #f1{
-	flex: 3.8;
+	flex: 4;
+	padding:0 30px 0;
 }
 #calendar{
 	margin-top: 50px;

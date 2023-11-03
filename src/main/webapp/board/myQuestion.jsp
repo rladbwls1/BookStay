@@ -13,7 +13,7 @@ request.setCharacterEncoding("UTF-8");
 MemberDAO mdao = MemberDAO.getInstance();
 String id = (String) session.getAttribute("sid");
 int grade= mdao.checkGrade(id);
-if (grade!=11){
+if (grade!=99){
 	
 	 %>
 	  <script>
