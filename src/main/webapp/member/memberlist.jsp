@@ -36,6 +36,8 @@
             		status="입금중";
             	}else if(order.getState()==1){
             		status="입금완료";
+            	}else if(order.getState()==2){
+            		status="예약취소";
             	}
 %>
 <% String reg = new SimpleDateFormat("yyyy-MM-dd").format(order.getReg());

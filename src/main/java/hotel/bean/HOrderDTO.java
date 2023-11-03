@@ -13,8 +13,7 @@ public class HOrderDTO {
 	private int state;
 	private Timestamp reg;
 	private String paytype;
-	private int aprice;
-	private int kprice;
+	private int price;
 	private String name;
 	private int paid;
 	private String roomtype;
@@ -34,17 +33,12 @@ public class HOrderDTO {
 		this.ref = ref;
 	}
 	
-	public int getAprice() {
-		return aprice;
+	
+	public int getPrice() {
+		return price;
 	}
-	public void setAprice(int aprice) {
-		this.aprice = aprice;
-	}
-	public int getKprice() {
-		return kprice;
-	}
-	public void setKprice(int kprice) {
-		this.kprice = kprice;
+	public void setPrice(int price) {
+		this.price = price;
 	}
 	public int getRenum() {
 		return renum;

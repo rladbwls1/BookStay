@@ -73,19 +73,19 @@ public class adminDAO extends OracleDB{
 				dto.setTomorrowAdult(rs.getInt("adult"));
 				dto.setTommorowkids(rs.getInt("kid"));
 			}
-			sql="select sum(((aprice*adult)+(kprice*kid)))  from (select * from horder r,hotel h where r.ref=h.num)where checkin = to_char(sysdate,'YYYY-MM-DD')"; //9
+			sql="select sum(price) from (select * from horder r,hotel h where r.ref=h.num)where checkin = to_char(sysdate,'YYYY-MM-DD')"; //9
 			pstmt=conn.prepareStatement(sql);
 			rs=pstmt.executeQuery();
 			if(rs.next()) {
 				dto.setTodaySales(rs.getInt(1));
 			}
-			sql="select sum(((aprice*adult)+(kprice*kid)))  from (select * from horder r,hotel h where r.ref=h.num)where checkin between (trunc(SYSDATE,'MM')) and to_char(sysdate,'YYYY-MM-DD')"; //10
+			sql="select sum(price) from (select * from horder r,hotel h where r.ref=h.num)where checkin between (trunc(SYSDATE,'MM')) and to_char(sysdate,'YYYY-MM-DD')"; //10
 			pstmt=conn.prepareStatement(sql);
 			rs=pstmt.executeQuery();
 			if(rs.next()) {
 				dto.setThisMonthSales(rs.getInt(1));
 			}
-			sql="select sum(((aprice*adult)+(kprice*kid)))  from (select * from horder r,hotel h where r.ref=h.num)where checkin between (add_months(trunc(SYSDATE,'MM'),-1)) and trunc(sysdate,'MM')-1"; //11
+			sql="select sum(price) from (select * from horder r,hotel h where r.ref=h.num)where checkin between (add_months(trunc(SYSDATE,'MM'),-1)) and trunc(sysdate,'MM')-1"; //11
 			pstmt=conn.prepareStatement(sql);
 			rs=pstmt.executeQuery();
 			if(rs.next()) {
@@ -101,6 +101,7 @@ public class adminDAO extends OracleDB{
 		
 	}
 	public void paidUpdate(int renum,int paid) {
+		System.out.println("paidUpdate start");
 		try {
 			conn=getConnection();
 			String sql = "update horder set paid=paid+? where renum=?";
@@ -115,10 +116,16 @@ public class adminDAO extends OracleDB{
 			
 		}
 	}
-	public void reserveStatusUpdate(int renum) {
+	public void reserveStatusUpdate(int renum,int totalPay, int paid) {
+		System.out.println("reserveStatusUpdate start");
 		try {
+			String sql="";
 			conn=getConnection();
-			String sql="update horder set state=1 where renum=?";
+			if(totalPay<=paid) {
+			sql="update horder set state=1,paidreg=sysdate where renum=?";
+			}else {
+			sql="update horder set state=0,paidreg=sysdate where renum=?";	
+			}
 			pstmt=conn.prepareStatement(sql);
 			pstmt.setInt(1, renum);
 			pstmt.executeUpdate();
@@ -128,7 +135,7 @@ public class adminDAO extends OracleDB{
 			close(rs, pstmt, conn);
 		}
 	}
-	public void reserveStatusUpdate(int renum,String etc) {
+	public void reserveCancelStatus(int renum,String etc) {
 		try {
 			conn=getConnection();
 			String sql="update horder set state=2,etc=? where renum=?";
@@ -141,6 +148,24 @@ public class adminDAO extends OracleDB{
 		} finally {
 			close(rs, pstmt, conn);
 		}
+	}
+	public int getPaid(int renum) {
+		System.out.println("getPaid start");
+		int paid=0;
+		try {
+			conn=getConnection();
+			String sql="select paid from horder where renum=?";
+			pstmt=conn.prepareStatement(sql);
+			pstmt.setInt(1, renum);
+			rs=pstmt.executeQuery();
+			if(rs.next()) {
+				paid=rs.getInt(1);
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			close(rs, pstmt, conn);
+		} return paid;
 	}
 	
 	

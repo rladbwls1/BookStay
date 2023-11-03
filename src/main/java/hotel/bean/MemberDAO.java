@@ -340,7 +340,7 @@ public class MemberDAO extends  OracleDB {
 					dto.setImg(rs.getString("img"));
 					dto.setTitle(rs.getString("title"));
 					dto.setRef(rs.getInt("ref"));
-					dto.setAprice(rs.getInt("aprice"));
+					dto.setPrice(rs.getInt("price"));
 					dto.setAddress(rs.getString("address"));
 					list.add(dto);
 				}
@@ -508,8 +508,7 @@ public class MemberDAO extends  OracleDB {
 	                hotel.setContactfax(rs.getString("contactfax"));
 	                hotel.setContact(rs.getString("contact"));
 	                hotel.setService(rs.getString("service"));
-	                hotel.setAprice(rs.getInt("aprice"));
-	                hotel.setKprice(rs.getInt("kprice"));
+	                hotel.setPrice(rs.getInt("price"));
 	                hotel.setAddress(rs.getString("address"));
 	                hotel.setImg(rs.getString("img"));
 	                hotel.setRef(rs.getInt("ref"));

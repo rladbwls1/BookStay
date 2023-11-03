@@ -34,7 +34,7 @@ SimpleDateFormat sf = new SimpleDateFormat("yyyy-MM-dd");
 %>
 <!DOCTYPE html>
 <html>
-<head>R
+<head>
     <title>관리자 예약 확인</title>
 </head>
 <body>
@@ -75,10 +75,9 @@ SimpleDateFormat sf = new SimpleDateFormat("yyyy-MM-dd");
             	}else if(reservation.getState()==2){
             		status="예약취소";
             	}
-            	int adult=	reservation.getAdult()*reservation.getAprice();
-            	int kid =reservation.getKid()*reservation.getKprice();
-            	int totalPay = adult+kid;
+            	int totalPay = reservation.getPrice();
             	int money = totalPay-reservation.getPaid();
+            	int renum = reservation.getRenum();
         %>
         <tr>
             <td><%= reservation.getRenum() %></td>
@@ -92,9 +91,9 @@ SimpleDateFormat sf = new SimpleDateFormat("yyyy-MM-dd");
             <td><%= money%>원</td>
             <td><%= status %></td>
             <td>
-            <%if(money!=0) {%>
-            <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#staticBackdrop">입금액 입력</button></td><!-- 입금액입력  -->
-            <div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+            <%if(money>=0 && status.equals("입금중")) {%>
+            <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#staticBackdrop<%=reservation.getRenum()%>">입금액 입력</button></td><!-- 입금액입력  -->
+            <div class="modal fade" id="staticBackdrop<%=reservation.getRenum()%>" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
 				  <div class="modal-dialog">
 				    <div class="modal-content">
 				      <div class="modal-header">
@@ -104,7 +103,9 @@ SimpleDateFormat sf = new SimpleDateFormat("yyyy-MM-dd");
 				      <form action="adminStatusUpdate.jsp" method="post">
 				      <div class="modal-body">
 				    		입금액 : <input type="number" name="paid"><br>
-				    		<input type="hidden" name="renum" value="<%=reservation.getRenum()%>">
+				    		<input type="hidden" name="renum" value="<%=renum%>">
+				    		<input type="hidden" name="confirm" value="true">
+				    		<input type="hidden" name="totalPay" value="<%=totalPay%>">
 				      </div>
 				      <div class="modal-footer">
 				        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">닫기</button>
@@ -114,13 +115,16 @@ SimpleDateFormat sf = new SimpleDateFormat("yyyy-MM-dd");
 				    </div>
 				  </div>
 				</div>
+				<%}else if(status.equals("예약취소")){%>
+				<button type="button" class="btn btn-primary" disabled >없음</button>	
+					
 				<%}else{%>
 				<button type="button" class="btn btn-primary" onclick="window.location='adminStatusUpdate.jsp?confirm=true&renum=<%=reservation.getRenum()%>'">예약확정</button>
 				<%} %>
 				
 				
-            <td><button type="button" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#staticBackdrop">예약취소</button></td><!-- 입금액입력  -->
-            <div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+            <td><button type="button" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#staticBackdropcancel<%=reservation.getRenum()%>">예약취소</button></td><!-- 입금액입력  -->
+            <div class="modal fade" id="staticBackdropcancel<%=reservation.getRenum()%>" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
 				  <div class="modal-dialog">
 				    <div class="modal-content">
 				      <div class="modal-header">
@@ -129,7 +133,7 @@ SimpleDateFormat sf = new SimpleDateFormat("yyyy-MM-dd");
 				      </div>
 				      <form action="adminStatusUpdate.jsp" method="post">
 				      <div class="modal-body">
-				    		입금액 : <textarea rows="5" cols="15" name="etc"></textarea><br>
+				    		취소사유 : <textarea rows="5" cols="35" name="etc"></textarea><br>
 				    		<input type="hidden" name="renum" value="<%=reservation.getRenum()%>">
 				    		<input type="hidden" name="cancel" value="true">
 				      </div>
