@@ -17,6 +17,7 @@
 <!DOCTYPE html>
 <html>
 <head>
+
 <meta charset="UTF-8">
 <title>Hotel_Main</title>
 <link rel="stylesheet" href="/BookStay/resources/css/main.css"/>
@@ -95,6 +96,7 @@ int grade= mdao.checkGrade(id);
 		BookStay
 	</a>
 </div>
+
 <div id="login">
 <%if(grade==11) { // 세션이 없다면 수행
     String cid = null, cpw = null, cauto = null;
@@ -106,9 +108,10 @@ int grade= mdao.checkGrade(id);
 		            if (c.getName().equals("cpw")) { cpw = c.getValue(); }
 		            if (c.getName().equals("cauto")) { cauto = c.getValue(); }
    				}  
- 		   				}
-    	response.sendRedirect("/BookStay/member/loginPro.jsp");	
-    
+ 		   	}
+    	if (cid != null && cpw != null && cauto != null) {
+    		response.sendRedirect("/BookStay/member/loginPro.jsp");	
+    	}
     if (cid == null || cpw == null || cauto == null) { %>
 		<div><a href="/BookStay/member/loginform.jsp">로그인</a></div>
 		<div><a href="/BookStay/member/memberForm.jsp">회원가입</a></div>
