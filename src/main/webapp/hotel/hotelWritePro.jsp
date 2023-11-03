@@ -1,4 +1,4 @@
-<%@page import="hotel.bean.MemberDAO"%>
+poiiun 65<%@page import="hotel.bean.MemberDAO"%>
 <%@page import="hotel.bean.hotelDAO"%>
 <%@page import="hotel.bean.hotelDTO"%>
 <%@page import="com.oreilly.servlet.multipart.DefaultFileRenamePolicy"%>
@@ -12,7 +12,6 @@ MemberDAO mdao = MemberDAO.getInstance();
 String sid = (String) session.getAttribute("sid");
 int id= mdao.checkGrade(sid);
 if (id!=99){
-	
 	 %>
 	  <script>
 	  	alert("관리자만 접근할수 있습니다.");

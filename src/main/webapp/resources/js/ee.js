@@ -155,7 +155,6 @@ function upRoomCount() {
   console.log("ddd" + url);
   
   if(url == ""){
-	  ad();
     form.action = 'hlist.jsp?title=' + titleValue + '&checkin=' + startValue + '&checkout=' + endValue
       + '&adult=' + adultValue + '&kids=' + kidsValue1 + '&room=' + rorValue + '&select=1&check=1,2,3,4' + url;
   }else{

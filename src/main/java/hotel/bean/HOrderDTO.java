@@ -13,9 +13,11 @@ public class HOrderDTO {
 	private int state;
 	private Timestamp reg;
 	private String paytype;
-	private int adultcount;
-	private int kidcount;
+	private int price;
 	private String name;
+	private int paid;
+	private String roomtype;
+	private String etc;
 	
 	
 	public String getName() {
@@ -30,29 +32,13 @@ public class HOrderDTO {
 	public void setRef(int ref) {
 		this.ref = ref;
 	}
-	public int getAdultcount() {
-		return adultcount;
+	
+	
+	public int getPrice() {
+		return price;
 	}
-	public void setAdultcount(int adultcount) {
-		this.adultcount = adultcount;
-	}
-	public int getKidcount() {
-		return kidcount;
-	}
-	public void setKidcount(int kidcount) {
-		this.kidcount = kidcount;
-	}
-	public int getAdultCount() {
-		return adultcount;
-	}
-	public void setAdultCount(int adultCount) {
-		this.adultcount = adultcount;
-	}
-	public int getKidCount() {
-		return kidcount;
-	}
-	public void setKidCount(int kidCount) {
-		this.kidcount = kidcount;
+	public void setPrice(int price) {
+		this.price = price;
 	}
 	public int getRenum() {
 		return renum;
@@ -108,7 +94,25 @@ public class HOrderDTO {
 	public void setPaytype(String paytype) {
 		this.paytype = paytype;
 	}
-
+	public int getPaid() {
+		return paid;
+	}
+	public void setPaid(int paid) {
+		this.paid = paid;
+	}
+	public String getRoomtype() {
+		return roomtype;
+	}
+	public void setRoomtype(String roomtype) {
+		this.roomtype = roomtype;
+	}
+	public String getEtc() {
+		return etc;
+	}
+	public void setEtc(String etc) {
+		this.etc = etc;
+	}
+	
 
 
 }

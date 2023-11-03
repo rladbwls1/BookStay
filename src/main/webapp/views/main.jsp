@@ -177,14 +177,15 @@ int grade= mdao.checkGrade(id);
 	<div class="grid">
 	 <%
 	 for(hotelDTO dto : list){
+		 String[] img = dto.getImg().split(",");
 	 %> 
 	 <a id="hoth" href="/BookStay/hotel/hotelContent.jsp?title=<%=dto.getTitle()%>&ref=<%=dto.getRef()%>&block=<%=block2%>
 	&checkin=<%=start%>&checkout=<%=end%>&adult=2&kids=0&room=1&select=1&check=1,2,3,4">
 	 <div class="box">
-		<img src="/BookStay/upload/<%= dto.getImg() %>"/>
+		<img src="/BookStay/upload/<%=img[0]%>" width="300" height="100"/>
 		<div class="h_box">
 		<%= dto.getTitle() %>
-		<%= dto.getKprice() %>
+		<%= dto.getPrice() %>
 		</div>	
 	</div>
 	</a>
