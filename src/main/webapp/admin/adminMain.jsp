@@ -31,7 +31,7 @@ if (grade!=99){
 <button type="button" onclick="window.location='/BookStay/board/QnAList.jsp'">자주하는질문 </button>
 <button type="button" onclick="window.location='/BookStay/admin/myQuestion.jsp'">1:1문의[<%=dto.getNoanswer() %>] </button>
 <button type="button" onclick="window.location='/BookStay/admin/adminHotelListPro.jsp?check=1'">숙박업소 게시글 정보 </button><hr />
-
+<button type="button" onclick="window.location='/BookStay/admin/adminGradeList.jsp'">등급 관리/조회</button>
 <table>
 	<tr>
 		<td>진행중예약</td><td><%=dto.getOngoingReserve() %>건</td>
