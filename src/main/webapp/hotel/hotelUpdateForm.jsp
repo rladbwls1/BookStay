@@ -5,10 +5,9 @@
     pageEncoding="UTF-8"%>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-4bw+/aepP/YC94hEpVNVgiZdgIC5+VKNBQNGCHeKRQN+PtmoHDEXuppvnDJzQIu9" crossorigin="anonymous">
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-HwwvtgBNo3bZJJLYd8oVXjrBZt8cqVSpeBNS5n7C8IVInixGAoxmnlMuBnhbgrkm" crossorigin="anonymous"></script>
+<%@ include file="../views/main_bar.jsp" %>
+<link rel="stylesheet" href="/BookStay/resources/css/hotelupdateform.css"/>
 <% request.setCharacterEncoding("UTF-8");
-MemberDAO mdao = MemberDAO.getInstance();
-String id = (String) session.getAttribute("sid");
-int grade= mdao.checkGrade(id);
 if (grade!=99){
 	
 	 %>
@@ -32,7 +31,7 @@ if (grade!=99){
   int price=dto.getPrice();
   String img=dto.getImg();
   %>
-<%@ include file="../views/menu.jsp" %>
+  <div id="list">
  <%if(re_step==0){
 	 %>
 	 <form action="hotelUpdatePro.jsp" method="post" enctype="multipart/form-data">
@@ -52,31 +51,51 @@ if (grade!=99){
 			<button type="submit">수정</button>
  	</form>
  <%}else{%>
-	 <form action="hotelUpdatePro.jsp" method="post" enctype="multipart/form-data">
-		제목 :  <input type="text" name="title" value="<%=title%>"><br>
-		내용 :<textarea rows="10" cols="20" name="content"><%=content %></textarea><br>
-		방종류 : 
-				<select name="roomtype">
+ 	<h2>호텔방 수정</h2>
+	 <form id="form1" action="hotelUpdatePro.jsp" method="post" enctype="multipart/form-data">
+	 <table id="tb">
+	 	<tr>
+	 		<td class="title">제목</td>
+	 		<td><input type="text" name="title" value="<%=title%>"></td>
+	 	</tr>
+	 	<tr>
+	 		<td class="title">내용</td>
+	 		<td><textarea rows="10" cols="20" name="content"><%=content %></textarea></td>
+	 	</tr>
+	 	<tr>
+	 		<td class="title">방종류</td>
+	 		<td>
+				<select id="sel" name="roomtype">
 				<%if(roomtype.equals("스탠다드")) {%>
 					<option value="스탠다드" selected>스탠다드</option>
 					<option value="디럭스">디럭스</option>
-					<option value="스위트">스위트</option>
+					<option value="스위트룸">스위트룸</option>
 				<%}else if(roomtype.equals("디럭스")){%>
 					<option value="스탠다드">스탠다드</option>
 					<option value="디럭스" selected>디럭스</option>
-					<option value="스위트">스위트</option>
-				<%}else if(roomtype.equals("스위트")){%>
+					<option value="스위트룸">스위트룸</option>
+				<%}else if(roomtype.equals("스위트룸")){%>
 					<option value="스탠다드">스탠다드</option>
 					<option value="디럭스">디럭스</option>
-					<option value="스위트" selected>스위트</option>
+					<option value="스위트룸" selected>스위트룸</option>
 				<%} %>	
-				</select><br>
-		가격 : <input type="number" name="aprice" value="<%=price%>">
-		사진 : <input type="file" name="upload"><br>
+				</select>
+			</td>
+	 	</tr>
+	 	<tr>
+	 		<td class="title">가격</td>
+	 		<td><input type="number" name="aprice" value="<%=price%>"></td>
+	 	</tr>
+	 	<tr>
+	 		<td class="title">사진</td>
+	 		<td><input type="file" name="upload"></td>
+	 	</tr>
 		<input type="hidden" name="num" value="<%=num%>">
 		<input type="hidden" name="ref" value="<%=ref%>">
 		<input type="hidden" name="re_step" value="<%=re_step%>">
-		<button type="submit">수정</button>
+		</table>
+		<button id="btn" type="submit">수정</button>
 	</form>
  <%}%>
+ </div>
 

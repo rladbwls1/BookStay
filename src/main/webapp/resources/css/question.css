@@ -15,18 +15,22 @@
 	width: 100%;
 	height: 50px;
 	border: none;
+	padding-left: 10px;
 }
 #form1 textarea{
+	padding-left: 10px;
 	width: 100%;
 	height: 300px;
 	border: none;
 }
 #form2 input[type="text"]{
+	padding-left: 10px;
 	width: 100%;
 	height: 50px;
 	border: none;
 }
 #form2 textarea{
+	padding-left: 10px;
 	width: 100%;
 	height: 200px;
 	border: none;

@@ -8,7 +8,7 @@
 /* 사이드메뉴 css */
 #list{
 	display: flex;
-	height: -webkit-fill-available;
+	min-height: calc(100vh - 150px);
 }
 #ul1 {
   flex: 1;

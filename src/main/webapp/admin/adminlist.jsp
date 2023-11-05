@@ -13,6 +13,15 @@
 <link rel="stylesheet" href="/BookStay/resources/css/adminlist.css"/>
 <%@ include file="../views/main_bar.jsp" %>
 <%
+	HOrderDAO dao2 = new HOrderDAO();
+	int pageSize = 10; 
+	String pageNum = request.getParameter("pageNum");
+	if(pageNum == null){
+		pageNum="1";
+	}
+	int currentPage = Integer.parseInt(pageNum);
+	int start = (currentPage - 1) * pageSize + 1; 
+	int end = currentPage * pageSize; 
 	SimpleDateFormat sf = new SimpleDateFormat("yyyy-MM-dd");
 	if (grade!=99){
 		 %>
@@ -60,7 +69,7 @@
 
         <%
             // Java 코드를 사용하여 예약 내역을 가져와서 표시
-            List<HOrderDTO> reservationList = new HOrderDAO().getOrdersAdmin();
+            List<HOrderDTO> reservationList = dao2.getOrdersAdmin(start, end);
             MemberDAO memberDAO = MemberDAO.getInstance(); // MemberDAO 인스턴스 생성
 
             for (HOrderDTO reservation : reservationList) {
@@ -79,13 +88,37 @@
             <td><%= reg %></td>
             <td><%= reservation.getKidcount() %></td>
             <td><%= reservation.getState() %></td>
-            <td><button type="button" class="btn btn-primary">입금금액</button></td>
+            <td><button type="button" class="btn btn-secondary">입금금액</button></td>
             <td><button type="button" class="btn btn-danger">취소금액</button></td>
         </tr>
         <%
             }
         %>
     </table>
+<%
+int count = dao2.count();
+	if(count > 0){
+		int pageCount = count / pageSize + (count % pageSize == 0 ? 0 : 1);
+		int startPage = (int)(currentPage/10)*10+1;
+		int pageBlock = 10;
+		int endPage = startPage + pageBlock - 1;
+		if(endPage > pageCount){
+			endPage = pageCount;
+		}
+		%>
+		<div id="page">
+		<%
+		if(startPage > 10){
+		%>	<a href="adminlist.jsp?pageNum=<%=startPage-10 %>"><button class="button">이전</button></a>	
+		<%}
+		for(int i = startPage; i <= endPage; i++){
+		%> <a href="adminlist.jsp?pageNum=<%=i %>"><button class="button"><%=i %></button></a>	
+		<%}
+		if(endPage < pageCount){
+		%>	<a href="adminlist.jsp?pageNum=<%=startPage+10 %>"><button class="button">다음</button></a>	
+		<%}
+	}
+%>
     </div>
 </div>
 </div>

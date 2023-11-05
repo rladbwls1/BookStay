@@ -22,7 +22,6 @@ int result=0;
 int category=dto.getCategory();
 dao.boardUpdate(dto);
 if(category==10){%>
-	%>
 	<script>
 		alert("수정 되었습니다.");
 		window.location="notice.jsp";

@@ -85,6 +85,7 @@ body{
 
 #list{
 	display: flex;
+	min-height: calc(100vh - 150px);
 }
 
 #ul1 {

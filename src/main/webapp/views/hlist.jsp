@@ -3,6 +3,8 @@
 <%@ page import="hotel.bean.hotelDTO" %>
 <%@ page import="hotel.bean.hotelDAO" %>
 <%@ page import="java.sql.*" %>
+<%@ page import = "hotel.bean.reviewDTO" %>
+<%@ page import = "hotel.bean.reviewDAO" %>
 <%@ page import="java.util.ArrayList" %>
 <%@ include file="list_menu.jsp" %>
 <%
@@ -78,11 +80,13 @@
 	    }
 	}
 	String block2 = block1.toString();
+	reviewDAO re = new reviewDAO();
 %>
 <body onload="qq();">
 <input type="hidden" id="vel"/>
 <input type="hidden" id="block" value="<%=block2%>"/>
 <input type="hidden" id="rr" value="<%=room1%>"/>
+<div id="bb">
 <div class="grid">
 <div class="box" id="box11">
 <form id="option" method="post">
@@ -103,8 +107,12 @@
 			<li><input type="checkbox" class="chk" name="chk" value="4" />기타숙소</li>
 		</ul>
 	</div>
-	
-	<div id="h_sel">
+</form>
+</div>
+<div class="box" id="box2">
+<div id="cnt"><%=cnt%>개 중 예약 가능 <b><%=count%></b> 개</div>
+<hr>
+<div id="h_sel">
 	<input type="hidden" name="title1" value="<%= title1%>">
 	<input type="hidden" name="checkin1" value="<%= checkin1%>">
 	<input type="hidden" name="checkout1" value="<%= checkout1%>">
@@ -121,14 +129,11 @@
 			<option value="5">평점순</option>
 		</select>
 	</div>
-</form>
-</div>
-<div class="box" id="box2">
-<div id="cnt"><%=cnt%>개 중 예약 가능 <b><%=count%></b> 개</div>
-<hr>
 <div id="sel1" class="sel"> 
 <%
 	for(hotelDTO dto : list){
+		String imgname = dto.getImg();
+		String [] img = imgname.split(",");
 		Integer check = dao.checkRoom(block2, dto.getNum());
 		ArrayList<hotelDTO> li2 = dao.getContent(dto.getRef());
 		boolean zt = dao.getTest(li2, test, room1);
@@ -144,11 +149,20 @@
 	&select=<%=sel1%>&check=<%=check1%><%=val%>">
 		<div class="list_s">
 		<div>
-    	<img src="/BookStay/upload/<%= dto.getImg() %>"/>
+    	<img src="/BookStay/upload/<%= img[0] %>" style="height: 148px;"/>
     	</div>
     	<div class="mar">
     	<div class="title"><%= dto.getTitle() %></div>
     	<div class="addr"><%= dto.getAddress() %></div>
+    	<% double jumsu = re.getAvgJumsu(dto.getRef());
+		String jum = String.valueOf(jumsu);
+		if (jum.equals("0.0")) {
+		    jum = "0";
+		}
+		%>
+    	<div id="gnBtn">
+		  <%= jum%> /5 후기(<%= re.getcount(dto.getRef())%>)
+		</div>
     	<div class="qnrktp">세금 및 부가세 불포함</div>
     	<div class="apr"><%= dto.getPrice() %>원</div>
     	</div>
@@ -156,18 +170,20 @@
 		</div>
 	</a>
 		<%
-    	if(id.equals("admin")){
+    	if(grade == 99){
     	%>	
-    		<div class="xx"><button type="button" onclick="window.location.href='hotelDelete.jsp'" class="btn btn-danger">삭제</button></div>
+    		<div class="xx"><button type="button" onclick="window.location.href='/BookStay/hotel/hotelDelete.jsp?num=<%=dto.getNum()%>&re_step=<%=dto.getRe_step()%>&ref=<%=dto.getRef() %>'" class="btn btn-danger">삭제</button></div>
     	<%	
     	}
     	%>
     	<hr>
 	<%}else{ %>
 		<%
-    	if(id.equals("admin")){
+    	if(grade == 99){
     	%>	
-    	<a href="/BookStay/hotel/hotelContent.jsp?title=<%=dto.getTitle()%>&ref=<%=dto.getRef()%>&block=<%=block2%>">
+    	<a href="/BookStay/hotel/hotelContent.jsp?title=<%=dto.getTitle()%>&ref=<%=dto.getRef()%>&block=<%=block2%>
+	&checkin=<%=checkin1%>&checkout=<%=checkout1%>&adult=<%=adult1%>&kids=<%=kid1%>&room=<%=room1%>
+	&select=<%=sel1%>&check=<%=check1%><%=val%>">
     		<div class="list_s">
     		<div>
 	    	<img src="/BookStay/upload/<%= dto.getImg() %>"/>
@@ -175,13 +191,22 @@
     		<div class="mar">
     		<div class="title"><%= dto.getTitle() %></div>
     		<div class="addr"><%= dto.getAddress() %></div>
+    		<% double jumsu = re.getAvgJumsu(dto.getRef());
+			String jum = String.valueOf(jumsu);
+			if (jum.equals("0.0")) {
+			    jum = "0";
+			}
+			%>
+	    	<div id="gnBtn">
+			  <%= jum%> /5 후기(<%= re.getcount(dto.getRef())%>)
+			</div>
     		<div class="qnrktp">세금 및 부가세 불포함</div>
     		<div class="apr"><%= dto.getPrice() %>원</div>
 	    	</div>
 	    	<div class="rBtn"><button type="button" class="btn btn-warning">예약 불가</button></div>
 			</div>
 			</a>
-    		<button type="button" onclick="window.location.href='hotelDelete.jsp'" class="btn btn-danger">삭제</button>
+    		<div class="xx"><button type="button" onclick="window.location.href='/BookStay/hotel/hotelDelete.jsp?num=<%=dto.getNum()%>&re_step=<%=dto.getRe_step()%>&ref=<%=dto.getRef() %>'" class="btn btn-danger">삭제</button></div>
     		<hr>
     	<%	
     	}else{
@@ -193,6 +218,15 @@
     	<div class="mar">
     	<div class="title"><%= dto.getTitle() %></div>
     	<div class="addr"><%= dto.getAddress() %></div>
+    	<% double jumsu = re.getAvgJumsu(dto.getRef());
+		String jum = String.valueOf(jumsu);
+		if (jum.equals("0.0")) {
+		    jum = "0";
+		}
+		%>
+    	<div id="gnBtn">
+		  <%= jum%> /5 후기(<%= re.getcount(dto.getRef())%>)
+		</div>
     	<div class="qnrktp">세금 및 부가세 불포함</div>
     	<div class="apr"><%= dto.getPrice() %>원</div>
 		</div>
@@ -202,6 +236,7 @@
 		<%}%>
 	</div>
 <%}}%>
+</div>
 </div>
 </div>
 </div>

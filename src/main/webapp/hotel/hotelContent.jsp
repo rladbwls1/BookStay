@@ -181,8 +181,15 @@ String title = request.getParameter("title");
 </button>
 </div>
 <%} %>
+<% double jumsu = re.getAvgJumsu(ref);
+String jum = String.valueOf(jumsu);
+if (jum.equals("0.0")) {
+    jum = "0";
+}
+%>
+
 <button id="gnBtn" type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#staticBackdrop">
-  <%= re.getAvgJumsu(ref)%> /5 후기(<%= re.getcount(ref)%>)
+  <%= jum%> /5 후기(<%= re.getcount(ref)%>)
 </button>
 
 <!-- Modal -->
@@ -239,12 +246,18 @@ String title = request.getParameter("title");
 <hr id="hr"/>
 <% 
 for(hotelDTO dto : list){
-	%>
+	String imgname = dto.getImg();
+	String [] img = new String[1];
+	if(imgname == null){
+		img[0] = "no.gif";
+	}else{
+		img = imgname.split(",");
+	}%>
 	<div id="box1">
 	<form class="form" action="../horder/payment.jsp" method="post">
 	<input type="hidden" name="ref" value="<%=ref%>">
-	<div>
-	<img src="/BookStay/upload/<%=dto.getImg()%>">
+	<div id="b3">
+	<img src="/BookStay/upload/<%=img[0]%>">
 	</div>
 	<div id="box3">
 	<div class="title2"><%=dto.getRoomtype()%></div>

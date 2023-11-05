@@ -9,3 +9,170 @@
 	border: 1px solid black;
 	
 }
+
+/* 사이드메뉴 css */
+#list{
+	display: flex;
+	min-height: calc(100vh - 150px);;
+}
+#ul1 {
+  flex: 1;
+  display: inline-block;
+  list-style-type: none;
+  width: 17%;
+  background-color: white;
+  padding: 0 !important;
+  margin:0 !important;
+  border-right: 1px solid gainsboro;
+}
+#bn1, #bn2, #bn4, #bn5, #bn3 {
+  width: 100%;
+  display: block;
+  color: #000;
+  padding: 8px 16px;
+  text-decoration: none;
+  border: none;
+  background-color: white;
+}
+#f1{
+	flex: 4;
+	padding:0 30px 0;
+}
+#ul1 li button:hover {
+  background-color: #555;
+  color: white;
+}
+/* 사이드메뉴 css */
+
+.nav{
+	margin-top: 20px;
+}
+#bn6{
+	  width: 100%;
+	  display: block;
+	  color: white;
+	  padding: 8px 16px;
+	  text-decoration: none;
+	  border: none;
+	  background-color: #555;
+}
+#form1 textarea{
+	padding-top: 5px;
+	width: 100%;
+	height: 200px;
+	border: none;
+	padding-left: 10px;
+}
+#form1 input[type="text"]{
+	width: 100%;
+	height: 50px;
+	border: none;
+	padding-left: 10px;
+}
+#tb{
+	width: 100%;
+}
+#tb td{
+	border: 1px solid gainsboro !important;
+	border-width: 1px 0;
+}
+#sel, .file{
+	margin-left: 15px;
+}
+#sel{
+	width: 150px;
+}
+#c3{
+	float: right;
+	margin-top: 20px;
+	width: 100px;
+	border: none;
+	background-color: #1B1A17;
+	color: white;
+	border-radius: 5px;
+	height: 40px;
+	margin-bottom: 30px;
+}
+#service{
+	padding-left: 15px;
+	display: flex;
+    flex-wrap: wrap;
+}
+.ser{
+	width: 25%; 
+    height: 20px;
+    margin: 5px 0;
+}
+.t{
+	text-align: center;
+	width: 15%;
+}
+.t1{
+	height: 50px;
+}
+.t2{
+	padding: 8px 0;
+}
+
+
+
+#list2{
+	width: 65%;
+	margin: 0 auto;
+	margin-top: 100px;
+	position: relative;
+}
+#form2 input[type="text"]{
+	width: 100%;
+	height: 50px;
+	border: none;
+	padding-left: 20px;
+}
+#form2 textarea{
+	padding-left: 20px;
+	padding-top: 5px;
+	width: 100%;
+	height: 200px;
+	border: none;
+}
+#list2 h2{
+	border-bottom: 2px solid black;
+	padding-bottom: 20px;
+	margin-bottom: 30px;
+}
+#tb2{
+	width: 100%;
+}
+#tb2 td{
+	border: 1px solid gainsboro !important;
+	border-width: 1px 0;
+}
+.title2{
+	padding: 20px;
+	text-align: center;
+}
+#sel2{
+	width: 140px;
+	height: 35px;
+	margin-left: 20px;
+}
+#btn2{
+	position: absolute;
+	width: 120px;
+	height: 40px;
+	background-color: #0C356A;
+	color: white;
+	border: none;
+	border-radius: 10px;
+	right: 0;
+	bottom: -100px;
+	margin-bottom: 50px;
+}
+#form2 input[type="number"]{
+	margin-left: 20px;
+	height: 35px;
+	border: none;
+}
+#form2 input[type="file"]{
+	margin-left: 20px;	
+}

@@ -57,34 +57,34 @@ adminDTO dto1 = dao1.getPreView();
 	%>
 	
 	<div class="board-item">
-		<a href="javascript:void(0);" onclick="toggleContent('content_<%=dto.getNum()%>');"><%=title%></a>
-		<%if(grade!=11&&id.equals(dto.getId())){ %>
-		<button type="button" onclick="window.location='boardDelete.jsp?category=<%=dto.getCategory()%>&num=<%=dto.getNum()%>'">삭제</button>
-		<%} %>
+		<div class="board">
+		<a class="title c3" href="javascript:void(0);" onclick="toggleContent('content_<%=dto.getNum()%>');"><%=title%></a>
 		<%if(grade==99){ %>
-		<button type="button" onclick="window.location='question.jsp?ref=<%=dto.getRef()%>'">답변작성</button>
+		<button class="c2" type="button" onclick="window.location='question.jsp?ref=<%=dto.getRef()%>'">답변작성</button>
 		<%} %>
-		<br>
+		<%if(grade!=11&&id.equals(dto.getId())){ %>
+		<button class="c1" type="button" onclick="window.location='boardDelete.jsp?category=<%=dto.getCategory()%>&num=<%=dto.getNum()%>'">삭제</button>
+		<%} %>
+		</div>
 		<%=reg%><br>
 		<div id="content_<%=dto.getNum()%>" style="display: none;">
-		<%=dto.getContent()%><hr>
-		답변 <br>
-		<%=answer.getContent()%><hr>
+		<div class="t2">문의 내용</div>
+		<div class="t3"><%=dto.getContent()%></div><br/>
+		<div class="t2">답변</div> 
+		<div class="t3"><%=answer.getContent()%></div>
 		</div>
-		
 	</div>
-
-	<hr />
 	<%} %>
 	<%
 } %>
-<button type="button" onclick="window.location='question.jsp'">문의글작성</button>
+<button type="button" id="c3" onclick="window.location='question.jsp'">문의글작성</button>
 </div>
 </div>
 </div>
 <script>
 function toggleContent(contentId) {
     var contentDiv = document.getElementById(contentId);
+    contentDiv.classList.add('con');
     if (contentDiv.style.display === "none") {
         contentDiv.style.display = "block";
     } else {

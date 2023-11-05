@@ -3,6 +3,7 @@
 <%@ page import="hotel.bean.hotelDTO" %>
 <%@ page import="hotel.bean.hotelDAO" %>
 <%@ page import="java.util.ArrayList" %>
+<%@ page import="java.util.Date" %>
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
 <%@ page import="hotel.bean.MemberDTO" %>
 <%@ page import="hotel.bean.MemberDAO" %>
@@ -144,6 +145,7 @@ if (grade!=99){
         center: 'title',
         end: 'next'
       },
+      displayEventTime: false,
       dayMaxEvents: true,
       selectable: true,
       droppable: true,
@@ -156,20 +158,19 @@ if (grade!=99){
           end: '<%= dto.getContact() %>',
           extendedProps: {
             reservationId: '<%= dto.getContact() %>',
-            kidmax: '<%= dto.getKidmax() %>',
-            content: '<%= dto.getContent() %>',
-            service: '<%= dto.getService() %>',
-            adultmax: '<%= dto.getAdultmax() %>'
+            kidmax: ' <%= dto.getKidmax() + dto.getAdultmax() %>',
+            content: '<%= dto.getContent().split(" ")[0] %>',
+            service: '<%= dto.getService().split(" ")[0] %>',
           },
         },
         <% } %>
       ],
       eventClick: function(info) {
         var eventTitle = info.event.title;
-        var additionalInfo = 'Adult Max: ' + info.event.extendedProps.adultmax + '<br>' +
-          'Kid Max: ' + info.event.extendedProps.kidmax + '<br>' +
-          'Service: ' + info.event.extendedProps.service + '<br>' +
-          'Content: ' + info.event.extendedProps.content;
+        var additionalInfo = '<b>예약 정보</b><br><br>' +
+          '인원수 : ' + info.event.extendedProps.kidmax + '명<br>' +
+          '체크인 : ' + info.event.extendedProps.service + '<br>' +
+          '체크아웃: ' + info.event.extendedProps.content;
 
         $('#myModal').modal('show');
 

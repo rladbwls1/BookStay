@@ -36,7 +36,7 @@ if(re_step==1){
 	%>
 	<script>
 		alert("삭제되었습니다. ");
-		window.location="/views/hlist.jsp";
+		window.location="/BookStay/views/hlist.jsp";
 	</script>
 	<%
 	

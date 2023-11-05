@@ -55,13 +55,20 @@ public class HOrderDAO extends OracleDB {
 	    return orders;
 	}
 	
-	public List<HOrderDTO> getOrdersAdmin() {
+	public List<HOrderDTO> getOrdersAdmin(int start, int end) {
 	    List<HOrderDTO> orders = new ArrayList<>();
-	    String query = "SELECT * FROM horder order by renum asc";
+	    String query = "SELECT * FROM "
+	    		+ " (select b.*, rownum r from "
+	    		+ " (select * from horder order by renum asc) b) "
+	    		+ " where r >= ? and r <= ?";
 
 	    try (Connection conn = getConnection();
 	         PreparedStatement stmt = conn.prepareStatement(query);
-	         ResultSet rs = stmt.executeQuery()) {
+	    		
+	        ) {
+	    	stmt.setInt(1, start);
+			stmt.setInt(2, end);
+			ResultSet rs = stmt.executeQuery();
 	        while (rs.next()) {
 	            HOrderDTO order = new HOrderDTO();
 	            order.setRenum(rs.getInt("renum"));
@@ -80,6 +87,23 @@ public class HOrderDAO extends OracleDB {
 	    }
 
 	    return orders;
+	}
+	public int count() {
+		int result = 0;
+		try {
+			conn = getConnection();
+			String sql = "select count(*) from horder";
+			pstmt = conn.prepareStatement(sql);
+			rs = pstmt.executeQuery();
+			if(rs.next()) {
+				result = rs.getInt(1);
+			}
+		}catch(Exception e) {
+			e.printStackTrace();
+		}finally {
+			close(rs, pstmt, conn);
+		}
+		return result;
 	}
     public void insertOrder(HOrderDTO order)throws Exception {
 
