@@ -17,8 +17,9 @@
 		if(result ==true){
 			
     	%> 
-    	<script>    
-    	window.location="update.jsp";
+    	<script>
+    	window.location="/BookStay/member/update.jsp";
+    	
     	
     	</script>
     	

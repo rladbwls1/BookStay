@@ -21,7 +21,7 @@ member.setId(id);
 member.setPw(pw);
 
 MemberDAO manager = MemberDAO.getInstance();
-int delete = manager.delete(member);
+int delete = manager.delete(id,pw);
 
 if (delete == 0) {
     // 삭제가 성공한 경우

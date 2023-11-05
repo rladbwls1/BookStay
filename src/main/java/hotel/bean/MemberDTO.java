@@ -1,5 +1,7 @@
 package hotel.bean;
 
+import java.sql.Timestamp;
+
 public class MemberDTO {
 	private String id;
 	private String pw;
@@ -11,7 +13,8 @@ public class MemberDTO {
    private String cauto;
    private String heart;
    private int grade;	//0 : 일반 , 11:로그아웃상태 , 81 : 휴면  , 82 : 블랙리스트
-   private String joindate;
+   private Timestamp joindate;
+   private Timestamp lastlogin;
    
 public int getGrade() {
 	return grade;
@@ -73,12 +76,17 @@ public String getId() {
 	public void setPnum(String pnum) {
 		this.pnum = pnum;
 	}
-	//joindate String으로 변경
-	public String getJoindate() {
+	public Timestamp getJoindate() {
 		return joindate;
 	}
-	public void setJoindate(String joindate) {
+	public void setJoindate(Timestamp joindate) {
 		this.joindate = joindate;
+	}
+	public Timestamp getLastlogin() {
+		return lastlogin;
+	}
+	public void setLastlogin(Timestamp lastlogin) {
+		this.lastlogin = lastlogin;
 	}
 	
 	

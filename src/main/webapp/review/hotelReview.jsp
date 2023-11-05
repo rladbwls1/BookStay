@@ -47,7 +47,7 @@
     <%
     String ref = request.getParameter("ref");
     reviewDAO dao = new reviewDAO();
-    List<reviewDTO> reviews = dao.getReviewHotel(ref);
+    List<reviewDTO> reviews = dao.getReviewHotel(Integer.parseInt(ref));
     
 %>
     <h2>호텔 리뷰</h2>

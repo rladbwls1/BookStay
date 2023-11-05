@@ -52,18 +52,22 @@ function openModal(modalType) {
     modal.style.display = "block";
 
     // iframe의 src 속성 설정
-    var iframe = modal.querySelector("iframe");
-    if (modalType === "updateFirst") {
-        iframe.src = "updateFirst.jsp";
-    } else if (modalType === "deleteSelet") {
-        iframe.src = "deleteSelet.jsp";
-    }
+    
 }
 
 // 모달 닫기
 function closeModal() {
     var modal = document.getElementById("myModal");
     modal.style.display = "none";
+}
+
+// 모달 닫기 및 부모 페이지로 이동
+function closeModalAndRedirect() {
+    var modal = document.getElementById("myModal");
+    modal.style.display = "none";
+
+    // 부모 페이지로 이동
+    window.location.href = "updateFirstPro.jsp"; // 수정 후 이동할 페이지로 변경
 }
 </script>
 <html>
@@ -105,7 +109,7 @@ function closeModal() {
                 <td>전화번호</td>
                 <td><%= user.getPnum() %></td>
             </tr>
- </table>
+        </table>
         <div class="button-container">
             <input type="button" value="메인" onclick="location.href='../views/main.jsp'" class="button-container">
             <input type="button" value="로그아웃" onclick="location.href='logout.jsp'" class="button-container">
@@ -118,7 +122,12 @@ function closeModal() {
         <div class="modal-content">
             <span class="close" onclick="closeModal()">&times;</span>
             <!-- 아이디 찾기 및 비밀번호 찾기 페이지의 URL을 설정하세요 -->
-            <iframe src="" style="width: 400px; height: 500px;" frameborder="0"></iframe>
+            <form action="updateFirstPro.jsp"  method="post">
+        <label for="pw">비밀번호: </label>
+        <input type="password" name="pw" id="pw" placeholder="비밀번호를 입력하세요" required>
+        <input type="hidden" name="id" value="<%= userId %>">
+        <button type="submit">입력</button>
+    </form>
         </div>
     </div>
 </body>

@@ -17,7 +17,6 @@
 <!DOCTYPE html>
 <html>
 <head>
-
 <meta charset="UTF-8">
 <title>Hotel_Main</title>
 <link rel="stylesheet" href="/BookStay/resources/css/main.css"/>
@@ -97,7 +96,6 @@ int grade= mdao.checkGrade(id);
 		BookStay
 	</a>
 </div>
-
 <div id="login">
 <%if(grade==11) { // 세션이 없다면 수행
     String cid = null, cpw = null, cauto = null;
@@ -121,7 +119,7 @@ int grade= mdao.checkGrade(id);
 		<div><a href="/BookStay/member/logout.jsp">로그아웃</a></div>
 		<div><a href="/BookStay/member/memberinfo.jsp">MyPage</a></div>
 		<%}%>
-		<div>고객센터</div>
+		<div><a href="/BookStay/board/notice.jsp">고객센터</a></div>
 		<%if(grade==99){ %>
 		<div><a href="/BookStay/admin/adminMain.jsp">관리자페이지</a></div>
 		<%} %>	
