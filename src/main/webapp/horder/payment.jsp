@@ -1,4 +1,4 @@
-<%@ page contentType="text/html; charset=utf-8"%>
+<%@ page contentType="text/html; charset=UTF-8"%>
 <%@ page import="hotel.bean.MemberDTO" %>
 <%@ page import="hotel.bean.MemberDAO" %>
 <jsp:useBean id="dao" class="hotel.bean.MemberDAO" />
@@ -7,6 +7,7 @@
 <script type="text/javascript" src="https://cdn.jsdelivr.net/momentjs/latest/moment.min.js"></script>
 <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.min.js"></script>
 <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.css" />
+<link rel="stylesheet" href="/BookStay/resources/css/payment.css"/>
 <%@ include file="../views/main_bar.jsp" %>
 
 <%
@@ -20,56 +21,45 @@
         	
         	String checkin = request.getParameter("checkin");
         	String checkout = request.getParameter("checkout");
+        	String title = request.getParameter("title");
                  
 %>
-
-    <div class="jumbotron">
-        <div class="container">
-            <h1 class="display-3">예약 페이지</h1>
-        </div>
-    </div>
-    <div class="container">
-        <form action="processOrder.jsp" class="form-horizontal" method="post">
+	<div id="list">
+            <h2><%=title %> 예약</h2>
+        <form id="form1 action="processOrder.jsp" class="form-horizontal" method="post">
             
           
                     <input name="id" type="hidden" value="<%=userId%>"/>
                     <input name="ref" type="hidden" value="<%=request.getParameter("ref")%>">
                     <input name="num" type="hidden" value="<%=request.getParameter("num")%>">
             
-          
-            <div class="form-group row">
-                <label class="col-sm-2">예약일</label>
-                <div class="col-sm-3">
-                  <input type="text" name="datetimes" value="<%=checkin %> - <%=checkout %>" />
-                </div>
-            </div>
-            <div class="form-group row">
-                <label class="col-sm-2">성인 예약 인원</label>
-                <div class="col-sm-3">
-                    <input name="adult" type="number" class="form-control" />
-                </div>
-            </div>
-            <div class="form-group row">
-                <label class="col-sm-2">아이 예약 인원</label>
-                <div class="col-sm-3">
-                    <input name="kid" type="number" class="form-control" />
-                </div>
-            </div>
-            <div class="form-group row">
-                <label class="col-sm-2">결제 방식</label>
-                <div class="col-sm-3">
-                    <select name="paytype">
+          <table id="tb">
+          <tr>
+          	<td class="title">예약일</td>
+          	<td><input type="text" name="datetimes" value="<%=checkin %> - <%=checkout %>" /></td>
+          </tr>
+          <tr>
+          	<td class="title">성인 예약 인원</td>
+          	<td><input name="adult" type="number"/></td>
+          </tr>
+          <tr>
+          	<td class="title">아이 예약 인원</td>
+          	<td> <input name="kid" type="number"/></td>
+          </tr>
+          <tr>
+          	<td class="title">결제 방식</td>
+          	<td> <select id="sel" name="paytype">
                     	<option value="card" selected>카드</option>
                     	<option value="cash">현금(계좌이체)</option>
-                    </select>
-                </div>
-            </div>
-                    <input type="submit" class="btn btn-primary" value="다음" />
-                    <a href="../memeber/main.jsp" class="btn btn-secondary" role="button"> 취소 </a>
-                </div>
-            </div>
+                    </select></td>
+          </tr>
+            </table>
+            <div class="btn">
+                    <input type="submit" id="btn" class="btn btn-primary" value="다음" />
+                    <button type="button" id="btn1" class="btn btn-secondary" role="button"> 취소 </button>
+        	</div>
         </form>
-    </div>
+                </div>
 <% 	
             
     } else {
@@ -90,3 +80,8 @@
     }
 %>
 <script src="/BookStay/resources/js/date.js"></script>
+<script>
+    document.getElementById('btn1').addEventListener('click', function() {
+      history.back(); 
+    });
+  </script>

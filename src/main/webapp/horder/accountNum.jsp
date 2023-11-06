@@ -1,4 +1,4 @@
-<%@page import="hotel.bean.HOrderDTO"%>
+m<%@page import="hotel.bean.HOrderDTO"%>
 <%@page import="hotel.bean.HOrderDAO"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>

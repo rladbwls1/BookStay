@@ -45,7 +45,7 @@ if(keyword==null){
 	  <!-- 
 	  <li><button id="bn6" type="button" onclick="window.location='/BookStay/hotel/hotelWriteForm.jsp'">숙박업소 글등록</button></li>
 	   -->
-	  <li><button id="bn6" type="button" onclick="window.location='/BookStay/admin/adminHotelListPro.jsp?check=1'">숙박업소 게시글 정보 </button></li>
+	  <li><button id="bn6" type="button" onclick="window.location='/BookStay/admin/adminHotelListPro.jsp?check=2'">숙박업소 게시글 정보 </button></li>
 	  <li><button id="bn7" type="button" onclick="window.location='/BookStay/admin/adminGradeList.jsp'">등급 관리/조회</button></li>
 	</ul>
 	<div id="f1">
@@ -55,22 +55,22 @@ if(keyword==null){
 	    <a class="nav-link active" aria-current="page">등급/관리 조회</a>
 	  </li>
 	</ul>
-<form >
-<input type="text" name="keyword" value="<%=keyword%>">
-<select name="check">
+<form id="form" >
+<select name="check" id="check">
 	<option value="0">전체</option>
 	<option value="1">아이디</option>
 	<option value="2">이름</option>
 </select>
-<button>검색</button>
+<input type="text" id="text" name="keyword" value="<%=keyword%>">
+<button id="btn5">검색</button>
 </form>
 <form action="adminGradePro.jsp" method="post">
-<table >
+<table id="tb">
  <tr>
- 	<td>아이디</td>
- 	<td>이름</td>
- 	<td>현재 등급</td>
- 	<td>변경할 등급</td>
+ 	<th>아이디</td>
+ 	<th>이름</td>
+ 	<th>현재 등급</td>
+ 	<th>변경할 등급</td>
  </tr>
 
 <%
@@ -80,12 +80,12 @@ for(MemberDTO d : list){%>
 		<td><%=d.getId()%></td>
 	 	<td><%=d.getName()%></td>
 	 	<td><%=d.getGrade() %></td>
-	 	<td><select name="grade">
+	 	<td><select name="grade" id="grade">
 	 		<option value="0">일반</option>
 	 		<option value="81">휴먼</option>
 	 		<option value="82">블랙</option>
 	 		<option value="99">관리자</option>
-	 	</select><button type="submit">변경하기</button></td>
+	 	</select><button type="submit" class="cg">변경하기</button></td>
 	 	<input type="hidden" name="id" value="<%=d.getId()%>">
 	</tr>
 <%}%>

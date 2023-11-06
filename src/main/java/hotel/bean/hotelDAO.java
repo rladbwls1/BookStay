@@ -519,6 +519,23 @@ public class hotelDAO extends OracleDB{
 			return str==null || str.isEmpty();
 		}
 		
+		public int count() {
+			int result = 0;
+			try {
+				conn = getConnection();
+				String sql = "select count(*) from hotel where re_step=0 status=0";
+				pstmt = conn.prepareStatement(sql);
+				rs = pstmt.executeQuery();
+				if(rs.next()) {
+					result = rs.getInt(1);
+				}
+			}catch(Exception e) {
+				e.printStackTrace();
+			}finally {
+				close(rs, pstmt, conn);
+			}
+			return result;
+		}
 		public ArrayList<hotelDTO> getAdminHotelList(){
 			ArrayList<hotelDTO> list = new ArrayList<hotelDTO>();
 			try {
@@ -551,12 +568,17 @@ public class hotelDAO extends OracleDB{
 			} return list;
 		}
 		
-		public ArrayList<hotelDTO> getClientHotelList(){
+		public ArrayList<hotelDTO> getClientHotelList(int start, int end){
 			ArrayList<hotelDTO> list = new ArrayList<hotelDTO>();
 			try {
 				conn=getConnection();
-				String sql = "select * from hotel where re_step=0 and status=10";
+				String sql = "select * from "
+						+ " (select b.*, rownum r from "
+						+ " (select * from hotel where re_step=0 and status=10) b) "
+						+ " where r >= ? and r <= ?";
 				pstmt=conn.prepareStatement(sql);
+				pstmt.setInt(1, start);
+				pstmt.setInt(2, end);
 				rs=pstmt.executeQuery();
 				while(rs.next()) {
 					hotelDTO dto = new hotelDTO();

@@ -217,7 +217,7 @@ for(hotelDTO dto : list){
 	String imgname = dto.getImg();
 	String [] img = imgname.split(",");%>
 	<div id="box1">
-	<form class="form" action="../horder/payment.jsp" method="post">
+	<form class="form" action="../horder/payment.jsp?checkin=<%=checkin %>&checkout=<%=checkout %>&title=<%=title %>" method="post">
 	<input type="hidden" name="ref" value="<%=ref%>">
 	<div id="b3">
 	<img src="/BookStay/upload/<%=img[0]%>">
@@ -270,9 +270,6 @@ for(hotelDTO dto : list){
         </td>
     </tr>
 </table>
-</div>
-<div class="tnrqkr">
-	<p class="hr2">숙박 위치</p>
 </div>
 </div>	
 </body>

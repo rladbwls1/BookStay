@@ -50,3 +50,33 @@
 	  border: none;
 	  background-color: #555;
 }
+#form{
+	display: inline-flex;
+	border: 1px solid black;
+	position: absolute;
+	top: 0;
+	right: 0;
+}
+#check, #text, #grade{
+	border: none;
+}
+#btn5{
+	background-color: black;
+	color: white;
+}
+#tbcal{
+	position: relative;
+}
+#tb{
+	width: 100%;
+}
+.cg{
+	background-color: #2B2730;
+	color: white;
+}
+#tb td, th{
+	width: 25%;
+	text-align: center;
+	border: 1px solid gainsboro;
+	padding: 8px 0;
+}
