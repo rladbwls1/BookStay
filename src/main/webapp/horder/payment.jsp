@@ -41,7 +41,7 @@ int grade= mdao.checkGrade(id);
             margin-top: 80px; /* margin-top 값을 조정하여 폼을 아래로 이동시킵니다 */
         }
         .form-container form {
-            /* 폼 스타일을 추가하거나 수정합니다. */
+            
         }
         h1.display-3 {
     margin-top: 90px; /* 값을 조정하여 <h1>를 아래로 이동시킵니다 */
@@ -157,7 +157,7 @@ int grade= mdao.checkGrade(id);
 %>
 <script>
     alert("사용자 정보를 가져오는 중 오류가 발생했습니다.");
-    window.location = "/BookStay/memeber/loginform.jsp";
+    window.location = "/BookStay/member/loginform.jsp";
 </script>
 <%
     }
@@ -165,7 +165,7 @@ int grade= mdao.checkGrade(id);
 %>
 <script>
     alert("세션이 만료되었거나 로그인하지 않았습니다. 다시 로그인해주세요.");
-    window.location = "/BookStay/memeber/loginform.jsp";
+    window.location = "/BookStay/member/loginform.jsp";
 </script>
 <%
     }

@@ -5,9 +5,6 @@
     <%@ page import = "hotel.bean.reviewDAO" %>
     <%@page import="java.util.List"%>
     
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-4bw+/aepP/YC94hEpVNVgiZdgIC5+VKNBQNGCHeKRQN+PtmoHDEXuppvnDJzQIu9" crossorigin="anonymous">
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-HwwvtgBNo3bZJJLYd8oVXjrBZt8cqVSpeBNS5n7C8IVInixGAoxmnlMuBnhbgrkm" crossorigin="anonymous"></script>
-    
 <html>
 <head>
 <%request.setCharacterEncoding("UTF-8"); %>
@@ -15,7 +12,7 @@
 .flexbox {
 			
 			width: 500px;
-			height: 125px;
+			height: 115px;
 			border-radius: 25px;
 			border: solid 3px #D5D5D5;
 			padding: 20px; 
@@ -33,35 +30,41 @@
 		.item {
 			
 			width: 80px;
-			height: 15px;
+			height: 10px;
 			margin: 10px;
 			font-size: 15px;
 			text-align: center;
 			line-height: 50px;
 		}
 </style>
-
+<%
+MemberDAO mdao = MemberDAO.getInstance();
+String nid = (String) session.getAttribute("sid");
+int id= mdao.checkGrade(nid);
+if (id!=11){
+	
+	 %>
+	  <script>
+	  	alert("로그인 후 이용해주세요");
+	  	window.location="../views/main.jsp";
+	  </script>
+<%}%>
     <title>호텔 리뷰 페이지</title>
 </head>
 <body>
-<div style="margin:auto;text-align:center;">
-    <h1>hotel review page</h1>
+    <h1>호텔 리뷰 페이지</h1>
 
     <%
-    String ref = request.getParameter("ref");
+    int ref = Integer.parseInt(request.getParameter("ref"));
     reviewDAO dao = new reviewDAO();
     List<reviewDTO> reviews = dao.getReviewHotel(ref);
     
-    
 %>
     <h2>호텔 리뷰</h2>
-    
-            <p>평균 점수: <%= dao.getAvgJumsu(ref) %></p>    
         <%
         for (reviewDTO review : reviews) {
         %>
-        
-        <div id="wrap" class="flexbox" style="margin:auto;text-align:center;">
+        <div id="wrap" class="flexbox">
 		<div class="item"><%= review.getId() %></div> 
 		<div class="item"><%= review.getJumsu() %></div>
 		<div class="item"><%= review.getContent() %></div> 
@@ -71,10 +74,7 @@
         <%
         }
         %>
-        
         <button class="btn btn-success" onclick="window.location='/BookStay/review/reviewWriteForm.jsp?ref=<%=ref%>'">글작성</button>
-        <input type="hidden" name="ref" value="<%= request.getParameter("ref") %>">
-        </div>
-
+        
 </body>
 </html>

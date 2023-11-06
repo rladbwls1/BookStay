@@ -29,8 +29,7 @@ if (grade!=99){
   String contact=dto.getContact();
   String contactfax=dto.getContactfax();
   String roomtype=dto.getRoomtype();
-  int aprice=dto.getAprice();
-  int kprice=dto.getKprice();
+  int price=dto.getPrice();
   String img=dto.getImg();
   %>
 <%@ include file="../views/menu.jsp" %>
@@ -72,8 +71,7 @@ if (grade!=99){
 					<option value="스위트" selected>스위트</option>
 				<%} %>	
 				</select><br>
-		어른가격 : <input type="number" name="aprice" value="<%=aprice%>">
-		아이가격 : <input type="number" name="kprice" value="<%=kprice%>">
+		가격 : <input type="number" name="aprice" value="<%=price%>">
 		사진 : <input type="file" name="upload"><br>
 		<input type="hidden" name="num" value="<%=num%>">
 		<input type="hidden" name="ref" value="<%=ref%>">
@@ -81,4 +79,3 @@ if (grade!=99){
 		<button type="submit">수정</button>
 	</form>
  <%}%>
-

@@ -65,7 +65,7 @@ int grade= mdao.checkGrade(id);
 		<%} %>	
 	</div>
 	<div id="logo">
-		<a href="main.jsp">
+		<a href="../views/main.jsp">
 			BookStay
 		</a>
 	</div>
@@ -101,8 +101,10 @@ h1.display-3 {
         <input type="hidden" id="id" name="id" value="<%=userId %>">
    
 
-        <div class="form-check">
-        <img id="img" src="../resources/img/heart0.jpeg" height="30" width="180"><br>
+        <div class="form-check" style="text-align: center;">
+    <div style="margin: 0 auto; text-align: left; width: 200px;">
+        <img id="img" src="../resources/img/heart0.jpeg" height="35" width="180"><br>
+        </div>
         <label class="form-check-label" for="flexRadioDefault1">
     
   </label>
@@ -136,8 +138,8 @@ function changeImg(num){
 
         <input type="hidden" name="ref" value="<%= request.getParameter("ref") %>">
         <br>
-        <input type="submit" class="btn btn-success" value="작성">
-        <button class="btn btn-success" onclick="window.location='/BookStay/views/main.jsp'">취소</button>
+        <input type="submit" class="btn btn-primary" value="작성">
+        <button class="btn btn-primary" onclick="window.location='/BookStay/views/main.jsp'">취소</button>
     </form>
 </div>
 

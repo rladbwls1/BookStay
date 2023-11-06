@@ -31,7 +31,7 @@
 %>
         <script>
             alert("리뷰가 성공적으로 등록되었습니다.");
-            window.location = "hotelReview.jsp?ref=<%= ref %>";
+            window.location = "../views/main.jsp";
         </script>
 <%
     } else {

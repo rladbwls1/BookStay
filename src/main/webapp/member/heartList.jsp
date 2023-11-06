@@ -35,7 +35,7 @@ for(hotelDTO d : list){
 	<% }else{%>
 		<img src="BookStay/upload/default.jpg">
 	<% }%>
-	<%=d.getTitle()%>&nbsp;<%=d.getAprice()%>원
+	<%=d.getTitle()%>&nbsp;<%=d.getPrice()%>원
 	<a href="hotelContent.jsp?ref=<%=d.getRef()%>">예약</a>
 	<button type="button" onclick="window.location='../member/heartPro.jsp?num=<%=d.getNum()%>&ref=<%=d.getRef()%>'">찜취소하기</button>
 	<hr />

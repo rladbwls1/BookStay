@@ -8,8 +8,7 @@ public class hotelDTO {
 	private String contactfax;
 	private String contact;
 	private String service;
-	private int aprice;
-	private int kprice;
+	private int price;
 	private String address;
 	private String img;
 	private int ref;
@@ -24,6 +23,12 @@ public class hotelDTO {
 	
 	public int getNum() {
 		return num;
+	}
+	public int getPrice() {
+		return price;
+	}
+	public void setPrice(int price) {
+		this.price = price;
 	}
 	public void setNum(int num) {
 		this.num = num;
@@ -63,18 +68,6 @@ public class hotelDTO {
 	}
 	public void setService(String service) {
 		this.service = service;
-	}
-	public int getAprice() {
-		return aprice;
-	}
-	public void setAprice(int aprice) {
-		this.aprice = aprice;
-	}
-	public int getKprice() {
-		return kprice;
-	}
-	public void setKprice(int kprice) {
-		this.kprice = kprice;
 	}
 	public String getAddress() {
 		return address;

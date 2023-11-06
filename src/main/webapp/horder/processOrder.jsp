@@ -10,6 +10,7 @@
 <html> 
 <head>
     <title>예약 처리 페이지</title>
+
 </head>
 <body>
     <%
@@ -88,17 +89,15 @@
             // 예약 정보 저장
             dao.insertOrder(order);
     %>
-    <div style="margin:auto;text-align:center;">
-    <div style="margin-bottom: 20px;">
-            <h2>예약이 완료되었습니다!</h2>
-            </div>
-            <div id="main" style="margin-bottom: 20px;">
-		<a href="main.jsp"><img id="end" src="/BookStay/resources/img/end.png"/></a>
-	</div>
-	<div style="margin-bottom: 20px;">
+     <div style="text-align: center; margin-top: 150px;">
+        <h2>예약이 완료되었습니다!</h2>
+        <div id="main" style="margin-top: 20px;">
+            <a href="main.jsp"><img id="end" src="/BookStay/resources/img/end.png"/></a>
+        </div>
+        <div style="margin-top: 20px;">
             <input type="button" class="btn btn-outline-primary" value="메인" onclick="location.href='/BookStay/views/main.jsp'" >
-            </div>
-            </div>
+        </div>
+    </div>
     <%
         } catch (Exception e) {
     %>

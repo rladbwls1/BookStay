@@ -52,20 +52,21 @@ int grade= mdao.checkGrade(id);
 		<%} %>	
 	</div>
 	<div id="logo">
-		<a href="main.jsp">
+		<a href="../views/main.jsp">
 			BookStay
 		</a>
 	</div>
 	</div>
 <div style="margin:auto;text-align:center;">
-<div style="margin-bottom: 20px;">
+ <div style="text-align: center; margin-top: 150px;">
+
 <h2>QnA 검색결과 </h2><hr />
 </div>
 <form action="serchQnAList.jsp" method="post">
-	<input type="text" name="keyword" value="<%=keyword%>"><button type="submit">검색</button> 
+	<input type="text" name="keyword" value="<%=keyword%>">	<button class="btn btn-primary" type="submit">검색</button> 
 </form>
 
-<hr /> 
+
 </div>
 <%
 if(list==null){
