@@ -16,11 +16,14 @@
 	background-color: #EEEEEE;
 	padding: 10px 0;
 }
+#page{
+	text-align: center;
+}
 
 /* 사이드메뉴 css */
 #list{
 	display: flex;
-	height: -webkit-fill-available;
+	min-height: calc(100vh - 150px);
 }
 #ul1 {
   flex: 1;
@@ -62,4 +65,20 @@
 	  text-decoration: none;
 	  border: none;
 	  background-color: #555;
+}
+#page{
+	margin-top: 30px;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	margin-bottom: 100px;
+}
+.button{
+	padding: 6px 10px;
+	border: 1px solid gainsboro;
+	background-color: white;
+}
+#color{
+	background-color: black;
+	color: white;
 }
