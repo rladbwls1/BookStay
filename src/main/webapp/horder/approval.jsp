@@ -6,9 +6,11 @@
 <%request.setCharacterEncoding("UTF-8");
 String id = (String)session.getAttribute("sid");
 HOrderDAO odao = new HOrderDAO();
-int renum = odao.getOrderNum(id);
+int renum = odao.getRecentOrder(id);
 adminDAO dao = adminDAO.getInstance();
-dao.reserveStatusUpdate(renum);
+int totalpay=Integer.parseInt(request.getParameter("totalpay"));
+int paid=Integer.parseInt(request.getParameter("paid"));
+dao.reserveStatusUpdate(renum,totalpay,paid);
 %>
 
 <script>

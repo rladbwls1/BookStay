@@ -21,23 +21,7 @@ public class MemberDAO extends  OracleDB {
 	    return instance;
 	}
 	
-	/*
-	//회원탈퇴 기존꺼
-	public int delete(String id, String pw) {
-	    int result = 0;
-	    try (Connection conn = getConnection();
-	         PreparedStatement pstmt = conn.prepareStatement("delete from member where id=? and pw=?")) {
-	        pstmt.setString(1, id);
-	        pstmt.setString(2, pw);
-	        result = pstmt.executeUpdate();
-	    } catch (SQLException e) {
-	        e.printStackTrace(); // 또는 다른 오류 처리 방법을 고려합니다.
-	    }
-	    return result;
-	}
- 
-    
-	*/
+
 	
 				
 		
@@ -83,12 +67,12 @@ public class MemberDAO extends  OracleDB {
 	        boolean result = false;
 	        try {
 	            conn = getConnection();
-	            String sql = "\r\n"
-	            		+ "select *from member where name= ? and email= ? and pnum=? ;";
+	            String sql = "SELECT * FROM member WHERE id=? AND name=? AND email=? AND pnum=?;";
 	            pstmt = conn.prepareStatement(sql);
-	            pstmt.setString(1, name);
-	            pstmt.setString(2, email);
-	            pstmt.setString(3, pnum);
+	            pstmt.setString(1, id);
+	            pstmt.setString(2, name);
+	            pstmt.setString(3, email);
+	            pstmt.setString(4, pnum);
 	            rs = pstmt.executeQuery();
 	            if (rs.next()) {
 	                result = true; // 사용자 정보가 일치하는 경우
@@ -118,7 +102,7 @@ public class MemberDAO extends  OracleDB {
 		            pstmt.setString(3, pnum);
 		            rs = pstmt.executeQuery();
 		            if (rs.next()) {
-		                result = rs.getString("id"); // 사용자 정보가 일치하는 경우
+		                result = rs.getString("id");    // 사용자 정보가 일치하는 경우
 		            }
 		        } catch (Exception e) {
 		            e.printStackTrace();
@@ -127,6 +111,7 @@ public class MemberDAO extends  OracleDB {
 		        }
 		        return result;
 	    }
+	    
 	    
 	    // 회원정보수정   -1030 도준생성
 	    public String updateMember2(String pw, String email, String addr, String pnum) {
@@ -164,113 +149,70 @@ public class MemberDAO extends  OracleDB {
 
 	 
 	    
-	    		//1102 도준 생성  삭제
-	    public int delete(MemberDTO member) {
+	   //2023 11 06 도준 생성  조회  > 인서트  > 딜리트 한번에함   :  타테이블에 이관하고 삭제하는 메서드
+	    
+	    public boolean transferMemberData(String id, String pw) {
 	        Connection conn = null;
-	        PreparedStatement deletePstmt = null;
-	        PreparedStatement selectPstmt = null;
-	        int delResult = 0;
+	        PreparedStatement pstmt = null;
 
 	        try {
 	            conn = getConnection();
-	            conn.setAutoCommit(false); // 트랜잭션 시작
 
-	         // 'member' 테이블에서 회원 삭제
-	            String deleteQuery = "DELETE FROM member WHERE id=? AND pw=?";
-	            deletePstmt = conn.prepareStatement(deleteQuery);
-	            deletePstmt.setString(1, member.getId());
-	            deletePstmt.setString(2, member.getPw());
-	            delResult = deletePstmt.executeUpdate();
-	            System.out.println("삭제 작업 성공");
+	            // 1. 아이디와 비밀번호로 회원 정보 조회 (예: member 테이블)
+	            String selectQuery = "SELECT id, pw, name, email, birth, addr, pnum, joindate FROM member WHERE id = ? AND pw = ?";
+	            pstmt = conn.prepareStatement(selectQuery);
+	            pstmt.setString(1, id);
+	            pstmt.setString(2, pw);
+	            ResultSet rs = pstmt.executeQuery();
 
-	            if (delResult > 0) {
-	                // 삭제 작업이 성공한 경우
+	            if (rs.next()) {
+	                // 2. 조회한 정보로 다른 테이블에 인서트 (예: quitmember 테이블)
+	                String insertQuery = "INSERT INTO quitmember (id, pw, name, email, birth, addr, pnum, joindate) VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
+	                pstmt = conn.prepareStatement(insertQuery);
+	                pstmt.setString(1, rs.getString("id"));
+	                pstmt.setString(2, rs.getString("pw"));
+	                pstmt.setString(3, rs.getString("name"));
+	                pstmt.setString(4, rs.getString("email"));
+	                pstmt.setDate(5, rs.getDate("birth"));
+	                pstmt.setString(6, rs.getString("addr"));
+	                pstmt.setString(7, rs.getString("pnum"));
+	                pstmt.setDate(8, rs.getDate("joindate"));
+	                pstmt.executeUpdate();
 
-	                // 'member' 테이블에서 회원 정보 가져오기
-	                String selectQuery = "SELECT * FROM member WHERE id=? AND pw=?";
-	                selectPstmt = conn.prepareStatement(selectQuery);
-	                selectPstmt.setString(1, member.getId());
-	                selectPstmt.setString(2, member.getPw());
-	                ResultSet resultSet = selectPstmt.executeQuery();
-	                System.out.println("선택 작업 성공");
+	                // 3. 원래 테이블에서 삭제 (예: member 테이블)
+	                String deleteQuery = "DELETE FROM member WHERE id = ? AND pw = ?";
+	                pstmt = conn.prepareStatement(deleteQuery);
+	                pstmt.setString(1, id);
+	                pstmt.setString(2, pw);
+	                pstmt.executeUpdate();
 
-	                // 'quitmember' 테이블에 선택된 회원 정보 삽입
-	                if (resultSet.next()) {
-	                    QuitMemberDTO quitMember = new QuitMemberDTO();
-	                    quitMember.setId(resultSet.getString("id"));
-	                    quitMember.setPw(member.getPw());
-	                    quitMember.setName(resultSet.getString("name"));
-	                    quitMember.setEmail(resultSet.getString("email"));
-	                    quitMember.setBirth(resultSet.getString("birth"));
-	                    quitMember.setAddr(resultSet.getString("addr"));
-	                    quitMember.setPnum(resultSet.getString("pnum"));
-	                     
-	                    insertquitMember(quitMember); // 인자로 커넥션 전달
-	                }
+	                return true;
 	            }
-
-	            conn.commit(); // 트랜잭션 커밋
-
 	        } catch (SQLException e) {
 	            e.printStackTrace();
-	            try {
-	                if (conn != null) {
-	                    conn.rollback(); // 예외 발생 시 트랜잭션 롤백
-	                }
-	            } catch (SQLException rollbackEx) {
-	                rollbackEx.printStackTrace();
-	            }
 	        } finally {
-	            try {
-	                if (deletePstmt != null) {
-	                    deletePstmt.close();
+	            // 리소스 정리
+	            if (pstmt != null) {
+	                try {
+	                    pstmt.close();
+	                } catch (SQLException e) {
+	                    e.printStackTrace();
 	                }
-	                if (selectPstmt != null) {
-	                    selectPstmt.close();
-	                }
-	                if (conn != null) {
-	                    conn.setAutoCommit(true); // 트랜잭션 종료 후 자동 커밋 설정
+	            }
+	            if (conn != null) {
+	                try {
 	                    conn.close();
+	                } catch (SQLException e) {
+	                    e.printStackTrace();
 	                }
-	            } catch (SQLException e) {
-	                e.printStackTrace();
 	            }
 	        }
 
-	        return delResult;
+	        return false;
 	    }
-
-	    // 1102 삭제후quitmember 인서트 
-	    public int insertquitMember(QuitMemberDTO quitmember) {
-	        Connection conn = null;
-	        int result = 0;
-	        try {
-	            conn = getConnection();
-	            String sql = "INSERT INTO quitmember (id, pw, name, email, birth, addr, pnum, joindate) VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
-	            try (PreparedStatement pstmt = conn.prepareStatement(sql)) {
-	                pstmt.setString(1, quitmember.getId());
-	                pstmt.setString(2, quitmember.getPw());
-	                pstmt.setString(3, quitmember.getName());
-	                pstmt.setString(4, quitmember.getEmail());
-	                pstmt.setString(5, quitmember.getBirth());
-	                pstmt.setString(6, quitmember.getAddr());
-	                pstmt.setString(7, quitmember.getPnum());
-	                pstmt.setString(8, quitmember.getJoindate());
-	                result = pstmt.executeUpdate();
-	            }
-	        } catch (SQLException e) {
-	            e.printStackTrace();
-	            result = -1; // 실패한 경우 -1을 반환
-	        } finally {
-	            // Connection 및 리소스 관련 처리
-	        }
-	        return result;
-	    }
-
-
-
-
-
+	    
+	    
+	    
 	    // 다른 메서드 정의
     
 		public void insertMember(MemberDTO member)throws Exception {

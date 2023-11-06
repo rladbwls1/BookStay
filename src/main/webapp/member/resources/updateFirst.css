@@ -1,0 +1,72 @@
+@charset "utf-8";
+
+ body {
+            font-family: Arial, sans-serif;
+            background-color: #F2F2F2;
+            padding: 0;
+       }
+       
+       
+       
+
+table {
+	 border: white;
+    width: 100%; /* 수정: 테이블 폭을 80%로 조정 */
+    margin: 0 auto; /* 테이블을 가운데 정렬 */
+    border-collapse: collapse;
+    background-color: white;
+    text-decoration: none;
+    font-size: 14px;
+    color: black;
+    border-radius: 15px;
+}
+.hiddenshow{
+	display: none;
+}
+td {  
+    text-align: center;
+    font-family: Arial, sans-serif;
+    font-size: 14px;
+}
+
+.mainment{
+	font-weight: bold;
+}
+
+table tr a {
+    color: #999999;
+    text-decoration: none;
+}
+
+
+/* submit 버튼 */
+.sumitinput {
+margin-top:10px;
+margin-bottom:10px;
+    width:30%;
+    background-color: #198754;
+    height: 40px;
+    border-radius: 8px;
+    color: white;
+    border: none;
+    cursor: pointer;
+}
+
+.sumitinput:hover {
+    background-color: #157347;
+}
+.inputText {
+	left:0;
+	margin-left:0px;
+    width: 50%;
+    height: 40px;
+    border-radius: 8px;
+    margin-top: 2px;
+}
+.button_a {
+    font-size: 14px;
+}
+
+.button_a:hover {
+    font-weight: bolder;
+}

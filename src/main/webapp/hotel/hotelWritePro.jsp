@@ -1,4 +1,4 @@
-poiiun 65<%@page import="hotel.bean.MemberDAO"%>
+<%@page import="hotel.bean.MemberDAO"%>
 <%@page import="hotel.bean.hotelDAO"%>
 <%@page import="hotel.bean.hotelDTO"%>
 <%@page import="com.oreilly.servlet.multipart.DefaultFileRenamePolicy"%>
@@ -44,8 +44,7 @@ if(mr.getParameter("re_step").equals("1")){
 	dto.setContact(mr.getParameter("contact"));
 	dto.setRef(Integer.parseInt(mr.getParameter("ref")));
 	dto.setRoomtype(mr.getParameter("roomtype"));
-	dto.setAprice(Integer.parseInt(mr.getParameter("aprice")));
-	dto.setKprice(Integer.parseInt(mr.getParameter("kprice")));
+	dto.setPrice(Integer.parseInt(mr.getParameter("price")));
 	dto.setImg(upload);
 	dao.hotelContentInsert(dto);
 	int ref=Integer.parseInt(mr.getParameter("ref"));

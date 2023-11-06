@@ -27,6 +27,7 @@
 
         table {
             width: 80%;
+            height:auto;
             margin: 0 auto;
             border-collapse: collapse;
             background-color: white;
@@ -75,17 +76,8 @@
     %>
     <div id="memberMessage">
         회원님의 아이디는 <%=request.getParameter("id")%> 입니다
+       
     </div>
-    <form>
-        <table border="1">
-            <tr>
-                <td>
-                    <a class="fontbutton" href="loginform.jsp">로그인하기</a> <br/>
-                    <a  class="fontbutton" href="FindPw.jsp">비밀번호찾기</a> <br/>
-                    <a class="fontbutton" href="/BookStay/views/main.jsp">메인페이지</a> <br/>
-                </td>
-            </tr>
-        </table>
-    </form>
+   
 </body>
 </html>

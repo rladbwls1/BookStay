@@ -13,14 +13,12 @@
             // 비밀번호 필드와 확인 필드를 가져옵니다.
             const passwordField = document.getElementById('passwordField').value;
             const password2 = document.getElementById('password2').value;
-
             // 비밀번호를 입력하지 않은 경우
             if (passwordField === "") {
                 alert("비밀번호를 입력해주세요.");
                 return; // 함수 종료
             }
-
-            // 비밀번호 일치 여부 확인 ==기능실패
+           // 비밀번호 일치 여부 확인 ==기능실패
             if (passwordField !== password2) {
                 alert("비밀번호가 일치하지 않습니다. 확인해주세요.");
                 return; // 함수 종료
@@ -36,6 +34,8 @@
                 const emailtxt = document.getElementById('emailtxt').value;
                 const combinedEmail = emailInput.value + "@" + emailtxt;
                 emailInput.value = combinedEmail;
+          
+            
             }
         }
 
@@ -53,24 +53,36 @@
 
         // 나머지 함수는 그대로 유지됩니다.
 
-        // 아이디 중복 여부를 판단
-        function openConfirmid(userinput) {
-            // 아이디를 입력했는지 검사
-            if (userinput.id.value == "") {
-                alert("아이디를 입력하세요");
-                return;
-            }
-            if (userinput.id.value == "guest") {
-                alert("사용이 불가한 아이디입니다");
-                return;
-            }
-            // url과 사용자 입력 id를 조합합니다.
-            url = "confirmId.jsp?id=" + userinput.id.value;
-            
-            // 새로운 윈도우를 엽니다.
-            open(url, "confirm", "toolbar=no, location=no,status=no,menubar=no,scrollbars=no,resizable=no,width=300, height=200");
-        }
+     // 아이디 중복 여부를 판단
+function openConfirmid(userinput) {
+    // 아이디를 입력했는지 검사
+    if (userinput.id.value.length < 4 || userinput.id.value.length > 12) {
+        alert("아이디는 4자 이상 12자 이하로 입력하세요");
+    } else {
+        // url과 사용자 입력 id를 조합하여 confirmId.jsp로 보냅니다.
+        var url = "confirmId.jsp?id=" + userinput.id.value;
+        window.open(url, "confirm", "toolbar=no, location=no,status=no,menubar=no,scrollbars=no,resizable=no,width=300, height=200");
+    }
+}
 
+// 아이디 중복체크
+function checkIt() {
+    var form = document.userinput;
+    var id = form.id.value;
+
+    // 아이디 유효성 검사
+    if (id.length < 6 || id.length > 12 || !/^[a-zA-Z0-9]+$/.test(id)) {
+        alert("아이디는 6자 이상 12자 이하, 영문과 숫자만 허용됩니다");
+        return false;
+    }
+
+    // 나머지 필드의 유효성 검사를 추가할 수 있습니다.
+
+    // 모든 조건을 통과한 경우 폼을 제출
+    return true;
+}
+        
+        
         // 비밀번호 유효성 검사 및 비밀번호 모자이크 제어 함수
         function validatePassword(inputField, errorId) {
             var pw = inputField.value;
@@ -85,6 +97,9 @@
                 inputField.style.border = "1px solid black"; // 필드 테두리를 원래 색으로 변경
             }
         }
+        
+        
+        
 
         // 비밀번호 모자이크 해제/실행 함수
         function togglePasswordVisibility(inputFieldId) {
@@ -96,30 +111,7 @@
                 passwordField.type = "password"; // 다시 모자이크
             }
         }
-
-        // 아이디 중복체크
-        function checkIt() {
-            var form = document.userinput;
-            var id = form.id.value;
-            var pw = form.pw.value;
-            var name = form.name.value;
-            var email = form.email.value;
-            var birth = form.birth.value;
-            var addr = form.addr.value;
-            var pnum = form.pnum.value;
-
-            // 아이디 유효성 검사
-            if (id.length < 6 || id.length > 12 || !/^[a-zA-Z0-9]+$/.test(id)) {
-                alert("아이디는 6자 이상 12자 이하, 영문과 숫자만 허용됩니다");
-                return false;
-            }
-
-            // 나머지 필드의 유효성 검사도 추가하세요.
-
-            // 모든 조건을 통과한 경우 폼을 제출
-            return true;
-            
-        }
+        
 
         // 휴대폰번호 유효성 검사
         function formatPhoneNumber(input) {
@@ -135,11 +127,33 @@
 
             input.value = phoneNumber;
         }
+        
+        
+        
+        /*  에러메시지 시작   */
+       	function CV_checkIdPattern(str) {
+            var idField = document.getElementById("id");
+            var idError = document.getElementById("idError");
+
+            if (str.length < 1) {
+                idField.classList.add("error-border");
+                idError.textContent = "아이디를 입력해주세요.";
+                return false;
+            } else {
+                idField.classList.remove("error-border");
+                idError.textContent = "";
+                return true;
+            }
+        }
+ 
+        
+       
+        /* 에러 메시지 종료 */
     </script>
     
 </head>
 <body>
-    <div class="UjeansHypboy">
+     <div class="UjinsHypboy">
         <div id="logo">
             <a href="/BookStay/views/main.jsp">BookStay</a>
         </div>
@@ -150,14 +164,18 @@
         <table border="1" cellspacing="0" cellpadding="3" align="center">
             <tr>
                 <td colspan="3" class="thankyou">
-                  <div id="font"> <font size="+9"  style=""><b>BookStay에 온 걸<br/>환영해요 :) </b></font></div>            
+                  <div id="font"> <font size="+9" ><b>BookStay에 온 걸<br/>환영해요 :) </b></font></div>            
                 </td>
             </tr>
+            
+            
             <tr>
                 <td  class="hiddenshow"><label>아이디</label></td>
+       
                 <td>
                     <input type="text" name="id" size="10" maxlength="12" placeholder="생성할 아이디를 입력하시오"  class ="inputText">
                     <input type="button" class="idcheck" name="confirm_id" value="ID중복확인" OnClick="openConfirmid(this.form)">
+              		  <span id="idError" style="color: red;"  class="error-message"></span>
                 </td>
                
             </tr>
@@ -169,7 +187,7 @@
                     <input type="password" id="passwordField" name="pw" class="inputText" placeholder="비밀번호를 입력하세요" size="15" onblur="validatePassword(this, 'pwError')">
                  
                       <button type="button" onclick="togglePasswordVisibility('passwordField')" class="pwcheck">비밀번호 표시</button><br/>
-            	   <span id="pwError" style="color: red;"></span>
+            	   <span id="pwError" style="color: red;"  class="error-message"></span>
                 </td>
                
             </tr>
@@ -183,7 +201,7 @@
                 <td>
                     <input type="password" id="password2" name="pw2" class="inputText" placeholder="비밀번호를 입력하세요" size="15" onblur="validatePassword(this, 'pwError2')">          
                         <button type="button" onclick="togglePasswordVisibility('password2')" class="pwcheck">비밀번호 표시</button><br/>          
-                     <span id="pwError2" style="color: red;"></span>
+                     <span id="pwError2" style="color: red;"  class="error-message"></span>
                 </td>
             </tr>
           
@@ -193,6 +211,8 @@
                 <td  class="hiddenshow"><label for="name">이름</label></td>
                 <td>
                     <input type="text" name="name" size="15" class="inputText" placeholder="이름을 입력하세요 " maxlength="12"  style="width:70%;">
+           			  <span id="nameError" style="color: red;"  class="error-message"></span>
+           	
                 </td>
             </tr>
             
@@ -210,6 +230,7 @@
                         <option value="@nate.com">@nate.com</option>
                         <option value="@kakao.com">@kakao.com</option>
                     </select>
+                	  <span id="emailError" style="color: red;"  class="error-message"></span>
                 </td>
             </tr>
           
@@ -218,7 +239,8 @@
             <tr>
                 <td  class="hiddenshow"><label for="birth">생년월일</label></td>
                 <td>
-                    <input type="date" name="birth" size="15"    style="width:70%;" style="color:#999999; font-size: 14px;" class="inputText" style="font-size: 14px;" maxlength="12" required>
+                    <input type="date" name="birth" size="15"    style="width:70%;" style="color:#999999; font-size: 14px;" class="inputText" style="font-size: 14px;" maxlength="12" >
+          		  <span id="birthError" style="color: red;"  class="error-message"></span>
                 </td>
             </tr>
            
@@ -226,8 +248,10 @@
             <tr>
                 <td  class="hiddenshow"><label for="addr">주소</label></td>
                 <td>
-                    <input type="text" name="addr" size="15"    class="inputText" required id="address" placeholder="주소를 작성하세요 ">
+                    <input type="text" name="addr" size="15"    class="inputText"  id="address" placeholder="주소를 작성하세요 ">
                           <button type="button" class="btn" onclick="searchAddress()">주소검색</button>
+             		  <span id="addrError" style="color: red;"  class="error-message"></span>
+             
                 </td>
                
             </tr>
@@ -235,15 +259,21 @@
             
             
             <tr>
-                <td  class="hiddenshow"><label for="pnum">휴대폰번호</label></td>
+                <td  class="hiddenshow">
+                <label for="pnum">휴대폰번호</label>
+                </td>
                 <td>
-                    <input type="text" name="pnum" size="15"  style="width:70%;"   class="inputText" required maxlength="13"  placeholder="휴대폰번호를 입력하세요"  oninput="formatPhoneNumber(this);">
+                    <input type="text" name="pnum" size="15"  style="width:70%;"   class="inputText"  maxlength="13"  placeholder="휴대폰번호를 입력하세요"  oninput="formatPhoneNumber(this);">
+              	  <span id="pnumError" style="color: red;"  class="error-message"></span>
+              		
                 </td>
             </tr>
             
             
             <tr>
-		<td><input type="submit" name="confirm" value="등   록" onclick="combineAndSubmit()" class="sumitinput"/></td>
+		<td>
+				
+		<input type="submit" name="confirm" value="등   록" onclick="combineAndSubmit()" class="sumitinput"/></td>
             </tr>
             
             

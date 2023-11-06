@@ -71,9 +71,7 @@ if(re_step==0){
 	setdto.setTitle(mr.getParameter("title"));
 	setdto.setContent(mr.getParameter("content"));
 	setdto.setRoomtype(mr.getParameter("roomtype"));
-	setdto.setAprice(Integer.parseInt(mr.getParameter("aprice")));
-	System.out.println(mr.getParameter("aprice"));
-	setdto.setKprice(Integer.parseInt(mr.getParameter("kprice")));
+	setdto.setPrice(Integer.parseInt(mr.getParameter("price")));
 	setdto.setRe_step(Integer.parseInt(mr.getParameter("re_step")));
 	setdto.setImg(img);
 	dao.updateContent(setdto);

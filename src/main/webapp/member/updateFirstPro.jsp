@@ -17,15 +17,16 @@
 		if(result ==true){
 			
     	%> 
-    	<script>    
-    	window.location="update.jsp";
+    	<script>
+    	window.location="/BookStay/member/update.jsp";
+    	
     	
     	</script>
     	
 		<%}else{%>
    		 	<script> 
    			alert("비밀번호를 확인하세요 ");	
-   			window.location="updateFirst.jsp";
+   			window.location="memberinfo.jsp";
    		</script>
    
     		

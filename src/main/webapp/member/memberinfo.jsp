@@ -4,156 +4,281 @@
 <%@ page import="hotel.bean.MemberDAO" %>
 <jsp:useBean id="dao" class="hotel.bean.MemberDAO" />
 <jsp:useBean id="dto" class="hotel.bean.MemberDTO" />
-
-<%
+<%	
     request.setCharacterEncoding("UTF-8");
+    String sid = (String) session.getAttribute("sid"); // 사용자 아이디 가져오기
 
-    String userId = (String) session.getAttribute("sid"); // 사용자 아이디 가져오기
-
-    if (userId != null) {
-        MemberDTO user = dao.myInfo(userId); // 사용자 정보 조회
-        String birth = user.getBirth().substring(0,11);
-
-        if (user != null) {
-            // 여기서 user 객체를 사용하여 사용자 정보에 접근할 수 있습니다.
-             if ("admin".equals(userId)) {
-            
+    // 사용자 정보 조회
+    MemberDTO user = dao.myInfo(sid);
+    String birth = user.getBirth().substring(0, 11);
 %>
+<style>
+/*모달 생성*/
+#myModal {
+    display: none;
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    border-radius: 10px;
+    height: 50%; 
+}
+.modal-content {
+    width: auto;
+    height: auto;
+    overflow: hidden;
+    border: 2px solid gray;
+    position: relative;
+    border-radius: 10px; background-color: white;
+
+}
+
+.close {
+    position: absolute;
+    top: -4px;
+    right: 2px;
+    cursor: pointer;
+    color: #198754;
+    font-size: 22px;
+    text-align: center;
+    font-weight: bold;
+}
+.close:hover {
+    font-weight: bold;
+}/*   모달 생성*/
+
+	  /*  화원정보수정 모달 영역     */
+      .modal-content{
+            font-family: Arial, sans-serif;
+            background-color: #F2F2F2;
+            
+            padding: 0;}
+            
+     .modalTable  td {  
+    text-align: center;
+    font-family: Arial, sans-serif;
+    
+    font-size: 14px;
+}   
+	  .modalTable {
+	  border:none;
+	 border: white;
+    width: 100%; /* 수정: 테이블 폭을 80%로 조정 */
+    margin: 0 auto; /* 테이블을 가운데 정렬 */
+    border-collapse: collapse;
+    background-color: white;
+    text-decoration: none;
+    font-size: 14px;
+    color: black;
+    border-radius: 15px;
+}
+
+.modalHiddenshow{
+	display: none;
+}
+
+
+.mainment{
+	font-weight: bold;
+	font-size: x-large;
+}
+.subment{
+		font-size: large;
+}
+.modalsumitinput:hover {
+    background-color: #157347;
+}
+.modalInputText{
+	left:0;
+	margin-left:0px;
+    width: 50%;
+    height: 40px;
+    border-radius: 8px;
+    margin-top: 2px;
+}
+
+.modalSumitinput {
+	margin-top:10px;
+margin-bottom:10px;
+    width:30%;
+    background-color: #198754;
+    height: 40px;
+    border-radius: 8px;
+    color: white;
+    border: none;
+    cursor: pointer;
+}
+.modlalButton_a {
+    font-size: 14px;
+    text-decoration: none;
+    color:black;
+}
+
+.modlalButton_a:hover {
+    font-weight: bolder;
+}
+      
+	/* 회원 정보수정 모달 영역끝*/
+</style>
+<script>
+
+
+
+// 모달 열기
+function openModal(modalType) {
+    var modal = document.getElementById("myModal");
+    modal.style.display = "block";
+
+}
+// 모달 닫기
+function closeModal() {
+    var modal = document.getElementById("myModal");
+    modal.style.display = "none";
+}
+// 모달 닫기 및 부모 페이지로 이동
+function closeModalAndRedirect() {
+    var modal = document.getElementById("myModal");
+    modal.style.display = "none";
+    // 부모 페이지로 이동
+    window.location.href = "updateFirstPro.jsp"; // 수정 후 이동할 페이지로 변경
+}
+//모달창 비밀번호 유효성           
+            // 비밀번호 유효성 검사 및 비밀번호 모자이크 제어 함수
+             function CV_checkPasswordPattern(str) {
+        var pwField = document.getElementById("pw");
+        var pwError = document.getElementById("pwError");
+
+        if (str.length < 1) {
+            pwField.classList.add("error-border");
+            pwError.textContent = "비밀번호를 입력해주세요.";
+            return false;
+        } else {
+            pwField.classList.remove("error-border");
+            pwError.textContent = "";
+            return true;
+        }
+    }
+    function validateForm() {
+        var pw = document.getElementById("pw").value;
+        var pwValid = CV_checkPasswordPattern(pw);
+
+        if (!pwValid) {
+            return false;
+        }
+        // 서버로 데이터 전송
+        return true;
+    }
+            
+            // a태그 새창띄우기
+       function openCenteredWindow(event) {
+  event.preventDefault(); // 기본 동작(링크 이동)을 막습니다.
+
+  // 창의 가로 및 세로 크기를 정의합니다.
+  var width = 400;
+  var height = 500;
+
+  // 화면의 가로 및 세로 크기를 가져옵니다.
+  var screenWidth = window.screen.availWidth;
+  var screenHeight = window.screen.availHeight;
+
+  // 창을 화면 가운데에 위치시키기 위한 left와 top 값을 계산합니다.
+  var left =2500;
+  var top = 14000;
+
+  // 새 창을 열고 크기 및 위치를 지정합니다.
+  var newWindow = window.open("/BookStay/member/FindPw.jsp", "centeredWindow", "width=" + width + ",height=" + height + ",left=" + left + ",top=" + top);
+}
+
+</script>
+            
+
 <html>
 <head>
-<style>
-   
-    .table-container {
-        text-align: center;
-    }
-         table {      
-            display: flex;
-              margin: 0;
-            border-collapse: collapse;
-            border: 1px solid #ccc; /* 테이블 테두리 스타일 설정 (선택 사항) */
-        }
-        th, td {
-            border: 1px solid #ccc; /* 셀 테두리 스타일 설정 (선택 사항) */
-            padding: 8px 12px;
-        }   
-      td:nth-child(1){
-         width:200px;
-      }
-      td:nth-child(2){
-         width:400px;
-      }
-    h1 {
-            text-align: center;
-        }
-     .button-container {
-            align-items: center;   
-        display: inline-block;
-        left:700px;
-    }
-
-</style>
-
-    <title>어서오세요</title>
+    <title>마이페이지</title>
+    <link rel="stylesheet" href="resources/memberinfo.css" type="text/css">
 </head>
-<body>
-<h2>마이페이지</h2>
-<table border="1">
-    <tr>
-        <td>아이디</td>
-        <td><%= userId %></td>
-    </tr>
-    <tr>
-        <td>이름</td>
-        <td><%= user.getName() %></td>
-    </tr>
-    <tr>
-        <td>이메일</td>
-        <td><%= user.getEmail() %></td>
-    </tr>
-    <tr>
-        <td>생일</td>
-        <td><%= birth %></td>
-    </tr>
-    <tr>
-        <td>주소</td>
-        <td><%= user.getAddr() %></td>
-    </tr>
-    <tr>
-        <td>전화번호</td>
-        <td><%= user.getPnum() %></td>
-    </tr>
-</table>
+<body class="mainbody">
+    <div class="UjinsHypboy">
+        <div id="logo">
+            <a href="/BookStay/views/main.jsp">BookStay</a>
+        </div>
+        <div class="info">고객센터</div>
+    </div>
+    <div class="table-container" >
+        <h2>마이페이지</h2>
+        <table border="1"  class="mainTable">
+            <tr>
+                <td>아이디</td>
+                <td><%= sid %></td>
+            </tr>
+            <tr>
+                <td>이름</td>
+                <td><%= user.getName() %></td>
+            </tr>
+            <tr>
+                <td>이메일</td>
+                <td><%= user.getEmail() %></td>
+            </tr>
+            <tr>
+                <td>생일</td>
+                <td><%= birth %></td>
+            </tr>
+            <tr>
+                <td>주소</td>
+                <td><%= user.getAddr() %></td>
+            </tr>
+            <tr>
+                <td>전화번호</td>
+                <td><%= user.getPnum() %></td>
+            </tr>
+        </table>
+        <div class="button-container">
+            <input type="button" value="메인" onclick="location.href='../views/main.jsp'" id="button-container_a" class="button_sub">
+            <input type="button" value="로그아웃" onclick="location.href='logout.jsp'" id="button-container_b" class="button_sub">
+            <input type="button" value="회원정보수정" onclick="openModal('updateFirst')" id="button-container_c" class="button_sub">
+            <input type="button" value="회원탈퇴"  onclick="location.href='/BookStay/member/deleteSelect.jsp'" id="button-container_d" class="button_sub">
+        </div>
+    </div>
+	</body>
+	</html>
+   <!--   myModal :updateFirst  회원정보수정영역 시작  -->
+  <div id="myModal" class="modal">
+    <div class="modal-content">
+        <span class="close" onclick="closeModal()">&times;</span>     
+  	    <form action="updateFirstPro.jsp" method="post"  onsubmit="return validateForm();">
+  	  <table class="modalTable" style="border:none;">
+      
+          	  <tr  style="border:none;">
+                <td class="modalHiddenshow">
+                </td>
+                <td  style="border:none;">
+                <br/>
+                    <div class="modalMent" >
+                    	 <div class="mainment"> 회원정보 수정</div><br/>
+                        <div class="subment">회원정보 확인을 위해 비밀번호를 입력해주세요</div>
+                    </div>
+                </td>
+            </tr>
+            <tr  style="border:none;">
+                <td class="modalHiddenshow"><label for="pw">비밀번호</label></td>
+                <td  style="border:none;">
+                    <input type="password" id="pw" name="pw" class="modalInputText" placeholder="비밀번호를 입력하세요" size="15" onblur="validatePassword(this, 'pwError')"> <br/>
+                    <span id="pwError" style="color: red;" class=" error-message">  </span>
+                </td>
+            </tr>
+            <tr  style="border:none;">
+                <td class="modalHiddenshow">
+                </td>
+                <td  style="border:none;">
+                    <button type="submit"  onclick="combineAndSubmit()" name="confirm" class="modalSumitinput">입력</button><br/>
+                   <a href="/BookStay/member/FindPw.jsp" class="modlalButton_a"  onclick="openCenteredWindow(event)">비밀번호 찾기</a>
 
-<input type="button" value="메인" onclick="location.href='../views/main.jsp'" class="button-container">
-<input type="button" value="로그아웃" onclick="location.href='logout.jsp'" class="button-container">
-<input type="button" value="회원정보수정" onclick="location.href='updateFirst.jsp'" class="button-container">
-<input type="button" value="회원탈퇴" onclick="location.href='delete.jsp'" class="button-container">
-</body>
-
-<%
-            } else {
-%>
-
-<head>
-    <title>어서오세요</title>
-</head>
-<body>
-<h2>마이페이지</h2>
-<table border="1">
-    <tr>
-        <td>아이디</td>
-        <td><%= userId %></td>
-    </tr>
-    <tr>
-        <td>비밀번호</td>
-        <td><%= user.getPw() %></td>
-    </tr>
-    <tr>
-        <td>이름</td>
-        <td><%= user.getName() %></td>
-    </tr>
-    <tr>
-        <td>이메일</td>
-        <td><%= user.getEmail() %></td>
-    </tr>
-    <tr>
-        <td>생일</td>
-        <td><%= user.getBirth() %></td>
-    </tr>
-    <tr>
-        <td>주소</td>
-        <td><%= user.getAddr() %></td>
-    </tr>
-    <tr>
-        <td>전화번호</td>
-        <td><%= user.getPnum() %></td>
-    </tr>
-</table>
-
-<input type="button" value="뒤로가기" onclick="location.href='main.jsp'" class="button-container">
-<input type="button" value="로그아웃" onclick="location.href='logout.jsp'" class="button-container">
-<input type="button" value="회원정보수정" onclick="location.href='updateFirst.jsp'" class="button-container">
-<input type="button" value="회원탈퇴" onclick="location.href='delete.jsp'" class="button-container">
-<a href="memberlist.jsp">예약 내역 확인</a>
-</body>
-</html>
-
-        <%    
-            }
-    } else {
-%>
-<script>
-    alert("사용자 정보를 가져오는 중 오류가 발생했습니다.");
-    window.location = "loginform.jsp";
-</script>
-<%
-    }
-    } else {
-%>
-<script>
-    alert("세션이 만료되었거나 로그인하지 않았습니다. 다시 로그인해주세요.");
-    window.location = "loginform.jsp";
-</script>
-<%
-    }
-%>
+                </td>
+            </tr>
+            <input type="hidden" name="id" value="<%= sid %>">
+    
+    </table>
+        </form>
+    </div>
+</div>
+ <!--   myModal :updateFirst  회원정보수정영역 종료  -->

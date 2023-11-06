@@ -134,10 +134,20 @@ margin-bottom:10px;
             font-weight: bold;
         }
     </style>
-    
    <script>
+   <!-- 로그인이 이미 되어잇을경우 시작 -->
+   function checkLoginStatus() {
+	    // 사용자가 로그인되었는지 확인합니다 (세션 속성 "loggedIn"이 있다고 가정)
+	    var isLoggedIn = <%= session.getAttribute("loggedIn") != null ? session.getAttribute("loggedIn") : false %>;
 
-
+	    if (isLoggedIn) {
+	        alert("로그인이 이미 되어 있습니다.");
+	        // 메인 페이지로 리디렉션합니다
+	        window.location.href = "/BookStay/views/main.jsp";
+	    }
+	}
+   <!-- 로그인이 이미 되어잇을경우 종료  -->
+   
    
     function CV_checkIdPattern(str) {
         var idField = document.getElementById("id");
@@ -187,16 +197,6 @@ margin-bottom:10px;
     }
     
     function updateEmail() {
-        const emaillist = document.getElementById('emaillist');
-        const emailInput = document.getElementById('email');
-        if (emaillist.value !== 'type') {
-            const selectedDomain = emaillist.value;
-            emailInput.value = emailInput.value.split('@')[0] + selectedDomain;
-        }
-
-    }
-    
-    function updateEmail2() {
         const emaillist = document.getElementById('emaillist');
         const emailInput = document.getElementById('email');
         if (emaillist.value !== 'type') {
@@ -259,11 +259,7 @@ margin-bottom:10px;
   var top = 160;
   // 새 창을 열고 크기 및 위치를 지정합니다.
   var newWindow = window.open("/BookStay/member/FindIdPro.jsp", "centeredWindow", "width=" + width + ",height=" + height + ",left=" + left + ",top=" + top);
-
-        
-        
-   
-  }
+}
         
   /* 비밀번호찾기 눌럿을때 생기는 새창 크기 조정*/
    function openCenteredWindow2(event) {
@@ -288,13 +284,13 @@ margin-bottom:10px;
 <body>
     <div class="loginbox">
         <div class="loginbox_a">
-                  <form method="post" action="loginPro.jsp" onsubmit="return validateForm();">
+                  <form method="post" action="dsPro.jsp" onsubmit="return validateForm();">
                     <table class="loginbox_b" >
                         <tr>
                             <td class="tableline">
                                 <div class="bookment">
                                     <a>
-                                        BookStay에 온걸<br/> 환영해요  :)
+                                        BookStay을 정말로 <br/> 떠나시나요 !
                                     </a>
                                 </div>
                             </td>
@@ -321,9 +317,7 @@ margin-bottom:10px;
                               
                               
            				 <div>
-                    <input type="checkbox" name="auto" value="1" class="autologin" id="autologin-checkbox">
-                    <a class="autotext" >자동로그인</a>
-                    <input type="submit" value="Login" class="logininput" onclick="combineAndSubmit()">
+                    <input type="submit" value="회원 탈퇴" class="logininput" onclick="combineAndSubmit()">
                 </div>
             </td>
         </tr>
@@ -343,7 +337,8 @@ margin-bottom:10px;
             <span class="close" onclick="closeModal()" style=" cursor:pointer; accent-color: #198754; ">&times;</span>
             <!-- 아이디 찾기 및 비밀번호 찾기 페이지의 URL을 설정하세요 -->
        <!--   indid modalform 시작  -->
-           
+       
+       
 <form action="FindIdPro.jsp" method="post" id="registrationForm" name="userinput">
     <table  id="modaltable" >
         <tr>
@@ -359,7 +354,7 @@ margin-bottom:10px;
                 <label for="name">이름</label>
             </td>
             <td width="400">
-                <input type="text" placeholder="이름을 입력하세요" name="name" size="15" class="modalinputText" maxlength="12" >
+                <input type="text" placeholder="이름을 입력하세요" name="name" size="15" class="modalinputText" maxlength="12" required>
             </td>
             <td></td>
         </tr>
@@ -369,8 +364,8 @@ margin-bottom:10px;
                 <label for="email">이메일</label>
             </td>
             <td width="400">
-                <input type="text" id="email" name="email" size="14" placeholder="이메일을 입력하세요" class="modalinputText"  />
-                <select class="box" id="emaillist" name="emaillist" onchange="updateEmail2()">
+                <input type="text" id="email" name="email" size="14" placeholder="이메일을 입력하세요" class="modalinputText" required />
+                <select class="box" id="emaillist" name="emaillist" onchange="updateEmail()">
                     <option value="type">직접 입력</option>
                     <option value="@naver.com">@naver.com</option>
                     <option value="@google.com">@google.com</option>
@@ -415,14 +410,14 @@ margin-bottom:10px;
             <span class="close2" onclick="closeModal2()" style=" cursor:pointer; accent-color: #198754; ">&times;</span>
 
             <!-- 아이디 찾기 및 비밀번호 찾기 페이지의 URL을 설정하세요 -->
-            
 <!--  form 시작 -->
-
 <form action="FindPwPro.jsp" method="post" id="registrationForm" name="userinput">
 <table id="modaltable">
 
 <tr>
 <td class="hiddenshow"></td>
+
+
 <td><br/>
   <h1 id="modalfontment" >비밀번호 찾기위해서<br/>필요한 정보를<br/> 입력해주세요</h1>
 </td>
@@ -433,7 +428,7 @@ margin-bottom:10px;
                     <label>아이디</label>
                 </td>
                 <td width="400">
-                    <input type="text"   class="modalinputText"  name="id" size="10" maxlength="12" placeholder="아이디를 입력하세요"  required>          
+                    <input type="text"     class="modalinputText"  name="id" size="10" maxlength="12" placeholder="아이디를 입력하세요"  required>          
                 </td>
                 <td></td>
             </tr>
@@ -491,7 +486,7 @@ margin-bottom:10px;
           
             <tr>          
             <td class="hiddenshow"></td>
-            <td>  <input type="submit" name="confirm" value="비밀번호 찾기"   class="modalsumitinput" onclick="openCenteredWindow12(event);"/></td>
+            <td>  <input type="submit" name="confirm" value="비밀번호 찾기"   class="modalsumitinput" onclick="openCenteredWindow2(event);"/></td>
             <td></td>
             </tr>
         
@@ -517,6 +512,8 @@ margin-bottom:10px;
         </div>
         <div class="info">고객센터</div>
     </div>
-
+    <script>
+    checkLoginStatus();
+</script>
 </body>
 </html>

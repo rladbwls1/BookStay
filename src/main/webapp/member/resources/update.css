@@ -1,29 +1,18 @@
-@charset "UTF-8";
-*{margin-bottom:20px;
+@charset "utf-8";
 
-}
 /* 헤더 라인 시작 */
 #font{
-	margin-bottom:20px;
 	
-}
-.UjinsHypboy{
-    box-sizing: border-box;
-    width: 100%;
-    height: 120px;
-    background-color: white;
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    position: fixed;
-    top: 0;
-    left: 0;
-    padding: 0 20px;
+	margin-bottom:5px;
+	margin-top:10px;
 }
 
-.info {
+    
+
+ .info {
     cursor: pointer;
     font-size: 16px;
+	
 }
 
 #logo {
@@ -35,13 +24,14 @@
     text-align: left;
 }
 
-#logo > a {
-    width: 133px;
-    height: 40px;
-    font-size: 30px;
-    text-decoration: none;
-    color: black;
-}
+        #logo > a {
+            width: 133px;
+            height: 40px;
+            font-size: 30px;
+            text-decoration: none;
+            color: black;
+        }
+
 
 /* 헤더 끝 */
 body {
@@ -69,6 +59,9 @@ table {
 }
 th,
 td {    
+	margin:5px;
+	padding:10px 0px 10px 0px;
+	width:110%;
     text-align: center;
     font-family: Arial, sans-serif;
     font-size: 14px;
@@ -194,10 +187,9 @@ margin-bottom:10px;
 .button_c:hover {
     font-weight: bolder;
 }
-
-/* 아이디찾기 모달창 영역 시작  1101 도준생성 */
-
-
-/* 아이디찾기 모달창 영역  종료 /
+.welcome{
+	font-size: x-large;
+	
+}
 
 
