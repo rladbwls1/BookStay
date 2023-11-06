@@ -177,7 +177,7 @@ String title = request.getParameter("title");
         }
         %>
         <div>
-        <button class="btn btn-success" onclick="window.location='/BookStay/review/reviewWriteForm.jsp?ref=<%=ref %>'">글작성</button>
+        <button class="btn btn-primary" onclick="window.location='/BookStay/review/reviewWriteForm.jsp?ref=<%=ref %>'">글작성</button>
         </div>
         </div>
       </div>
