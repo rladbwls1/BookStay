@@ -1,0 +1,89 @@
+@charset "utf-8";
+
+
+.modaltable {
+	 border: white;
+    width: 100%; /* 수정: 테이블 폭을 80%로 조정 */
+    margin: 0 auto; /* 테이블을 가운데 정렬 */
+    border-collapse: collapse;
+    background-color: white;
+    text-decoration: none;
+    font-size: 14px;
+    color: black;
+    border-radius: 15px;
+    border-top:none;
+}
+.modalhiddenshow{
+	display: none;
+}
+.modaltable td {  
+    text-align: center;
+    font-family: Arial, sans-serif;
+    font-size: 14px;
+}
+
+
+.modal-content{
+	top:50px;
+	
+}
+.modaltable tr a {
+    color: #999999;
+    text-decoration: none;
+}
+
+.checkplease{
+		font-size: 18px;
+}
+
+.pwcheck {
+    width: 10%;
+    color:white;
+    background-color: #636363
+;
+    height: 35px;
+    border-radius: 8px;
+     color:white;
+    border: none;
+    cursor: pointer;
+}
+
+.pwcheck:hover {
+    background-color:#C9C9C9;
+}
+
+/* submit 버튼 */
+.modalsumitinput {
+margin-top:10px;
+margin-bottom:10px;
+    width:30%;
+    background-color: #198754;
+    height: 40px;
+    border-radius: 8px;
+    color: white;
+    border: none;
+    cursor: pointer;
+}
+.modalcheckplease{
+	font-size: large;	
+	  margin-bottom:5px;
+font-weight: bold;
+}
+.modalsumitinput:hover {
+    background-color: #157347;
+}
+.modalinputText {
+	left:0;
+	margin-left:0px;
+    width: 20%;
+    height: 40px;
+    border-radius: 8px;
+    margin-top: 2px;
+}
+.modalbutton_a {
+    font-size: 14px;
+}
+
+.modalbutton_a:hover {
+    font-weight: bolder;
+}

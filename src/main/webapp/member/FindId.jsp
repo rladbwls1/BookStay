@@ -15,7 +15,7 @@
     String pnum = request.getParameter("pnum");
 %>
 
-<link rel="stylesheet" href="resources/FindId.css" type="text/css">
+<link rel="stylesheet" href="/BookStay/resources/css/FindId.css" type="text/css">
 
 <script>
 function combineAndSubmit() {
@@ -98,6 +98,28 @@ function formatPhoneNumber(input) {
     input.value = phoneNumber;
 }
 
+
+// a태그 새창띄우기
+function openCenteredWindow(event) {
+event.preventDefault(); // 기본 동작(링크 이동)을 막습니다.
+
+//창의 가로 및 세로 크기를 정의합니다.
+var width = 400;
+var height = 20;
+
+//화면의 가로 및 세로 크기를 가져옵니다.
+var screenWidth = window.screen.availWidth;
+var screenHeight = window.screen.availHeight;
+
+//창을 화면 가운데에 위치시키기 위한 left와 top 값을 계산합니다.
+var left =2500;
+var top = 14000;
+
+//새 창을 열고 크기 및 위치를 지정합니다.
+var newWindow = window.open("/BookStay/member/FindIdPro.jsp", "centeredWindow", "width=" + width + ",height=" + height + ",left=" + left + ",top=" + top);
+}
+
+
 </script>
 
 <form action="FindIdPro.jsp" method="post" id="registrationForm" name="userinput">
@@ -115,7 +137,7 @@ function formatPhoneNumber(input) {
                 <label for="name">이름</label>
             </td>
             <td width="400">
-                <input type="text" placeholder="이름을 입력하세요" name="name" size="15" class="inputText" maxlength="12" required>
+                <input type="text" placeholder="이름을 입력하세요" name="name" size="15"   class="inputText" maxlength="12" required>
             </td>
             <td></td>
         </tr>

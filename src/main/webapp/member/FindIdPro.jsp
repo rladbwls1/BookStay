@@ -20,19 +20,22 @@
     String pnum = request.getParameter("pnum");
     String id=MemberDAO.getInstance().findId(name,email,pnum);
     System.out.println(name+","+email+","+pnum);
-    if ( id != null) {
-        // 사용자 정보가 일치하는 경우 아이디 보여주는 페이지로 이동
-        
-        response.sendRedirect("FindIdShow.jsp?id="+id);
+    if ( id == null) {
+    	%>
+    	 <script>
+         alert("입력한 정보가 일치하지 않습니다. 다시 입력해주세요.");   
+ 		window.location="/BookStay/member/loginform.jsp";
+     </script><% 
     } else {
+ // 사용자 정보가 일치하는 경우 아이디 보여주는 페이지로 이동
+      
+          
+         response.sendRedirect("FindIdShow.jsp?id="+id); 
+        
         // 사용자 정보가 일치하지 않는 경우 오류 메시지 표시
-        %>
-        <script>
-            alert("입력한 정보가 일치하지 않습니다. 다시 입력해주세요.");
-            window.location="/BookStay/member/FindId.jsp";
-        </script>
-        <%
+     
     }
     %>
+
 </body>
 </html>
