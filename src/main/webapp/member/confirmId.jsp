@@ -6,13 +6,11 @@
 <jsp:useBean id="member" class="hotel.bean.MemberDAO"/>
 <jsp:setProperty name="member" property="*" />
 
-
 <!DOCTYPE html>
 
 <html>
 
 <head>
-
 <% request.setCharacterEncoding("UTF-8");%>
 
 <%
@@ -24,44 +22,61 @@
 </head>
 
 <body>
+
 <%
-    if (check == 1) {
+    if ("guest".equals(id)) {
 %>
-<table width="270" border="0" cellspacing="0" cellpadding="5">
-  <tr> 
-    <td height="39"><%=id%> 이미 사용중인 아이디입니다.</td>
-  </tr>
-</table>
-<form name="checkForm" method="post" action="confirmId.jsp">
-<table width="270" border="0" cellspacing="0" cellpadding="5">
-  <tr>
-    <td align="center"> 
-       다른 아이디를 선택하세요.<p>
-       <input type="text" size="10" maxlength="12" name="id"> 
-       <input type="submit" value="ID 중복 확인">
-    </td>
-  </tr>
-</table>
-</form>
+    <table width="270" border="0" cellspacing="0" cellpadding="5">
+        <tr> 
+            <td height="39" style="text-align: center;">"guest"는 사용할 수 없는 아이디입니다.</td>
+             
+        </tr>
+        <tr>
+        
+        	<td>
+        	<input type="button" value="닫기" onclick="setid()" style="position:absolute;   right:20px;">
+        	</td>
+        </tr>
+    </table>
+<%
+    } else if (check == 1) {
+%>
+    <table width="270" border="0" cellspacing="0" cellpadding="5">
+        <tr> 
+            <td height="39"><%=id%> 이미 사용중인 아이디입니다.</td>
+        </tr>
+    </table>
+    <form name="checkForm" method="post" action="confirmId.jsp">
+        <table width="270" border="0" cellspacing="0" cellpadding="5">
+            <tr>
+                <td align="center"> 
+                    다른 아이디를 선택하세요.<p>
+                    <input type="text" size="10" maxlength="12" name="id"> 
+                    <input type="submit" value="ID 중복 확인">
+                </td>
+            </tr>
+        </table>
+    </form>
 <%
     } else {
 %>
-<table width="270" border="0" cellspacing="0" cellpadding="5">
-  <tr> 
-    <td align="center"> 
-      <p>입력하신 <%=id%> 는 사용하실 수 있는 ID입니다. </p>
-      <input type="button" value="닫기" onclick="setid()">
-    </td>
-  </tr>
-</table>
+    <table width="270" border="0" cellspacing="0" cellpadding="5">
+        <tr> 
+            <td align="center"> 
+                <p>입력하신 <%=id%> 는 사용하실 수 있는 ID입니다. </p>
+                <input type="button" value="닫기" onclick="setid()">
+            </td>
+        </tr>
+    </table>
 <%
     }
 %>
 </body>
 </html>
+
 <script language="javascript">
-  function setid() {
+function setid() {
     opener.document.userinput.id.value = "<%=id%>";
     self.close();
-  }
+}
 </script>

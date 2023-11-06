@@ -246,6 +246,8 @@ public class adminDAO extends OracleDB{
 				dto.setName(rs.getString("name"));
 				dto.setGrade(rs.getInt("grade"));
 				list.add(dto);
+				
+				//test
 			}
 		} catch (Exception e) {
 			e.printStackTrace();

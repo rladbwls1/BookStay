@@ -18,10 +18,8 @@
 <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.css" />
 <link rel="stylesheet" href="/BookStay/resources/css/list_menu.css"/>
 <link rel="stylesheet" href="/BookStay/resources/css/hotelContent.css"/>
+<%@ include file="../views/main_bar.jsp" %>
 <%request.setCharacterEncoding("UTF-8");
-MemberDAO mdao = MemberDAO.getInstance();
-String id = (String) session.getAttribute("sid");
-int grade= mdao.checkGrade(id);
 
  int ref= Integer.parseInt(request.getParameter("ref"));
  hotelDAO dao = new hotelDAO();
@@ -35,7 +33,7 @@ int grade= mdao.checkGrade(id);
   block = request.getParameter("block");
 		 }
  
- String[] imgArray={"default1.jpg","default2.jpg","default3.jpg","default4.jpg","default5.jpg"};
+ String[] imgArray={"default1.jpg","default1.jpg","default1.jpg"};
  if(!dao.checkNull(mainimg)){
  if(mainimg.contains(",")){
 	 imgArray=mainimg.split(",");
@@ -93,41 +91,6 @@ String title = request.getParameter("title");
 %>
 <body onload="qq();">
 <input type="hidden" id="rr" value="<%=rortlf%>">
-	<div id="header">
-	<div id="login">
-		<%if(grade==11) { // 세션이 없다면 수행
-    String cid = null, cpw = null, cauto = null;
-    Cookie[] cookies = request.getCookies();
-  
-    	if (cookies != null) {
-       		 for (Cookie c : cookies) {
-		            if (c.getName().equals("cid")) { cid = c.getValue(); }
-		            if (c.getName().equals("cpw")) { cpw = c.getValue(); }
-		            if (c.getName().equals("cauto")) { cauto = c.getValue(); }
-   				}  
- 		   	}
-    	if (cid != null && cpw != null && cauto != null) {
-    		response.sendRedirect("/BookStay/member/loginPro.jsp");	
-    	}
-    if (cid == null || cpw == null || cauto == null) { %>
-		<div><a href="/BookStay/member/loginform.jsp">로그인</a></div>
-		<div><a href="/BookStay/member/memberForm.jsp">회원가입</a></div>
-		<%}				
-		}if(grade==0 || grade==99){ %>
-		<div><a href="/BookStay/member/logout.jsp">로그아웃</a></div>
-		<div><a href="/BookStay/member/memberinfo.jsp">MyPage</a></div>
-		<%}%>
-		<div>고객센터</div>
-		<%if(grade==99){ %>
-		<div><a href="/BookStay/admin/adminMain.jsp">관리자페이지</a></div>
-		<%} %>	
-	</div>
-	<div id="logo">
-		<a href="/BookStay/views/main.jsp">
-			BookStay
-		</a>
-	</div>
-	</div>
 	<div id="main">
 	<div id="search">
 	<input type="hidden" id = "tcnt" value="<%= rortlf%>"/>
@@ -136,7 +99,7 @@ String title = request.getParameter("title");
 		<input type="text" name="datetimes" id="date" value="<%=checkin %> - <%=checkout %>" />
 		<input type="hidden" id="start" name="checkin" value="<%=checkin %>"/>
 		<input type="hidden" id="end" name="checkout" value="<%=checkout %>"/>
-		<input type="button" value="<%=pcount %>" id="popBtn"/>
+		<input type="button" value="<%=pcount%>" id="popBtn"/>
 		<div class="popup" id="popup">
 		<div id="pop">
 			<h5>객실1</h5>

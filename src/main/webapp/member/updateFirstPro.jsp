@@ -26,7 +26,7 @@
 		<%}else{%>
    		 	<script> 
    			alert("비밀번호를 확인하세요 ");	
-   			window.location="updateFirst.jsp";
+   			window.location="memberinfo.jsp";
    		</script>
    
     		

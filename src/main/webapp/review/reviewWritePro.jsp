@@ -3,13 +3,10 @@
 <%@ page import="hotel.bean.reviewDTO" %>
 <%@ page import="hotel.bean.reviewDAO" %>
 <%@ page import="java.sql.Timestamp" %>
-
+<%@ include file="../views/main_bar.jsp" %>
 <%
     request.setCharacterEncoding("UTF-8");
-	MemberDAO mdao = MemberDAO.getInstance();
-	String id = (String) session.getAttribute("sid");
-	int grade= mdao.checkGrade(id);
-	if (grade!=11){
+	if (grade==11){
 	 %>
 	  <script>
 	  	alert("로그인 후 이용해주세요");

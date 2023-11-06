@@ -1,0 +1,143 @@
+@charset "UTF-8";
+.error-message {
+    color: red;
+    font-size: 12px;
+}
+.error-border {
+    border: 2px solid red;
+}
+
+html {
+    width: 100%;
+    height: 100%;
+}
+
+
+
+
+
+/* 헤더 라인 시작 */
+#font{
+	margin-bottom:20px;
+	
+}
+.UjinsHypboy{
+    box-sizing: border-box;
+    width: 100%;
+    height: 120px;
+    background-color: white;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    position: fixed;
+    top: 0;
+    left: 0;
+    padding: 0 20px;
+}
+
+.info {
+    cursor: pointer;
+    font-size: 16px;
+}
+
+#logo {
+    width: 200px;
+    height: 60px;
+    font-weight: 800;
+    padding: 10px;
+    z-index: 150;
+    text-align: left;
+}
+
+#logo > a {
+    width: 133px;
+    height: 40px;
+    font-size: 30px;
+    text-decoration: none;
+    color: black;
+}
+
+/* 헤더 끝 */
+body {
+    width: 600px;
+    height: 650px;
+    margin: 0 auto;
+    background-color: #F2F2F2;
+    margin-top: 170px;
+    border: none;
+}
+
+.hiddenshow{
+	display: none;
+}
+
+.loginbox {
+    width: 80%;
+    margin: 50px auto;
+    background-color: white;
+    text-align: left; /* 로그인 상자의 내용을 왼쪽으로 정렬합니다. */
+    height:80%; 
+    border-radius: 15px;
+}
+
+.loginbox_a {
+    width: 100%;
+    padding: 48px 48px 40px;
+    text-align: left; /* 내부 내용을 왼쪽으로 정렬합니다. */
+}
+
+.bookment{
+	padding:0px 0px 12px;
+}
+.bookment  a{
+		font-size: xx-large;
+		font-weight: bold;
+}
+
+.deletebutton {
+    width: 100%;
+    height: 45px;
+    border: none;
+    border-radius: 8px;
+    background-color: #198754;
+    cursor: pointer;
+    margin: 10px 0;
+  text-align: center; /* 로그인 버튼 텍스트를 가운데로 정렬합니다. */
+  	color:white;
+	transition-property:background-color;
+	transition-duration:2.5s;
+}
+
+/* 나머지 폼 요소를 스타일링합니다. */
+
+   
+.deletebutton:hover{
+	 background-color:#157347; 
+	    transition: background-color 3.0s; /* 배경색에 대한 1.0초의 트랜지션 적용 */
+}
+
+.button a{
+	text-decoration: none;
+	color:black;
+	margin-left:10px;
+	font-size: 14px;
+	
+}
+
+.button_a:hover{
+	font-weight: bolder;
+}
+.button_b:hover{
+	font-weight: bolder;
+}
+.button_c:hover{
+	font-weight: bolder;
+}
+.button_d:hover{
+	font-weight: bolder;
+}
+
+.info:hover{
+	font-weight: bolder;
+}
+
