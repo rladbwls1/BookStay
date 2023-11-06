@@ -118,6 +118,25 @@ public class reviewDAO extends OracleDB {
 	    
 	    return count;
 	}
+	public boolean checkStayedHotel(String id,int ref) {
+		boolean result = false;
+		try {
+			conn=getConnection();
+			String sql="select ref from hotel where num in (select ref from horder where id=? and state=1)";
+			pstmt=conn.prepareStatement(sql);
+			pstmt.setString(1, id);
+			rs=pstmt.executeQuery();
+			while(rs.next()) {
+				if(rs.getInt(1)==ref) {
+					result=true;
+				}
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		}	finally {
+			close(rs, pstmt, conn);
+		} return true;
+	}
 	
 
 }

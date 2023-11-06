@@ -6,27 +6,28 @@
 <%@ page import = "hotel.bean.reviewDAO" %>
 <jsp:useBean id="dao" class="hotel.bean.MemberDAO" />
 <jsp:useBean id="dto" class="hotel.bean.MemberDTO" />
-
+<%@ include file="../views/main_bar.jsp" %>
 <%
     request.setCharacterEncoding("UTF-8");
-
-    String userId = (String) session.getAttribute("sid"); 
-
-    if (userId != null) {
+    String userId = (String) session.getAttribute("sid");
+    reviewDAO rdao = new reviewDAO();
+	boolean check = false;
+	if(request.getParameter("ref")!=null){
+		check=true;
+	}
+	if(!check){%>
+		<script>
+			alert("이용고객만 작성 가능합니다.");
+			history.go(-1);
+		</script>
+	<%} 
+   if (userId != null) {
         MemberDTO user = dao.myInfo(userId); 
         
         if (user != null) {
                  
 %>
 
-<!DOCTYPE html>
-<html>
-<head>
-    <meta charset="UTF-8">
-    <title>호텔 리뷰 작성</title>
-</head>
-<body>
-    <h1>호텔 리뷰 작성</h1>
 
     <form action="reviewWritePro.jsp" method="post">
         
@@ -34,12 +35,17 @@
    
 
         <div class="container">
-        <img id="img" src="../resources/img/heart0.jpeg" height="30" width="180"><br>
-        1<input type="radio" name="jumsu" value="1" onclick="changeImg(1)">
-        2<input type="radio" name="jumsu" value="2" onclick="changeImg(2)">
-        3<input type="radio" name="jumsu" value="3" onclick="changeImg(3)">
-        4<input type="radio" name="jumsu" value="4" onclick="changeImg(4)">
-        5<input type="radio" name="jumsu" value="5" onclick="changeImg(5)">
+        <div class="form-check" style="text-align: center;">
+	    	<div style="margin: 0 auto; text-align: left; width: 200px;">
+	        	<img id="img" src="../resources/img/heart0.jpeg" height="35" width="180"><br>
+	        </div>
+        	<label class="form-check-label" for="flexRadioDefault1"></label>
+		</div>
+        1<input type="radio" class="form-check-input" id="flexRadioDefault1" type="radio" name="jumsu" value="1" onclick="changeImg(1)">
+        2<input type="radio" class="form-check-input" id="flexRadioDefault1" type="radio" name="jumsu" value="2" onclick="changeImg(2)">
+        3<input type="radio" class="form-check-input" id="flexRadioDefault1" type="radio" name="jumsu" class="form-check-input" id="flexRadioDefault1" type="radio"value="3" onclick="changeImg(3)">
+        4<input type="radio" class="form-check-input" id="flexRadioDefault1" type="radio" name="jumsu" value="4" onclick="changeImg(4)">
+        5<input type="radio" class="form-check-input" id="flexRadioDefault1" type="radio" name="jumsu" value="5" onclick="changeImg(5)">
         </div>
         <br>
 

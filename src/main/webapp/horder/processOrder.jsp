@@ -7,11 +7,9 @@
 <%@ page import="hotel.bean.HOrderDTO" %>
 <%@ page import="hotel.bean.HOrderDAO" %>
 <%@page import="java.sql.Timestamp"%>
+<%@ include file="../views/main_bar.jsp" %>
     <%
         // 예약 정보 가져오기
-       MemberDAO mdao = MemberDAO.getInstance();
-		String id = (String) session.getAttribute("sid");
-		int grade= mdao.checkGrade(id);
  if(grade==11){
 	 %>
 	 <script>
