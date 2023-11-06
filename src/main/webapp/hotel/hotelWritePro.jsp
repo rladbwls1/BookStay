@@ -1,4 +1,4 @@
-poiiun 65<%@page import="hotel.bean.MemberDAO"%>
+<%@page import="hotel.bean.MemberDAO"%>
 <%@page import="hotel.bean.hotelDAO"%>
 <%@page import="hotel.bean.hotelDTO"%>
 <%@page import="com.oreilly.servlet.multipart.DefaultFileRenamePolicy"%>

@@ -38,7 +38,7 @@ String pw=request.getParameter("pw");
         <% } else { %>
           <script>alert("어딘가 잘못되었습니다");
           
-          window.location="/BookStay/member/updateFirst.jsp";</script>
+          window.location="/BookStay/member/updatet.jsp";</script>
               			
         <% } %>
       </p>

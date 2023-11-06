@@ -130,7 +130,7 @@ function updateEmail() {
          
 </script>
   
-      <link rel="stylesheet" href="resources/FindPw.css" type="text/css">
+      <link rel="stylesheet" href="/BookStay/resources/css/FindPw.css" type="text/css">
 <form action="FindPwPro.jsp" method="post" id="registrationForm" name="userinput">
 <table>
 
