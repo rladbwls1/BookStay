@@ -65,12 +65,14 @@ adminDTO dto1 = dao1.getPreView();
 			}else{
 				for(boardDTO d : list){%>
 				<div class="board-item">
-					<div class="board">
-					<a class="c3" href="javascript:void(0);" onclick="toggleContent('content_<%=d.getNum()%>')"><%=d.getTitle() %></a>
-						<button class="c1" onclick="window.location='boardUpdateForm.jsp?num=<%=d.getNum()%>&category=<%=d.getCategory()%>'">수정</button>
-						<button class="c2" onclick="window.location='boardDelete.jsp?num=<%=d.getNum()%>&category=<%=d.getCategory()%>'">삭제</button><br />
+			<div class="board">
+			<a class="c3" href="javascript:void(0);" onclick="toggleContent('content_<%=d.getNum()%>')"><%=d.getTitle() %></a>
+			<%if(grade==99){ %>
+			<button class="c1" onclick="window.location='boardUpdateForm.jsp?num=<%=d.getNum()%>&category=<%=d.getCategory()%>'">수정</button>
+			<button class="c2" onclick="window.location='boardDelete.jsp?num=<%=d.getNum()%>&category=<%=d.getCategory()%>'">삭제</button><br />
+			<%} %>
 			</div>
-						<div class="content" id="content_<%=d.getNum()%>" style="display: none"><%=d.getContent()%></div>
+			<div class="content" id="content_<%=d.getNum()%>" style="display: none"><%=d.getContent()%></div>
 		</div>
 				<%}%>
 				
