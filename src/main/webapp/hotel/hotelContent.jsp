@@ -247,12 +247,7 @@ if (jum.equals("0.0")) {
 <% 
 for(hotelDTO dto : list){
 	String imgname = dto.getImg();
-	String [] img = new String[1];
-	if(imgname == null){
-		img[0] = "no.gif";
-	}else{
-		img = imgname.split(",");
-	}%>
+	String [] img = imgname.split(",");%>
 	<div id="box1">
 	<form class="form" action="../horder/payment.jsp" method="post">
 	<input type="hidden" name="ref" value="<%=ref%>">

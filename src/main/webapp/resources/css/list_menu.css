@@ -248,6 +248,10 @@ a{
 	margin-top: 65px;
 	font-size: 15px;
 }
+#color{
+	background-color: black;
+	color: white;
+}
 
 
 /* 스크롤 내렸을 때 검색창 고정 css */

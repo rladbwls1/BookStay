@@ -111,9 +111,13 @@ int count = dao2.count();
 		if(startPage > 10){
 		%>	<a href="adminlist.jsp?pageNum=<%=startPage-10 %>"><button class="button">이전</button></a>	
 		<%}
-		for(int i = startPage; i <= endPage; i++){
-		%> <a href="adminlist.jsp?pageNum=<%=i %>"><button class="button"><%=i %></button></a>	
-		<%}
+			int p = Integer.parseInt(pageNum);
+			for(int i = startPage; i <= endPage; i++){
+				if(p == i){
+		%> <a href="adminlist.jsp?pageNum=<%=i %>"><button id="color" class="button"><%=i %></button></a>	
+		<%}else{%>
+			<a href="adminlist.jsp?pageNum=<%=i %>"><button class="button"><%=i %></button></a>	
+		<%}}
 		if(endPage < pageCount){
 		%>	<a href="adminlist.jsp?pageNum=<%=startPage+10 %>"><button class="button">다음</button></a>	
 		<%}

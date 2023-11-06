@@ -1,58 +1,20 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<form method="post" id="searchForm">
-    <input type="text" id="text" name="title"/>
-    <input type="text" id="date" name="datetimes"/>
-    <input type="hidden" id="start" name="checkin"/>
-    <input type="hidden" id="end" name="checkout"/>
-    <input type="button" value="객실 1개, 인원 2명" id="popBtn"/>
-    <div class="popup" id="popup">
-        <h5>객실</h5>
-        <p>성인 <input type="number" name="adult" value="2"/></p><br>
-        <p>어린이 (만 17세 미만) <input type="number" name="kids" value="0"/></p>
-        <input type="button" id="cadd" value="객실 추가"/>
-        <input type="button" id="cBtn" onclick="updateButtonValue()" value="적용"/>
-    </div>
-    <div id="roomCount">총 객실 수: 1</div>
-    <button id="sub" type="submit" class="btn btn-success">검색하기</button>
-    <input type="hidden" name="category" value="0"/>
-</form>
+<link rel='stylesheet' href='https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.8.2/css/all.min.css'/>
 
-<script>
-// 객실 추가 및 삭제를 위한 JavaScript
-let roomCount = 1; // 초기 객실 개수
+<div class='RatingStar'>
+  <div class='RatingScore'>
+    <div class='outer-star'><div class='inner-star'></div></div>
+  </div>
+</div>
 
-function updateRoomCount() {
-    document.getElementById('roomCount').textContent = `총 객실 수: ${roomCount}`;
-}
+<style>
+.inner-star::before{color: #FF9600;}
+.outer-star {position: relative;display: inline-block;color: #CCCCCC;}
+.inner-star {position: absolute;left: 0;top: 0;width: 0%;overflow: hidden;white-space: nowrap;}
+.outer-star::before, .inner-star::before {content: '\f005 \f005 \f005 \f005 \f005';font-family: 'Font Awesome 5 free';font-weight: 900;}
+</style>
 
-function addRoom() {
-    roomCount++; // 객실 개수 증가
-    updateRoomCount();
-
-    const popup = document.getElementById('popup');
-    const newRoom = document.createElement('div');
-    newRoom.innerHTML = `<h5>객실 ${roomCount}</h5>
-        <p>성인 <input type="number" name="adult" value="2"/></p><br>
-        <p>어린이 (만 17세 미만) <input type="number" name="kids" value="0"/></p>
-        <input type="button" id="removeRoom" value="객실 삭제"/>`;
-    popup.appendChild(newRoom);
-}
-
-function removeRoom() {
-    if (roomCount > 1) {
-        const popup = document.getElementById('popup');
-        const lastRoom = popup.lastChild;
-        popup.removeChild(lastRoom);
-        roomCount--; // 객실 개수 감소
-        updateRoomCount();
-    }
-}
-
-document.getElementById('cadd').addEventListener('click', addRoom);
-document.getElementById('popup').addEventListener('click', function (event) {
-    if (event.target.id === 'removeRoom') {
-        removeRoom();
-    }
-});
-</script>
+<script>/*<![CDATA[*/ ratings = {RatingScore: 4.5} 
+totalRating = 5;table = document.querySelector('.RatingStar');function rateIt() {for (rating in ratings) {ratingPercentage = ratings[rating] / totalRating * 100;ratingRounded = Math.round(ratingPercentage / 10) * 10 + '%';star = table.querySelector(`.${rating} .inner-star`);numberRating = table.querySelector(`.${rating} .numberRating`);star.style.width = ratingRounded;numberRating.innerText = ratings[rating];}}rateIt()
+/*]]>*/</script> 
