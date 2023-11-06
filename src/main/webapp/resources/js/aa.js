@@ -132,7 +132,7 @@ function upRoomCount() {
 	var endInput = form.querySelector('input[name="checkout"]');
 	var rortlf = form.querySelector('input[name="rortlf"]');
 	
-	document.getElementById('sub').addEventListener('click', function () {
+	document.getElementById('subb').addEventListener('click', function () {
 	  var titleValue = titleInput.value;
 	  var adultValue = adultInput.value;
 	  var kidsValue = kidsInput.value;
