@@ -7,11 +7,10 @@
 <script type="text/javascript" src="https://cdn.jsdelivr.net/momentjs/latest/moment.min.js"></script>
 <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.min.js"></script>
 <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.css" />
-
+<%@ include file="../views/main_bar.jsp" %>
 
 <%
     request.setCharacterEncoding("UTF-8");
-
     String userId = (String) session.getAttribute("sid"); 
 
     if (userId != null) {

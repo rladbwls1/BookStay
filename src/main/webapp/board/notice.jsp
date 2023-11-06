@@ -22,9 +22,9 @@ SimpleDateFormat df=new SimpleDateFormat("yyyy-MM-dd");
  adminDAO dao=adminDAO.getInstance();
  adminDTO dto1 = dao.getPreView();
 %>
-	<div id="list">
+   <div id="list">
 	<ul id="ul1">
-	<%if(grade==99){ %>
+	  <%if(grade==99){ %>
 	  <li><button id="bn1" type="button" onclick="window.location='/BookStay/admin/adminMain.jsp'">요약정보</button></li>
 	  <li><button id="bn2" type="button" onclick="window.location='/BookStay/admin/adminlist.jsp'">예약목록 </button></li>
 	  <li><button id="bn3" type="button" onclick="window.location='/BookStay/board/notice.jsp'">공지사항 </button></li>
@@ -39,33 +39,33 @@ SimpleDateFormat df=new SimpleDateFormat("yyyy-MM-dd");
 	</ul>
 	<div id="f1">
 	<div id="tbcal">
-	<ul class="nav nav-tabs">
-	  <li class="nav-item">
-	    <a class="nav-link active" aria-current="page">공지사항</a>
-	  </li>
-	</ul>
+   <ul class="nav nav-tabs">
+     <li class="nav-item">
+       <a class="nav-link active" aria-current="page">공지사항</a>
+     </li>
+   </ul>
 <%for(boardDTO dto : list){
-	String title=dto.getTitle();
-	String reg=df.format(dto.getReg());
-	String content=dto.getContent();
-	%><div class="board-item">
-		<div class="board">
-		<a class="title c3" href="javascript:void(0);" onclick="toggleContent('content_<%=dto.getNum()%>');"><%=title%></a>
-		<%if(grade==99){ %>
-		<button class="c1" onclick="window.location='boardUpdateForm.jsp?num=<%=dto.getNum()%>&category=<%=dto.getCategory()%>'">수정</button>
-		<button class="c2" onclick="window.location='boardDelete.jsp?num=<%=dto.getNum()%>&category=<%=dto.getCategory()%>'">삭제</button>
-		</div>
-		<%} %>
-		<%=reg%><br>
-		<div id="content_<%=dto.getNum()%>" style="display: none;"><%=dto.getContent()%></div>
-	</div><%
+   String title=dto.getTitle();
+   String reg=df.format(dto.getReg());
+   String content=dto.getContent();
+   %><div class="board-item">
+      <div class="board">
+      <a class="title c3" href="javascript:void(0);" onclick="toggleContent('content_<%=dto.getNum()%>');"><%=title%></a>
+      <%if(grade==99){ %>
+      <button class="c1" onclick="window.location='boardUpdateForm.jsp?num=<%=dto.getNum()%>&category=<%=dto.getCategory()%>'">수정</button>
+      <button class="c2" onclick="window.location='boardDelete.jsp?num=<%=dto.getNum()%>&category=<%=dto.getCategory()%>'">삭제</button>
+      </div>
+      <%} %>
+      <%=reg%><br>
+      <div id="content_<%=dto.getNum()%>" style="display: none;"><%=dto.getContent()%></div>
+   </div><%
 } %>
 </div>
 <%
 if(grade==99){
-	%>
-	<button id="c3" type="button" onclick="window.location='../board/writeForm.jsp'">공지글 작성</button>
-	<%
+   %>
+   <button id="c3" type="button" onclick="window.location='../board/writeForm.jsp'">공지글 작성</button>
+   <%
 }
 %>
 </div>

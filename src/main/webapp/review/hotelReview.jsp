@@ -39,10 +39,6 @@
 </style>
 
 
-    <title>호텔 리뷰 페이지</title>
-</head>
-<body>
-    <h1>호텔 리뷰 페이지</h1>
 
     <%
     String ref = request.getParameter("ref");
@@ -64,6 +60,6 @@
         <%
         }
         %>
-        <button onclick="window.location='../review/reviewWriteForm?ref=<%=ref%>'">글작성</button>
+        <button class="btn btn-success" onclick="window.location='../review/reviewWriteForm?ref=<%=ref%>'">글작성</button>
 </body>
 </html>
