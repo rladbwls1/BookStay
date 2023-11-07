@@ -76,27 +76,8 @@ int grade= mdao.checkGrade(id);
       </a>
    </div>
    </div>
-   <style>
    
-body {
-   padding-top: 20px; /* 페이지의 상단 여백을 늘립니다. */
-}
 
-#header {
-    margin-bottom: 100px; /* 헤더 아래에 여백을 추가합니다. */
-}
-
-
-#table {
-    margin-top: 50px; /* 컨텐츠 영역을 아래로 이동시킵니다. */
-}
- div.col-md-3 {
-		
-        margin: auto;
-
-    }
-
-</style>
 
 <div class="col-md-3" style="width:200px; height:150px; border:100px; float:left; margin-left: 300px;">
 
