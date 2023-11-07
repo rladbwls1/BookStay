@@ -31,7 +31,7 @@ public class hotelDAO extends OracleDB{
 		String[] chk = check.split(",");
 		String[] typeArray = new String[chk.length];
 		for (int i = 0; i < chk.length; i++) {
-		    if ("1".equals(chk[i])) {
+		    if ("1".equals(chk[i])) { //
 		        typeArray[i] = "호텔";
 		    } else if ("2".equals(chk[i])) {
 		        typeArray[i] = "리조트";
