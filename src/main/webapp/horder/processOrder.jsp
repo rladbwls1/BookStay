@@ -11,12 +11,12 @@
     <%
         // 예약 정보 가져오기
  if(grade==11){
-	 %>
-	 <script>
-	 	alert("로그인을 먼저해주세요");
-	 	window.location="BookStay/views/main.jsp";
-	 </script>
-	 <%
+    %>
+    <script>
+       alert("로그인을 먼저해주세요");
+       window.location="BookStay/views/main.jsp";
+    </script>
+    <%
  }
 
         String datetimes = request.getParameter("datetimes");
@@ -65,7 +65,7 @@
         }
         HOrderDTO order = new HOrderDTO();
         HOrderDAO dao = new HOrderDAO();
-       	MemberDTO mdto = mdao.myInfo(id);
+          MemberDTO mdto = mdao.myInfo(id);
         
         hotelDAO hdao = new hotelDAO();
         hotelDTO dto = hdao.getContentMain(Integer.parseInt(request.getParameter("ref")));
@@ -81,7 +81,7 @@
         order.setPaytype(paytype);
         // 예약 정보 객체 생성
         if(dao.insertOrder(order)==0){ 
-        	%>
+%>
         	<script>
         		alert("예약이 정상적으로 처리되지않았습니다. 다시한번 확인해주세요");
         		window.location="/BookStay/views/main.jsp";
@@ -98,36 +98,36 @@
         <input type="hidden" name="total_amount" value="<%=hdto.getPrice()%>">
         <input type="hidden" name="paytype" value="<%=paytype%>">
        <table>
-       		<tr>
-       			<td>호텔명</td>
-       			<td><%=item_name%></td>
-       		</tr>
-       		<tr>
-       			<td>예약일</td>
-       			<td><%=checkinY%>년 <%=checkinM%>월 <%=checkinD%>일 ~ <%=checkoutY%>년 <%=checkoutM%>월 <%=checkoutD%>일</td>
-       		</tr>
-       		<tr>
-       			<td>고객명</td>
-       			<td><%=mdto.getName()%></td>
-       		</tr>
-       		<tr>
-       			<td>연락처</td>
-       			<td><%=mdto.getPnum()%></td>
-       		</tr>
-       		<tr>
-       			<td>인원수</td>
-       			<td>어른 : <%=adult %>아이 : <%=kid %></td>
-       		</tr>
-       		<tr>
-       			<td>총 금액</td>
-       			<td><%=hdto.getPrice()%></td>
-       		</tr>
+             <tr>
+                <td>호텔명</td>
+                <td><%=item_name%></td>
+             </tr>
+             <tr>
+                <td>예약일</td>
+                <td><%=checkinY%>년 <%=checkinM%>월 <%=checkinD%>일 ~ <%=checkoutY%>년 <%=checkoutM%>월 <%=checkoutD%>일</td>
+             </tr>
+             <tr>
+                <td>고객명</td>
+                <td><%=mdto.getName()%></td>
+             </tr>
+             <tr>
+                <td>연락처</td>
+                <td><%=mdto.getPnum()%></td>
+             </tr>
+             <tr>
+                <td>인원수</td>
+                <td>어른 : <%=adult %>아이 : <%=kid %></td>
+             </tr>
+             <tr>
+                <td>총 금액</td>
+                <td><%=hdto.getPrice()%></td>
+             </tr>
        </table>
        <button type="button" onclick="history.go(-1)">뒤로가기</button>
        <button type="button" onclick="location.href='/BookStay/views/main.jsp'">홈화면</button>
        <%if(paytype.equals("cash")){  %>
        <button type="button" onclick="/BookStay/horder/accountNum.jsp?renum=<%=renum%>">현금(계좌이체) 결제</button>
-     	<%}else if(paytype.equals("card")) {%>
+        <%}else if(paytype.equals("card")) {%>
        <button type="submit">카드 결제</button>
        <%} %>
        </form>

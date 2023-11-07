@@ -18,8 +18,7 @@
         MemberDTO user = dao.myInfo(userId); 
         
         if (user != null) {
-        	
-        	String checkin = request.getParameter("checkin");
+String checkin = request.getParameter("checkin");
         	String checkout = request.getParameter("checkout");
         	String title = request.getParameter("title");
                  
@@ -35,7 +34,7 @@
             
           <table id="tb">
           <tr>
-          	<td class="title">예약일</td>
+	<td class="title">예약일</td>
           	<td><input type="text" name="datetimes" value="<%=checkin %> - <%=checkout %>" /></td>
           </tr>
           <tr>
@@ -57,7 +56,7 @@
             <div class="btn">
                     <input type="submit" id="btn" class="btn btn-primary" value="다음" />
                     <button type="button" id="btn1" class="btn btn-secondary" role="button"> 취소 </button>
-        	</div>
+	</div>
         </form>
                 </div>
 <% 	
@@ -84,4 +83,4 @@
     document.getElementById('btn1').addEventListener('click', function() {
       history.back(); 
     });
-  </script>
+ </script>
