@@ -1,9 +1,9 @@
+<%@ page contentType="text/html; charset=UTF-8"%>
 <%@page import="org.apache.catalina.tribes.group.InterceptorPayload"%>
 <%@page import="hotel.bean.MemberDTO"%>
 <%@page import="hotel.bean.hotelDAO"%>
 <%@page import="hotel.bean.hotelDTO"%>
 <%@page import="hotel.bean.MemberDAO"%>
-<%@ page contentType="text/html; charset=utf-8" %>
 <%@ page import="hotel.bean.HOrderDTO" %>
 <%@ page import="hotel.bean.HOrderDAO" %>
 <%@page import="java.sql.Timestamp"%>
@@ -71,7 +71,7 @@
         hotelDTO dto = hdao.getContentMain(Integer.parseInt(request.getParameter("ref")));
         hotelDTO hdto = hdao.getContentMain(Integer.parseInt(request.getParameter("num")));
         String item_name=dto.getTitle()+"("+hdto.getRoomtype()+")";
-        
+        String name = mdto.getName();
         order.setId(id);
         order.setRef(Integer.parseInt(request.getParameter("num")));
         order.setCheckin(checkin);
@@ -79,6 +79,7 @@
         order.setAdult(adult);
         order.setKid(kid);
         order.setPaytype(paytype);
+        order.setName(name);
         // 예약 정보 객체 생성
         if(dao.insertOrder(order)==0){ 
 %>

@@ -124,12 +124,13 @@ public class adminDAO extends OracleDB{
 			String sql="";
 			conn=getConnection();
 			if(totalPay<=paid) {
-			sql="update horder set state=1,paidreg=sysdate where renum=?";
+			sql="update horder set state=1,paidreg=sysdate,paid=? where renum=?";
 			}else {
-			sql="update horder set state=0,paidreg=sysdate where renum=?";	
+			sql="update horder set state=0,paidreg=sysdate,paid=? where renum=?";	
 			}
 			pstmt=conn.prepareStatement(sql);
-			pstmt.setInt(1, renum);
+			pstmt.setInt(1, paid);
+			pstmt.setInt(2, renum);
 			pstmt.executeUpdate();
 		} catch (Exception e) {
 			e.printStackTrace();

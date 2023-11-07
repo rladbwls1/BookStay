@@ -41,9 +41,6 @@
 	  <li><button id="bn3" type="button" onclick="window.location='/BookStay/board/notice.jsp'">공지사항 </button></li>
 	  <li><button id="bn4" type="button" onclick="window.location='/BookStay/board/QnAList.jsp'">자주하는질문 </button></li>
 	  <li><button id="bn5" type="button" onclick="window.location='/BookStay/board/myQuestion.jsp'">1:1문의[<%=dto1.getNoanswer() %>] </button></li>
-	  <!-- 
-	  <li><button id="bn6" type="button" onclick="window.location='/BookStay/hotel/hotelWriteForm.jsp'">숙박업소 글등록</button></li>
-	   -->
 	  <li><button id="bn6" type="button" onclick="window.location='/BookStay/admin/adminHotelListPro.jsp?check=2'">숙박업소 게시글 정보 </button></li>
 	  <li><button id="bn7" type="button" onclick="window.location='/BookStay/admin/adminGradeList.jsp'">등급 관리/조회</button></li>
 	</ul>
@@ -80,20 +77,85 @@
             	String reg = new SimpleDateFormat("yyyy-MM-dd").format(reservation.getReg());
             	String checkin = reservation.getCheckin().substring(0,11);
             	String checkout = reservation.getCheckout().substring(0,11);
+            	String status="";
+            	System.out.println(reservation.getState());
+            	if(reservation.getState()==1){
+            		status="입금완료";
+            	}else if(reservation.getState()==0){
+            		status="입금중";
+            	}else if(reservation.getState()==2){
+            		status="예약취소";
+            	}
+            	int totalPay = reservation.getPrice();
+            	int money = totalPay-reservation.getPaid();
+            	int renum = reservation.getRenum();
         %>
         <tr>
-            <td><%= reservation.getRenum() %></td>
+             <td><%= reservation.getRenum() %></td>
             <td><%= reservation.getName() %></td>
             <td><%= checkin %></td>
             <td><%= reg %></td>
-            <td><%= reservation.getAdult() %></td>
-            <td><%= reservation.getKid() %></td>
+            <td><%= reservation.getRoomtype()%></td>
             <td><%= reservation.getPaytype() %></td>
-            <td><%= reg %></td>
-            <td><%= reservation.getState() %></td>
-            <td><%= reservation.getState() %></td>
-            <td><button type="button" class="btn btn-secondary">입금금액</button></td>
-            <td><button type="button" class="btn btn-danger">취소금액</button></td>
+            <td><%= totalPay %>원</td>
+            <td><%= reservation.getPaid()%>원</td>
+            <td><%= money%>원</td>
+            <td><%= status %></td>
+            <td>
+            <%if(money>=0 && status.equals("입금중")) {%>
+            <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#staticBackdrop<%=reservation.getRenum()%>">입금액 입력</button></td><!-- 입금액입력  -->
+            <div class="modal fade" id="staticBackdrop<%=reservation.getRenum()%>" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+				  <div class="modal-dialog">
+				    <div class="modal-content">
+				      <div class="modal-header">
+				        <h1 class="modal-title fs-5" id="staticBackdropLabel">입금액</h1>
+				        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+				      </div>
+				      <form action="adminStatusUpdate.jsp" method="post">
+				      <div class="modal-body">
+				    		입금액 : <input type="number" name="paid"><br>
+				    		<input type="hidden" name="renum" value="<%=renum%>">
+				    		<input type="hidden" name="confirm" value="true">
+				    		<input type="hidden" name="totalPay" value="<%=totalPay%>">
+				      </div>
+				      <div class="modal-footer">
+				        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">닫기</button>
+				        <button type="submit" class="btn btn-primary">적용</button>
+				      </div>
+				      </form>
+				    </div>
+				  </div>
+				</div>
+				<%}else if(status.equals("예약취소")){%>
+				<button type="button" class="btn btn-primary" disabled >없음</button>	
+					
+				<%}else{%>
+				<button type="button" class="btn btn-primary" onclick="window.location='adminStatusUpdate.jsp?confirm=true&renum=<%=reservation.getRenum()%>'">예약확정</button>
+				<%} %>
+				
+				
+            <td><button type="button" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#staticBackdropcancel<%=reservation.getRenum()%>">예약취소</button></td><!-- 입금액입력  -->
+            <div class="modal fade" id="staticBackdropcancel<%=reservation.getRenum()%>" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+				  <div class="modal-dialog">
+				    <div class="modal-content">
+				      <div class="modal-header">
+				        <h1 class="modal-title fs-5" id="staticBackdropLabel">예약취소</h1>
+				        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+				      </div>
+				      <form action="adminStatusUpdate.jsp" method="post">
+				      <div class="modal-body">
+				    		취소사유 : <textarea rows="5" cols="35" name="etc"></textarea><br>
+				    		<input type="hidden" name="renum" value="<%=reservation.getRenum()%>">
+				    		<input type="hidden" name="cancel" value="true">
+				      </div>
+				      <div class="modal-footer">
+				        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">닫기</button>
+				        <button type="submit" class="btn btn-primary">작성</button>
+				      </div>
+				      </form>
+				    </div>
+				  </div>
+				</div></td><!-- 예약취소 -->
         </tr>
         <%
             }

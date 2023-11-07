@@ -29,13 +29,15 @@ String img="";
 String service="";
 if(mr.getParameter("re_step").equals("1")){
 	String block="";
-	System.out.println(mr.getParameter("block"));
 	if(mr.getParameter("block")!=null){
 		block=mr.getParameter("block");
 	}else{
 		block="0";
 	}
-	String upload=mr.getFilesystemName("upload");
+	String upload="default.gif";
+	if(mr.getFilesystemName("upload")!=null){
+		upload=mr.getFilesystemName("upload");
+	}
 	dto.setAddress(mr.getParameter("address"));
 	dto.setType(mr.getParameter("type"));
 	dto.setTitle(mr.getParameter("title"));
@@ -51,9 +53,40 @@ if(mr.getParameter("re_step").equals("1")){
 	dao.priceUpdate(ref);
 	response.sendRedirect("hotelContent.jsp?ref="+ref+"&block="+block);
 }else{
-	String upload1=mr.getFilesystemName("upload1");
-	String upload2=mr.getFilesystemName("upload2");
-	String upload3=mr.getFilesystemName("upload3");
+	String upload1="default.gif";
+	String upload2="default.gif";
+	String upload3="default.gif";
+	if(mr.getFilesystemName("upload3")!=null){
+		if(mr.getFilesystemName("upload2")!=null){
+			if(mr.getFilesystemName("upload1")!=null){
+				upload1=mr.getFilesystemName("upload1");
+				upload2=mr.getFilesystemName("upload2");
+				upload3=mr.getFilesystemName("upload3");
+			}else if(mr.getFilesystemName("upload1")==null){
+				upload1=mr.getFilesystemName("upload2");
+				upload2=mr.getFilesystemName("upload3");
+			}
+		}else if (mr.getFilesystemName("upload2")==null){
+			if(mr.getFilesystemName("upload1")!=null){
+				upload1=mr.getFilesystemName("upload1");
+				upload2=mr.getFilesystemName("upload3");
+			}else if(mr.getFilesystemName("upload1")==null){
+				upload1=mr.getFilesystemName("upload3");
+			}
+		}
+	else if(mr.getFilesystemName("upload3")==null){
+		if(mr.getFilesystemName("upload2")!=null&&mr.getFilesystemName("upload1")!=null){
+			upload1=mr.getFilesystemName("upload1");
+			upload2=mr.getFilesystemName("upload2");
+		}else if(mr.getFilesystemName("upload2")==null&&mr.getFilesystemName("upload1")!=null){
+			upload1=mr.getFilesystemName("upload1");
+		}else if(mr.getFilesystemName("upload2")!=null&&mr.getFilesystemName("upload1")==null){
+			upload1=mr.getFilesystemName("upload2");
+		}
+		}
+		
+	}
+	
 	String [] arrayupload = {upload1,upload2,upload3};
 	String [] arrayservice = mr.getParameterValues("services");
 	for(int i=0;i<arrayupload.length; i++){

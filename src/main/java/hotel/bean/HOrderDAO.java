@@ -159,8 +159,8 @@ public class HOrderDAO extends OracleDB {
 		try{			
 			conn = getConnection();
 			  
- 	        String sql = "INSERT INTO horder (renum, id, ref, Checkin, Checkout, Adult, Kid, State, Paytype, Reg, AdultCount) VALUES "
- 	        		+ " (horder_seq.nextval, ?, ?,to_date(?,'YYYY-MM-DD'), to_date(?,'YYYY-MM-DD'), ?, ?, 0, ?, SYSDATE)";
+ 	        String sql = "INSERT INTO horder (renum, id, ref, Checkin, Checkout, Adult, Kid, State, Reg, Paytype, name) VALUES "
+ 	        		+ " (horder_seq.nextval, ?, ?,to_date(?,'YYYY-MM-DD'), to_date(?,'YYYY-MM-DD'), ?, ?, 0, SYSDATE,?,?)";
  	        pstmt = conn.prepareStatement(sql);
  	        pstmt.setString(1, order.getId());
  	        pstmt.setInt(2, order.getRef());
@@ -169,6 +169,7 @@ public class HOrderDAO extends OracleDB {
  	        pstmt.setInt(5, order.getAdult());
  	        pstmt.setInt(6, order.getKid());
 	        pstmt.setString(7, order.getPaytype());
+	        pstmt.setString(8, order.getName());
 	        result = pstmt.executeUpdate();
 		}catch (Exception ex) {
    	        ex.printStackTrace();

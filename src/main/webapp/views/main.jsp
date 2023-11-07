@@ -177,7 +177,7 @@ int grade= mdao.checkGrade(id);
 	 <a id="hoth" href="/BookStay/hotel/hotelContent.jsp?title=<%=dto.getTitle()%>&ref=<%=dto.getRef()%>&block=<%=block2%>
 	&checkin=<%=start%>&checkout=<%=end%>&adult=2&kids=0&room=1&select=1&check=1,2,3,4">
 	 <div class="box">
-		<img class="b1 b3" src="/BookStay/upload/<%= img[0]%>" style="height: 100px;"/>
+		<img class="b1 b3" src="/BookStay/upload/<%=img[0]%>" style="height: 100px;"/>
 		<div class="h_box b1 b2">
 		<div><%= dto.getTitle() %></div>
 		<div class="pri"><b id="b"><%= dto.getPrice() %></b>원~</div>

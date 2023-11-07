@@ -18,14 +18,16 @@
         MemberDTO user = dao.myInfo(userId); 
         
         if (user != null) {
-String checkin = request.getParameter("checkin");
+			String checkin = request.getParameter("checkin");
         	String checkout = request.getParameter("checkout");
         	String title = request.getParameter("title");
+        	int adult = Integer.parseInt(request.getParameter("adult"));
+        	int kids = Integer.parseInt(request.getParameter("kids"));
                  
 %>
 	<div id="list">
             <h2><%=title %> 예약</h2>
-        <form id="form1 action="processOrder.jsp" class="form-horizontal" method="post">
+        <form id="form1" action="processOrder.jsp" class="form-horizontal" method="post">
             
           
                     <input name="id" type="hidden" value="<%=userId%>"/>
@@ -39,11 +41,11 @@ String checkin = request.getParameter("checkin");
           </tr>
           <tr>
           	<td class="title">성인 예약 인원</td>
-          	<td><input name="adult" type="number"/></td>
+          	<td><input name="adult" type="number" value="<%=adult%>"/></td>
           </tr>
           <tr>
           	<td class="title">아이 예약 인원</td>
-          	<td> <input name="kid" type="number"/></td>
+          	<td> <input name="kid" type="number" value="<%=kids%>"/></td>
           </tr>
           <tr>
           	<td class="title">결제 방식</td>
@@ -65,7 +67,7 @@ String checkin = request.getParameter("checkin");
 %>
 <script>
     alert("사용자 정보를 가져오는 중 오류가 발생했습니다.");
-    window.location = "/BookStay/memeber/loginform.jsp";
+    window.location = "/BookStay/member/loginform.jsp";
 </script>
 <%
     }
@@ -73,7 +75,7 @@ String checkin = request.getParameter("checkin");
 %>
 <script>
     alert("세션이 만료되었거나 로그인하지 않았습니다. 다시 로그인해주세요.");
-    window.location = "/BookStay/memeber/loginform.jsp";
+    window.location = "/BookStay/member/loginform.jsp";
 </script>
 <%
     }

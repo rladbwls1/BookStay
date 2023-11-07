@@ -33,7 +33,7 @@
   block = request.getParameter("block");
 		 }
  
- String[] imgArray={"default.gif","default.gif","default1.jpg"};
+ String[] imgArray={"default.gif","default.gif","default.gif"};
  if(!dao.checkNull(mainimg)){
  if(mainimg.contains(",")){
 	 imgArray=mainimg.split(",");
@@ -215,12 +215,18 @@ if (jum.equals("0.0")) {
 <% 
 for(hotelDTO dto : list){
 	String imgname = dto.getImg();
-	String [] img = imgname.split(",");%>
+	%>
 	<div id="box1">
-	<form class="form" action="../horder/payment.jsp?checkin=<%=checkin %>&checkout=<%=checkout %>&title=<%=title %>" method="post">
+	<form class="form" action="../horder/payment.jsp" method="post">
+	<input type="hidden" name="num" value="<%=dto.getNum()%>">
 	<input type="hidden" name="ref" value="<%=ref%>">
+	<input type="hidden" name=checkin value="<%=checkin%>">
+	<input type="hidden" name=checkout value="<%=checkout%>">
+	<input type="hidden" name=title value="<%=title%>">
+	<input type="hidden" name=kids value="<%=kids%>">
+	<input type="hidden" name=adult value="<%=adult%>">
 	<div id="b3">
-	<img src="/BookStay/upload/<%=img[0]%>">
+	<img src="/BookStay/upload/<%=imgname%>">
 	</div>
 	<div id="box3">
 	<div class="title2"><%=dto.getRoomtype()%></div>
