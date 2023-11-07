@@ -39,7 +39,7 @@ public class hotelDAO extends OracleDB{
 		        typeArray[i] = "모텔";
 		    } else if ("4".equals(chk[i])) {
 		    	typeArray[i] = "기타";
-		    }
+		    }//
 		}
 		if (sel == 5) {
 		    sql = "SELECT h.*, r.average_value " +
