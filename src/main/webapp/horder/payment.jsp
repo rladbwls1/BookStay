@@ -18,13 +18,12 @@
         MemberDTO user = dao.myInfo(userId); 
         
         if (user != null) {
-           
-           String checkin = request.getParameter("checkin");
-           String checkout = request.getParameter("checkout");
-           String title = request.getParameter("title");
+String checkin = request.getParameter("checkin");
+        	String checkout = request.getParameter("checkout");
+        	String title = request.getParameter("title");
                  
 %>
-   <div id="list">
+	<div id="list">
             <h2><%=title %> 예약</h2>
         <form id="form1 action="processOrder.jsp" class="form-horizontal" method="post">
             
@@ -35,32 +34,32 @@
             
           <table id="tb">
           <tr>
-             <td class="title">예약일</td>
-             <td><input type="text" name="datetimes" value="<%=checkin %> - <%=checkout %>" /></td>
+	<td class="title">예약일</td>
+          	<td><input type="text" name="datetimes" value="<%=checkin %> - <%=checkout %>" /></td>
           </tr>
           <tr>
-             <td class="title">성인 예약 인원</td>
-             <td><input name="adult" type="number"/></td>
+          	<td class="title">성인 예약 인원</td>
+          	<td><input name="adult" type="number"/></td>
           </tr>
           <tr>
-             <td class="title">아이 예약 인원</td>
-             <td> <input name="kid" type="number"/></td>
+          	<td class="title">아이 예약 인원</td>
+          	<td> <input name="kid" type="number"/></td>
           </tr>
           <tr>
-             <td class="title">결제 방식</td>
-             <td> <select id="sel" name="paytype">
-                       <option value="card" selected>카드</option>
-                       <option value="cash">현금(계좌이체)</option>
+          	<td class="title">결제 방식</td>
+          	<td> <select id="sel" name="paytype">
+                    	<option value="card" selected>카드</option>
+                    	<option value="cash">현금(계좌이체)</option>
                     </select></td>
           </tr>
             </table>
             <div class="btn">
                     <input type="submit" id="btn" class="btn btn-primary" value="다음" />
                     <button type="button" id="btn1" class="btn btn-secondary" role="button"> 취소 </button>
-           </div>
+	</div>
         </form>
                 </div>
-<%    
+<% 	
             
     } else {
 %>
@@ -84,4 +83,4 @@
     document.getElementById('btn1').addEventListener('click', function() {
       history.back(); 
     });
-  </script>
+ </script>

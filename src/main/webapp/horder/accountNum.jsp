@@ -1,11 +1,11 @@
-<%@page import="hotel.bean.HOrderDTO"%>
+m<%@page import="hotel.bean.HOrderDTO"%>
 <%@page import="hotel.bean.HOrderDAO"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%request.setCharacterEncoding("UTF-8");
 int renum = Integer.parseInt(request.getParameter("renum"));
 HOrderDAO dao = new HOrderDAO();
-HOrderDTO dto = dao.getOrder(renum);
+HOrderDTO dto = dao.getOrder(renum); 
 String state="";
 if(dto.getState()==0){
 	state="입금중";

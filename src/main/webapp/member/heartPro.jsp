@@ -14,6 +14,7 @@ if(id==null){
 	<%
 }
 String num = request.getParameter("num");
+
 MemberDTO dto = new MemberDTO();
 MemberDAO dao = new MemberDAO();
 dto=dao.myInfo(id);
@@ -45,11 +46,19 @@ if(heart==null){
 		nheart=nheart.substring(1);
 		}
 	}
-
+if(request.getParameter("heartadd").equals("true")){
 dao.updateHeart(id, nheart);
 dao.allupdateHeart();
+}
+int ref = Integer.parseInt(request.getParameter("ref"));
+String checkin = request.getParameter("checkin");
+String checkout = request.getParameter("checkout");
+int room = Integer.parseInt(request.getParameter("room"));
+int adult = Integer.parseInt(request.getParameter("adult"));
+int kids = Integer.parseInt(request.getParameter("kids"));
+int select = Integer.parseInt(request.getParameter("select"));
 %>
 <script>
 	alert("찜목록이 수정되었습니다. ");
-	window.location="../member/heartList.jsp";
+	window.location="/BookStay/hotel/hotelContent.jsp?ref=<%=ref%>&room=<%=room%>&adult=<%=adult%>&kids=<%=kids%>&select=<%=select%>&checkin=<%=checkin%>&checkout=<%=checkout%>";
 </script>

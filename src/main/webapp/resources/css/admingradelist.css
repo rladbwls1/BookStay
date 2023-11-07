@@ -1,26 +1,10 @@
 @charset "UTF-8";
 
-#block2{
-	padding: 0 30px 0;
+*{
+	padding: 0;
+	margin: 0;
+	box-sizing: border-box;
 }
-#table1 th ,td{
-	border: 1px solid black !important;
-	padding: 5px 0 5px 7px;
-}
-#table1{
-	width: 100%;
-	text-align: center;
-	margin-bottom: 50px;
-}
-#table1 th{
-	background-color: #EEEEEE;
-	padding: 10px 0;
-}
-#page{
-	text-align: center;
-}
-
-/* 사이드메뉴 css */
 #list{
 	display: flex;
 	min-height: calc(100vh - 150px);
@@ -35,7 +19,7 @@
   margin:0 !important;
   border-right: 1px solid gainsboro;
 }
-#bn1, #bn3, #bn4, #bn5, #bn6, #bn7 {
+#bn1, #bn3, #bn4, #bn5, #bn6, #bn2 {
   width: 100%;
   display: block;
   color: #000;
@@ -57,7 +41,7 @@
 .nav{
 	margin-top: 20px;
 }
-#bn2{
+#bn7{
 	  width: 100%;
 	  display: block;
 	  color: white;
@@ -66,19 +50,33 @@
 	  border: none;
 	  background-color: #555;
 }
-#page{
-	margin-top: 30px;
-	display: flex;
-	justify-content: center;
-	align-items: center;
-	margin-bottom: 100px;
+#form{
+	display: inline-flex;
+	border: 1px solid black;
+	position: absolute;
+	top: 0;
+	right: 0;
 }
-.button{
-	padding: 6px 10px;
-	border: 1px solid gainsboro;
-	background-color: white;
+#check, #text, #grade{
+	border: none;
 }
-#color{
+#btn5{
 	background-color: black;
 	color: white;
+}
+#tbcal{
+	position: relative;
+}
+#tb{
+	width: 100%;
+}
+.cg{
+	background-color: #2B2730;
+	color: white;
+}
+#tb td, th{
+	width: 25%;
+	text-align: center;
+	border: 1px solid gainsboro;
+	padding: 8px 0;
 }

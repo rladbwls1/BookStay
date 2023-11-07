@@ -144,7 +144,7 @@ String title = request.getParameter("title");
 <% if(heart!=null&&heart.contains(Integer.toString(ref))){%>
 <button type="button" onclick="window.location='../member/heartPro.jsp?num=<%=maindto.getNum()%>&ref=<%=ref%>'">찜취소하기</button>
 <%}else{ %>
-<button type="button" id="heart" onclick="window.location='../member/heartPro.jsp?num=<%=maindto.getNum()%>&ref=<%=ref%>'">
+<button type="button" id="heart" onclick="window.location='../member/heartPro.jsp?num=<%=maindto.getNum()%>&ref=<%=ref%>&room=<%=rortlf%>&adult=<%=adult%>&kids=<%=kids%>&select=<%=select%>&checkin=<%=checkin%>&checkout=<%=checkout%>&heartadd=true'">
 	<img src="/BookStay/resources/img/heart.png">
 </button>
 </div>
@@ -217,7 +217,7 @@ for(hotelDTO dto : list){
 	String imgname = dto.getImg();
 	String [] img = imgname.split(",");%>
 	<div id="box1">
-	<form class="form" action="../horder/payment.jsp" method="post">
+	<form class="form" action="../horder/payment.jsp?checkin=<%=checkin %>&checkout=<%=checkout %>&title=<%=title %>" method="post">
 	<input type="hidden" name="ref" value="<%=ref%>">
 	<div id="b3">
 	<img src="/BookStay/upload/<%=img[0]%>">
@@ -270,9 +270,6 @@ for(hotelDTO dto : list){
         </td>
     </tr>
 </table>
-</div>
-<div class="tnrqkr">
-	<p class="hr2">숙박 위치</p>
 </div>
 </div>	
 </body>

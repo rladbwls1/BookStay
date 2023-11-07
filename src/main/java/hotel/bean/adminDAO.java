@@ -208,7 +208,7 @@ public class adminDAO extends OracleDB{
 		ArrayList<MemberDTO> list = new ArrayList<MemberDTO>();
 		try {
 			conn=getConnection();
-			String sql="select * from member where name like=? or id like=?";
+			String sql="select * from member where name like ? or id like ?";
 			pstmt=conn.prepareStatement(sql);
 			pstmt.setString(1, "%"+keyword+"%");
 			pstmt.setString(2, "%"+keyword+"%");
