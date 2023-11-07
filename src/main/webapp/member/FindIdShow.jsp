@@ -69,6 +69,7 @@
 <body>
     <%
    	
+        String id = request.getParameter("id");
         String name = request.getParameter("name");
         String email = request.getParameter("email");
         String pnum = request.getParameter("pnum");

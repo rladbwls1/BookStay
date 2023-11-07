@@ -15,7 +15,7 @@
     String pnum = request.getParameter("pnum");
 %>
 
-<link rel="stylesheet" href="/BookStay/resources/css/FindId.css" type="text/css">
+<link rel="stylesheet" href="/BookStay/resources/FindId.css" type="text/css">
 
 <script>
 function combineAndSubmit() {

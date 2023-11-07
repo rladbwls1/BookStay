@@ -15,11 +15,12 @@
 <body>
     <%
  	
-    String name = request.getParameter("name");
+    /* String name = request.getParameter("name");
     String email = request.getParameter("email");
-    String pnum = request.getParameter("pnum");
-    String id=MemberDAO.getInstance().findId(name,email,pnum);
-    System.out.println(name+","+email+","+pnum);
+    String pnum = request.getParameter("pnum"); */
+    System.out.println(dto.getName()+","+dto.getEmail()+","+dto.getPnum());
+    String id=MemberDAO.getInstance().findId(dto.getName(),dto.getEmail(),dto.getPnum());
+
     if ( id == null) {
     	%>
     	 <script>

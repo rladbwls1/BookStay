@@ -163,7 +163,7 @@ function updateEmail() {
 	
 	}
 </style>
-    <link rel="stylesheet" href="/BookStay/resources/css/update.css" type="text/css">
+    <link rel="stylesheet" href="resources/update.css" type="text/css">
 </head>
 <body>
    <div class="UjinsHypboy">
