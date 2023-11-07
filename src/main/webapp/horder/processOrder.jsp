@@ -80,7 +80,7 @@
         order.setKid(kid);
         order.setPaytype(paytype);
         // 예약 정보 객체 생성
-        if(dao.insertOrder(order)==0){
+        if(dao.insertOrder(order)==0){ 
         	%>
         	<script>
         		alert("예약이 정상적으로 처리되지않았습니다. 다시한번 확인해주세요");

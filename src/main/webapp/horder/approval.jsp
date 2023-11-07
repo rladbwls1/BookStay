@@ -12,7 +12,7 @@ int totalpay=Integer.parseInt(request.getParameter("totalpay"));
 int paid=Integer.parseInt(request.getParameter("paid"));
 dao.reserveStatusUpdate(renum,totalpay,paid);
 %>
-
+ 
 <script>
 	alert("결제가 완료 되었습니다.");
 	window.location="/BookStay/member/memberlist.jsp";
