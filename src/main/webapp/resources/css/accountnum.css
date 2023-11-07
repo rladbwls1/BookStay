@@ -1,0 +1,35 @@
+@charset "UTF-8";
+
+*{
+	padding: 0;
+	margin: 0;
+	box-sizing: border-box;
+}
+#list{
+	width: 65%;
+	margin: 0 auto;
+	margin-top: 100px;
+}
+#tb{
+	width: 100%;
+	border: 1px solid black;
+	text-align: center;
+}
+#tb td{
+	border: 1px solid gainsboro;
+	padding: 13px 5px;
+}
+#list h2{
+	border-bottom: 2px solid black;
+	padding-bottom: 20px;
+	margin-bottom: 30px;
+}
+#btn{
+	float: right;
+	margin-top: 20px;
+	background: #164863;
+	color: white;
+	border: none;
+	border-radius: 5px;
+	padding: 5px;
+}

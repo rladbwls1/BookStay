@@ -21,12 +21,15 @@ public class boardDAO extends OracleDB{
 	} 
 	private boardDAO() {}
 	
-	public ArrayList<boardDTO> getList(int num){
+	public ArrayList<boardDTO> getList(int num, int start, int end){
 		ArrayList<boardDTO> list = new ArrayList<boardDTO>();
 		int cate=num;
 		String sql="";
 		if(cate==20) {
-			sql="select * from board where category>? and category<30";
+			sql="select * from "
+					+ " (select b.*, rownum r from "
+					+ " (select * from board where category>? and category<30) b) "
+					+ " where r >= ? and r <= ?";
 		}else{
 			sql="select * from board where category=?";
 		}
@@ -34,6 +37,10 @@ public class boardDAO extends OracleDB{
 			conn=getConnection();
 			pstmt=conn.prepareStatement(sql);
 			pstmt.setInt(1, num);
+			if(cate==20) {
+			pstmt.setInt(2, start);
+			pstmt.setInt(3, end);
+			}
 			rs=pstmt.executeQuery();
 			while(rs.next()) {
 				boardDTO dto = new boardDTO();
@@ -51,6 +58,24 @@ public class boardDAO extends OracleDB{
 		}
 		return list;
 		
+	}
+	
+	public int count() {
+		int result = 0;
+		try {
+			conn = getConnection();
+			String sql = "select count(*) from board where category>20 and category<30";
+			pstmt = conn.prepareStatement(sql);
+			rs = pstmt.executeQuery();
+			if(rs.next()) {
+				result = rs.getInt(1);
+			}
+		}catch(Exception e) {
+			e.printStackTrace();
+		}finally {
+			close(rs, pstmt, conn);
+		}
+		return result;
 	}
 	
 	public void boardInsert(boardDTO dto) {

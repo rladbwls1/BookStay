@@ -31,6 +31,7 @@
 	flex: 4;
 	padding:0 30px 0;
 }
+
 #ul1 li button:hover {
   background-color: #555;
   color: white;
@@ -49,6 +50,9 @@
 	  border: none;
 	  background-color: #555;
 }
+#page{
+	text-align: center;
+}
 #tbcal{
 	position: relative;
 }
@@ -57,10 +61,13 @@
 	position: absolute;
 	right: 0;
 	top: -7px;
-	border: 1px solid #213555;
+	border: 1px solid gainsboro;
 }
 #btn4 button{
 	padding: 2px 5px;
+}
+#btn4 button:not(:last-child){
+	border-right: 1px solid gainsboro;
 }
 #chk{
 	background-color: #213555;
@@ -68,8 +75,7 @@
 	border: none;
 }
 .d{
-	border: 1px solid black;
-	border-width: 0 1px 0 0;
+	border: none;
 	background-color: white;
 }
 #tb{
@@ -83,5 +89,21 @@
 }
 .cg{
 	background-color: #2B2730;
+	color: white;
+}
+.button{
+	padding: 6px 10px;
+	border: 1px solid gainsboro;
+	background-color: white;
+}
+#page {
+    margin-top: 30px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-bottom: 100px;
+}
+#color{
+	background-color: black;
 	color: white;
 }

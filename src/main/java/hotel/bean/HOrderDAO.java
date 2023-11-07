@@ -52,6 +52,8 @@ public class HOrderDAO extends OracleDB {
 	    return order;
 	}
 	
+	
+	
 	public int getRecentOrder(String id) {
     	int result=0;
     	try {
@@ -72,7 +74,7 @@ public class HOrderDAO extends OracleDB {
     }
     
     // 사용자의 주문 내역을 데이터베이스에서 읽어오는 메서드
-	public List<HOrderDTO> getOrders(String id) {
+	public List<HOrderDTO> getOrders(String id) { 
 	    List<HOrderDTO> orders = new ArrayList<>();
 	    String query = "SELECT * FROM horder WHERE id = ?";
 
@@ -154,13 +156,13 @@ public class HOrderDAO extends OracleDB {
 		}
 		return result;
 	}
-    public int insertOrder(HOrderDTO order)throws Exception {
+	public int insertOrder(HOrderDTO order)throws Exception {
     	int result=0;
 		try{			
 			conn = getConnection();
 			  
- 	        String sql = "INSERT INTO horder (renum, id, ref, Checkin, Checkout, Adult, Kid, State, Paytype, Reg, AdultCount) VALUES "
- 	        		+ " (horder_seq.nextval, ?, ?,to_date(?,'YYYY-MM-DD'), to_date(?,'YYYY-MM-DD'), ?, ?, 0, ?, SYSDATE)";
+ 	        String sql = "INSERT INTO horder (renum, id, ref, Checkin, Checkout, Adult, Kid, State, Reg, Paytype, name) VALUES "
+ 	        		+ " (horder_seq.nextval, ?, ?,to_date(?,'YYYY-MM-DD'), to_date(?,'YYYY-MM-DD'), ?, ?, 0, SYSDATE,?,?)";
  	        pstmt = conn.prepareStatement(sql);
  	        pstmt.setString(1, order.getId());
  	        pstmt.setInt(2, order.getRef());
@@ -169,6 +171,7 @@ public class HOrderDAO extends OracleDB {
  	        pstmt.setInt(5, order.getAdult());
  	        pstmt.setInt(6, order.getKid());
 	        pstmt.setString(7, order.getPaytype());
+	        pstmt.setString(8, order.getName());
 	        result = pstmt.executeUpdate();
 		}catch (Exception ex) {
    	        ex.printStackTrace();

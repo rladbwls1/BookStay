@@ -41,7 +41,6 @@ public class hotelDAO extends OracleDB{
 		    	typeArray[i] = "기타";
 		    }
 		}
-		
 		if (sel == 5) {
 		    sql = "SELECT h.*, r.average_value " +
 		          "FROM hotel h " +
@@ -641,5 +640,26 @@ public class hotelDAO extends OracleDB{
 		      
 		      return gt;
 		   }
+		
+		public int getRoomPrice(int renum) {
+			int price =0;
+			try {
+				conn=getConnection();
+				String sql="select price from hotel where num=?";
+				pstmt=conn.prepareStatement(sql);
+				pstmt.setInt(1, renum);
+				rs=pstmt.executeQuery();
+				if(rs.next()) {
+					price=rs.getInt(1);
+				}
+			} catch (Exception e) {
+				e.printStackTrace();
+			} finally {
+				close(rs, pstmt, conn);
+				
+			}return price;
+			
+			
+		}
 	
 }

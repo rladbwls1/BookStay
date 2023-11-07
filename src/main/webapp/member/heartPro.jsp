@@ -60,5 +60,5 @@ int select = Integer.parseInt(request.getParameter("select"));
 %>
 <script>
 	alert("찜목록이 수정되었습니다. ");
-	window.location="/BookStay/hotel/hotelContent.jsp?ref=<%=ref%>&room=<%=room%>&adult=<%=adult%>&kids=<%=kids%>&select=<%=select%>&checkin=<%=checkin%>&checkout=<%=checkout%>";
+	history.back();
 </script>

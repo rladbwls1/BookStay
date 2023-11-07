@@ -17,7 +17,7 @@
 <%
 request.setCharacterEncoding("UTF-8");
 boardDAO dao1 = boardDAO.getInstance();
-ArrayList<boardDTO> list = dao1.getList(10);
+ArrayList<boardDTO> list = dao1.getList(10, 0, 0);
 SimpleDateFormat df=new SimpleDateFormat("yyyy-MM-dd");
  adminDAO dao=adminDAO.getInstance();
  adminDTO dto1 = dao.getPreView();

@@ -337,3 +337,11 @@ main{
   font-size: 8px;
   margin: 0 5px;
 }
+.d .btn{
+	color: black;
+	border: none;
+}
+.btn, #bt{
+	color: black;
+	border: none;
+}

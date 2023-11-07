@@ -191,7 +191,7 @@
 	&select=<%=sel1%>&check=<%=check1%><%=val%>">
     		<div class="list_s">
     		<div>
-	    	<img src="/BookStay/upload/<%= dto.getImg() %>"/>
+	    	<img src="/BookStay/upload/<%= img[0] %>" style="height: 148px;"/>
     		</div>
     		<div class="mar">
     		<div class="title"><%= dto.getTitle() %></div>
@@ -218,7 +218,7 @@
     	%>
 		<div class="list_s">
 		<div>
-    	<img src="/BookStay/upload/<%= dto.getImg() %>"/>
+    	<img src="/BookStay/upload/<%= img[0] %>" style="height: 148px;"/>
     	</div>
     	<div class="mar">
     	<div class="title"><%= dto.getTitle() %></div>
