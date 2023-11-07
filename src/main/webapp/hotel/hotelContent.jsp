@@ -18,6 +18,7 @@
 <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.css" />
 <link rel="stylesheet" href="/BookStay/resources/css/list_menu.css"/>
 <link rel="stylesheet" href="/BookStay/resources/css/hotelContent.css"/>
+
 <%@ include file="../views/main_bar.jsp" %>
 <%request.setCharacterEncoding("UTF-8");
 

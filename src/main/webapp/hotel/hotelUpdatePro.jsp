@@ -61,7 +61,7 @@ if(re_step==0){
 	setdto.setRe_step(Integer.parseInt(mr.getParameter("re_step")));
 	setdto.setImg(img);
 	dao.updateContent(setdto);
-	response.sendRedirect("views/hlist.jsp");
+	response.sendRedirect("/BookStay/admin/adminHotelList.jsp?check=2");
 }else{
 	String upload=mr.getFilesystemName("upload");
 	if(upload!=null){
@@ -76,5 +76,5 @@ if(re_step==0){
 	setdto.setImg(img);
 	dao.updateContent(setdto);
 	dao.priceUpdate(ref);
-	response.sendRedirect("hotelContent.jsp?ref="+ref);
+	response.sendRedirect("/BookStay/admin/adminHotelList.jsp?check=2");
 }%>

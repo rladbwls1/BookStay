@@ -33,10 +33,12 @@ int grade= mdao.checkGrade(id);
 		<div><a href="/BookStay/member/loginform.jsp">로그인</a></div>
 		<div><a href="/BookStay/member/memberForm.jsp">회원가입</a></div>
 		<%}				
-		}if(grade==0 || grade==99){ %>
+		}if(grade!=11){ %>
 		<div><a href="/BookStay/member/logout.jsp">로그아웃</a></div>
+		<%}if(grade==0){ %>
 		<div><a href="/BookStay/member/memberinfo.jsp">MyPage</a></div>
 		<%}%>
+		
 		<div><a href="/BookStay/board/notice.jsp">고객센터</a></div>
 		<%if(grade==99){ %>
 		<div><a href="/BookStay/admin/adminMain.jsp">관리자페이지</a></div>

@@ -98,22 +98,10 @@ body {
 
 </style>
 
-<div class="col-md-3" style="width:200px; height:150px; border:100px; float:left; margin-left: 300px;">
+<div class="col-md-3" style="width:200px; height:150px; border:100px;  margin-left: 300px;">
 
 <!-- 사이드 바 메뉴-->
   <!-- 패널 타이틀1 -->
-<div  class="panel panel-info">
-    <div  class="panel-heading">
-      <h3  class="panel-title">나의 정보</h3>
-    </div>
-    <!-- 사이드바 메뉴목록1 -->
-    <ul  class="list-group">
-    <li  class="list-group-item"><a href="/BookStay/member/memberinfo.jsp">마이페이지</a></li>
-      <li class="list-group-item"><a href="/BookStay/board/myQuestion.jsp">나의 질문</a></li>
-      <li  class="list-group-item"><a href="/BookStay/member/logout.jsp">로그아웃</a></li>
-      
-    </ul>
-</div>
  </div>
 <div class="mx-auto p-2" style="width: 800px;">
 <div class="w-200 p-1">
