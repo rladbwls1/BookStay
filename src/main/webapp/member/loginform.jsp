@@ -3,7 +3,9 @@
 <!DOCTYPE html>
 <html>
 <head>
-<%     String name = request.getParameter("name");
+<%     
+
+String name = request.getParameter("name");
 String email = request.getParameter("email");
 String pnum = request.getParameter("pnum"); %>
     <link rel="stylesheet" href="/BookStay/resources/css/loginform.css" type="text/css">
@@ -95,6 +97,8 @@ String pnum = request.getParameter("pnum"); %>
         .close:hover {
             font-weight: bold;
         }
+        
+        
       .modalsumitinput {
 	margin-top:10px;
 margin-bottom:10px;
@@ -253,40 +257,27 @@ margin-bottom:10px;
             modal2.style.display = "none";
         }
         
-        
-        //모달창안에  새창 
-        /* 아이디찾기 눌럿을때 생기는 새창 크기 조정*/      
-/*    function openCenteredWindow(event) {
-  event.preventDefault(); // 기본 동작(링크 이동)을 막습니다.
-  // 창의 가로 및 세로 크기를 정의합니다.
-  var width = 330;
-  var height = 100;
-  console.log(1 / 0);
-  // 화면의 가로 및 세로 크기를 가져옵니다.
-  var screenWidth = window.screen.availWidth;
-  var screenHeight = window.screen.availHeight;
-  // 창을 화면 가운데에 위치시키기 위한 left와 top 값을 계산합니다.
-  var left =2300;
-  var top = 160;
-  // 새 창을 열고 크기 및 위치를 지정합니다.
-  var newWindow = window.open("/BookStay/member/FindIdPro.jsp", "centeredWindow", "width=" + width + ",height=" + height + ",left=" + left + ",top=" + top);
+     
   
-  } */
-   function openCenteredWindow(button) {
-	event.preventDefault(); // 기본 동작(링크 이동)을 막습니다. */
-	    var url = button.getAttribute("data-open-window");
-	    var width = button.getAttribute("data-width");
-	    var height = button.getAttribute("data-height");
-	    var left = button.getAttribute("data-left");
-	    var top = button.getAttribute("data-top");
-	window.open(url, "centeredWindow", "width=" + width + ",height=" + height + ",left=" + left + ",top=" + top);
-	    return true;
-  }      
-        
-        
+  
+  <!-- 모달아  -->
+
+  function openCenteredWindow(button) {
+		event.preventDefault(); // 기본 동작(링크 이동)을 막습니다. */
+		    var url = button.getAttribute("data-open-window");
+		    var width = button.getAttribute("data-width");
+		    var height = button.getAttribute("data-height");
+		    var left = button.getAttribute("data-left");
+		    var top = button.getAttribute("data-top");
+		window.open(url, "centeredWindow", "width=" + width + ",height=" + height + ",left=" + left + ",top=" + top);
+		    return true;
+	  }      
+	        
+  
+  
   /* 비밀번호찾기 눌럿을때 생기는 새창 크기 조정*/
    function openCenteredWindow2(event) {
-  //event.preventDefault(); // 기본 동작(링크 이동)을 막습니다.
+  event.preventDefault(); // 기본 동작(링크 이동)을 막습니다.
   // 창의 가로 및 세로 크기를 정의합니다.
   var width = 330;
   var height = 100;
@@ -414,10 +405,10 @@ margin-bottom:10px;
         <tr>
             <td class="hiddenshow"></td>
             <td>
-                <!-- <input type="submit" name="confirm" value="아이디찾기" class="modalsumitinput" onclick="openCenteredWindow(event)" />--> /               
-                 <input type="submit" name="confirm" value="아이디찾기" class="modalsumitinput" onclick="openCenteredWindow(this);" data-open-window="/BookStay/member/FindIdPro.jsp?id=test123&pw=123456&punm=김철수" data-width="500" data-height="300" data-left="500" data-top="300">
-                
-            </td>
+                <!-- <input type="submit" name="confirm" value="아이디찾기" class="modalsumitinput" onclick="openCenteredWindow(event)" />-->            
+<!-- 모달아 --> 
+	  <input type="submit" name="confirm" value="아이디찾기" class="modalsumitinput" onclick="openCenteredWindow(this);" data-open-window="/BookStay/member/FindIdPro.jsp?id=test123&pw=123456&punm=김철수" data-width="500" data-height="300" data-left="500" data-top="300">
+
             <td></td>
         </tr>
     </table>

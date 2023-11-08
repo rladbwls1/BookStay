@@ -4,10 +4,6 @@
 <%@ page import="hotel.bean.MemberDAO" %>
 <jsp:useBean id="dao" class="hotel.bean.MemberDAO" />
 <jsp:useBean id="dto" class="hotel.bean.MemberDTO" />
-
-<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-4bw+/aepP/YC94hEpVNVgiZdgIC5+VKNBQNGCHeKRQN+PtmoHDEXuppvnDJzQIu9" crossorigin="anonymous">
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-HwwvtgBNo3bZJJLYd8oVXjrBZt8cqVSpeBNS5n7C8IVInixGAoxmnlMuBnhbgrkm" crossorigin="anonymous"></script>
-<%@ include file="/views/main_bar.jsp" %>
 <%	
     request.setCharacterEncoding("UTF-8");
     String sid = (String) session.getAttribute("sid"); // 사용자 아이디 가져오기
@@ -17,123 +13,7 @@
     String birth = user.getBirth().substring(0, 11);
 %>
 <style>
-  /* 2023.11.07  그냥  내부 css 로  변경 */
-    body {
-            font-family: Arial, sans-serif;
-            background-color: #F2F2F2;
-            margin: 0;
-            padding: 0;
-        }
-
-    .UjinsHypboy{
-            box-sizing: border-box;
-            width: 100%;
-            height: 80px;
-            background-color: white;
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            position: fixed;
-            top: 0;
-            left: 0;
-            padding: 0 20px;
-        }
-
- .info {
-    cursor: pointer;
-    font-size: 16px;
-    
-}
-
-#logo {
-    width: 200px;
-    height: 60px;
-    font-weight: 800;
-    padding: 10px;
-    z-index: 150;
-    text-align: left;
-}
-
-        #logo > a {
-            width: 133px;
-            height: 40px;
-            font-size: 30px;
-            text-decoration: none;
-            color: black;
-        }
-
-        .table-container {
-            text-align: center;
-            margin: 150px auto;
-            width: 80%;
-            background-color: white;
-            border-radius: 15px;
-            padding: 20px;
-            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-        }
-
-        h2 {
-            text-align: center;
-        }
-
-        table {
-            width: 100%;
-            border-collapse: collapse;
-            margin: 20px 0;
-        }
-
-        th, td {
-            border: 1px solid #ccc;
-            padding: 8px;
-        }
-
-        th {
-            background-color: #333;
-            color: #fff;
-        }
-
-        .button-container {
-            text-align: center;
-            margin-top: 20px;
-        }
-        
-
-        input[type="button"] {
-            width: 22%;
-            height:5%;
-            background-color: #198754;
-            border: none;
-            border-radius: 8px;
-            color: white;
-            font-weight: bold;
-            margin: 0 6px;
-            cursor: pointer;
-        }
-
-        input[type="button"]:hover {
-            background-color: #157347;
-        }
-        
-        .mainbody{
-        	width: 50%;
-        	padding:auto;
-        	margin:auto;
-        	
-        }
-        .mainTable{
-        	color:#787878;
-        	 
-        }
-    
-    
-    
-    
-     /* 2023.11.07  그냥  내부 css 로  변경 */
-    
-
-
 /*모달 생성*/
-
 #myModal {
     display: none;
     position: fixed;
@@ -310,20 +190,130 @@ function closeModalAndRedirect() {
 }
 
 </script>
+            
 
 <html>
 <head>
     <title>마이페이지</title>
+    <style>
+    @charset "UTF-8";
+
+    body {
+            font-family: Arial, sans-serif;
+            background-color: #F2F2F2;
+            margin: 0;
+            padding: 0;
+        }
+
+    .UjinsHypboy{
+            box-sizing: border-box;
+            width: 100%;
+            height: 80px;
+            background-color: white;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            position: fixed;
+            top: 0;
+            left: 0;
+            padding: 0 20px;
+        }
+
+ .info {
+    cursor: pointer;
+    font-size: 16px;
+    
+}
+
+#logo {
+    width: 200px;
+    height: 60px;
+    font-weight: 800;
+    padding: 10px;
+    z-index: 150;
+    text-align: left;
+}
+
+        #logo > a {
+            width: 133px;
+            height: 40px;
+            font-size: 30px;
+            text-decoration: none;
+            color: black;
+        }
+
+        .table-container {
+            text-align: center;
+            margin: 150px auto;
+            width: 80%;
+            background-color: white;
+            border-radius: 15px;
+            padding: 20px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+
+        h2 {
+            text-align: center;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 20px 0;
+        }
+
+        th, td {
+            border: 1px solid #ccc;
+            padding: 8px;
+        }
+
+        th {
+            background-color: #333;
+            color: #fff;
+        }
+
+        .button-container {
+            text-align: center;
+            margin-top: 20px;
+        }
+        
+
+        input[type="button"] {
+            width: 22%;
+            height:5%;
+            background-color: #198754;
+            border: none;
+            border-radius: 8px;
+            color: white;
+            font-weight: bold;
+            margin: 0 6px;
+            cursor: pointer;
+        }
+
+        input[type="button"]:hover {
+            background-color: #157347;
+        }
+        
+        .mainbody{
+        	width: 50%;
+        	padding:auto;
+        	margin:auto;
+        	
+        }
+        .mainTable{
+        	color:#787878;
+        	 
+        }
+    
+    </style>
+    <link rel="stylesheet" href="/resources/css/memberinfo.css" type="text/css">
 </head>
 <body class="mainbody">
     <div class="UjinsHypboy">
-      <div id="logo">
+        <div id="logo">
             <a href="/BookStay/views/main.jsp">BookStay</a>
         </div>
-        <div class="info"href=""> 로그아웃</div>
-        <div class="info" href=""></div>
-        <div class="info"href=""> >고객센터</div>
-        <div class="info"  href="">고객센터</div>
+        <div class="info">고객센터</div>
     </div>
     <div class="table-container" >
         <h2>마이페이지</h2>
@@ -353,12 +343,11 @@ function closeModalAndRedirect() {
                 <td><%= user.getPnum() %></td>
             </tr>
         </table>
-        <div class="button-container">
+       <div class="button-container">
             <input type="button" value="로그아웃" onclick="location.href='/BookStay/member/logout.jsp'" id="button-container_b" class="button_sub">
             <input type="button" value="회원정보수정" onclick="openModal('updateFirst')" id="button-container_c" class="button_sub">
             <input type="button" value="회원탈퇴"  onclick="location.href='/BookStay/member/deleteSelect.jsp'" id="button-container_d" class="button_sub">
             <input type="button" value="예약확인 "  onclick="location.href='/BookStay/member/memberlist.jsp'" id="button-container_d" class="button_sub">
-     
         </div>
     </div>
 	</body>
@@ -403,4 +392,3 @@ function closeModalAndRedirect() {
         </form>
     </div>
 </div>
- <!--   myModal :updateFirst  회원정보수정영역 종료  -->
