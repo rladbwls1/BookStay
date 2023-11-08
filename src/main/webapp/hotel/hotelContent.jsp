@@ -142,6 +142,8 @@ String title = request.getParameter("title");
 </div>
 <div id="apr"><%=maindto.getPrice() %>원</div>
 <div id="bmo">
+
+
 <% if(heart!=null&&heart.contains(Integer.toString(ref))){%>
 <button type="button" onclick="window.location='../member/heartPro.jsp?num=<%=maindto.getNum()%>&ref=<%=ref%>'">찜취소하기</button>
 <%}else{ %>
