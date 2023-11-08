@@ -48,7 +48,10 @@
 	<div id="tbcal">
 	<ul class="nav nav-tabs">
 	  <li class="nav-item">
-	    <a class="nav-link active" aria-current="page">예약목록</a>
+	    <a href="#" class="nav-link active" aria-current="page">예약목록</a>
+	  </li>
+	  <li class="nav-item">
+	    <a href="#" class="nav-link active" aria-current="page">지난예약</a>
 	  </li>
 	</ul>
     <table id="table1">
@@ -65,9 +68,7 @@
             <th>예약상태</th>
             <th>입금액입력</th>
             <th>예약취소</th>
-            
         </tr>
-
         <%
             // Java 코드를 사용하여 예약 내역을 가져와서 표시
             List<HOrderDTO> reservationList = dao2.getOrdersAdmin(start, end);
@@ -103,7 +104,7 @@
             <td><%= status %></td>
             <td>
             <%if(money>=0 && status.equals("입금중")) {%>
-            <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#staticBackdrop<%=reservation.getRenum()%>">입금액 입력</button></td><!-- 입금액입력  -->
+            <button type="button" class="btn btn-success" data-bs-toggle="modal" data-bs-target="#staticBackdrop<%=reservation.getRenum()%>">입금액 입력</button></td><!-- 입금액입력  -->
             <div class="modal fade" id="staticBackdrop<%=reservation.getRenum()%>" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
 				  <div class="modal-dialog">
 				    <div class="modal-content">

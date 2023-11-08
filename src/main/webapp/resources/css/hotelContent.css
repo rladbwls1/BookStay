@@ -166,9 +166,18 @@ html,
 	padding: 10px;
 }
 #chd{
-	background-color: rgb(241, 241, 241);
+	background-color: #DDF2FD;
 	margin-right: 10px;
+	border-radius: 5px;
 	height: 250px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+}
+#jum{
+	font-size: 23px;
+	font-weight: 800;
 }
 .custom-modal {
     max-height: 80vh; 
@@ -232,4 +241,36 @@ html,
 	border-radius: 5px;
 	height: 40px;
 	width: 120px;
+}
+#b5{
+	float: right;
+}
+
+/* 별찍기 css */
+.stars-outer {
+  position: relative;
+  display: inline-block;
+}
+
+.stars-inner {
+  position: absolute;
+  top: 0;
+  left: 0;
+  white-space: nowrap;
+  overflow: hidden;
+  width: 0;
+}
+
+.stars-outer::before {
+  content: "\f005 \f005 \f005 \f005 \f005";
+  font-family: "Font Awesome 5 Free";
+  font-weight: 900;
+  color: #ccc;
+}
+
+.stars-inner::before {
+  content: "\f005 \f005 \f005 \f005 \f005";
+  font-family: "Font Awesome 5 Free";
+  font-weight: 900;
+  color: #f8ce0b;
 }

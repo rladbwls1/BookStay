@@ -50,6 +50,7 @@
 	    
 	    roomValue1[i] = adultValues;
 	    kidsValue1[i] = kidsValuee; 
+	    
 	    val += "&a" + (i+1) + "=" + roomValue1[i] + "&k" + (i+1) + "=" + kidsValue1[i];
 	}
 	
@@ -66,7 +67,7 @@
 			 "&room=" + room1 + "&select=" + sel1 + "&check=" + check1;
 	//int category= 0;  
 	hotelDAO dao = new hotelDAO();
-	ArrayList<hotelDTO> list = dao.hotelList(sel1, check1, title1, checkin1, checkout1, roomValue1, kidsValue1, start, end); 
+	ArrayList<hotelDTO> list = dao.hotelList(sel1, check1, title1, checkin1, checkout1, test, start, end); 
 	int cnt = dao.count(title1);
 	int count = dao.count(title1, check1, checkin1, checkout1, roomValue1, kidsValue1);
 	
@@ -87,7 +88,7 @@
 <body onload="qq();">
 <input type="hidden" id="vel"/>
 <input type="hidden" id="block" value="<%=block2%>"/>
-<input type="hidden" id="rr" value="<%=room1%>"/>
+<input type="hidden" id="rr" value="<%=room1%>"/> 
 <div id="bb">
 <div class="grid">
 <div class="box" id="box11">

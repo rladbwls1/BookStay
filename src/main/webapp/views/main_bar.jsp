@@ -30,13 +30,14 @@ int grade= mdao.checkGrade(id);
           response.sendRedirect("/BookStay/member/loginPro.jsp");   
        }
     if (cid == null || cpw == null || cauto == null) { %>
-<div><button class="btn"><a href="/BookStay/member/loginform.jsp">로그인</a></button></div>
-		<div><button class="btn"><a href="/BookStay/member/memberForm.jsp">회원가입</a></button></div>
+	<div>
+	<button class="btn9"><a href="/BookStay/member/loginform.jsp">로그인</a></button></div>
+		<div><button class="btn9"><a href="/BookStay/member/memberForm.jsp">회원가입</a></button></div>
 		<%}				
 		}if(grade==0 || grade==99){ %>
-		<div><button class="btn"><a href="/BookStay/member/logout.jsp">로그아웃</a></button></div>
+		<div><button class="btn9"><a href="/BookStay/member/logout.jsp">로그아웃</a></button></div>
 		<div class="dropdown">
-		  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+		  <button class="btn9 dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
 		    MyPage
 		  </button>
 		  <ul class="dropdown-menu">
@@ -46,7 +47,7 @@ int grade= mdao.checkGrade(id);
 		</div>
 		<%}%>
 		<div class="dropdown">
-		  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+		  <button class="btn9 dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
 		    고객센터
 		  </button>
 		  <ul class="dropdown-menu">
@@ -56,7 +57,7 @@ int grade= mdao.checkGrade(id);
 		</div>
 		<!-- <div><a href="/BookStay/board/notice.jsp">고객센터</a></div> -->
 		<%if(grade==99){ %>
-		<div><a href="/BookStay/admin/adminMain.jsp">관리자페이지</a></div>
+		<div><button class="btn9"><a href="/BookStay/admin/adminMain.jsp">관리자페이지</a></button></div>
 		<%} %>	
 	</div>
 	<div id="logo">
