@@ -210,7 +210,7 @@ public class boardDAO extends OracleDB{
 				sql="select * from board where category=30 and re_step=0 order by reg";
 				pstmt=conn.prepareStatement(sql);
 			}else {
-			sql ="select * from board where ref in(select ref from board where id=? and category=30)";
+			sql ="select * from board where num in(select ref from board where id=? and category=30)";
 			pstmt=conn.prepareStatement(sql);
 			pstmt.setString(1, id);
 			}

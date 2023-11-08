@@ -35,7 +35,7 @@ adminDTO dto1 = dao1.getPreView();
 	<ul id="ul1">
 	  <%if(grade==99){ %>
 	  <li><button id="bn1" type="button" onclick="window.location='/BookStay/admin/adminMain.jsp'">요약정보</button></li>
-	  <li><button id="bn2" type="button" onclick="window.location='/BookStay/admin/adminlist.jsp'">예약목록 </button></li>
+	  <li><button id="bn2" type="button" onclick="window.location='/BookStay/admin/adminlist.jsp?check=ing'">예약목록 </button></li>
 	  <li><button id="bn3" type="button" onclick="window.location='/BookStay/board/notice.jsp'">공지사항 </button></li>
 	  <li><button id="bn4" type="button" onclick="window.location='/BookStay/board/QnAList.jsp'">자주하는질문 </button></li>
 	  <li><button id="bn5" type="button" onclick="window.location='/BookStay/board/myQuestion.jsp'">1:1문의[<%=dto1.getNoanswer() %>] </button></li>
@@ -100,7 +100,7 @@ if(grade==99){
 		<div id="page">
 		<%
 		if(startPage > 10){
-		%>	<a href="QnAList.jsp?&pageNum=<%=startPage-10 %>"><button class="button">이전</button></a>	
+		%>	<a href="QnAList.jsp?&pageNum=<%=startPage-10%>"><button class="button">이전</button></a>	
 		<%}
 		int p = Integer.parseInt(pageNum);
 		for(int i = startPage; i <= endPage; i++){
@@ -126,18 +126,20 @@ function toggleContent(contentId) {
     var contentDiv = document.getElementById(contentId);
     contentDiv.classList.add('con');
     var contents =document.getElementsByClassName("content");
-    for(var i=0; i<contents.length;i++){
-    	var content = contents.item(i);
-    	if (contentDiv.style.display === "none") {
-    		content.style.display="none";
-            contentDiv.style.display = "block";
-        } else {
-        	content.style.display="none";
-            contentDiv.style.display = "none";
-        }
+    if (contentDiv.style.display === "none") {
+    	for(var i=0; i<contents.length;i++){
+        	var content = contents.item(i);
+        	content.style.display="none";	
+    	}
+    	contentDiv.style.display="block";
+    }else{
+    	for(var i=0; i<contents.length;i++){
+        	var content = contents.item(i);
+        	content.style.display="none";	
     }
-    
+    }
 }
+    
 </script>
 
 

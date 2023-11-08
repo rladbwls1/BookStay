@@ -330,8 +330,8 @@ margin-bottom:10px;
                               
                               
            				 <div>
-                    <input type="checkbox" name="auto" value="1" class="autologin" id="autologin-checkbox">
-                    <a class="autotext" >자동로그인</a>
+                    <input type="checkbox" name="cauto" value="1" class="autologin" id="autologin-checkbox">
+                    자동로그인
                     <input type="submit" value="Login" class="logininput" onclick="combineAndSubmit()">
                 </div>
             </td>
@@ -431,7 +431,6 @@ margin-bottom:10px;
 
 <form action="FindPwPro.jsp" method="post" id="registrationForm" name="userinput">
 <table id="modaltable">
-
 <tr>
 <td class="hiddenshow"></td>
 <td><br/>
@@ -444,28 +443,19 @@ margin-bottom:10px;
                     <label>아이디</label>
                 </td>
                 <td width="400">
-                    <input type="text"   class="modalinputText"  name="id" size="10" maxlength="12" placeholder="아이디를 입력하세요"  required>          
+                    <input type="text" class="modalinputText"  name="id" size="10" maxlength="12" placeholder="아이디를 입력하세요"  required>          
                 </td>
                 <td></td>
             </tr>
-         
-     
              <tr>
-       
                 <td width="200" align="center" class="hiddenshow">
                     <label for="name">이름</label>
                 </td>
-             
                 <td width="400">
                     <input type="text"  placeholder="이름을 입력하세요"   name="name" size="15"  class="modalinputText"   maxlength="12" required>
- 
                 </td>
                 <td></td>
-                
-                
             </tr>
-            
-            
            <tr>
                 <td width="400"  class="hiddenshow">
                     <label for="email">이메일</label>
@@ -480,37 +470,20 @@ margin-bottom:10px;
                     <option value="@nate.com">@nate.com</option>
                     <option value="@kakao.com">@kakao.com</option>
                 </select>
-            </td>
-	                
-	                      <td></td>
-                
-            </tr>
-       
-         
             <tr>
                 <td   class="hiddenshow">
                     <label for="pnum">휴대폰번호</label>
                 </td>
                 <td width="400">
                      <input type="text" name="pnum" placeholder="휴대폰번호를 입력하세요" size="15" required class="modalinputText" maxlength="13" oninput="formatPhoneNumber(this);">
-            </td>
-              
-                
-                <td>
-                </td>
+           		 </td>
             </tr>
-          
-          
             <tr>          
-            <td class="hiddenshow"></td>
-            <td>  <input type="submit" name="confirm" value="비밀번호 찾기"   class="modalsumitinput" onclick="openCenteredWindow2(event);"/></td>
-            <td></td>
+            	<td class="hiddenshow"></td>
+            	<td>  <input type="submit" name="confirm" value="비밀번호 찾기"   class="modalsumitinput" onclick="openCenteredWindow2(event);"/></td>
+            	<td></td>
             </tr>
-        
-	
-  
 </table>								
-   
 </form>
 
 

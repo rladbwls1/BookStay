@@ -48,10 +48,10 @@
 	<div id="tbcal">
 	<ul class="nav nav-tabs">
 	  <li class="nav-item">
-	    <a href="#" class="nav-link active" aria-current="page">예약목록</a>
+	    <a href="/BookStay/admin/adminlist.jsp?check=ing" class="nav-link active" aria-current="page">예약목록</a>
 	  </li>
 	  <li class="nav-item">
-	    <a href="#" class="nav-link active" aria-current="page">지난예약</a>
+	    <a href="/BookStay/admin/adminlist.jsp?check=last" class="nav-link active" aria-current="page">지난예약</a>
 	  </li>
 	</ul>
     <table id="table1">
@@ -82,8 +82,8 @@
 
             for (HOrderDTO reservation : reservationList) {
             	String reg = new SimpleDateFormat("yyyy-MM-dd").format(reservation.getReg());
-            	String checkin = reservation.getCheckin().substring(0,11);
-            	String checkout = reservation.getCheckout().substring(0,11);
+            	String checkin = reservation.getCheckin();
+            	String checkout = reservation.getCheckout();
             	String status="";
             	System.out.println(reservation.getState());
             	if(reservation.getState()==0){

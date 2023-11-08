@@ -76,7 +76,7 @@ adminDTO dto1 = dao1.getPreView();
 		<%} %>
 		</div>
 		<%=reg%><br>
-		<div id="content_<%=dto.getNum()%>" style="display: none;">
+		<div class="content" id="content_<%=dto.getNum()%>" style="display: none;">
 		<div class="t2">문의 내용</div>
 		<div class="t3"><%=dto.getContent()%></div><br/>
 		<div class="t2">답변</div> 
@@ -94,10 +94,18 @@ adminDTO dto1 = dao1.getPreView();
 function toggleContent(contentId) {
     var contentDiv = document.getElementById(contentId);
     contentDiv.classList.add('con');
+    var contents =document.getElementsByClassName("content");
     if (contentDiv.style.display === "none") {
-        contentDiv.style.display = "block";
-    } else {
-        contentDiv.style.display = "none";
+    	for(var i=0; i<contents.length;i++){
+        	var content = contents.item(i);
+        	content.style.display="none";	
+    	}
+    	contentDiv.style.display="block";
+    }else{
+    	for(var i=0; i<contents.length;i++){
+        	var content = contents.item(i);
+        	content.style.display="none";	
+    }
     }
 }
 </script>

@@ -36,7 +36,6 @@ public class MemberDAO extends  OracleDB {
 	        pstmt = conn.prepareStatement(sql);
 	        pstmt.setString(1, dto.getId());
 	        pstmt.setString(2, dto.getPw());
-	        
 	        rs = pstmt.executeQuery();
 
 	        if (rs.next()) {

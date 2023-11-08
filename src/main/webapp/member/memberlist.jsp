@@ -1,165 +1,51 @@
 <%@ page import="java.text.SimpleDateFormat" %>
-
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
-
 <%@ page import="hotel.bean.HOrderDTO" %>
-
 <%@ page import="hotel.bean.HOrderDAO" %>
-
 <%@ page import="hotel.bean.hotelDAO" %>
-
 <%@ page import="hotel.bean.hotelDTO" %>
-
 <%@ page import="java.util.List" %>
-
 <jsp:useBean id="dao" class="hotel.bean.HOrderDAO" />
-
 <jsp:useBean id="dto" class="hotel.bean.HOrderDTO" />
-
-
-
-
-
 <link rel="stylesheet" href="/BookStay/resources/css/notice.css"/>
-
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-4bw+/aepP/YC94hEpVNVgiZdgIC5+VKNBQNGCHeKRQN+PtmoHDEXuppvnDJzQIu9" crossorigin="anonymous">
-
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-4bw+/aepP/YC94hEpVNVgiZdgIC5+VKNBQNGCHeKRQN+PtmoHDEXuppvnDJzQIu9" crossorigin="anonymous">
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-HwwvtgBNo3bZJJLYd8oVXjrBZt8cqVSpeBNS5n7C8IVInixGAoxmnlMuBnhbgrkm" crossorigin="anonymous"></script>
-
 <%@ include file="../views/main_bar.jsp" %>
-
 <%
-
     request.setCharacterEncoding("UTF-8");
-
     String orderId = (String) session.getAttribute("sid");
-
     if (orderId != null) {
-
         List<HOrderDTO> orders = dao.getOrders(orderId);
-
         if (orders != null && !orders.isEmpty()) {
-
 %>
-
-
-
-<html>
-
-
-
-    <meta charset="UTF-8">
-
-    <title>예약 내역</title>
-
-    <head>
-
-     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-</head>
-<body>
-<div id="header">
-   <div id="login">
-      <%if(grade==11) { // 세션이 없다면 수행
-    String cid = null, cpw = null, cauto = null;
-    Cookie[] cookies = request.getCookies();
-  
-       if (cookies != null) {
-              for (Cookie c : cookies) {
-                  if (c.getName().equals("cid")) { cid = c.getValue(); }
-                  if (c.getName().equals("cpw")) { cpw = c.getValue(); }
-                  if (c.getName().equals("cauto")) { cauto = c.getValue(); }
-               }  
-             }
-       if (cid != null && cpw != null && cauto != null) {
-          response.sendRedirect("/BookStay/member/loginPro.jsp");   
-       }
-    if (cid == null || cpw == null || cauto == null) { %>
-      <div><a href="/BookStay/member/loginform.jsp">로그인</a></div>
-      <div><a href="/BookStay/member/memberForm.jsp">회원가입</a></div>
-      <%}            
-      }if(grade==0 || grade==99){ %>
-      <div><a href="/BookStay/member/logout.jsp">로그아웃</a></div>
-      <div><a href="/BookStay/member/memberinfo.jsp">MyPage</a></div>
-      <%}%>
-      <div>고객센터</div>
-      <%if(grade==99){ %>
-
-      <div><a href="/BookStay/admin/adminmain.jsp">관리자페이지</a></div>
-      <%} %>   
-   </div>
-   <div id="logo">
-      <a href="/BookStay/views/main.jsp">
-
-         BookStay
-      </a>
-   </div>
-   </div>
-   <style>
-   
+<style>
 body {
    padding-top: 20px; /* 페이지의 상단 여백을 늘립니다. */
 }
-
-<style>
-
 .b-example-divider{
-
   position: fixed;
-
   top: 250; /* 원하는 위치 설정 */
-
   left: 0; /* 원하는 위치 설정 */
-
   height: 100%; /* 화면 높이만큼 설정 */
-
- 
-
 }
-
 .table{
-
 position: fixed;
-
 }
-
 </style>
 
 <div class="col-md-3" style="width:200px; height:150px; border:100px; float:left; margin-left: 300px;">
 <!-- 사이드 바 메뉴-->
   <!-- 패널 타이틀1 -->
-<div  class="panel panel-info">
-    <div  class="panel-heading">
-      <h3  class="panel-title">나의 정보</h3>
-    </div>
-    <!-- 사이드바 메뉴목록1 -->
-    <ul  class="list-group">
-    <li  class="list-group-item"><a href="/BookStay/member/memberinfo.jsp">마이페이지</a></li>
-      <li class="list-group-item"><a href="/BookStay/board/myQuestion.jsp">나의 질문</a></li>
-      <li  class="list-group-item"><a href="/BookStay/member/logout.jsp">로그아웃</a></li>
-    </ul>
 
-  </div>
 
 </div>
  </div>
 <div class="mx-auto p-2" style="width: 800px;">
 <div class="w-200 p-1">
-
 </div>
-
-
-
-
-
-   
-
-    <div class="position-absolute top-50 start-50 translate-middle" style="width:800px; height:200px;">
-
+<div class="position-absolute top-50 start-50 translate-middle" style="width:800px; height:200px;">
 <table class="table">
-
 <div class="h4 pb-2 mb-8 text-dark border-bottom border-dark">
-
             <h2>예약 내역</h2>
 
 
@@ -178,7 +64,7 @@ position: fixed;
 
       <th scope="col">체크아웃 날짜</th>
 
-      <th scope="col">예약 인원</th>
+      <th scope="col">어른</th>
 
       <th scope="col">아이</th>
 
@@ -238,9 +124,9 @@ position: fixed;
 
                 String reg = new SimpleDateFormat("yyyy-MM-dd").format(order.getReg());
 
-                String checkin = order.getCheckin().substring(0, 11);
+                String checkin = order.getCheckin();
 
-                String checkout = order.getCheckout().substring(0, 11);
+                String checkout = order.getCheckout();
 
                 
 
@@ -250,7 +136,7 @@ position: fixed;
 
                 String Title = hotelInfo.getTitle();
 
-                double price = hotelInfo.getPrice();
+                int price = hotelInfo.getPrice();
 
 %>
 
@@ -262,9 +148,9 @@ position: fixed;
 
                     <td><%= checkout %></td>
 
-                    <td>어른 : <%= order.getKid() %> </td>
+                    <td><%= order.getKid() %>명</td>
 
-                    <td> 아이 : <%= order.getAdult() %></td>
+                    <td><%= order.getAdult() %>명</td>
 
                     <td><%= order.getPaytype() %></td>
 
@@ -274,7 +160,7 @@ position: fixed;
 
                     <td><%= Title %></td> <!-- 호텔 이름 표시 -->
 
-                    <td><%= price %></td> <!-- 호텔 가격 표시 -->
+                    <td><%= price %>원 </td> <!-- 호텔 가격 표시 -->
 
                 </tr>
 

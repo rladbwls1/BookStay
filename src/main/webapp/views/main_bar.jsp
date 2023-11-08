@@ -16,10 +16,10 @@ int grade= mdao.checkGrade(id);
 <body>
 <div id="header">
    <div id="login">
-      <%if(grade==11) { // 세션이 없다면 수행
+      <% // 세션이 없다면 수행
+  if(grade==11){
     String cid = null, cpw = null, cauto = null;
     Cookie[] cookies = request.getCookies();
-  
        if (cookies != null) {
               for (Cookie c : cookies) {
                   if (c.getName().equals("cid")) { cid = c.getValue(); }
@@ -27,14 +27,16 @@ int grade= mdao.checkGrade(id);
                   if (c.getName().equals("cauto")) { cauto = c.getValue(); }
                }  
              }
+       
        if (cid != null && cpw != null && cauto != null) {
           response.sendRedirect("/BookStay/member/loginPro.jsp");   
        }
-    if (cid == null || cpw == null || cauto == null) { %>
+  	}   
+    if (grade==11) { %>
 	<div>
 	<button class="btn9"><a href="/BookStay/member/loginform.jsp">로그인</a></button></div>
 		<div><button class="btn9"><a href="/BookStay/member/memberForm.jsp">회원가입</a></button></div>
-		<%}				
+		<%				
 		}if(grade==0 || grade==99){ %>
 		<div><button class="btn9"><a href="/BookStay/member/logout.jsp">로그아웃</a></button></div>
 		<div class="dropdown">

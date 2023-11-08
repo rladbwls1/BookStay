@@ -110,10 +110,10 @@ public class HOrderDAO extends OracleDB {
 	
 	public List<HOrderDTO> getOrdersAdmin(int start, int end) {
 	    List<HOrderDTO> orders = new ArrayList<>();
-	    String query = "SELECT * FROM "
-	    		+ " (select b.*, rownum r from "
-	    		+ " (select * from horder order by renum asc) b) "
-	    		+ " where r >= ? and r <= ? and checkin < to_char(sysdate,'YYYY-MM-DD')";
+	    String query = "select rownum,b.*,h.* from "
+	    		+ " horder b,hotel h where "
+	    		+ " b.ref=h.num and rownum>=? and rownum<=? and checkin <= to_char(sysdate,'YYYY-MM-DD') "
+	    		+ " order by checkin";
 
 	    try (Connection conn = getConnection();
 	         PreparedStatement stmt = conn.prepareStatement(query);
@@ -130,6 +130,7 @@ public class HOrderDAO extends OracleDB {
 	            order.setCheckout(rs.getString("checkout"));
 	            order.setAdult(rs.getInt("adult"));
 	            order.setKid(rs.getInt("kid"));
+	            order.setRoomtype(rs.getString("roomtype"));
 	            order.setPaytype(rs.getString("paytype"));
 	            order.setReg(rs.getTimestamp("reg"));
 	            order.setName(rs.getString("name"));
@@ -146,10 +147,10 @@ public class HOrderDAO extends OracleDB {
 	}
 	public List<HOrderDTO> getLastOrdersAdmin(int start, int end) {
 	    List<HOrderDTO> orders = new ArrayList<>();
-	    String query = "SELECT * FROM "
-	    		+ " (select b.*, rownum r from "
-	    		+ " (select * from horder order by renum asc) b) "
-	    		+ " where r >= ? and r <= ? and checkin >= to_char(sysdate,'YYYY-MM-DD')";
+	    String query = "select rownum,b.*,h.* from "
+	    		+ " horder b,hotel h where "
+	    		+ " b.ref=h.num and rownum>=? and rownum<=? and checkin > to_char(sysdate,'YYYY-MM-DD') "
+	    		+ " order by checkin";
 
 	    try (Connection conn = getConnection();
 	         PreparedStatement stmt = conn.prepareStatement(query);
@@ -165,6 +166,7 @@ public class HOrderDAO extends OracleDB {
 	            order.setCheckin(rs.getString("checkin"));
 	            order.setCheckout(rs.getString("checkout"));
 	            order.setAdult(rs.getInt("adult"));
+	            order.setRoomtype(rs.getString("roomtype"));
 	            order.setKid(rs.getInt("kid"));
 	            order.setPaytype(rs.getString("paytype"));
 	            order.setReg(rs.getTimestamp("reg"));
