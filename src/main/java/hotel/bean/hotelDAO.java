@@ -40,11 +40,11 @@ public class hotelDAO extends OracleDB{
 		    } else if ("4".equals(chk[i])) {
 		    	typeArray[i] = "기타";
 		    }
-		}//
+		}
 		if (sel == 5) {
 		    sql = "SELECT h.*, r.average_value " +
 		          "FROM hotel h " +
-		          "LEFT JOIN ( " +
+		           "LEFT JOIN ( " +
 		          "    SELECT ref, ROUND(AVG(jumsu), 1) AS average_value " +
 		          "    FROM review " +
 		          "    GROUP BY ref " +
