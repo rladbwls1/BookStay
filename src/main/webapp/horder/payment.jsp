@@ -1,4 +1,5 @@
-<%@ page contentType="text/html; charset=UTF-8"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
 <%@ page import="hotel.bean.MemberDTO" %>
 <%@ page import="hotel.bean.MemberDAO" %>
 <jsp:useBean id="dao" class="hotel.bean.MemberDAO" />
@@ -31,12 +32,9 @@
 	<div id="list">
             <h2><%=title %> 예약</h2>
         <form id="form1" action="processOrder.jsp" class="form-horizontal" method="post">
-            
-          
                     <input name="id" type="hidden" value="<%=userId%>"/>
                     <input name="ref" type="hidden" value="<%=request.getParameter("ref")%>">
                     <input name="num" type="hidden" value="<%=request.getParameter("num")%>">
-            
           <table id="tb">
           <tr>
 	<td class="title">예약일</td>
@@ -61,14 +59,10 @@
             <div class="btn8">
                     <input type="submit" id="btn" class="btn btn8 btn-primary" value="다음" />
                     <button type="button" id="btn1" class="btn btn8 btn-secondary" role="button"> 취소 </button>
-            <div class="btn">
-                    <input type="submit" id="btn" class="btn btn-primary" value="다음" />
-                    <button type="button" id="btn1" class="btn btn-secondary" role="button"> 취소 </button>
-	</div>
+           </div>
         </form>
                 </div>
 <% 	
-            
     } else {
 %>
 <script>

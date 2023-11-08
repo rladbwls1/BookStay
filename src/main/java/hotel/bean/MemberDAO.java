@@ -21,6 +21,30 @@ public class MemberDAO extends  OracleDB {
 	    return instance;
 	}
 	
+	//2023 11 08 메서드  도준생성 
+    public int updateOnlyPw(String id, String name, String email, String pnum , String pw) {
+       int result= 0;
+       Connection conn=null;
+       PreparedStatement pstmt=null;
+       ResultSet rs=null;
+       conn = getConnection();
+       try {
+          String sql="UPDATE member set  pw=? where id=? and  name=?  and email=?  and pnum=? ";
+             pstmt =conn.prepareStatement(sql);
+             pstmt.setString(1, pw);
+             pstmt.setString(2,id);
+             pstmt.setString(3,name);
+             pstmt.setString(4, email);
+             pstmt.setString(5, pnum);
+             result = pstmt.executeUpdate();
+        } catch(Exception e) {
+            e.printStackTrace();
+         }finally {
+             close(rs, pstmt, conn);
+      }
+         return result;
+      } 
+	
 		
 			//아이디중복체크
 	// 아이디 중복 체크
