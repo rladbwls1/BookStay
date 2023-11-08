@@ -3,6 +3,7 @@
 <%@page import="hotel.bean.MemberDAO"%>
 <%
 MemberDAO mdao = MemberDAO.getInstance();
+mdao.checkHuman();
 String id = (String) session.getAttribute("sid");
 int grade= mdao.checkGrade(id);
 %>    

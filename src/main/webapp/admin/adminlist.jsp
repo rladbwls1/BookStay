@@ -71,7 +71,13 @@
         </tr>
         <%
             // Java 코드를 사용하여 예약 내역을 가져와서 표시
-            List<HOrderDTO> reservationList = dao2.getOrdersAdmin(start, end);
+            String check = request.getParameter("check");
+            List<HOrderDTO> reservationList = null;
+            if(check.equals("last")){
+            	reservationList = dao2.getLastOrdersAdmin(start, end);
+            }else if(check.equals("ing")){
+            	reservationList=dao2.getOrdersAdmin(start, end);
+            }
             MemberDAO memberDAO = MemberDAO.getInstance(); // MemberDAO 인스턴스 생성
 
             for (HOrderDTO reservation : reservationList) {
@@ -80,10 +86,10 @@
             	String checkout = reservation.getCheckout().substring(0,11);
             	String status="";
             	System.out.println(reservation.getState());
-            	if(reservation.getState()==1){
-            		status="입금완료";
-            	}else if(reservation.getState()==0){
+            	if(reservation.getState()==0){
             		status="입금중";
+            	}else if(reservation.getState()==1){
+            		status="입금완료";
             	}else if(reservation.getState()==2){
             		status="예약취소";
             	}
@@ -176,17 +182,17 @@ int count = dao2.count();
 		<div id="page">
 		<%
 		if(startPage > 10){
-		%>	<a href="adminlist.jsp?pageNum=<%=startPage-10 %>"><button class="button">이전</button></a>	
+		%>	<a href="adminlist.jsp?pageNum=<%=startPage-10%>&check=<%=check%>"><button class="button">이전</button></a>	
 		<%}
 			int p = Integer.parseInt(pageNum);
 			for(int i = startPage; i <= endPage; i++){
 				if(p == i){
-		%> <a href="adminlist.jsp?pageNum=<%=i %>"><button id="color" class="button"><%=i %></button></a>	
+		%> <a href="adminlist.jsp?pageNum=<%=i %>&check=<%=check%>"><button id="color" class="button"><%=i %></button></a>	
 		<%}else{%>
-			<a href="adminlist.jsp?pageNum=<%=i %>"><button class="button"><%=i %></button></a>	
+			<a href="adminlist.jsp?pageNum=<%=i %>&check=<%=check%>"><button class="button"><%=i %></button></a>	
 		<%}}
 		if(endPage < pageCount){
-		%>	<a href="adminlist.jsp?pageNum=<%=startPage+10 %>"><button class="button">다음</button></a>	
+		%>	<a href="adminlist.jsp?pageNum=<%=startPage+10 %>&check=<%=check%>"><button class="button">다음</button></a>	
 		<%}
 	}
 %>

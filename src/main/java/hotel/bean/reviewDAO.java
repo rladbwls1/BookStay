@@ -128,6 +128,8 @@ public class reviewDAO extends OracleDB {
 			rs=pstmt.executeQuery();
 			while(rs.next()) {
 				if(rs.getInt(1)==ref) {
+					System.out.println(rs.getInt(1));
+					System.out.println(ref);
 					result=true;
 				}
 			}
@@ -135,7 +137,7 @@ public class reviewDAO extends OracleDB {
 			e.printStackTrace();
 		}	finally {
 			close(rs, pstmt, conn);
-		} return true;
+		} return result;
 	}
 	
 

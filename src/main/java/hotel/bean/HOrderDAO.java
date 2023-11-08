@@ -22,7 +22,7 @@ public class HOrderDAO extends OracleDB {
 	
 	public HOrderDTO getOrder(int renum) {
 	    HOrderDTO order = new HOrderDTO();
-	    String query = "select * from horder h,hotel r where h.ref=r.num and h.ref=?";
+	    String query = "select * from horder h,hotel r where h.ref=r.num and h.renum=?";
 	    
 	    try (Connection conn = getConnection(); // 새로운 데이터베이스 연결을 생성
 	         PreparedStatement stmt = conn.prepareStatement(query)) {
@@ -101,7 +101,9 @@ public class HOrderDAO extends OracleDB {
 	        }
 	    } catch (SQLException e) {
 	        e.printStackTrace();
-	    }
+	    } finally {
+			close(rs, pstmt, conn);
+		}
 
 	    return orders;
 	}
@@ -111,7 +113,7 @@ public class HOrderDAO extends OracleDB {
 	    String query = "SELECT * FROM "
 	    		+ " (select b.*, rownum r from "
 	    		+ " (select * from horder order by renum asc) b) "
-	    		+ " where r >= ? and r <= ?";
+	    		+ " where r >= ? and r <= ? and checkin < to_char(sysdate,'YYYY-MM-DD')";
 
 	    try (Connection conn = getConnection();
 	         PreparedStatement stmt = conn.prepareStatement(query);
@@ -135,7 +137,46 @@ public class HOrderDAO extends OracleDB {
 	        }
 	    } catch (SQLException e) {
 	        e.printStackTrace();
-	    }
+	    }finally {
+			close(rs, pstmt, conn);
+			
+		}
+
+	    return orders;
+	}
+	public List<HOrderDTO> getLastOrdersAdmin(int start, int end) {
+	    List<HOrderDTO> orders = new ArrayList<>();
+	    String query = "SELECT * FROM "
+	    		+ " (select b.*, rownum r from "
+	    		+ " (select * from horder order by renum asc) b) "
+	    		+ " where r >= ? and r <= ? and checkin >= to_char(sysdate,'YYYY-MM-DD')";
+
+	    try (Connection conn = getConnection();
+	         PreparedStatement stmt = conn.prepareStatement(query);
+	    		
+	        ) {
+	    	stmt.setInt(1, start);
+			stmt.setInt(2, end);
+			ResultSet rs = stmt.executeQuery();
+	        while (rs.next()) {
+	            HOrderDTO order = new HOrderDTO();
+	            order.setRenum(rs.getInt("renum"));
+	            order.setId(rs.getString("id"));
+	            order.setCheckin(rs.getString("checkin"));
+	            order.setCheckout(rs.getString("checkout"));
+	            order.setAdult(rs.getInt("adult"));
+	            order.setKid(rs.getInt("kid"));
+	            order.setPaytype(rs.getString("paytype"));
+	            order.setReg(rs.getTimestamp("reg"));
+	            order.setName(rs.getString("name"));
+	            orders.add(order);
+	        }
+	    } catch (SQLException e) {
+	        e.printStackTrace();
+	    }finally {
+			close(rs, pstmt, conn);
+			
+		}
 
 	    return orders;
 	}

@@ -31,6 +31,8 @@
  ArrayList<hotelDTO> list=dao.getContent(ref);
  String mainimg=maindto.getImg();
  String block = "0";
+ boolean stayedcheck = re.checkStayedHotel(id, ref);
+ System.out.println(stayedcheck);
  if(request.getParameter("block")!=null){
   block = request.getParameter("block");
 		 }
@@ -192,8 +194,12 @@ double tjum = Double.parseDouble(jum) * 20;
         }
         %>
         <div>
+        <%System.out.println("test : "+re.checkStayedHotel(id, ref)+" ref : "+ref); %>
+        <%if(re.checkStayedHotel(id, ref)) {%>
         <button id="b5" class="btn btn-primary" onclick="window.location='/BookStay/review/reviewWriteForm.jsp?ref=<%=ref %>'">글작성</button>
+         <%} %>
         </div>
+       
         </div>
       </div>
     </div>

@@ -25,6 +25,7 @@
 <%
 MemberDAO mdao = MemberDAO.getInstance();
 String id = (String) session.getAttribute("sid");
+mdao.checkHuman();
 int grade= mdao.checkGrade(id);
 %>
 <script>
@@ -111,8 +112,9 @@ int grade= mdao.checkGrade(id);
 		<div class="d"><button class="btn bbtn"><a href="/BookStay/member/memberForm.jsp">회원가입</a></button></div>
 		<%}				
 
-		}if(grade==0 || grade==99){ %>
+		}if(grade!=11){ %>
 		<div class="d"><button class="btn bbtn"><a href="/BookStay/member/logout.jsp">로그아웃</a></button></div>
+		<%if(grade!=99){%>
 		<div class="dropdown">
 		  <button id="bt" class="btn bbtn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
 		    MyPage
@@ -123,7 +125,6 @@ int grade= mdao.checkGrade(id);
 		  </ul>
 		</div>
 
-		<%}%>
 		<div class="dropdown">
 		  <button id="bt" class="btn bbtn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
 		    고객센터
@@ -133,6 +134,7 @@ int grade= mdao.checkGrade(id);
 		    <li><a class="dropdown-item" href="../board/QnAList.jsp">자주하는질문</a></li>
 		  </ul>
 		</div>
+		<%}} %>
 		<%if(grade==99){ %>
 		<div class="d"><button class="btn bbtn"><a href="/BookStay/admin/adminMain.jsp">관리자페이지</a></button></div>
 		<%} %>		

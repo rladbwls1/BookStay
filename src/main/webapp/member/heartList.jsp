@@ -4,9 +4,9 @@
 <%@page import="hotel.bean.MemberDTO"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<%request.setCharacterEncoding("UTF-8");
-String id = (String)session.getAttribute("sid");
-if(id==null){
+<%request.setCharacterEncoding("UTF-8");%>
+<%@ include file="../views/main_bar.jsp" %>
+<%if(grade==11){
 	%>
 	<script>
 		alert("로그인후 이용해주세요");
@@ -21,7 +21,7 @@ dao.allupdateHeart();
 %>
 <%=id %>님 찜목록
 <hr/>
-<%if(dto.getHeart()==null){%>
+<%if(dto.getHeart()==null||dto.getHeart().length()<1){%>
 
 	찜목록이 없습니다.
 <%}else{
