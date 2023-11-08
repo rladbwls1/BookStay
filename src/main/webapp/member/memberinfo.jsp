@@ -120,6 +120,14 @@
         .mainTable{
            color:#787878;
             
+        	width: 50%;
+        	padding:auto;
+        	margin:auto;
+        	
+        }
+        .mainTable{
+        	color:#787878;
+        	 
         }
     
     

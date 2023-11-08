@@ -21,6 +21,7 @@
         
         if (user != null) {
 			String checkin = request.getParameter("checkin");
+
         	String checkout = request.getParameter("checkout");
         	String title = request.getParameter("title");
         	int adult = Integer.parseInt(request.getParameter("adult"));
@@ -60,6 +61,9 @@
             <div class="btn8">
                     <input type="submit" id="btn" class="btn btn8 btn-primary" value="다음" />
                     <button type="button" id="btn1" class="btn btn8 btn-secondary" role="button"> 취소 </button>
+            <div class="btn">
+                    <input type="submit" id="btn" class="btn btn-primary" value="다음" />
+                    <button type="button" id="btn1" class="btn btn-secondary" role="button"> 취소 </button>
 	</div>
         </form>
                 </div>

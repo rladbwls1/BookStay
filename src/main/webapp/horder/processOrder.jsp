@@ -127,6 +127,30 @@
              <tr>
                 <td class="title">총 금액</td>
                 <td class="an"><%=hdto.getPrice()%>원</td>
+       <table>
+             <tr>
+                <td>호텔명</td>
+                <td><%=item_name%></td>
+             </tr>
+             <tr>
+                <td>예약일</td>
+                <td><%=checkinY%>년 <%=checkinM%>월 <%=checkinD%>일 ~ <%=checkoutY%>년 <%=checkoutM%>월 <%=checkoutD%>일</td>
+             </tr>
+             <tr>
+                <td>고객명</td>
+                <td><%=mdto.getName()%></td>
+             </tr>
+             <tr>
+                <td>연락처</td>
+                <td><%=mdto.getPnum()%></td>
+             </tr>
+             <tr>
+                <td>인원수</td>
+                <td>어른 : <%=adult %>아이 : <%=kid %></td>
+             </tr>
+             <tr>
+                <td>총 금액</td>
+                <td><%=hdto.getPrice()%></td>
              </tr>
        </table>
        <div class="btn8">
@@ -137,6 +161,9 @@
         <%}else if(paytype.equals("card")) {%>
        <button id="btn1" type="submit">카드 결제</button>
        </div>
+       <button type="button" onclick="/BookStay/horder/accountNum.jsp?renum=<%=renum%>">현금(계좌이체) 결제</button>
+        <%}else if(paytype.equals("card")) {%>
+       <button type="submit">카드 결제</button>
        <%} %>
        </form>
        <%} %>
