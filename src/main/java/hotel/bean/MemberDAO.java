@@ -64,11 +64,12 @@ public class MemberDAO extends  OracleDB {
 	        boolean result = false;
 	        try {
 	            conn = getConnection();
-	            String sql = "select *from member where name= ? and email= ? and pnum=?";
+	            String sql = "select * from member where   id=? and name=? and email=? and pnum=?";
 	            pstmt = conn.prepareStatement(sql);
-	            pstmt.setString(1, name);
-	            pstmt.setString(2, email);
-	            pstmt.setString(3, pnum);
+	            pstmt.setString(1, id);
+	            pstmt.setString(2, name);
+	            pstmt.setString(3, email);
+	            pstmt.setString(4, pnum);
 	            rs = pstmt.executeQuery();
 	            if (rs.next()) {
 	                result = true; // 사용자 정보가 일치하는 경우
@@ -271,9 +272,29 @@ public class MemberDAO extends  OracleDB {
       
          return result;
       }   
-    
-    
-    
+    //2023 11 08 메서드  도준생성 
+    public int updateOnlyPw(String id, String pw) {
+    	int result= 0;
+    	Connection conn=null;
+    	PreparedStatement pstmt=null;
+    	ResultSet rs=null;
+    	conn = getConnection();
+    	try {
+    		String sql="UPDATE member set pw=? where id=?";
+    			pstmt =conn.prepareStatement(sql);
+    			pstmt.setString(1, pw);
+    			pstmt.setString(2,id);
+    		
+    			
+    		    result = pstmt.executeUpdate();
+        } catch(Exception e) {
+            e.printStackTrace();
+         }finally {
+             close(rs, pstmt, conn);
+      }
+      
+         return result;
+      }   
 	public void updateHeart(String id,String heart) {
 		try {
 			conn=getConnection();

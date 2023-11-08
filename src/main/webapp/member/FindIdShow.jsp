@@ -4,7 +4,9 @@
 
 <jsp:useBean id="dao" class="hotel.bean.MemberDAO" />
 <jsp:useBean id="dto" class="hotel.bean.MemberDTO" />
-
+<%@ include file="../views/main_bar.jsp" %>
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-4bw+/aepP/YC94hEpVNVgiZdgIC5+VKNBQNGCHeKRQN+PtmoHDEXuppvnDJzQIu9" crossorigin="anonymous">
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-HwwvtgBNo3bZJJLYd8oVXjrBZt8cqVSpeBNS5n7C8IVInixGAoxmnlMuBnhbgrkm" crossorigin="anonymous"></script>
 <jsp:setProperty property="*" name="dto" />
 <%
 request.setCharacterEncoding("UTF-8");
@@ -17,23 +19,28 @@ request.setCharacterEncoding("UTF-8");
     <style>
         /* 본문에 제공된 CSS 스타일 추가 */
       /* 2023.11.07  그냥  내부 css 로  변경 */
-    body {
+
+
+        .table-container {
+        
+   			
             font-family: Arial, sans-serif;
             background-color: #F2F2F2;
             margin: 0;
             padding: 0;
-        }
-
-
-
-        .table-container {
             text-align: center;
             margin: 150px auto;
-            width: 80%;
             background-color: white;
             border-radius: 15px;
             padding: 20px;
             box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            margin-top:100px;
+            width:30%;
+            
+        }
+        .mainTable{
+             margin-top:50px;
+        
         }
 
         h2 {
@@ -77,18 +84,15 @@ request.setCharacterEncoding("UTF-8");
         input[type="button"]:hover {
             background-color: #157347;
         }
-        
-        .mainbody{
-        	width: 50%;
-        	padding:auto;
-        	margin:auto;
+      
+    
         	
-        }
-        .mainTable{
+        } 
+        /* .mainTable{
         	color:#787878;
         	 
         }
-           
+            */
     
     
     
@@ -173,25 +177,15 @@ margin-bottom:10px;
     </style>
   
 </head>
-<body class="mainbody">
+<body  class="margin-top">
     <div class="table-container">
-        <h2>마이페이지</h2>
         <table border="1" class="mainTable">
             <tr>
                 <td>
                     
-      <%
-   	
-        String id = request.getParameter("id");
-        String name = request.getParameter("name");
-        String email = request.getParameter("email");
-        String pnum = request.getParameter("pnum");
-     
-    %>
-    <div id="memberMessage">
-        회원님의 아이디는 <%=request.getParameter("id")%> 입니다
-       
-    </div>
+     <div id="memberMessage">
+                        회원님의 아이디는 <%= request.getParameter("id") %> 입니다
+                    </div>
                 
                 </td>
             </tr>

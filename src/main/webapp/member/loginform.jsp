@@ -1,8 +1,17 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
-<% request.setCharacterEncoding("UTF-8"); %>
+<%@ page import="hotel.bean.MemberDTO" %>
+<%@ page import="hotel.bean.MemberDAO" %>
+
+<jsp:useBean id="dao" class="hotel.bean.MemberDAO" />
+<jsp:useBean id="dto" class="hotel.bean.MemberDTO" />
+<%@ include file="../views/main_bar.jsp" %>
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-4bw+/aepP/YC94hEpVNVgiZdgIC5+VKNBQNGCHeKRQN+PtmoHDEXuppvnDJzQIu9" crossorigin="anonymous">
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-HwwvtgBNo3bZJJLYd8oVXjrBZt8cqVSpeBNS5n7C8IVInixGAoxmnlMuBnhbgrkm" crossorigin="anonymous"></script>
+<jsp:setProperty property="*" name="dto" />
 <!DOCTYPE html>
 <html>
 <head>
+
 <%     
 
 String name = request.getParameter("name");
@@ -13,14 +22,13 @@ String pnum = request.getParameter("pnum"); %>
     /*modal 공통 */
  #modaltable td {    
     text-align: center;
-    font-family: Arial, sans-serif;S
+    font-family: Arial, sans-serif;
     font-size: 14px;
 }
 #modaltable tr a {
     text-decoration: none;
 }   
 #modaltable {
-	 border: white;
     width: 100%; /* 수정: 테이블 폭을 80%로 조정 */
     margin: 0 auto; /* 테이블을 가운데 정렬 */
     border-collapse: collapse;
@@ -35,6 +43,7 @@ String pnum = request.getParameter("pnum"); %>
     
 #modalfontment{
 	margin-bottom:10px;
+	font-size: x-large;
 }
   .box {
     width: 32%;
@@ -45,6 +54,7 @@ String pnum = request.getParameter("pnum"); %>
     font-weight: bold;
 }
   
+	
 #email{
 	width: 42%;
 }  
@@ -75,14 +85,13 @@ String pnum = request.getParameter("pnum"); %>
            
         }
 			     .modal-content {
-			    border: 2px solid gray;
-			    position: relative;
+			    position: absolute;
 			    border-radius: 10px;
 			    background-color: white;
 			    height: 400px; /* 원하는 높이로 설정 */
 			    width: 400px; /* 원하는 너비로 설정 */
-			       top:-600px;
-			    left:100px;
+	  top:190px;
+	    left:500px;
 			}
         .close {
             position: absolute;
@@ -113,7 +122,7 @@ margin-bottom:10px;
 .modalsumitinput:hover {
     background-color: #157347;
 }
-         <!--  비밀번호 찾기 모달 -->
+         <!--  모달비밀 번호 찾기 모달 -->
         .modal2{
             display: none;
             position: fixed;
@@ -128,8 +137,8 @@ margin-bottom:10px;
 	    background-color: white;
 	    height: 500px; /* 원하는 높이로 설정 */
 	    width: 400px; /* 원하는 너비로 설정 */
-	  top:-600px;
-	    left:100px;
+	  top:50px;
+	    left:500px;
 	}
         .close2 {
             position: absolute;
@@ -205,34 +214,50 @@ margin-bottom:10px;
 
        input.value = phoneNumber;
    }
-   
- 
-   
-   
-   function updateEmail(inputId, selectId) {
-	   var selectElement = document.getElementById(selectId);
-	   var emailInput = document.getElementById(inputId);
-	   var selectedOption = selectElement.options[selectElement.selectedIndex].value;
 
-	   if (selectedOption === "type") {
-	     // "직접 입력" 옵션을 선택한 경우 아무 작업도 수행하지 않습니다.
-	   } else {
-	     // 선택한 옵션 값을 입력 필드에 그 뒤에 추가합니다.
-	     emailInput.value += selectedOption;
+   
+   
+   function updateEmail() {
+	   const emaillist = document.getElementById('emaillist');
+	   const emailInput = document.getElementById('email');
+
+	   if (emaillist.value === 'type') {
+	       // 사용자가 이메일을 수동으로 입력하도록 선택한 경우
+	       const emailtxt = document.getElementById('emailtxt').value;
+	       const combinedEmail = emailInput.value + "@" + emailtxt;
+	       emailInput.value = combinedEmail;
+	   } else if (emaillist.value !== 'type') {
+	       // 스크롤에서 선택한 경우
+	       const selectedDomain = emaillist.value;
+	       emailInput.value = emailInput.value.split('@')[0] + selectedDomain;
 	   }
-	 }
+	}
+   
+   function updateEmail() {
+	   const emaillist = document.getElementById('emaillist2');
+	   const emailInput = document.getElementById('email2');
+
+	   if (emaillist.value === 'type') {
+	       // 사용자가 이메일을 수동으로 입력하도록 선택한 경우
+	       const emailtxt = document.getElementById('emailtxt').value;
+	       const combinedEmail = emailInput.value + "@" + emailtxt;
+	       emailInput.value = combinedEmail;
+	   } else if (emaillist.value !== 'type') {
+	       // 스크롤에서 선택한 경우
+	       const selectedDomain = emaillist.value;
+	       emailInput.value = emailInput.value.split('@')[0] + selectedDomain;
+	   }
+	}
+
+
+
     /*  모달 관련*/
      
         function openModal(modalType) {
             var modal = document.getElementById("myModal");
             modal.style.display = "block";
 
-    /*   var iframe = modal.querySelector("iframe");
-            if (modalType === "FindId") {
-            //    iframe.src = "FindId.jsp";
-            } else if (modalType === "FindPw") {
-             //   iframe.src = "FindPw.jsp";
-            } */
+    
         }
 
         function closeModal() {
@@ -244,12 +269,7 @@ margin-bottom:10px;
             var modal2 = document.getElementById("myModal2");
             modal2.style.display = "block";
 
-         /*    var iframe2 = modal2.querySelector("iframe");
-            if (modalType === "FindId") {
-                iframe2.src = "FindId.jsp";
-            } else if (modalType === "FindPw") {
-                iframe2.src = "FindPw.jsp";
-            } */
+       
         }
 
         function closeModal2() {
@@ -262,34 +282,7 @@ margin-bottom:10px;
   
   <!-- 모달아  -->
 
-  function openCenteredWindow(button) {
-		event.preventDefault(); // 기본 동작(링크 이동)을 막습니다. */
-		    var url = button.getAttribute("data-open-window");
-		    var width = button.getAttribute("data-width");
-		    var height = button.getAttribute("data-height");
-		    var left = button.getAttribute("data-left");
-		    var top = button.getAttribute("data-top");
-		window.open(url, "centeredWindow", "width=" + width + ",height=" + height + ",left=" + left + ",top=" + top);
-		    return true;
-	  }      
-	        
-  
-  
-  /* 비밀번호찾기 눌럿을때 생기는 새창 크기 조정*/
-   function openCenteredWindow2(event) {
-  event.preventDefault(); // 기본 동작(링크 이동)을 막습니다.
-  // 창의 가로 및 세로 크기를 정의합니다.
-  var width = 330;
-  var height = 100;
-  // 화면의 가로 및 세로 크기를 가져옵니다.
-  var screenWidth = window.screen.availWidth;
-  var screenHeight = window.screen.availHeight;
-  // 창을 화면 가운데에 위치시키기 위한 left와 top 값을 계산합니다.
-  var left =2300;
-  var top = 160;
-  // 새 창을 열고 크기 및 위치를 지정합니다.
-  var newWindow = window.open("/BookStay/member/FindPwPro.jsp", "centeredWindow", "width=" + width + ",height=" + height + ",left=" + left + ",top=" + top);
-}
+
 
         
        
@@ -298,13 +291,13 @@ margin-bottom:10px;
 <body>
     <div class="loginbox">
         <div class="loginbox_a">
-                  <form method="post" action="loginPro.jsp" onsubmit="return validateForm();">
+                  <form method="post"  action="loginPro.jsp" onsubmit="return validateForm();">
                     <table class="loginbox_b" >
                         <tr>
                             <td class="tableline">
                                 <div class="bookment">
                                     <a>
-                                        BookStay에 온걸<br/> 환영해요  :)
+                                        BookStay에 온 걸<br/> 환영해요  :)
                                     </a>
                                 </div>
                             </td>
@@ -337,14 +330,21 @@ margin-bottom:10px;
                 </div>
             </td>
         </tr>
-                    </table>
-                </form>
-
-            <div class="button">
+ <tr>
+                            <td>
+                      <div class="button">
                 <a href="javascript:void(0);" class="button_a" onclick="openModal('FindId')">아이디 찾기</a>&nbsp|
                 <a href="javascript:void(0);" class="button_b" onclick="openModal2('FindPw')">비밀번호 찾기</a>&nbsp|
                 <a href="memberForm.jsp" class="button_c">회원가입</a>&nbsp|<a href="/BookStay/views/main.jsp" class="button_d"> 홈으로 가기</a>
             </div>
+            </td>
+        </tr>
+
+
+        
+                    </table>
+                </form>
+
         </div>
     </div>
     <!-- 모달 창  수정 HTML -->
@@ -406,8 +406,9 @@ margin-bottom:10px;
             <td class="hiddenshow"></td>
             <td>
                 <!-- <input type="submit" name="confirm" value="아이디찾기" class="modalsumitinput" onclick="openCenteredWindow(event)" />-->            
-<!-- 모달아 --> 
-	  <input type="submit" name="confirm" value="아이디찾기" class="modalsumitinput" onclick="openCenteredWindow(this);" data-open-window="/BookStay/member/FindIdPro.jsp?id=test123&pw=123456&punm=김철수" data-width="500" data-height="300" data-left="500" data-top="300">
+<input type="submit" name="confirm" value="아이디찾기" class="modalsumitinput";>
+
+
 
             <td></td>
         </tr>
@@ -521,15 +522,6 @@ margin-bottom:10px;
     </div>
     
     
-    
-    <div class="UjinsHypboy">
-        <div id="logo">
-            <a href="/BookStay/views/main.jsp">
-                BookStay
-            </a>
-        </div>
-        <div class="info">고객센터</div>
-    </div>
 
 </body>
 </html>

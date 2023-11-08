@@ -25,7 +25,7 @@
         } else {
             // 사용자 정보가 일치하지 않는 경우 오류 메시지 표시
           %><script>alert("입력한 정보가 일치하지 않습니다. 다시 입력해주세요.") 
-          	 window.location="/BookStay/member/FindPw.jsp";
+          	 window.location="/BookStay/member/loginform.jsp";
           </script> <%
         }
     %>

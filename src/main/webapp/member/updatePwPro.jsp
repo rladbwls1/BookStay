@@ -1,4 +1,3 @@
-
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
 <%@ page import="hotel.bean.MemberDTO" %>
 <%@ page import="hotel.bean.MemberDAO" %>
@@ -17,49 +16,39 @@
     <title>비밀번호 변경 결과</title>
 </head>
 <body>
-<% request.setCharacterEncoding("UTF-8");
-												//1030 도준수정
+<%
+    request.setCharacterEncoding("UTF-8");
 %>
 <%
-    String sid = (String) session.getAttribute("sid");
-    dto.setId(sid);
-    String id = request.getParameter("id");
-    String name = request.getParameter("name");
-    String email = request.getParameter("email");
-    String pnum = request.getParameter("pnum");
     // 비밀번호를 입력 폼에서 받아옴
-    String pw = request.getParameter("pw");
+  String checkid = request.getParameter("checkid");
 
-    member.setPw(pw);
+        String pw = request.getParameter("pw");
+
 
     MemberDAO manager = MemberDAO.getInstance();
-    int updateResult = manager.updateMember(member);
-%>
 
-<table width="270" border="0" cellspacing="0" cellpadding="5" align="center">
-  <tr>
-    <td height="39" align="center"></td>
-  </tr>
-  <tr>
-    <td align="center">
-      <p>
+    
+    int updateResult = manager.updateOnlyPw(checkid,pw);
+
+    // 변경 결과에 따라 메시지를 표시하고 적절한 페이지로 리디렉션
+    if (updateResult == 1) {
+        // 비밀번호 변경 성공
+%>
         <script>
-            <% if (updateResult == 1) { %>
-                alert("비밀번호 변경이 완료되었습니다.");
-            <% } else { %>
-                alert("비밀번호 변경 중에 오류가 발생했습니다.");
-            <% } %>
+            alert("비밀번호 변경이 완료되었습니다.");
+            window.location = "/BookStay/views/main.jsp";
         </script>
-      </p>
-    </td>
-  </tr>
-  <tr>
-    <td>
-      <form>
-        <input type="button" value="메인으로" onclick="window.location='../views/main.jsp'">
-      </form>
-    </td>
-  </tr>
-</table>
+<%
+    } else {
+        // 비밀번호 변경 실패
+%>
+        <script>
+            alert("비밀번호 변경 중에 오류가 발생했습니다.");
+            window.location = "/BookStay/member/loginform.jsp";
+        </script>
+<%
+    }
+%>
 </body>
 </html>

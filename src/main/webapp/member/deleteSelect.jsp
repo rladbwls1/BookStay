@@ -1,5 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
 <% request.setCharacterEncoding("UTF-8"); %>
+
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -501,19 +503,6 @@ margin-bottom:10px;
 <!--  form 끝 -->
         </div>
     </div>
-    
-    
-    
-    <div class="UjinsHypboy">
-        <div id="logo">
-            <a href="/BookStay/views/main.jsp">
-                BookStay
-            </a>
-        </div>
-        <div class="info">고객센터</div>
-    </div>
-    <script>
-    checkLoginStatus();
-</script>
+   
 </body>
 </html>

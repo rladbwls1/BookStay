@@ -15,11 +15,11 @@
     int updateResult = manager.updateMember(member);
 	 String id = request.getParameter("id");
 	 String email = request.getParameter("email");
-   String name = request.getParameter("name");
-   String birth = request.getParameter("birth");
-   String addr = request.getParameter("addr");
-   String pnum = request.getParameter("pnum");
-String pw=request.getParameter("pw"); 
+   	String name = request.getParameter("name");
+  	 String birth = request.getParameter("birth");
+   	String addr = request.getParameter("addr");
+   	String pnum = request.getParameter("pnum");
+	String pw=request.getParameter("pw"); 
 %>
 
 <table width="270" border="0" cellspacing="0" cellpadding="5" align="center">
@@ -38,7 +38,7 @@ String pw=request.getParameter("pw");
         <% } else { %>
           <script>alert("어딘가 잘못되었습니다");
           
-          window.location="/BookStay/member/updatet.jsp";</script>
+          window.location="/BookStay/member/update.jsp";</script>
               			
         <% } %>
       </p>
