@@ -5,6 +5,10 @@
 	margin: 0;
 	box-sizing: border-box;
 }
+.on{
+	background-color: #E9B384;
+	color: white;
+}
 
 /* 사이드메뉴 css */
 #list{
@@ -96,7 +100,7 @@
 #tbcal{
 	position: relative;
 }
-#c3{
+#c8{
 	float: right;
 	margin-top: 20px;
 	width: 100px;

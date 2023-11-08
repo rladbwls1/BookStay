@@ -56,6 +56,9 @@
 #tbcal{
 	position: relative;
 }
+#add{
+	background-color: #F4F2DE;
+}
 #btn4{
 	display: inline-flex;
 	position: absolute;
@@ -87,8 +90,8 @@
 	border: 1px solid gainsboro;
 	padding: 8px 0;
 }
-.cg{
-	background-color: #2B2730;
+#cg{
+	background-color: #A1CCD1;
 	color: white;
 }
 .button{

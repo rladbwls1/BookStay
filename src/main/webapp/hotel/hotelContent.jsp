@@ -6,6 +6,7 @@
 <%@page import="hotel.bean.hotelDTO"%>
 <%@page import="hotel.bean.hotelDAO"%>
 <%@ page import = "hotel.bean.reviewDTO" %>
+<%@ page import = "java.text.SimpleDateFormat" %>
 <%@ page import = "hotel.bean.reviewDAO" %>
 <%@page import="java.util.List"%>
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@8/swiper-bundle.min.css"/>
@@ -186,7 +187,7 @@ double tjum = Double.parseDouble(jum) * 20;
 		<div class="item" id="rid"><%= review.getId() %> 님</div> 
 		<div class="item" id="rjumsu"><b><%= review.getJumsu() %></b> /5</div>
 		<div class="item" id="rcon"><%= review.getContent() %></div> 
-		<div class="item" id="rreg"><%= review.getReg() %></div> 
+		<div class="item" id="rreg"><%= new SimpleDateFormat("yyyy-MM-dd").format(review.getReg()) %></div> 
 		</div>
         <%
         }

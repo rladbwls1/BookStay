@@ -515,11 +515,16 @@ public class hotelDAO extends OracleDB{
 			return str==null || str.isEmpty();
 		}
 		
-		public int count() {
+		public int count(int num) {
 			int result = 0;
+			String sql = "";
+			conn = getConnection();
+			if(num == 1) {
+				sql = "select count(*) from hotel where re_step=0 and status=10";
+			}else {
+				sql = "select count(*) from hotel where re_step=0 and status=0";
+			}
 			try {
-				conn = getConnection();
-				String sql = "select count(*) from hotel where re_step=0 and status=0";
 				pstmt = conn.prepareStatement(sql);
 				rs = pstmt.executeQuery();
 				if(rs.next()) {

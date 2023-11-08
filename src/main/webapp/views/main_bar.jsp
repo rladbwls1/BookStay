@@ -66,6 +66,5 @@ int grade= mdao.checkGrade(id);
 		</a>
 	</div>
 	</div>
-	<hr id="hr"/>
 </body>
 </html>

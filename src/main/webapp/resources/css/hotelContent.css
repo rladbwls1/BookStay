@@ -188,8 +188,8 @@ html,
 }
 #rreg{
 	position: absolute;
-	right: 0;
-	top: 0;
+	right: 10px;
+	top: 10;
 }
 #hcapr{
 	border: 1px solid gainsboro;
