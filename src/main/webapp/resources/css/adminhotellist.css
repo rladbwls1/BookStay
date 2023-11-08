@@ -1,26 +1,9 @@
 @charset "UTF-8";
-
-#block2{
-	padding: 0 30px 0;
+*{
+	padding: 0;
+	margin: 0;
+	box-sizing: border-box;
 }
-#table1 th ,td{
-	border: 1px solid black !important;
-	padding: 5px 0 5px 7px;
-}
-#table1{
-	width: 100%;
-	text-align: center;
-	margin-bottom: 50px;
-}
-#table1 th{
-	background-color: #EEEEEE;
-	padding: 10px 0;
-}
-#page{
-	text-align: center;
-}
-
-/* 사이드메뉴 css */
 #list{
 	display: flex;
 	min-height: calc(100vh - 150px);
@@ -35,7 +18,7 @@
   margin:0 !important;
   border-right: 1px solid gainsboro;
 }
-#bn1, #bn3, #bn4, #bn5, #bn6, #bn7 {
+#bn1, #bn3, #bn4, #bn5, #bn7, #bn2 {
   width: 100%;
   display: block;
   color: #000;
@@ -57,7 +40,7 @@
 .nav{
 	margin-top: 20px;
 }
-#bn2{
+#bn6{
 	  width: 100%;
 	  display: block;
 	  color: white;
@@ -66,19 +49,39 @@
 	  border: none;
 	  background-color: #555;
 }
-#page{
-	margin-top: 30px;
-	display: flex;
-	justify-content: center;
-	align-items: center;
-	margin-bottom: 100px;
+#tbcal{
+	position: relative;
 }
-.button{
-	padding: 6px 10px;
-	border: 1px solid gainsboro;
+#btn4{
+	display: inline-flex;
+	position: absolute;
+	right: 0;
+	top: -7px;
+	border: 1px solid #213555;
+}
+#btn4 button{
+	padding: 2px 5px;
+}
+#chk{
+	background-color: #213555;
+	color: white;
+	border: none;
+}
+.d{
+	border: 1px solid black;
+	border-width: 0 1px 0 0;
 	background-color: white;
 }
-#color{
-	background-color: black;
+#tb{
+	width: 100%;
+	text-align: center;
+}
+#tb td, th{
+	text-align: center;
+	border: 1px solid gainsboro;
+	padding: 8px 0;
+}
+.cg{
+	background-color: #2B2730;
 	color: white;
 }

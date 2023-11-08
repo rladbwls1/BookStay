@@ -18,6 +18,7 @@
 <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.css" />
 <link rel="stylesheet" href="/BookStay/resources/css/list_menu.css"/>
 <link rel="stylesheet" href="/BookStay/resources/css/hotelContent.css"/>
+
 <%@ include file="../views/main_bar.jsp" %>
 <%request.setCharacterEncoding("UTF-8");
 
@@ -33,7 +34,7 @@
   block = request.getParameter("block");
 		 }
  
- String[] imgArray={"default1.jpg","default1.jpg","default1.jpg"};
+ String[] imgArray={"default.gif","default.gif","default.gif"};
  if(!dao.checkNull(mainimg)){
  if(mainimg.contains(",")){
 	 imgArray=mainimg.split(",");
@@ -141,16 +142,25 @@ String title = request.getParameter("title");
 </div>
 <div id="apr"><%=maindto.getPrice() %>원</div>
 <div id="bmo">
+
+
 <% if(heart!=null&&heart.contains(Integer.toString(ref))){%>
 <button type="button" onclick="window.location='../member/heartPro.jsp?num=<%=maindto.getNum()%>&ref=<%=ref%>'">찜취소하기</button>
 <%}else{ %>
-<button type="button" id="heart" onclick="window.location='../member/heartPro.jsp?num=<%=maindto.getNum()%>&ref=<%=ref%>'">
+<button type="button" id="heart" onclick="window.location='../member/heartPro.jsp?num=<%=maindto.getNum()%>&ref=<%=ref%>&room=<%=rortlf%>&adult=<%=adult%>&kids=<%=kids%>&select=<%=select%>&checkin=<%=checkin%>&checkout=<%=checkout%>&heartadd=true'">
 	<img src="/BookStay/resources/img/heart.png">
 </button>
 </div>
 <%} %>
+<% double jumsu = re.getAvgJumsu(ref);
+String jum = String.valueOf(jumsu);
+if (jum.equals("0.0")) {
+    jum = "0";
+}
+%>
+
 <button id="gnBtn" type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#staticBackdrop">
-  <%= re.getAvgJumsu(ref)%> /5 후기(<%= re.getcount(ref)%>)
+  <%= jum%> /5 후기(<%= re.getcount(ref)%>)
 </button>
 
 <!-- Modal -->
@@ -204,15 +214,22 @@ String title = request.getParameter("title");
 	
 	</div>
 </div>
-<hr id="hr"/>
+<hr id="hr5"/>
 <% 
 for(hotelDTO dto : list){
+	String imgname = dto.getImg();
 	%>
 	<div id="box1">
 	<form class="form" action="../horder/payment.jsp" method="post">
+	<input type="hidden" name="num" value="<%=dto.getNum()%>">
 	<input type="hidden" name="ref" value="<%=ref%>">
-	<div>
-	<img src="/BookStay/upload/<%=dto.getImg()%>">
+	<input type="hidden" name=checkin value="<%=checkin%>">
+	<input type="hidden" name=checkout value="<%=checkout%>">
+	<input type="hidden" name=title value="<%=title%>">
+	<input type="hidden" name=kids value="<%=kids%>">
+	<input type="hidden" name=adult value="<%=adult%>">
+	<div id="b3">
+	<img src="/BookStay/upload/<%=imgname%>">
 	</div>
 	<div id="box3">
 	<div class="title2"><%=dto.getRoomtype()%></div>
@@ -262,12 +279,6 @@ for(hotelDTO dto : list){
         </td>
     </tr>
 </table>
-</div>
-<div class="tnrqkr">
-	<p class="hr2">숙박 위치</p>
-</div>
-<div class="tnrqkr">
-	<p class="hr2">편의시설</p>
 </div>
 </div>	
 </body>

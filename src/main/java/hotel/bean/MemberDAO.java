@@ -56,7 +56,7 @@ public class MemberDAO extends  OracleDB {
 		
 
 	
-	 // 아이디,이름 이메일을 ,휴대폰번호를  이용해서 비밀번호찾기   -20231027 도준
+	 // 이름 이메일을 ,휴대폰번호를  이용해서 비밀번호찾기   -20231027 도준
 	    public boolean findPW(String id, String name, String email, String pnum) {
 	        Connection conn = null;
 	        PreparedStatement pstmt = null;
@@ -64,8 +64,7 @@ public class MemberDAO extends  OracleDB {
 	        boolean result = false;
 	        try {
 	            conn = getConnection();
-	            String sql = "\r\n"
-	            		+ "select *from member where name= ? and email= ? and pnum=? ;";
+	            String sql = "select *from member where name= ? and email= ? and pnum=?";
 	            pstmt = conn.prepareStatement(sql);
 	            pstmt.setString(1, name);
 	            pstmt.setString(2, email);
@@ -86,27 +85,27 @@ public class MemberDAO extends  OracleDB {
 	    
 		 // 이름 ,이메일을 ,휴대폰번호를  이용해서 아이디찾기   -20231027 도준
 	    public String findId(String name, String email, String pnum) {
-	    	 Connection conn = null;
-		        PreparedStatement pstmt = null;
-		        ResultSet rs = null;
-		        String result = "";
-		        try {
-		            conn = getConnection();
-		            String sql = "SELECT * FROM member WHERE name=? AND email=? AND pnum=?";
-		            pstmt = conn.prepareStatement(sql);
-		            pstmt.setString(1, name);
-		            pstmt.setString(2, email);
-		            pstmt.setString(3, pnum);
-		            rs = pstmt.executeQuery();
-		            if (rs.next()) {
-		                result = rs.getString("id"); // 사용자 정보가 일치하는 경우
-		            }
-		        } catch (Exception e) {
-		            e.printStackTrace();
-		        } finally {
-		            close(rs, pstmt, conn);
-		        }
-		        return result;
+	        Connection conn = null;
+	        PreparedStatement pstmt = null;
+	        ResultSet rs = null;
+	        String result = "";
+	        try {
+	            conn = getConnection();
+	            String sql = "SELECT id FROM member WHERE name=? AND email=? AND pnum=?";
+	            pstmt = conn.prepareStatement(sql);
+	            pstmt.setString(1, name);
+	            pstmt.setString(2, email);
+	            pstmt.setString(3, pnum);
+	            rs = pstmt.executeQuery();
+	            if (rs.next()) {
+	                result = rs.getString("id"); // 사용자 정보가 모두 일치하는 경우
+	            }
+	        } catch (Exception e) {
+	            e.printStackTrace();
+	        } finally {
+	            close(rs, pstmt, conn);
+	        }
+	        return result;
 	    }
 	    
 	    //2023 11 06 도준 생성  조회  > 인서트  > 딜리트 한번에함   :  타테이블에 이관하고 삭제하는 메서드  

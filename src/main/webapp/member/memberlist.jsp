@@ -57,6 +57,49 @@
      <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
 </head>
+<body>
+<div id="header">
+   <div id="login">
+      <%if(grade==11) { // 세션이 없다면 수행
+    String cid = null, cpw = null, cauto = null;
+    Cookie[] cookies = request.getCookies();
+  
+       if (cookies != null) {
+              for (Cookie c : cookies) {
+                  if (c.getName().equals("cid")) { cid = c.getValue(); }
+                  if (c.getName().equals("cpw")) { cpw = c.getValue(); }
+                  if (c.getName().equals("cauto")) { cauto = c.getValue(); }
+               }  
+             }
+       if (cid != null && cpw != null && cauto != null) {
+          response.sendRedirect("/BookStay/member/loginPro.jsp");   
+       }
+    if (cid == null || cpw == null || cauto == null) { %>
+      <div><a href="/BookStay/member/loginform.jsp">로그인</a></div>
+      <div><a href="/BookStay/member/memberForm.jsp">회원가입</a></div>
+      <%}            
+      }if(grade==0 || grade==99){ %>
+      <div><a href="/BookStay/member/logout.jsp">로그아웃</a></div>
+      <div><a href="/BookStay/member/memberinfo.jsp">MyPage</a></div>
+      <%}%>
+      <div>고객센터</div>
+      <%if(grade==99){ %>
+
+      <div><a href="/BookStay/admin/adminmain.jsp">관리자페이지</a></div>
+      <%} %>   
+   </div>
+   <div id="logo">
+      <a href="/BookStay/views/main.jsp">
+
+         BookStay
+      </a>
+   </div>
+   </div>
+   <style>
+   
+body {
+   padding-top: 20px; /* 페이지의 상단 여백을 늘립니다. */
+}
 
 <style>
 
@@ -80,67 +123,28 @@ position: fixed;
 
 }
 
-
-
 </style>
 
-<body>
-
-
-
-<div class="b-example-divider">
-
-
-
-<div class="d-flex flex-column flex-md-row p-4 gap-4 py-md-5 align-items-center">
-
-  <div class="dropdown-menu d-block position-static pt-0 mx-0 rounded-3 shadow overflow-hidden w-280px" data-bs-theme="light">
-
-    <form class="p-2 mb-2 bg-body-tertiary border-bottom">
-
-      <input type="search" class="form-control" autocomplete="false" placeholder="Type to filter...">
-
-    </form>
-
-    <ul class="list-unstyled mb-0">
-
-      <li><a class="dropdown-item d-flex align-items-center gap-2 py-2" href="#">
-
-        <span class="d-inline-block bg-success rounded-circle p-1"></span>
-
-        Action
-
-      </a></li>
-
-      <li><a class="dropdown-item d-flex align-items-center gap-2 py-2" href="#">
-
-        <span class="d-inline-block bg-primary rounded-circle p-1"></span>
-
-        Another action
-
-      </a></li>
-
-      <li><a class="dropdown-item d-flex align-items-center gap-2 py-2" href="#">
-
-        <span class="d-inline-block bg-danger rounded-circle p-1"></span>
-
-        Something else here
-
-      </a></li>
-
-      <li><a class="dropdown-item d-flex align-items-center gap-2 py-2" href="#">
-
-        <span class="d-inline-block bg-info rounded-circle p-1"></span>
-
-        Separated link
-
-      </a></li>
-
+<div class="col-md-3" style="width:200px; height:150px; border:100px; float:left; margin-left: 300px;">
+<!-- 사이드 바 메뉴-->
+  <!-- 패널 타이틀1 -->
+<div  class="panel panel-info">
+    <div  class="panel-heading">
+      <h3  class="panel-title">나의 정보</h3>
+    </div>
+    <!-- 사이드바 메뉴목록1 -->
+    <ul  class="list-group">
+    <li  class="list-group-item"><a href="/BookStay/member/memberinfo.jsp">마이페이지</a></li>
+      <li class="list-group-item"><a href="/BookStay/board/myQuestion.jsp">나의 질문</a></li>
+      <li  class="list-group-item"><a href="/BookStay/member/logout.jsp">로그아웃</a></li>
     </ul>
 
   </div>
 
 </div>
+ </div>
+<div class="mx-auto p-2" style="width: 800px;">
+<div class="w-200 p-1">
 
 </div>
 
@@ -288,6 +292,12 @@ position: fixed;
 
             </body>
 
+<input type="button" class="btn btn-success" value="뒤로가기" onclick="location.href='memberinfo.jsp'">
+<input type="button" class="btn btn-success" value="로그아웃" onclick="location.href='logout.jsp'">
+
+</div>
+</div>
+</body>
 </html>
 
 <%
