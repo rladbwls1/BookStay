@@ -30,7 +30,7 @@ int grade= mdao.checkGrade(id);
           response.sendRedirect("/BookStay/member/loginPro.jsp");   
        }
     if (cid == null || cpw == null || cauto == null) { %>
-      <div><button class="btn"><a href="/BookStay/member/loginform.jsp">로그인</a></button></div>
+  <div><button class="btn"><a href="/BookStay/member/loginform.jsp">로그인</a></button></div>
       <div><button class="btn"><a href="/BookStay/member/memberForm.jsp">회원가입</a></button></div>
       <%}            
       }if(grade==0 || grade==99){ %>

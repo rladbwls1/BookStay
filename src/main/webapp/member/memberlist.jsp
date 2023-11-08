@@ -67,11 +67,13 @@ int grade= mdao.checkGrade(id);
       <%}%>
       <div>고객센터</div>
       <%if(grade==99){ %>
+
       <div><a href="/BookStay/admin/adminmain.jsp">관리자페이지</a></div>
       <%} %>   
    </div>
    <div id="logo">
       <a href="/BookStay/views/main.jsp">
+
          BookStay
       </a>
    </div>
@@ -91,6 +93,7 @@ body {
     margin-top: 50px; /* 컨텐츠 영역을 아래로 이동시킵니다. */
 }
 
+
 </style>
 
 <div class="col-md-3" style="width:200px; height:150px; border:100px; float:left; margin-left: 300px;">
@@ -108,6 +111,7 @@ body {
       
     </ul>
 </div>
+
  </div>
 <div class="mx-auto p-2" style="width: 800px;">
 <div class="w-200 p-1">
@@ -190,8 +194,10 @@ String reg = new SimpleDateFormat("yyyy-MM-dd").format(order.getReg());
     
     <%} %>
 </table> </br>
+
 <input type="button" class="btn btn-success" value="뒤로가기" onclick="location.href='memberinfo.jsp'">
 <input type="button" class="btn btn-success" value="로그아웃" onclick="location.href='logout.jsp'">
+
 </div>
 </div>
 </body>

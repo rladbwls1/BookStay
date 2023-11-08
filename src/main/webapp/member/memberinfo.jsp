@@ -4,6 +4,7 @@
 <%@ page import="hotel.bean.MemberDAO" %>
 <jsp:useBean id="dao" class="hotel.bean.MemberDAO" />
 <jsp:useBean id="dto" class="hotel.bean.MemberDTO" />
+<%@ include file="../views/main_bar.jsp" %>
 <%	
     request.setCharacterEncoding("UTF-8");
     String sid = (String) session.getAttribute("sid"); // 사용자 아이디 가져오기
@@ -309,12 +310,7 @@ function closeModalAndRedirect() {
     <link rel="stylesheet" href="/resources/css/memberinfo.css" type="text/css">
 </head>
 <body class="mainbody">
-    <div class="UjinsHypboy">
-        <div id="logo">
-            <a href="/BookStay/views/main.jsp">BookStay</a>
-        </div>
-        <div class="info">고객센터</div>
-    </div>
+    
     <div class="table-container" >
         <h2>마이페이지</h2>
         <table border="1"  class="mainTable">

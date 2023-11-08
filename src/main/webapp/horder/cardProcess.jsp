@@ -41,7 +41,6 @@ BufferedReader br = new BufferedReader(new InputStreamReader(conn.getInputStream
 JSONParser parser = new JSONParser();
 JSONObject obj = (JSONObject)parser.parse(br);
 String seccessUrl = (String)obj.get("next_redirect_pc_url");
-System.out.println(seccessUrl);
 response.sendRedirect(seccessUrl);
 
 %>

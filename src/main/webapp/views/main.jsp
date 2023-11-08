@@ -110,8 +110,9 @@ int grade= mdao.checkGrade(id);
 		<div><a href="/BookStay/member/loginform.jsp">로그인</a></div>
 		<div><a href="/BookStay/member/memberForm.jsp">회원가입</a></div>
 		<%}				
-		}if(grade==0 || grade==99){ %>
+		}if(grade!=11){ %>
 		<div><a href="/BookStay/member/logout.jsp">로그아웃</a></div>
+		<%}if(grade==0){ %>
 		<div><a href="/BookStay/member/memberinfo.jsp">MyPage</a></div>
 		<%}%>
 		<div><a href="/BookStay/board/notice.jsp">고객센터</a></div>
@@ -177,7 +178,7 @@ int grade= mdao.checkGrade(id);
 	 <a id="hoth" href="/BookStay/hotel/hotelContent.jsp?title=<%=dto.getTitle()%>&ref=<%=dto.getRef()%>&block=<%=block2%>
 	&checkin=<%=start%>&checkout=<%=end%>&adult=2&kids=0&room=1&select=1&check=1,2,3,4">
 	 <div class="box">
-		<img class="b1 b3" src="/BookStay/upload/<%= img[0]%>" style="height: 100px;"/>
+		<img class="b1 b3" src="/BookStay/upload/<%=img[0]%>" style="height: 100px;"/>
 		<div class="h_box b1 b2">
 		<div><%= dto.getTitle() %></div>
 		<div class="pri"><b id="b"><%= dto.getPrice() %></b>원~</div>

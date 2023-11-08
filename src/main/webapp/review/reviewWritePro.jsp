@@ -1,19 +1,13 @@
-<%@page import="hotel.bean.MemberDAO"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ page import="hotel.bean.reviewDTO" %>
 <%@ page import="hotel.bean.reviewDAO" %>
 <%@ page import="java.sql.Timestamp" %>
-<%@ include file="../views/main_bar.jsp" %>
+
 <%
     request.setCharacterEncoding("UTF-8");
-	if (grade==11){
-	 %>
-	  <script>
-	  	alert("로그인 후 이용해주세요");
-	  	window.location="../views/main.jsp";
-	  </script>
-	<%}%>
-<%    
+
+    
+    String id = request.getParameter("id");
     int jumsu = Integer.parseInt(request.getParameter("jumsu"));
     String content = request.getParameter("content");
     String ref = request.getParameter("ref");
@@ -37,7 +31,7 @@
 %>
         <script>
             alert("리뷰가 성공적으로 등록되었습니다.");
-            window.location = "hotelReview.jsp?ref=<%= ref %>";
+            window.location = "../views/main.jsp";
         </script>
 <%
     } else {

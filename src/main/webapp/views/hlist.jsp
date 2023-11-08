@@ -135,7 +135,12 @@
 <%
 	for(hotelDTO dto : list){
 		String imgname = dto.getImg();
-		String [] img = imgname.split(",");
+		String [] img = new String[1];
+		if(imgname == null){
+			img[0] = "default.gif";
+		}else{
+			img = imgname.split(",");
+		}
 		Integer check = dao.checkRoom(block2, dto.getNum());
 		ArrayList<hotelDTO> li2 = dao.getContent(dto.getRef());
 		boolean zt = dao.getTest(li2, test, room1);
@@ -279,9 +284,14 @@
 		<%if(startPage > 10){%>
 			<a href="hlist.jsp?pageNum=<%=startPage-10%><%=url%><%=val%>"><button class="button">이전</button></a>
 		<%}
+		int p = Integer.parseInt(pageNum);
 		for(int i = startPage; i <= endPage; i++){
-		%> <a href="hlist.jsp?pageNum=<%=i %><%=url%><%=val%>"><button class="button"><%=i %></button></a>	
-		<%}
+			if(p == i){
+		%> <a href="hlist.jsp?pageNum=<%=i %><%=url%><%=val%>"><button id="color" class="button"><%=i %></button></a>	
+		<%}else{%>
+		   <a href="hlist.jsp?pageNum=<%=i %><%=url%><%=val%>"><button class="button"><%=i %></button></a>
+			<%}
+		}
 		if(endPage < pageCnt){
 		%>	<a href="hlist.jsp?pageNum=<%=startPage+10 %><%=url%><%=val%>"><button class="button">다음</button></a>	
 		<%}
@@ -290,7 +300,7 @@
 		</div>	
 		<!-- <%@ include file="footer.jsp" %> -->
 		
-		</body>
+		</body>		
 <script>
 	var sel1Input = document.querySelector('input[name="sel1"]');
 	var hselect = document.getElementById("hselect");

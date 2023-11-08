@@ -348,6 +348,7 @@ public class hotelDAO extends OracleDB{
 			if(rs.next()) {
 				dto.setAddress(rs.getString("address"));
 				dto.setTitle(rs.getString("title"));
+				dto.setType(rs.getString("type"));
 				dto.setImg(rs.getString("img"));
 				dto.setService(rs.getString("service"));
 				dto.setRoomtype(rs.getString("roomtype"));
@@ -370,19 +371,20 @@ public class hotelDAO extends OracleDB{
 	public void hotelContentInsert(hotelDTO dto) {
 		try {
 			conn=getConnection();
-			String sql="insert into hotel(num,type,title,content,contactfax,contact,price,address,img,ref,re_step,roomtype) "
-					+ " values(hotel_seq.nextval,?,?,?,?,?,?,?,?,?,1,?)";
+			String sql="insert into hotel(num,type,title,content,contactfax,contact,service,price,address,img,ref,re_step,roomtype) "
+					+ " values(hotel_seq.nextval,?,?,?,?,?,?,?,?,?,?,1,?)";
 			pstmt=conn.prepareStatement(sql);
 			pstmt.setString(1, dto.getType());
 			pstmt.setString(2, dto.getTitle());
 			pstmt.setString(3, dto.getContent());
 			pstmt.setString(4, dto.getContactfax());
 			pstmt.setString(5, dto.getContact());
-			pstmt.setInt(6, dto.getPrice());
-			pstmt.setString(7, dto.getAddress());
-			pstmt.setString(8, dto.getImg());
-			pstmt.setInt(9, dto.getRef());
-			pstmt.setString(10, dto.getRoomtype());
+			pstmt.setString(6, dto.getService());
+			pstmt.setInt(7, dto.getPrice());
+			pstmt.setString(8, dto.getAddress());
+			pstmt.setString(9, dto.getImg());
+			pstmt.setInt(10, dto.getRef());
+			pstmt.setString(11, dto.getRoomtype());
 			pstmt.executeUpdate();
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -519,6 +521,23 @@ public class hotelDAO extends OracleDB{
 			return str==null || str.isEmpty();
 		}
 		
+		public int count() {
+			int result = 0;
+			try {
+				conn = getConnection();
+				String sql = "select count(*) from hotel where re_step=0 and status=0";
+				pstmt = conn.prepareStatement(sql);
+				rs = pstmt.executeQuery();
+				if(rs.next()) {
+					result = rs.getInt(1);
+				}
+			}catch(Exception e) {
+				e.printStackTrace();
+			}finally {
+				close(rs, pstmt, conn);
+			}
+			return result;
+		}
 		public ArrayList<hotelDTO> getAdminHotelList(){
 			ArrayList<hotelDTO> list = new ArrayList<hotelDTO>();
 			try {
@@ -528,6 +547,7 @@ public class hotelDAO extends OracleDB{
 				rs=pstmt.executeQuery();
 				while(rs.next()) {
 					hotelDTO dto = new hotelDTO();
+					dto.setRef(rs.getInt("ref"));
 					dto.setAddress(rs.getString("address"));
 					dto.setTitle(rs.getString("title"));
 					dto.setImg(rs.getString("img"));
@@ -551,12 +571,17 @@ public class hotelDAO extends OracleDB{
 			} return list;
 		}
 		
-		public ArrayList<hotelDTO> getClientHotelList(){
+		public ArrayList<hotelDTO> getClientHotelList(int start, int end){
 			ArrayList<hotelDTO> list = new ArrayList<hotelDTO>();
 			try {
 				conn=getConnection();
-				String sql = "select * from hotel where re_step=0 and status=10";
+				String sql = "select * from "
+						+ " (select b.*, rownum r from "
+						+ " (select * from hotel where re_step=0 and status=10) b) "
+						+ " where r >= ? and r <= ?";
 				pstmt=conn.prepareStatement(sql);
+				pstmt.setInt(1, start);
+				pstmt.setInt(2, end);
 				rs=pstmt.executeQuery();
 				while(rs.next()) {
 					hotelDTO dto = new hotelDTO();
@@ -573,6 +598,7 @@ public class hotelDAO extends OracleDB{
 					dto.setCount(rs.getInt("count"));
 					dto.setKidmax(rs.getInt("kidmax"));
 					dto.setNum(rs.getInt("num"));
+					dto.setStatus(rs.getInt("status"));
 					dto.setHeartcount(rs.getInt("heartcount"));
 					list.add(dto);
 				}
@@ -619,5 +645,26 @@ public class hotelDAO extends OracleDB{
 		      
 		      return gt;
 		   }
+		
+		public int getRoomPrice(int renum) {
+			int price =0;
+			try {
+				conn=getConnection();
+				String sql="select price from hotel where num=?";
+				pstmt=conn.prepareStatement(sql);
+				pstmt.setInt(1, renum);
+				rs=pstmt.executeQuery();
+				if(rs.next()) {
+					price=rs.getInt(1);
+				}
+			} catch (Exception e) {
+				e.printStackTrace();
+			} finally {
+				close(rs, pstmt, conn);
+				
+			}return price;
+			
+			
+		}
 	
 }

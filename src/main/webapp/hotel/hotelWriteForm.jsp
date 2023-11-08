@@ -24,12 +24,16 @@ if (grade!=99){
 %>
 <div id="list">
 	<ul id="ul1">
-	  <li><button id="bn1" type="button" onclick="window.location='/BookStay/admin/adminMain.jsp'">요약정보</button></li>
+ <li><button id="bn1" type="button" onclick="window.location='/BookStay/admin/adminMain.jsp'">요약정보</button></li>
 	  <li><button id="bn2" type="button" onclick="window.location='/BookStay/admin/adminlist.jsp'">예약목록 </button></li>
 	  <li><button id="bn3" type="button" onclick="window.location='/BookStay/board/notice.jsp'">공지사항 </button></li>
 	  <li><button id="bn4" type="button" onclick="window.location='/BookStay/board/QnAList.jsp'">자주하는질문 </button></li>
 	  <li><button id="bn5" type="button" onclick="window.location='/BookStay/board/myQuestion.jsp'">1:1문의[<%=dto1.getNoanswer() %>] </button></li>
+	  <!-- 
 	  <li><button id="bn6" type="button" onclick="window.location='/BookStay/hotel/hotelWriteForm.jsp'">숙박업소 글등록</button></li>
+	   -->
+	  <li><button id="bn6" type="button" onclick="window.location='/BookStay/admin/adminHotelListPro.jsp?check=2'">숙박업소 게시글 정보 </button></li>
+	  <li><button id="bn7" type="button" onclick="window.location='/BookStay/admin/adminGradeList.jsp'">등급 관리/조회</button></li>
 	</ul>
 	<div id="f1">
 	<div id="tbcal">
@@ -38,7 +42,13 @@ if (grade!=99){
 	    <a class="nav-link active" aria-current="page">숙박업소 글등록</a>
 	  </li>
 	</ul>
+		<div id="btn4">
+<button class="d" type="button" onclick="window.location='/BookStay/admin/adminHotelListPro.jsp?check=2'">등록완료된 숙소</button><hr />
+<button class="d" type="button" onclick="window.location='/BookStay/admin/adminHotelListPro.jsp?check=1'">등록중인 숙소</button>
+<button id="chk" type="button" onclick="window.location='/BookStay/hotel/hotelWriteForm.jsp'">숙소 등록</button>
+	</div>
 <form action="hotelWritePro.jsp" id="form1" method="post" enctype="multipart/form-data">
+	<input type="hidden" name="check" value="1">
 	<table id="tb">
 	<tr>
 		<td class="t">제목</td>
@@ -131,6 +141,7 @@ dto=dao.getContentMain(ref);%>
 <h2>호텔방 등록</h2>
 <form id="form2" action="hotelWritePro.jsp" method="post" enctype="multipart/form-data">
 	<input type="hidden" name="type" value="<%=dto.getType()%>">
+	<input type="hidden" name="title" value="<%=dto.getTitle()%>">
 	<input type="hidden" name="address" value="<%=dto.getAddress()%>">
 	<input type="hidden" name="contact" value="<%=dto.getContact()%>">
 	<input type="hidden" name="contactfax" value="<%=dto.getContactfax()%>">
@@ -140,14 +151,6 @@ dto=dao.getContentMain(ref);%>
 	<input type="hidden" name="ref" value="<%=ref%>">
 	<input type="hidden" name="block" value="<%=request.getParameter("block")%>">
 	<table id="tb2">
-		<tr>
-			<td class="title2">제목</td>
-			<td><input type="text" name="title"></td>
-		</tr>
-		<tr>
-			<td class="title2">내용</td>
-			<td><textarea rows="10" cols="20" name="content"></textarea></td>
-		</tr>
 		<tr>
 			<td class="title2">방종류</td>
 			<td>
@@ -171,37 +174,5 @@ dto=dao.getContentMain(ref);%>
 	</form>
 </div>
 <%} %>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
     

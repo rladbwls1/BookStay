@@ -1,4 +1,3 @@
-<%@page import="hotel.bean.hotelDAO"%>
 <%@page import="java.sql.Date"%>
 <%@page import="java.text.SimpleDateFormat"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
@@ -14,6 +13,15 @@
 <link rel="stylesheet" href="/BookStay/resources/css/adminlist.css"/>
 <%@ include file="../views/main_bar.jsp" %>
 <%
+	HOrderDAO dao2 = new HOrderDAO();
+	int pageSize = 10; 
+	String pageNum = request.getParameter("pageNum");
+	if(pageNum == null){
+		pageNum="1";
+	}
+	int currentPage = Integer.parseInt(pageNum);
+	int start = (currentPage - 1) * pageSize + 1; 
+	int end = currentPage * pageSize; 
 	SimpleDateFormat sf = new SimpleDateFormat("yyyy-MM-dd");
 	if (grade!=99){
 		 %>
@@ -28,12 +36,12 @@
 %>
 <div id="list">
 	<ul id="ul1">
-	  <li><button id="bn1" type="button" onclick="window.location='/BookStay/admin/adminMain.jsp'">요약정보</button></li>
+	   <li><button id="bn1" type="button" onclick="window.location='/BookStay/admin/adminMain.jsp'">요약정보</button></li>
 	  <li><button id="bn2" type="button" onclick="window.location='/BookStay/admin/adminlist.jsp'">예약목록 </button></li>
 	  <li><button id="bn3" type="button" onclick="window.location='/BookStay/board/notice.jsp'">공지사항 </button></li>
 	  <li><button id="bn4" type="button" onclick="window.location='/BookStay/board/QnAList.jsp'">자주하는질문 </button></li>
 	  <li><button id="bn5" type="button" onclick="window.location='/BookStay/board/myQuestion.jsp'">1:1문의[<%=dto1.getNoanswer() %>] </button></li>
-	  <li><button id="bn6" type="button" onclick="window.location='/BookStay/hotel/hotelWriteForm.jsp'">숙박업소 글등록</button></li>
+	  <li><button id="bn6" type="button" onclick="window.location='/BookStay/admin/adminHotelListPro.jsp?check=2'">숙박업소 게시글 정보 </button></li>
 	  <li><button id="bn7" type="button" onclick="window.location='/BookStay/admin/adminGradeList.jsp'">등급 관리/조회</button></li>
 	</ul>
 	<div id="f1">
@@ -62,9 +70,9 @@
 
         <%
             // Java 코드를 사용하여 예약 내역을 가져와서 표시
-            List<HOrderDTO> reservationList = new HOrderDAO().getOrdersAdmin();
+            List<HOrderDTO> reservationList = dao2.getOrdersAdmin(start, end);
             MemberDAO memberDAO = MemberDAO.getInstance(); // MemberDAO 인스턴스 생성
-            hotelDAO hdao = new hotelDAO();
+
             for (HOrderDTO reservation : reservationList) {
             	String reg = new SimpleDateFormat("yyyy-MM-dd").format(reservation.getReg());
             	String checkin = reservation.getCheckin().substring(0,11);
@@ -83,7 +91,7 @@
             	int renum = reservation.getRenum();
         %>
         <tr>
-            <td><%= reservation.getRenum() %></td>
+             <td><%= reservation.getRenum() %></td>
             <td><%= reservation.getName() %></td>
             <td><%= checkin %></td>
             <td><%= reg %></td>
@@ -149,9 +157,38 @@
 				  </div>
 				</div></td><!-- 예약취소 -->
         </tr>
-       
-            <%}%>
+        <%
+            }
+        %>
     </table>
+<%
+int count = dao2.count();
+	if(count > 0){
+		int pageCount = count / pageSize + (count % pageSize == 0 ? 0 : 1);
+		int startPage = (int)(currentPage/10)*10+1;
+		int pageBlock = 10;
+		int endPage = startPage + pageBlock - 1;
+		if(endPage > pageCount){
+			endPage = pageCount;
+		}
+		%>
+		<div id="page">
+		<%
+		if(startPage > 10){
+		%>	<a href="adminlist.jsp?pageNum=<%=startPage-10 %>"><button class="button">이전</button></a>	
+		<%}
+			int p = Integer.parseInt(pageNum);
+			for(int i = startPage; i <= endPage; i++){
+				if(p == i){
+		%> <a href="adminlist.jsp?pageNum=<%=i %>"><button id="color" class="button"><%=i %></button></a>	
+		<%}else{%>
+			<a href="adminlist.jsp?pageNum=<%=i %>"><button class="button"><%=i %></button></a>	
+		<%}}
+		if(endPage < pageCount){
+		%>	<a href="adminlist.jsp?pageNum=<%=startPage+10 %>"><button class="button">다음</button></a>	
+		<%}
+	}
+%>
     </div>
 </div>
 </div>

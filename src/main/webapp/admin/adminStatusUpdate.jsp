@@ -18,7 +18,7 @@ if (grade!=99) {
 }
 adminDAO adao = adminDAO.getInstance();
 hotelDAO hdao = new hotelDAO();
-System.out.println("cancel : "+request.getParameter("cancel")+"confirm : "+request.getParameter("confirm")+"paid : "+request.getParameter("paid")+"renum : "+request.getParameter("renum"));
+System.out.println("cancel : "+request.getParameter("cancel")+"confirm : "+request.getParameter("confirm")+"paid : "+request.getParameter("paid")+"renum : "+request.getParameter("renum")+"check : "+request.getParameter("check"));
 if(request.getParameter("cancel")!=null && request.getParameter("cancel").equals("true")){
 	int renum=Integer.parseInt(request.getParameter("renum"));
 	String etc = request.getParameter("etc");
@@ -34,9 +34,10 @@ if(request.getParameter("confirm")!=null && request.getParameter("confirm").equa
 	adao.reserveStatusUpdate(renum,totalPay,p);
 	response.sendRedirect("/BookStay/admin/adminlist.jsp");
 }
-if(request.getParameter("check")!=null){
+if(request.getParameter("check").equals("true")){
 int ref = Integer.parseInt(request.getParameter("ref"));
 int status=Integer.parseInt(request.getParameter("status"));
+System.out.println("status : "+status);
 if(status==10){
 	hdao.changeHotelStatus(ref, 0);
 	response.sendRedirect("/BookStay/admin/adminHotelListPro.jsp?check=1");
