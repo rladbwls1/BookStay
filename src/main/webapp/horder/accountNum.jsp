@@ -4,7 +4,10 @@
 <%@page import="hotel.bean.HOrderDAO"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
- <%@ include file="../views/main_bar.jsp" %>
+<link rel="stylesheet" href="/BookStay/resources/css/accountnum.css"/>
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-4bw+/aepP/YC94hEpVNVgiZdgIC5+VKNBQNGCHeKRQN+PtmoHDEXuppvnDJzQIu9" crossorigin="anonymous">
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-HwwvtgBNo3bZJJLYd8oVXjrBZt8cqVSpeBNS5n7C8IVInixGAoxmnlMuBnhbgrkm" crossorigin="anonymous"></script>
+<%@ include file="../views/main_bar.jsp" %>
 <%request.setCharacterEncoding("UTF-8");
 HOrderDAO odao = new HOrderDAO();
 hotelDAO hotel = new hotelDAO();
@@ -22,7 +25,9 @@ if(dto.getState()==0){
 	state="입금완료";
 }
 %>
-<table>
+<div id="list">
+<h2>현금 결제</h2>
+<table id="tb">
 	<tr>
 		<td>고객명</td>
 		<td><%=dto.getName() %></td>
@@ -52,7 +57,7 @@ if(dto.getState()==0){
 		<td><%=state %></td>
 	</tr>
 </table>
-<button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#staticBackdrop">
+<button type="button" id="btn" data-bs-toggle="modal" data-bs-target="#staticBackdrop">
   계좌번호 확인
 </button>
 <div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
@@ -68,8 +73,9 @@ if(dto.getState()==0){
        계좌번호 : 111-2222-3333
       </div>
       <div class="modal-footer">
-        <button type="button" class="btn btn-primary">확인</button>
+        <button type="button" class="btn btn-primary" data-bs-dismiss="modal" aria-label="Close">확인</button>
       </div>
     </div>
   </div>
+</div>
 </div>

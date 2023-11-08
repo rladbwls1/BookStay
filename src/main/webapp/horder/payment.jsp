@@ -7,6 +7,8 @@
 <script type="text/javascript" src="https://cdn.jsdelivr.net/momentjs/latest/moment.min.js"></script>
 <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.min.js"></script>
 <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.css" />
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-4bw+/aepP/YC94hEpVNVgiZdgIC5+VKNBQNGCHeKRQN+PtmoHDEXuppvnDJzQIu9" crossorigin="anonymous">
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-HwwvtgBNo3bZJJLYd8oVXjrBZt8cqVSpeBNS5n7C8IVInixGAoxmnlMuBnhbgrkm" crossorigin="anonymous"></script>
 <link rel="stylesheet" href="/BookStay/resources/css/payment.css"/>
 <%@ include file="../views/main_bar.jsp" %>
 
@@ -19,6 +21,7 @@
         
         if (user != null) {
 			String checkin = request.getParameter("checkin");
+
         	String checkout = request.getParameter("checkout");
         	String title = request.getParameter("title");
         	int adult = Integer.parseInt(request.getParameter("adult"));
@@ -55,6 +58,9 @@
                     </select></td>
           </tr>
             </table>
+            <div class="btn8">
+                    <input type="submit" id="btn" class="btn btn8 btn-primary" value="다음" />
+                    <button type="button" id="btn1" class="btn btn8 btn-secondary" role="button"> 취소 </button>
             <div class="btn">
                     <input type="submit" id="btn" class="btn btn-primary" value="다음" />
                     <button type="button" id="btn1" class="btn btn-secondary" role="button"> 취소 </button>

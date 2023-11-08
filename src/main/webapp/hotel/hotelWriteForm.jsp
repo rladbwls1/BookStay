@@ -65,7 +65,7 @@ if (grade!=99){
 			  	<option value="호텔">호텔 </option>
 			  	<option value="리조트">리조트 </option>
 			  	<option value="모텔">모텔 </option>
-			  	<option value="기타숙소">기타숙소 </option>
+			  	<option value="기타">기타 </option>
 			 </select>
 		</td>
 	</tr>

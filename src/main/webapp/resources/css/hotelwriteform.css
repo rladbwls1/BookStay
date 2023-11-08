@@ -184,7 +184,7 @@
 	position: absolute;
 	right: 0;
 	top: -7px;
-	border: 1px solid #213555;
+	border: 1px solid gainsboro;
 }
 #btn4 button{
 	padding: 2px 5px;
@@ -195,7 +195,7 @@
 	border: none;
 }
 .d{
-	border: 1px solid black;
+	border: 1px solid gainsboro;
 	border-width: 0 1px 0 0;
 	background-color: white;
 }

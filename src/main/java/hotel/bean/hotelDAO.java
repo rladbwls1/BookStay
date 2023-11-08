@@ -31,7 +31,7 @@ public class hotelDAO extends OracleDB{
 		String[] chk = check.split(",");
 		String[] typeArray = new String[chk.length];
 		for (int i = 0; i < chk.length; i++) {
-		    if ("1".equals(chk[i])) {
+		    if ("1".equals(chk[i])) { //
 		        typeArray[i] = "호텔";
 		    } else if ("2".equals(chk[i])) {
 		        typeArray[i] = "리조트";
@@ -41,11 +41,10 @@ public class hotelDAO extends OracleDB{
 		    	typeArray[i] = "기타";
 		    }
 		}
-		
 		if (sel == 5) {
 		    sql = "SELECT h.*, r.average_value " +
 		          "FROM hotel h " +
-		          "LEFT JOIN ( " +
+		           "LEFT JOIN ( " +
 		          "    SELECT ref, ROUND(AVG(jumsu), 1) AS average_value " +
 		          "    FROM review " +
 		          "    GROUP BY ref " +

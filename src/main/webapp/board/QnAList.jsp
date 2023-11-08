@@ -18,7 +18,15 @@ int category = 20;
 if(request.getParameter("category")!=null){
 	category = Integer.parseInt(request.getParameter("category"));
 }
-ArrayList<boardDTO> list = dao.getList(category);
+int pageSize = 10; 
+String pageNum = request.getParameter("pageNum");
+if(pageNum == null){
+	pageNum="1";
+}
+int currentPage = Integer.parseInt(pageNum);
+int start = (currentPage - 1) * pageSize + 1; 
+int end = currentPage * pageSize; 
+ArrayList<boardDTO> list = dao.getList(category, start, end);
 adminDAO dao1=adminDAO.getInstance();
 adminDTO dto1 = dao1.getPreView();
 %>
@@ -50,7 +58,7 @@ adminDTO dto1 = dao1.getPreView();
 </form>
 
 <div id="all">
-	<div>
+	<div id="cateBtn">
 	<a href="QnAPro.jsp?category=20" >전체</a>
 	<a href="QnAPro.jsp?category=21" >예약</a>
 	<a href="QnAPro.jsp?category=22" >체크인</a>
@@ -77,6 +85,37 @@ if(grade==99){
 	<button id="c3" type="button" onclick="window.location='writeForm.jsp'">QnA글 작성</button>
 	<%
 }%>
+ <% 
+ if(category == 20){
+ int count = dao.count();
+	if(count > 0){
+		int pageCount = count / pageSize + (count % pageSize == 0 ? 0 : 1);
+		int startPage = (int)(currentPage/10)*10+1;
+		int pageBlock = 10;
+		int endPage = startPage + pageBlock - 1;
+		if(endPage > pageCount){
+			endPage = pageCount;
+		}
+		%>
+		<div id="page">
+		<%
+		if(startPage > 10){
+		%>	<a href="QnAList.jsp?&pageNum=<%=startPage-10 %>"><button class="button">이전</button></a>	
+		<%}
+		int p = Integer.parseInt(pageNum);
+		for(int i = startPage; i <= endPage; i++){
+			if(p == i){
+		%> <a href="QnAList.jsp?&pageNum=<%=i %>"><button id="color" class="button"><%=i %></button></a>	
+		<%}else{%>
+		   <a href="QnAList.jsp?&pageNum=<%=i %>"><button class="button"><%=i %></button></a>
+			<%}
+		}
+		if(endPage < pageCount){
+		%>	<a href="QnAList.jsp?&pageNum=<%=startPage+10 %>"><button class="button">다음</button></a>	
+		<%}
+	}
+ }
+%>
 </div>
 </div>
 </div>

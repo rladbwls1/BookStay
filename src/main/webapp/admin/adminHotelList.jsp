@@ -115,13 +115,18 @@ int check = Integer.parseInt(request.getParameter("check"));
 		<div id="page">
 		<%
 		if(startPage > 10){
-		%>	<a href="adminHotelListPro.jsp?check=<%=check %>&pageNum=<%=startPage-10 %>"><button class="button">이전</button></a>	
+		%>	<a href="adminHotelList.jsp?check=<%=check %>&pageNum=<%=startPage-10 %>"><button class="button">이전</button></a>	
 		<%}
+		int p = Integer.parseInt(pageNum);
 		for(int i = startPage; i <= endPage; i++){
-		%> <a href="adminHotelListPro.jsp?check=<%=check %>&pageNum=<%=i %>"><button class="button"><%=i %></button></a>	
-		<%}
+			if(p == i){
+		%> <a href="adminHotelList.jsp?check=<%=check %>&pageNum=<%=i %>"><button id="color" class="button"><%=i %></button></a>	
+		<%}else{%>
+		   <a href="adminHotelList.jsp?check=<%=check %>&pageNum=<%=i %>"><button class="button"><%=i %></button></a>
+			<%}
+		}
 		if(endPage < pageCount){
-		%>	<a href="adminHotelListPro.jsp?check=<%=check %>&pageNum=<%=startPage+10 %>"><button class="button">다음</button></a>	
+		%>	<a href="adminHotelList.jsp?check=<%=check %>&pageNum=<%=startPage+10 %>"><button class="button">다음</button></a>	
 		<%}
 	}
 %>
