@@ -1,3 +1,4 @@
+<%@page import="java.net.URLEncoder"%>
 <%@page import="hotel.bean.MemberDAO"%>
 <%@page import="hotel.bean.MemberDTO"%>
 <%@page import="java.util.ArrayList"%>
@@ -22,6 +23,7 @@
 
 <%@ include file="../views/main_bar.jsp" %>
 <%request.setCharacterEncoding("UTF-8");
+
 
  int ref= Integer.parseInt(request.getParameter("ref"));
  hotelDAO dao = new hotelDAO();
@@ -54,7 +56,8 @@
  }
 %>
 <%
-String title = request.getParameter("title");
+	String title = request.getParameter("title");
+	String utitle=URLEncoder.encode(title,"UTF-8");
 	String checkin = request.getParameter("checkin");
 	String checkout = request.getParameter("checkout");
 	int rortlf = Integer.parseInt(request.getParameter("room"));
@@ -145,11 +148,11 @@ String title = request.getParameter("title");
 <div id="apr"><%=maindto.getPrice() %>원</div>
 <div id="bmo">
 <% if(heart!=null&&heart.contains(Integer.toString(ref))){%>
-<button type="button" id="heart" onclick="window.location='../member/heartPro.jsp?num=<%=maindto.getNum()%>&title=<%=title%>&ref=<%=ref%>&room=<%=rortlf%>&adult=<%=adult%>&kids=<%=kids%>&select=<%=select%>&checkin=<%=checkin%>&checkout=<%=checkout%>&heartadd=true'">
+<button type="button" id="heart" onclick="window.location='../member/heartPro.jsp?num=<%=maindto.getNum()%>&title=<%=utitle%>&ref=<%=ref%>&room=<%=rortlf%>&adult=<%=adult%>&kids=<%=kids%>&select=<%=select%>&checkin=<%=checkin%>&checkout=<%=checkout%>&heartadd=true'">
 	<img src="/BookStay/resources/img/heart.png">
 </button>
 <%}else{ %>
-<button type="button" id="heart" onclick="window.location='../member/heartPro.jsp?num=<%=maindto.getNum()%>&title=<%=title%>&ref=<%=ref%>&room=<%=rortlf%>&adult=<%=adult%>&kids=<%=kids%>&select=<%=select%>&checkin=<%=checkin%>&checkout=<%=checkout%>&heartadd=true'">
+<button type="button" id="heart" onclick="window.location='../member/heartPro.jsp?num=<%=maindto.getNum()%>&title=<%=utitle%>&ref=<%=ref%>&room=<%=rortlf%>&adult=<%=adult%>&kids=<%=kids%>&select=<%=select%>&checkin=<%=checkin%>&checkout=<%=checkout%>&heartadd=true'">
 	<img src="/BookStay/resources/img/heart1.png">
 </button>
 <%} %>
