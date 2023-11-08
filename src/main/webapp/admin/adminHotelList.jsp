@@ -76,9 +76,10 @@ int check = Integer.parseInt(request.getParameter("check"));
 		%>
 		<tr>
 			<td><%=d.getNum()%></td>
-			<td><a href="/BookStay/hotel/hotelContent.jsp?ref=<%=d.getRef()%>"><%=d.getTitle()%></a></td><td><%=d.getAddress() %></td>
-			<td><button type="button" class="cg" onclick="window.location='/BookStay/admin/adminStatusUpdate.jsp?ref=<%=d.getRef()%>&status=<%=d.getStatus()%>'">등록글 활성화</button>
-			<button type="button" onclick="window.location='hotelWriteForm.jsp?ref=<%=d.getRef()%>'">방등록</button>
+			<td><a href="/BookStay/hotel/hotelContent.jsp?ref=<%=d.getRef()%>&room=1&adult=2&kids=0&select=1"><%=d.getTitle()%></a></td><td><%=d.getAddress() %></td>
+			<td><button type="button" class="cg" onclick="window.location='/BookStay/admin/adminStatusUpdate.jsp?ref=<%=d.getRef()%>&status=<%=d.getStatus()%>&check=true'">등록글 활성화</button>
+			<button type="button" onclick="window.location='/BookStay/hotel/hotelWriteForm.jsp?ref=<%=d.getRef()%>'">방등록</button>
+			<button type="button" onclick="window.location.href='/BookStay/hotel/hotelDelete.jsp?num=<%=d.getNum()%>&re_step=<%=d.getRe_step()%>&ref=<%=d.getRef() %>'" class="btn btn-danger">삭제</button>
 			</td>
 		</tr>
 		<%
@@ -91,7 +92,8 @@ int check = Integer.parseInt(request.getParameter("check"));
 			%>
 			<tr>
 				<td><%=d.getNum()%></td><td><%=d.getTitle()%></td><td><%=d.getAddress() %></td>
-				<td><button type="button" class="cg" onclick="window.location='/BookStay/admin/adminStatusUpdate.jsp?ref=<%=d.getRef()%>&status=<%=d.getStatus()%>'">등록글 비활성화</button></td>
+				<td><button type="button" class="cg" onclick="window.location='/BookStay/admin/adminStatusUpdate.jsp?ref=<%=d.getNum()%>&status=<%=d.getStatus()%>&check=true'">등록글 비활성화</button>
+				<button type="button" onclick="window.location.href='/BookStay/hotel/hotelDelete.jsp?num=<%=d.getNum()%>&re_step=<%=d.getRe_step()%>&ref=<%=d.getRef() %>'" class="btn btn-danger">삭제</button></td>
 			</tr>
 			<%
 		  }

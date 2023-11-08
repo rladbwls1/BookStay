@@ -18,7 +18,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Hotel_Main</title>
+<title>Hotel_Main</title> 
 <link rel="stylesheet" href="/BookStay/resources/css/main.css"/>
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-4bw+/aepP/YC94hEpVNVgiZdgIC5+VKNBQNGCHeKRQN+PtmoHDEXuppvnDJzQIu9" crossorigin="anonymous">
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-HwwvtgBNo3bZJJLYd8oVXjrBZt8cqVSpeBNS5n7C8IVInixGAoxmnlMuBnhbgrkm" crossorigin="anonymous"></script>
@@ -110,6 +110,7 @@ int grade= mdao.checkGrade(id);
 		<div class="d"><button class="btn bbtn"><a href="/BookStay/member/loginform.jsp">로그인</a></button></div>
 		<div class="d"><button class="btn bbtn"><a href="/BookStay/member/memberForm.jsp">회원가입</a></button></div>
 		<%}				
+
 		}if(grade==0 || grade==99){ %>
 		<div class="d"><button class="btn bbtn"><a href="/BookStay/member/logout.jsp">로그아웃</a></button></div>
 		<div class="dropdown">
@@ -121,6 +122,7 @@ int grade= mdao.checkGrade(id);
 		    <li><a class="dropdown-item" href="../board/myQuestion.jsp">나의 질문</a></li>
 		  </ul>
 		</div>
+
 		<%}%>
 		<div class="dropdown">
 		  <button id="bt" class="btn bbtn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
@@ -193,7 +195,7 @@ int grade= mdao.checkGrade(id);
 	 <a id="hoth" href="/BookStay/hotel/hotelContent.jsp?title=<%=dto.getTitle()%>&ref=<%=dto.getRef()%>&block=<%=block2%>
 	&checkin=<%=start%>&checkout=<%=end%>&adult=2&kids=0&room=1&select=1&check=1,2,3,4">
 	 <div class="box">
-		<img class="b1 b3" src="/BookStay/upload/<%= img[0]%>" style="height: 100px;"/>
+		<img class="b1 b3" src="/BookStay/upload/<%=img[0]%>" style="height: 100px;"/>
 		<div class="h_box b1 b2">
 		<div><%= dto.getTitle() %></div>
 		<div class="pri"><b id="b"><%= dto.getPrice() %></b>원~</div>

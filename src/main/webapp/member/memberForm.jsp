@@ -43,7 +43,6 @@
         function updateEmail() {
             const emaillist = document.getElementById('emaillist');
             const emailInput = document.getElementById('email');
-
             if (emaillist.value !== 'type') {
                 // 스크롤에서 선택한 경우
                 const selectedDomain = emaillist.value;
@@ -175,7 +174,7 @@ function checkIt() {
                 <td>
                     <input type="text" name="id" size="10" maxlength="12" placeholder="생성할 아이디를 입력하시오"  class ="inputText">
                     <input type="button" class="idcheck" name="confirm_id" value="ID중복확인" OnClick="openConfirmid(this.form)">
-              		  <span id="idError" style="color: red;"  class="error-message"></span>
+              		  <span id="idError" style="color: red;"  class="error-message">  </span>
                 </td>
                
             </tr>

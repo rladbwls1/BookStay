@@ -1,6 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ page import="hotel.bean.hotelDTO" %>
+<%@ page import="hotel.bean.MemberDTO" %>
+
 <%@ page import="hotel.bean.hotelDAO" %>
 <%@ page import="java.sql.*" %>
 <%@ page import = "hotel.bean.reviewDTO" %>
@@ -213,6 +215,29 @@
 			</a>
     		<div class="xx"><button type="button" onclick="window.location.href='/BookStay/hotel/hotelDelete.jsp?num=<%=dto.getNum()%>&re_step=<%=dto.getRe_step()%>&ref=<%=dto.getRef() %>'" class="btn btn-danger">삭제</button></div>
     		<hr>
+    		
+    		<!-- 찜하기 버튼   도준-->
+		
+				<%-- <%
+				 int ref= Integer.parseInt(request.getParameter("ref"));
+				MemberDTO mdto=new MemberDTO();
+				mdto=mdao.myInfo(id);
+				 String heart=mdto.getHeart();
+				 hotelDTO maindto=dao.getContentMain(ref);
+				 mdto=mdao.myInfo(id);
+					if(heart!=null&&heart.contains(Integer.toString(ref))){%>
+				<button type="button" onclick="window.location='../member/heartPro.jsp?num=<%=maindto.getNum()%>&ref=<%=ref%>'">찜취소하기</button>
+				<%}else{ %>
+				<button type="button" id="heart" onclick="window.location='../member/heartPro.jsp?num=<%=maindto.getNum()%>&ref=<%=ref%>'">
+					<img src="/BookStay/resources/img/heart.png">
+				</button>
+				</div>
+				<%} %>
+				 --%>
+				
+    		<!-- 찜하기 버튼  도준  -->
+		
+				
     	<%	
     	}else{
     	%>

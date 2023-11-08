@@ -51,7 +51,7 @@ if(mr.getParameter("re_step").equals("1")){
 	dao.hotelContentInsert(dto);
 	int ref=Integer.parseInt(mr.getParameter("ref"));
 	dao.priceUpdate(ref);
-	response.sendRedirect("hotelContent.jsp?ref="+ref+"&block="+block);
+	response.sendRedirect("hotelContent.jsp?ref="+ref+"&block="+block+"&room=1&adult=2&kids=0&select=1&checkin=2023-01-01&checkout=2023-01-02&title=test");
 }else{
 	String upload1="default.gif";
 	String upload2="default.gif";
@@ -115,7 +115,7 @@ if(mr.getParameter("re_step").equals("1")){
 	dto.setService(service);
 	dto.setImg(img);
 	dao.hotelMainInsert(dto);
-	response.sendRedirect("/BookStay/views/main.jsp");
+	response.sendRedirect("/BookStay/admin/adminHotelList.jsp?check=1");
 }
 %>
 

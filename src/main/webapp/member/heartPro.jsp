@@ -60,5 +60,5 @@ int select = Integer.parseInt(request.getParameter("select"));
 %>
 <script>
 	alert("찜목록이 수정되었습니다. ");
-	history.back();
+history.go(-1);
 </script>

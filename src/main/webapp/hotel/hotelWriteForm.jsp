@@ -48,6 +48,7 @@ if (grade!=99){
 <button id="chk" type="button" onclick="window.location='/BookStay/hotel/hotelWriteForm.jsp'">숙소 등록</button>
 	</div>
 <form action="hotelWritePro.jsp" id="form1" method="post" enctype="multipart/form-data">
+	<input type="hidden" name="check" value="1">
 	<table id="tb">
 	<tr>
 		<td class="t">제목</td>
@@ -140,6 +141,7 @@ dto=dao.getContentMain(ref);%>
 <h2>호텔방 등록</h2>
 <form id="form2" action="hotelWritePro.jsp" method="post" enctype="multipart/form-data">
 	<input type="hidden" name="type" value="<%=dto.getType()%>">
+	<input type="hidden" name="title" value="<%=dto.getTitle()%>">
 	<input type="hidden" name="address" value="<%=dto.getAddress()%>">
 	<input type="hidden" name="contact" value="<%=dto.getContact()%>">
 	<input type="hidden" name="contactfax" value="<%=dto.getContactfax()%>">
@@ -149,14 +151,6 @@ dto=dao.getContentMain(ref);%>
 	<input type="hidden" name="ref" value="<%=ref%>">
 	<input type="hidden" name="block" value="<%=request.getParameter("block")%>">
 	<table id="tb2">
-		<tr>
-			<td class="title2">제목</td>
-			<td><input type="text" name="title"></td>
-		</tr>
-		<tr>
-			<td class="title2">내용</td>
-			<td><textarea rows="10" cols="20" name="content"></textarea></td>
-		</tr>
 		<tr>
 			<td class="title2">방종류</td>
 			<td>
