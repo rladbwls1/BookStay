@@ -10,6 +10,7 @@
     pageEncoding="UTF-8"%>
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@8/swiper-bundle.min.css"/>
 <script src="https://cdn.jsdelivr.net/npm/swiper@8/swiper-bundle.min.js"></script>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
 <script type="text/javascript" src="https://cdn.jsdelivr.net/jquery/latest/jquery.min.js"></script>
 <script type="text/javascript" src="https://cdn.jsdelivr.net/momentjs/latest/moment.min.js"></script>
 <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.min.js"></script>
@@ -112,7 +113,6 @@ String title = request.getParameter("title");
 		
 			    roomValue[i] = adultValue;
 			    kidsValue[i] = kidsValue1;  
-			    
 	  %>
 	  <div id="pop<%=i+1 %>">
 	  <hr>
@@ -142,21 +142,22 @@ String title = request.getParameter("title");
 </div>
 <div id="apr"><%=maindto.getPrice() %>원</div>
 <div id="bmo">
-
-
 <% if(heart!=null&&heart.contains(Integer.toString(ref))){%>
-<button type="button" onclick="window.location='../member/heartPro.jsp?num=<%=maindto.getNum()%>&ref=<%=ref%>'">찜취소하기</button>
-<%}else{ %>
-<button type="button" id="heart" onclick="window.location='../member/heartPro.jsp?num=<%=maindto.getNum()%>&ref=<%=ref%>&room=<%=rortlf%>&adult=<%=adult%>&kids=<%=kids%>&select=<%=select%>&checkin=<%=checkin%>&checkout=<%=checkout%>&heartadd=true'">
+<button type="button" id="heart" onclick="window.location='../member/heartPro.jsp?num=<%=maindto.getNum()%>&title=<%=title%>&ref=<%=ref%>&room=<%=rortlf%>&adult=<%=adult%>&kids=<%=kids%>&select=<%=select%>&checkin=<%=checkin%>&checkout=<%=checkout%>&heartadd=true'">
 	<img src="/BookStay/resources/img/heart.png">
 </button>
-</div>
+<%}else{ %>
+<button type="button" id="heart" onclick="window.location='../member/heartPro.jsp?num=<%=maindto.getNum()%>&title=<%=title%>&ref=<%=ref%>&room=<%=rortlf%>&adult=<%=adult%>&kids=<%=kids%>&select=<%=select%>&checkin=<%=checkin%>&checkout=<%=checkout%>&heartadd=true'">
+	<img src="/BookStay/resources/img/heart1.png">
+</button>
 <%} %>
+</div>
 <% double jumsu = re.getAvgJumsu(ref);
 String jum = String.valueOf(jumsu);
 if (jum.equals("0.0")) {
     jum = "0";
 }
+double tjum = Double.parseDouble(jum) * 20;
 %>
 
 <button id="gnBtn" type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#staticBackdrop">
@@ -172,7 +173,11 @@ if (jum.equals("0.0")) {
         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
       <div class="modal-body">
-      <div id="chd">총 평점 <%= re.getAvgJumsu(ref)%></div>
+      <div id="chd"><div><b id="jum"><%= jum%></b>/ 5</div>
+          <div class="stars-outer">
+            <div class="stars-inner" style="width: <%=tjum%>%;"></div>
+          </div>
+          </div>
       <div>
         <% 
         for (reviewDTO review : reviews) {
@@ -187,7 +192,7 @@ if (jum.equals("0.0")) {
         }
         %>
         <div>
-        <button class="btn btn-primary" onclick="window.location='/BookStay/review/reviewWriteForm.jsp?ref=<%=ref %>'">글작성</button>
+        <button id="b5" class="btn btn-primary" onclick="window.location='/BookStay/review/reviewWriteForm.jsp?ref=<%=ref %>'">글작성</button>
         </div>
         </div>
       </div>

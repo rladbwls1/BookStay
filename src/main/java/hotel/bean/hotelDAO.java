@@ -13,20 +13,15 @@ public class hotelDAO extends OracleDB{
 	private PreparedStatement pstmt = null;
 	private ResultSet rs = null;
 	
-	public ArrayList<hotelDTO> hotelList(int sel, String check, String title, String checkin, String checkout, int [] adult, int [] kid, int start, int end){
+	public ArrayList<hotelDTO> hotelList(int sel, String check, String title, String checkin, String checkout, int [] person, int start, int end){
 		ArrayList<hotelDTO> list = new ArrayList<>();
 		int maxRoomValue = 0;
 		int maxKidValue = 0;
 		String sql="";
-		for (int i = 0; i < adult.length; i++) {
-		    if (adult[i] > maxRoomValue) {
-		        maxRoomValue = adult[i];
+		for (int i = 0; i < person.length; i++) {
+		    if (person[i] > maxRoomValue) {
+		        maxRoomValue = person[i];
 		    }
-		}
-		for (int i = 0; i < kid.length; i++) {
-			if (kid[i] > maxKidValue) {
-				maxKidValue = kid[i];
-			}
 		}
 		String[] chk = check.split(",");
 		String[] typeArray=null;
@@ -36,7 +31,7 @@ public class hotelDAO extends OracleDB{
 		typeArray = new String[chk.length];
 		}
 		for (int i = 0; i < chk.length; i++) {
-		    if ("1".equals(chk[i])) { //
+		    if ("1".equals(chk[i])) { 
 		        typeArray[i] = "호텔";
 		    } else if ("2".equals(chk[i])) {
 		        typeArray[i] = "리조트";

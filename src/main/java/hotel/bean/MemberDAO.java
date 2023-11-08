@@ -389,29 +389,6 @@ public class MemberDAO extends  OracleDB {
 		
 	}
 	
-		//찜 취소하기 메서드
-		public void removeHeart(String id, String num) {
-		    Connection conn = null;
-		    PreparedStatement pstmt = null;
-		    ResultSet rs = null;
-		    
-		    conn = getConnection();
-		    
-		    try {
-		        String sql = "UPDATE member SET heart = ? WHERE id = ?";
-		        pstmt = conn.prepareStatement(sql);	       
-		        // 여기서는 찜하기 취소를 구현하므로, 'heart'에서 해당 아이템 ID를 제거합니다.
-		        // num이 아이템 ID라고 가정하고 아이템 ID를 제거하는 작업을 수행합니다.
-		        pstmt.setString(1, null); // 아이템 ID를 제거하거나 해당 필드를 초기화할 수도 있습니다.
-		        pstmt.setString(2, id);		  
-		        pstmt.executeUpdate();
-		    } catch (Exception e) {
-		        e.printStackTrace();
-		    } finally {
-		        close(rs, pstmt, conn);
-		    }
-		}      
-
 		 
 	    public List<hotelDTO> heartList(String id) throws Exception {
 	    	List<hotelDTO> heartList = new ArrayList<>();

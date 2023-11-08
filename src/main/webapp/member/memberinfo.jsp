@@ -4,7 +4,10 @@
 <%@ page import="hotel.bean.MemberDAO" %>
 <jsp:useBean id="dao" class="hotel.bean.MemberDAO" />
 <jsp:useBean id="dto" class="hotel.bean.MemberDTO" />
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-4bw+/aepP/YC94hEpVNVgiZdgIC5+VKNBQNGCHeKRQN+PtmoHDEXuppvnDJzQIu9" crossorigin="anonymous">
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-HwwvtgBNo3bZJJLYd8oVXjrBZt8cqVSpeBNS5n7C8IVInixGAoxmnlMuBnhbgrkm" crossorigin="anonymous"></script>
 <%@ include file="../views/main_bar.jsp" %>
+
 <%	
     request.setCharacterEncoding("UTF-8");
     String sid = (String) session.getAttribute("sid"); // 사용자 아이디 가져오기
@@ -112,12 +115,7 @@
             background-color: #157347;
         }
         
-        .mainbody{
-           width: 50%;
-           padding:auto;
-           margin:auto;
-           
-        }
+        
         .mainTable{
            color:#787878;
             
@@ -322,51 +320,6 @@ function closeModalAndRedirect() {
     <title>마이페이지</title>
     <style>
     @charset "UTF-8";
-
-    body {
-            font-family: Arial, sans-serif;
-            background-color: #F2F2F2;
-            margin: 0;
-            padding: 0;
-        }
-
-    .UjinsHypboy{
-            box-sizing: border-box;
-            width: 100%;
-            height: 80px;
-            background-color: white;
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            position: fixed;
-            top: 0;
-            left: 0;
-            padding: 0 20px;
-        }
-
- .info {
-    cursor: pointer;
-    font-size: 16px;
-    
-}
-
-#logo {
-    width: 200px;
-    height: 60px;
-    font-weight: 800;
-    padding: 10px;
-    z-index: 150;
-    text-align: left;
-}
-
-        #logo > a {
-            width: 133px;
-            height: 40px;
-            font-size: 30px;
-            text-decoration: none;
-            color: black;
-        }
-
         .table-container {
             text-align: center;
             margin: 150px auto;
@@ -419,12 +372,6 @@ function closeModalAndRedirect() {
             background-color: #157347;
         }
         
-        .mainbody{
-        	width: 50%;
-        	padding:auto;
-        	margin:auto;
-        	
-        }
         .mainTable{
         	color:#787878;
         	 
