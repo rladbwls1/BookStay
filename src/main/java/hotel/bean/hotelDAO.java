@@ -684,7 +684,24 @@ public class hotelDAO extends OracleDB{
 				close(rs, pstmt, conn);
 				
 			}return price;
+
+
+			public void countUpdate(int num) {
 			
+			try {
+				conn=getConnection();
+				String sql="update hotel set count=count+1 where num=?";
+				pstmt=conn.prepareStatement(sql);
+				pstmt.setInt(1,num);
+				pstmt.executeUpdate();
+		
+			
+			} catch (Exception e) {
+				e.printStackTrace();
+			} finally {
+				close(rs, pstmt, conn);
+				
+			}
 			
 		}
 	
