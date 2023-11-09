@@ -4,8 +4,8 @@
 }
 /* 헤더 라인 시작 */
 #font{
-	margin-bottom:20px;
-	
+   margin-bottom:20px;
+   
 }
 .UjinsHypboy{
     box-sizing: border-box;
@@ -54,7 +54,7 @@ body {
 }
 
 table {
-	 border: white;
+    border: white;
     width: 100%; /* 수정: 테이블 폭을 80%로 조정 */
     margin: 0 auto; /* 테이블을 가운데 정렬 */
     border-collapse: collapse;
@@ -65,7 +65,7 @@ table {
     border-radius: 15px;
 }
 .hiddenshow{
-	display: none;
+   display: none;
 }
 th,
 td {    
@@ -110,11 +110,11 @@ margin-bottom:10px;
     background-color: #157347;
 }
 .thankyou{
-	font-size: 18px;
-	
+   font-size: 18px;
+   
 }
 .idcheck {
-	border-top:30px;
+   border-top:30px;
       width: 20%;
     background-color: #636363;
 ;
@@ -164,8 +164,8 @@ margin-bottom:10px;
 }
 
 .inputText {
-	left:0;
-	margin-left:0px;
+   left:0;
+   margin-left:0px;
     width: 50%;
     height: 40px;
     border-radius: 8px;
@@ -173,9 +173,9 @@ margin-bottom:10px;
 }
 
 .text{
-	margin-bottom:30px;
-	margin-top:10px;
-	background-color: none;
+   margin-bottom:30px;
+   margin-top:10px;
+   background-color: none;
 }
 /* a 이동 태그 */
 
@@ -199,5 +199,4 @@ margin-bottom:10px;
 
 
 /* 아이디찾기 모달창 영역  종료 /
-
 

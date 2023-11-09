@@ -130,7 +130,7 @@ function checkIt() {
         
         
         /*  에러메시지 시작   */
-       	function CV_checkIdPattern(str) {
+          function CV_checkIdPattern(str) {
             var idField = document.getElementById("id");
             var idError = document.getElementById("idError");
 
@@ -156,7 +156,6 @@ function checkIt() {
         <div id="logo">
             <a href="/BookStay/views/main.jsp">BookStay</a>
         </div>
-        <div class="info">고객센터</div>
     </div>
     <link rel="stylesheet" href="resources/memberForm.css" type="text/css">
     <form method="post" action="memberPro.jsp" id="registrationForm" name="userinput" onSubmit="return checkIt()">
@@ -174,7 +173,7 @@ function checkIt() {
                 <td>
                     <input type="text" name="id" size="10" maxlength="12" placeholder="생성할 아이디를 입력하시오"  class ="inputText">
                     <input type="button" class="idcheck" name="confirm_id" value="ID중복확인" OnClick="openConfirmid(this.form)">
-              		  <span id="idError" style="color: red;"  class="error-message">  </span>
+                      <span id="idError" style="color: red;"  class="error-message">  </span>
                 </td>
                
             </tr>
@@ -186,7 +185,7 @@ function checkIt() {
                     <input type="password" id="passwordField" name="pw" class="inputText" placeholder="비밀번호를 입력하세요" size="15" onblur="validatePassword(this, 'pwError')">
                  
                       <button type="button" onclick="togglePasswordVisibility('passwordField')" class="pwcheck">비밀번호 표시</button><br/>
-            	   <span id="pwError" style="color: red;"  class="error-message"></span>
+                  <span id="pwError" style="color: red;"  class="error-message"></span>
                 </td>
                
             </tr>
@@ -210,8 +209,8 @@ function checkIt() {
                 <td  class="hiddenshow"><label for="name">이름</label></td>
                 <td>
                     <input type="text" name="name" size="15" class="inputText" placeholder="이름을 입력하세요 " maxlength="12"  style="width:70%;">
-           			  <span id="nameError" style="color: red;"  class="error-message"></span>
-           	
+                      <span id="nameError" style="color: red;"  class="error-message"></span>
+              
                 </td>
             </tr>
             
@@ -229,7 +228,7 @@ function checkIt() {
                         <option value="@nate.com">@nate.com</option>
                         <option value="@kakao.com">@kakao.com</option>
                     </select>
-                	  <span id="emailError" style="color: red;"  class="error-message"></span>
+                     <span id="emailError" style="color: red;"  class="error-message"></span>
                 </td>
             </tr>
           
@@ -239,7 +238,7 @@ function checkIt() {
                 <td  class="hiddenshow"><label for="birth">생년월일</label></td>
                 <td>
                     <input type="date" name="birth" size="15"    style="width:70%;" style="color:#999999; font-size: 14px;" class="inputText" style="font-size: 14px;" maxlength="12" >
-          		  <span id="birthError" style="color: red;"  class="error-message"></span>
+                  <span id="birthError" style="color: red;"  class="error-message"></span>
                 </td>
             </tr>
            
@@ -249,7 +248,7 @@ function checkIt() {
                 <td>
                     <input type="text" name="addr" size="15"    class="inputText"  id="address" placeholder="주소를 작성하세요 ">
                           <button type="button" class="btn" onclick="searchAddress()">주소검색</button>
-             		  <span id="addrError" style="color: red;"  class="error-message"></span>
+                     <span id="addrError" style="color: red;"  class="error-message"></span>
              
                 </td>
                
@@ -263,16 +262,16 @@ function checkIt() {
                 </td>
                 <td>
                     <input type="text" name="pnum" size="15"  style="width:70%;"   class="inputText"  maxlength="13"  placeholder="휴대폰번호를 입력하세요"  oninput="formatPhoneNumber(this);">
-              	  <span id="pnumError" style="color: red;"  class="error-message"></span>
-              		
+                   <span id="pnumError" style="color: red;"  class="error-message"></span>
+                    
                 </td>
             </tr>
             
             
             <tr>
-		<td>
-				
-		<input type="submit" name="confirm" value="등   록" onclick="combineAndSubmit()" class="sumitinput"/></td>
+      <td>
+            
+      <input type="submit" name="confirm" value="등   록" onclick="combineAndSubmit()" class="sumitinput"/></td>
             </tr>
             
             
@@ -281,11 +280,10 @@ function checkIt() {
             <tr>
                <td>  
                 <div class="text">
-                <a href="loginform.jsp" class="button_a">로그인하기</a>&nbsp&nbsp&nbsp|&nbsp&nbsp&nbsp<a href="/BookStay/member/main.jsp" class="button_b">메인으로</a>&nbsp&nbsp&nbsp|&nbsp&nbsp&nbsp<a href="/BookStay/member/memberForm.jsp" class="button_c">Reset</a>
                </div> 
                </td>  
             </tr>
         </table>
     </form>
 </body>
-</html>
+</html> 
