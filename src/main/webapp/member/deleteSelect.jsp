@@ -1,9 +1,15 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
 <% request.setCharacterEncoding("UTF-8"); %>
+
+<%@ include file="../views/main_bar.jsp" %>
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-4bw+/aepP/YC94hEpVNVgiZdgIC5+VKNBQNGCHeKRQN+PtmoHDEXuppvnDJzQIu9" crossorigin="anonymous">
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-HwwvtgBNo3bZJJLYd8oVXjrBZt8cqVSpeBNS5n7C8IVInixGAoxmnlMuBnhbgrkm" crossorigin="anonymous"></script>
+
+
 <!DOCTYPE html>
 <html>
 <head>
-    <link rel="stylesheet" href="/BookStay/resources/css/loginform.css" type="text/css">
+      <link rel="stylesheet" href="/BookStay/resources/css/loginform.css" type="text/css">
     <style>
     /*modal 공통 */
  #modaltable td {    
@@ -15,7 +21,6 @@
     text-decoration: none;
 }   
 #modaltable {
-	 border: white;
     width: 100%; /* 수정: 테이블 폭을 80%로 조정 */
     margin: 0 auto; /* 테이블을 가운데 정렬 */
     border-collapse: collapse;
@@ -25,11 +30,12 @@
     color: black;
     border-radius: 15px;
     margin-bottom:10px;
-	margin-top:10px;
+   margin-top:10px;
 }
     
 #modalfontment{
-	margin-bottom:10px;
+   margin-bottom:10px;
+   font-size: x-large;
 }
   .box {
     width: 32%;
@@ -40,23 +46,27 @@
     font-weight: bold;
 }
   
+   
 #email{
-	width: 42%;
+   width: 42%;
+}  
+#email2{
+   width: 42%;
 }  
  .modalinputText {
-	left:0;
-	margin-left:0px;
+   left:0;
+   margin-left:0px;
     width: 75%;
     height: 40px;
     border-radius: 8px;
     margin-top: 2px;
 }
 .modalinputText:first-child{
-	margin-top:10px;
+   margin-top:10px;
 }   
 
     .hiddenshow{
-	display: none;
+   display: none;
 }
     <!--  아이디찾기 모달 -->
         .modal {
@@ -66,16 +76,15 @@
             height: 100%;   
            
         }
-			     .modal-content {
-			    border: 2px solid gray;
-			    position: relative;
-			    border-radius: 10px;
-			    background-color: white;
-			    height: 400px; /* 원하는 높이로 설정 */
-			    width: 400px; /* 원하는 너비로 설정 */
-			       top:-600px;
-			    left:100px;
-			}
+              .modal-content {
+             position: absolute;
+             border-radius: 10px;
+             background-color: white;
+             height: 400px; /* 원하는 높이로 설정 */
+             width: 400px; /* 원하는 너비로 설정 */
+     top:190px;
+       left:500px;
+         }
         .close {
             position: absolute;
             top: -10px;
@@ -89,8 +98,10 @@
         .close:hover {
             font-weight: bold;
         }
+        
+        
       .modalsumitinput {
-	margin-top:10px;
+   margin-top:10px;
 margin-bottom:10px;
     width:30%;
     background-color: #198754;
@@ -103,7 +114,7 @@ margin-bottom:10px;
 .modalsumitinput:hover {
     background-color: #157347;
 }
-         <!--  비밀번호 찾기 모달 -->
+         <!--  모달비밀 번호 찾기 모달 -->
         .modal2{
             display: none;
             position: fixed;
@@ -112,15 +123,15 @@ margin-bottom:10px;
         } 
         
         .modal-content2 {
-	    border: 2px solid gray;
-	    position: relative;
-	    border-radius: 10px;
-	    background-color: white;
-	    height: 500px; /* 원하는 높이로 설정 */
-	    width: 400px; /* 원하는 너비로 설정 */
-	  top:-600px;
-	    left:100px;
-	}
+       border: 2px solid gray;
+       position: relative;
+       border-radius: 10px;
+       background-color: white;
+       height: 500px; /* 원하는 높이로 설정 */
+       width: 400px; /* 원하는 너비로 설정 */
+     top:50px;
+       left:500px;
+   }
         .close2 {
             position: absolute;
             top: -10px;
@@ -134,93 +145,111 @@ margin-bottom:10px;
             font-weight: bold;
         }
     </style>
-   <script>
-   <!-- 로그인이 이미 되어잇을경우 시작 -->
-   function checkLoginStatus() {
-	    // 사용자가 로그인되었는지 확인합니다 (세션 속성 "loggedIn"이 있다고 가정)
-	    var isLoggedIn = <%= session.getAttribute("loggedIn") != null ? session.getAttribute("loggedIn") : false %>;
-
-	    if (isLoggedIn) {
-	        alert("로그인이 이미 되어 있습니다.");
-	        // 메인 페이지로 리디렉션합니다
-	        window.location.href = "/BookStay/views/main.jsp";
-	    }
-	}
-   <!-- 로그인이 이미 되어잇을경우 종료  -->
-   
-   
-    function CV_checkIdPattern(str) {
-        var idField = document.getElementById("id");
-        var idError = document.getElementById("idError");
-
-        if (str.length == 0) {
-            idField.classList.add("error-border");
-            idError.textContent = "아이디를 입력해주세요.";
-            return false;
-        } else {
-            idField.classList.remove("error-border");
-            idError.textContent = "";
-            return true;
-        }
-    }
-
-    function CV_checkPasswordPattern(str) {
-        var pwField = document.getElementById("pw");
-        var pwError = document.getElementById("pwError");
-
-        if (str.length == 0) {
-            pwField.classList.add("error-border");
-            pwError.textContent = "비밀번호를 입력해주세요.";
-            return false;
-        } else {
-            pwField.classList.remove("error-border");
-            pwError.textContent = "";
-            return true;
-        }
-    }
-    function validateForm() {
-        var id = document.getElementById("id").value;
-        var pw = document.getElementById("pw").value;
-        var idValid = CV_checkIdPattern(id);
-        var pwValid = CV_checkPasswordPattern(pw);
-
-        if (!idValid || !pwValid) {
-            return false;
-        }
-
-        // 이 부분에서 서버로 아이디와 비밀번호를 비교하여 일치 여부를 확인하고,
-        // 일치하지 않으면 메시지를 표시하거나 다시 확인하도록 안내할 수 있습니다.
-        // 아래 예시는 간단한 메시지를 표시하는 것을 보여줍니다.
-   
-        // 아이디와 비밀번호가 일치하는 경우에 실행할 코드를 여기에 추가합니다.
-        // 서버로 데이터 전송 등의 작업을 수행할 수 있습니다.
-    }
     
-    function updateEmail() {
-        const emaillist = document.getElementById('emaillist');
-        const emailInput = document.getElementById('email');
-        if (emaillist.value !== 'type') {
-            const selectedDomain = emaillist.value;
-            emailInput.value = emailInput.value.split('@')[0] + selectedDomain;
-        }
+   <script>
+   
+   function CV_checkIdPattern(str) {
+       var idField = document.getElementById("id");
+       var idError = document.getElementById("idError");
 
-    }
+       if (str.length == 0) {
+           idField.classList.add("error-border");
+           idError.textContent = "아이디를 입력해주세요.";
+           return false;
+       } else {
+           idField.classList.remove("error-border");
+           idError.textContent = "";
+           return true;
+       }
+   }
+
+   function CV_checkPasswordPattern(str) {
+       var pwField = document.getElementById("pw");
+       var pwError = document.getElementById("pwError");
+
+       if (str.length == 0) {
+           pwField.classList.add("error-border");
+           pwError.textContent = "비밀번호를 입력해주세요.";
+           return false;
+       } else {
+           pwField.classList.remove("error-border");
+           pwError.textContent = "";
+           return true;
+       }
+   }
+   function validateForm() {
+       var id = document.getElementById("id").value;
+       var pw = document.getElementById("pw").value;
+       var idValid = CV_checkIdPattern(id);
+       var pwValid = CV_checkPasswordPattern(pw);
+
+       if (!idValid || !pwValid) {
+           return false;
+       }
+
+   }
+   
+   
+
+
+   // 휴대폰번호 유효성 검사
+   function formatPhoneNumber(input) {
+       // 휴대폰 번호에서 숫자만 남기고 다른 문자 제거
+       var phoneNumber = input.value.replace(/\D/g, '');
+
+       // 휴대폰 번호에 하이픈 추가
+       if (phoneNumber.length >= 3 && phoneNumber.length <= 6) {
+           phoneNumber = phoneNumber.replace(/(\d{3})(\d{0,4})/, '$1-$2');
+       } else if (phoneNumber.length >= 7) {
+           phoneNumber = phoneNumber.replace(/(\d{3})(\d{4})(\d{0,4})/, '$1-$2-$3');
+       }
+
+       input.value = phoneNumber;
+   }
+
+   
+   
+   function updateEmail() {
+      const emaillist = document.getElementById('emaillist');
+      const emailInput = document.getElementById('email');
+
+      if (emaillist.value === 'type') {
+          // 사용자가 이메일을 수동으로 입력하도록 선택한 경우
+          const emailtxt = document.getElementById('emailtxt').value;
+          const combinedEmail = emailInput.value + "@" + emailtxt;
+          emailInput.value = combinedEmail;
+      } else if (emaillist.value !== 'type') {
+          // 스크롤에서 선택한 경우
+          const selectedDomain = emaillist.value;
+          emailInput.value = emailInput.value.split('@')[0] + selectedDomain;
+      }
+   }
+   
+   function updateEmail2() {
+      const emaillist = document.getElementById('emaillist2');
+      const emailInput = document.getElementById('email2');
+
+      if (emaillist.value === 'type') {
+          // 사용자가 이메일을 수동으로 입력하도록 선택한 경우
+          const emailtxt = document.getElementById('emailtxt').value;
+          const combinedEmail = emailInput.value + "@" + emailtxt;
+          emailInput.value = combinedEmail;
+      } else if (emaillist.value !== 'type') {
+          // 스크롤에서 선택한 경우
+          const selectedDomain = emaillist.value;
+          emailInput.value = emailInput.value.split('@')[0] + selectedDomain;
+      }
+   }
 
 
 
- 
     /*  모달 관련*/
      
         function openModal(modalType) {
             var modal = document.getElementById("myModal");
             modal.style.display = "block";
 
-            var iframe = modal.querySelector("iframe");
-            if (modalType === "FindId") {
-                iframe.src = "FindId.jsp";
-            } else if (modalType === "FindPw") {
-                iframe.src = "FindPw.jsp";
-            }
+    
         }
 
         function closeModal() {
@@ -232,12 +261,7 @@ margin-bottom:10px;
             var modal2 = document.getElementById("myModal2");
             modal2.style.display = "block";
 
-            var iframe2 = modal2.querySelector("iframe");
-            if (modalType === "FindId") {
-                iframe2.src = "FindId.jsp";
-            } else if (modalType === "FindPw") {
-                iframe2.src = "FindPw.jsp";
-            }
+       
         }
 
         function closeModal2() {
@@ -245,47 +269,22 @@ margin-bottom:10px;
             modal2.style.display = "none";
         }
         
-        /* 아이디찾기 눌럿을때 생기는 새창 크기 조정*/      
-   function openCenteredWindow1(event) {
-  event.preventDefault(); // 기본 동작(링크 이동)을 막습니다.
-  // 창의 가로 및 세로 크기를 정의합니다.
-  var width = 330;
-  var height = 100;
-  // 화면의 가로 및 세로 크기를 가져옵니다.
-  var screenWidth = window.screen.availWidth;
-  var screenHeight = window.screen.availHeight;
-  // 창을 화면 가운데에 위치시키기 위한 left와 top 값을 계산합니다.
-  var left =2300;
-  var top = 160;
-  // 새 창을 열고 크기 및 위치를 지정합니다.
-  var newWindow = window.open("/BookStay/member/FindIdPro.jsp", "centeredWindow", "width=" + width + ",height=" + height + ",left=" + left + ",top=" + top);
-}
-        
-  /* 비밀번호찾기 눌럿을때 생기는 새창 크기 조정*/
-   function openCenteredWindow2(event) {
-  event.preventDefault(); // 기본 동작(링크 이동)을 막습니다.
-  // 창의 가로 및 세로 크기를 정의합니다.
-  var width = 330;
-  var height = 100;
-  // 화면의 가로 및 세로 크기를 가져옵니다.
-  var screenWidth = window.screen.availWidth;
-  var screenHeight = window.screen.availHeight;
-  // 창을 화면 가운데에 위치시키기 위한 left와 top 값을 계산합니다.
-  var left =2300;
-  var top = 160;
-  // 새 창을 열고 크기 및 위치를 지정합니다.
-  var newWindow = window.open("/BookStay/member/FindPwPro.jsp", "centeredWindow", "width=" + width + ",height=" + height + ",left=" + left + ",top=" + top);
-}
+     
+  
+  
+  <!-- 모달아  -->
+
+
 
         
-        
+       
     </script>
 </head>
 <body>
     <div class="loginbox">
         <div class="loginbox_a">
                   <form method="post" action="dsPro.jsp" onsubmit="return validateForm();">
-                    <table class="loginbox_b" >
+                    <table class="loginbox_b"  id="modaltable">
                         <tr>
                             <td class="tableline">
                                 <div class="bookment">
@@ -316,19 +315,24 @@ margin-bottom:10px;
     </div>
                               
                               
-           				 <div>
+                        <div>
                     <input type="submit" value="회원 탈퇴" class="logininput" onclick="combineAndSubmit()">
                 </div>
+            </td>
+        </tr>
+        
+            <tr>
+                 <td>
+                <div class="button">
+                <a href="javascript:void(0);" class="button_a" onclick="openModal('FindId')">아이디 찾기</a>&nbsp|
+                <a href="javascript:void(0);" class="button_b" onclick="openModal2('FindPw')">비밀번호 찾기</a>&nbsp|
+                <a href="memberForm.jsp" class="button_c">회원가입</a>&nbsp|<a href="/BookStay/views/main.jsp" class="button_d"> 홈으로 가기</a>
+            </div>
             </td>
         </tr>
                     </table>
                 </form>
 
-            <div class="button">
-                <a href="javascript:void(0);" class="button_a" onclick="openModal('FindId')">아이디 찾기</a>&nbsp|
-                <a href="javascript:void(0);" class="button_b" onclick="openModal2('FindPw')">비밀번호 찾기</a>&nbsp|
-                <a href="memberForm.jsp" class="button_c">회원가입</a>&nbsp|<a href="/BookStay/views/main.jsp" class="button_d"> 홈으로 가기</a>
-            </div>
         </div>
     </div>
     <!-- 모달 창  수정 HTML -->
@@ -454,19 +458,19 @@ margin-bottom:10px;
                 <td width="400"  class="hiddenshow">
                     <label for="email">이메일</label>
                 </td>
-	                <td width="400">	  			 
-			    <input type="text" id="email" name="email" size="14"   placeholder="이메일을 입력하세요"  class="modalinputText"     required />			
-			    <select class="box" id="emaillist" name="emaillist" onchange="updateEmail()">
-			        <option value="type">직접 입력</option>
-			        <option value="@naver.com">@naver.com</option>
-			        <option value="@google.com">@google.com</option>
-			        <option value="@hanmail.net">@hanmail.net</option>
-			        <option value="@nate.com">@nate.com</option>
-			        <option value="@kakao.com">@kakao.com</option>
-			    </select>
-	                </td>
-	                
-	                      <td></td>
+                   <td width="400">               
+             <input type="text" id="email" name="email" size="14"   placeholder="이메일을 입력하세요"  class="modalinputText"     required />         
+             <select class="box" id="emaillist" name="emaillist" onchange="updateEmail()">
+                 <option value="type">직접 입력</option>
+                 <option value="@naver.com">@naver.com</option>
+                 <option value="@google.com">@google.com</option>
+                 <option value="@hanmail.net">@hanmail.net</option>
+                 <option value="@nate.com">@nate.com</option>
+                 <option value="@kakao.com">@kakao.com</option>
+             </select>
+                   </td>
+                   
+                         <td></td>
                 
             </tr>
        
@@ -490,9 +494,9 @@ margin-bottom:10px;
             <td></td>
             </tr>
         
-	
+   
   
-</table>								
+</table>                        
    
 </form>
 
@@ -501,19 +505,6 @@ margin-bottom:10px;
 <!--  form 끝 -->
         </div>
     </div>
-    
-    
-    
-    <div class="UjinsHypboy">
-        <div id="logo">
-            <a href="/BookStay/views/main.jsp">
-                BookStay
-            </a>
-        </div>
-        <div class="info">고객센터</div>
-    </div>
-    <script>
-    checkLoginStatus();
-</script>
+   
 </body>
 </html>

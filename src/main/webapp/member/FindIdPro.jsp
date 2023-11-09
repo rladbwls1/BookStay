@@ -13,30 +13,29 @@
     <title>Password Recovery</title>
 </head>
 <body>
-    <%
- 	
-    /* String name = request.getParameter("name");
+  <% 
+    String name = request.getParameter("name");
     String email = request.getParameter("email");
-    String pnum = request.getParameter("pnum"); */
-    System.out.println(dto.getName()+","+dto.getEmail()+","+dto.getPnum());
-    String id=MemberDAO.getInstance().findId(dto.getName(),dto.getEmail(),dto.getPnum());
-
-    if ( id == null) {
-    	%>
-    	 <script>
-         alert("입력한 정보가 일치하지 않습니다. 다시 입력해주세요.");   
- 		window.location="/BookStay/member/loginform.jsp";
-     </script><% 
-    } else {
- // 사용자 정보가 일치하는 경우 아이디 보여주는 페이지로 이동
-      
-          
-         response.sendRedirect("FindIdShow.jsp?id="+id); 
-        
-        // 사용자 정보가 일치하지 않는 경우 오류 메시지 표시
-     
-    }
+    String pnum = request.getParameter("pnum");
+    
+    // 이름, 이메일, 휴대폰 번호를 사용하여 아이디를 찾습니다.
+    String id = MemberDAO.getInstance().findId(name, email, pnum);
+    System.out.println(name+","+email+","+pnum);
+    System.out.println(id);
+    
+   //asd, asd@naver.com, 123-1 = abcdefg
+    if (id == null) {
     %>
-
+    <script>
+        alert("입력한 정보가 일치하지 않습니다. 다시 입력해주세요.");
+        // 데이터가 일치하지 않을 때 현재 페이지에 남음
+        // 현재 페이지에 다시 데이터 입력을 받는 폼을 두는 등의 방법으로 구현할 수 있음
+    </script>
+    <%
+    } else {
+        // 데이터가 일치하는 경우 Dispatcher 방식으로 FindIdShow.jsp로 이동
+        response.sendRedirect("FindIdShow.jsp?id=" + id);
+    }
+%>
 </body>
 </html>

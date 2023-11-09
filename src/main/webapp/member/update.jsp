@@ -7,6 +7,7 @@
 <jsp:setProperty property="*" name="dto" />
 
 
+<%@ include file="../views/main_bar.jsp" %>
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-4bw+/aepP/YC94hEpVNVgiZdgIC5+VKNBQNGCHeKRQN+PtmoHDEXuppvnDJzQIu9" crossorigin="anonymous">
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-HwwvtgBNo3bZJJLYd8oVXjrBZt8cqVSpeBNS5n7C8IVInixGAoxmnlMuBnhbgrkm" crossorigin="anonymous"></script>
 <%
@@ -15,12 +16,12 @@ String sid = (String) session.getAttribute("sid");
 dto.setId(sid);
 
 // MemberDTO 객체에서 정보를 가져와서 필드에 저장
-	 String pw = request.getParameter("pw");
-	 String email = request.getParameter("email");
+    String pw = request.getParameter("pw");
+    String email = request.getParameter("email");
     String addr = request.getParameter("addr");
     String pnum = request.getParameter("pnum");
     String name = request.getParameter("name");
-																//1030 도준 수정
+                                                //1030 도준 수정
 %>
 
 <html>
@@ -28,51 +29,17 @@ dto.setId(sid);
 <style>
 @charset "utf-8";
 
-/* 헤더 라인 시작 */
-#font{
-	
-	margin-bottom:5px;
-	margin-top:10px;
-}
-
-    
-
- .info {
-    cursor: pointer;
-    font-size: 16px;
-	
-}
-
-#logo {
-    width: 200px;
-    height: 60px;
-    font-weight: 800;
-    padding: 10px;
-    z-index: 150;
-    text-align: left;
-}
-
-        #logo > a {
-            width: 133px;
-            height: 40px;
-            font-size: 30px;
-            text-decoration: none;
-            color: black;
-        }
-
-
 /* 헤더 끝 */
-body {
+.formbody {
     width: 600px;
     height: 650px;
     margin: 0 auto;
-    background-color: #F2F2F2;
-    margin-top: 170px;
+    margin-top: 70px;
     border: none;
 }
 
-table {
-	 border: white;
+.table-container {
+    border: white;
     width: 100%; /* 수정: 테이블 폭을 80%로 조정 */
     margin: 0 auto; /* 테이블을 가운데 정렬 */
     border-collapse: collapse;
@@ -83,24 +50,32 @@ table {
     border-radius: 15px;
 }
 .hiddenshow{
-	display: none;
+   display: none;
 }
-th,
-td {    
-	margin:5px;
-	padding:10px 0px 10px 0px;
-	width:110%;
+.table-container th{
+   margin:5px;
+   padding:10px 0px 10px 0px;
+   width:110%;
     text-align: center;
     font-family: Arial, sans-serif;
     font-size: 14px;
 }
 
-th {
+.table-container  td {    
+   margin:5px;
+   padding:10px 0px 10px 0px;
+   width:110%;
+    text-align: center;
+    font-family: Arial, sans-serif;
+    font-size: 14px;
+}
+
+.table-container th {
     background-color: #333;
     color: #fff;
 }
 
-table tr a {
+.table-container tr a {
     color: #999999;
     text-decoration: none;
 }
@@ -131,11 +106,11 @@ margin-bottom:10px;
     background-color: #157347;
 }
 .thankyou{
-	font-size: 18px;
-	
+   font-size: 18px;
+   
 }
 .idcheck {
-	border-top:30px;
+   border-top:30px;
       width: 20%;
     background-color: #636363;
 ;
@@ -168,7 +143,7 @@ margin-bottom:10px;
 #C9C9C9;
 }
 
-.btn {
+.addrbtn {
     width: 20%;
     background-color:#636363;
     height: 35px;
@@ -185,8 +160,8 @@ margin-bottom:10px;
 }
 
 .inputText {
-	left:0;
-	margin-left:0px;
+   left:0;
+   margin-left:0px;
     width: 50%;
     height: 40px;
     border-radius: 8px;
@@ -194,9 +169,9 @@ margin-bottom:10px;
 }
 
 .text{
-	margin-bottom:30px;
-	margin-top:10px;
-	background-color: none;
+   margin-bottom:30px;
+   margin-top:10px;
+   background-color: none;
 }
 /* a 이동 태그 */
 
@@ -216,10 +191,9 @@ margin-bottom:10px;
     font-weight: bolder;
 }
 .welcome{
-	font-size: x-large;
-	
+   font-size: x-large;
+   
 }
-
 
 
 
@@ -249,9 +223,9 @@ function combineAndSubmit() {
 
 
 
-	
-	
-	
+   
+   
+   
     const emailInput = document.getElementById('email');
     const emaillist = document.getElementById('emaillist');
 
@@ -351,28 +325,28 @@ function updateEmail() {
   
 </head>
 <body>
-<form method="post" action="updatePro.jsp">
+<form method="post" action="updatePro.jsp" class="formbody">
     <table border="1" class="table-container">
     
-    	<tr >
-    	  <td colspan="3" style="text-align:center;">
-    	  		<div id="font">	<font size="+3" >	<%=request.getParameter("name")%>님 환영합니다  !  </font></div>
-    	  <td>
-    	</tr>
-    				<tr>
-    					<td colspan="3" class="welcome">
-    							수정하실 정보를 입력하세요 
-    					</td>
-    				</tr>
-    				
+       <tr >
+         <td colspan="3" style="text-align:center;">
+               <div id="font">   <font size="+3" >   <%=name%>님 환영합니다  !  </font></div>
+         <td>
+       </tr>
+                <tr>
+                   <td colspan="3" class="welcome">
+                         수정하실 정보를 입력하세요 
+                   </td>
+                </tr>
+                
          <tr>
               
-               <td width="200" class="hiddenshow">
+               <td width="200" class="hiddenshow" >
                     <label for="pw">변경 할 비밀번호</label>
                 </td>
                 
                 <td width="400">
-                    <input type="password" id="passwordField" name="pw" size="15" placeholder="변경하실 비밀번호를 입력하세요" class="inputText" onblur="validatePassword(this, 'pwError')"  >
+                    <input type="password" id="passwordField" name="pw" size="15" placeholder="변경하실 비밀번호를 입력하세요" class="inputText" onblur="validatePassword(this, 'pwError')"   >
                     <button type="button" onclick="togglePasswordVisibility('passwordField')" class="pwcheck">비밀번호 표시</button><br/>
                     <span id="pwError" style="color: red;"></span>
                 </td>
@@ -394,48 +368,48 @@ function updateEmail() {
                     <label for="email">이메일</label>
                 </td>
                 
-	                <td width="400">
-			 
-			    <input type="text" id="email" class="inputText" placeholder="변경하실 이메일을 입력하시오"  name="email" size="14" />
-			    <select class="box" id="emaillist" name="emaillist" onchange="updateEmail()">
-			        <option value="type">직접 입력</option>
-			        <option value="@naver.com">@naver.com</option>
-			        <option value="@google.com">@google.com</option>
-			        <option value="@hanmail.net">@hanmail.net</option>
-			        <option value="@nate.com">@nate.com</option>
-			        <option value="@kakao.com">@kakao.com</option>
-			    </select>
+                   <td width="400">
+          
+             <input type="text" id="email" class="inputText" placeholder="변경하실 이메일을 입력하시오"  name="email" size="14" />
+             <select class="box" id="emaillist" name="emaillist" onchange="updateEmail()">
+                 <option value="type">직접 입력</option>
+                 <option value="@naver.com">@naver.com</option>
+                 <option value="@google.com">@google.com</option>
+                 <option value="@hanmail.net">@hanmail.net</option>
+                 <option value="@nate.com">@nate.com</option>
+                 <option value="@kakao.com">@kakao.com</option>
+             </select>
 
 
-	                </td>
+                   </td>
             </tr>
   
-  			 <tr>
+            <tr>
                 <td width="200" class="hiddenshow">
                     <label for="addr">주소</label>
                 </td>
                 <td width="400">
-                    <input type="text" name="addr"  class="inputText"  size="15"  required   id="address" placeholder="변경하실 주소를 입력하세요 ">
-                    <button type="button" class="btn" onclick="searchAddress()">주소검색</button>
+                    <input type="text" name="addr"  class="inputText"  size="15"    id="address" placeholder="변경하실 주소를 입력하세요 ">
+                    <button type="button" class="addrbtn" onclick="searchAddress()">주소검색</button>
                       <div id="result"></div>
                     
                 </td>
             </tr>
-        	<tr>
-	                <td width="200" class="hiddenshow">
-	                    <label for="pnum">변경할 휴대폰 번호</label>
-	                </td>
-	                <td >
-	                    <input type="text" name="pnum"   style="width:70%;" size="15" placeholder="변경할 휴대폰번호"  class="inputText"  required  maxlength="13" oninput="formatPhoneNumber(this);">
-	                </td>
+           <tr>
+                   <td width="200" class="hiddenshow">
+                       <label for="pnum">변경할 휴대폰 번호</label>
+                   </td>
+                   <td >
+                       <input type="text" name="pnum"   style="width:70%;" size="15" placeholder="변경할 휴대폰번호"  class="inputText"    maxlength="13" oninput="formatPhoneNumber(this);">
+                   </td>
             </tr>
         <tr>
              <td  class="hiddenshow"></td>
-          		<td>
-          		<input type="submit" name="confirm" value="등   록" onclick="combineAndSubmit()" class="sumitinput"/><br/>
-          		   <a href="/BookStay/member/loginform.jsp" class="button_a">로그인하기</a>&nbsp&nbsp&nbsp|&nbsp&nbsp&nbsp<a href="/BookStay/views/main.jsp" class="button_b">메인으로</a>&nbsp&nbsp&nbsp|&nbsp&nbsp&nbsp<a href="/BookStay/member/update.jsp" class="button_c">Reset</a>
-          		
-          		</td>
+                <td>
+                <input type="submit" name="confirm" value="등   록" onclick="combineAndSubmit()" class="sumitinput"/><br/>
+                   <a href="/BookStay/member/loginform.jsp" class="button_a">로그인하기</a>&nbsp&nbsp&nbsp|&nbsp&nbsp&nbsp<a href="/BookStay/views/main.jsp" class="button_b">메인으로</a>&nbsp&nbsp&nbsp|&nbsp&nbsp&nbsp<a href="/BookStay/member/update.jsp" class="button_c">Reset</a>
+                
+                </td>
         </tr>
     </table>
 </form>

@@ -17,23 +17,23 @@
     boolean result = memberDAO.transferMemberData(id, pw);
 
     if (result) {
-    	%>
-    		<script>
-    			alert("지금까지 BookStay 를 사랑해주셔서 감사합니다");
-    			window.location="/BookStay/views/main.jsp";
-    		</script>
-    		
-    	<%
+       %>
+          <script>
+             alert("지금까지 BookStay 를 사랑해주셔서 감사합니다");
+             window.location="/BookStay/views/main.jsp";
+          </script>
+          
+       <%
         /* out.println("회원 정보를 조회하고 다른 테이블에 성공적으로 인서트했으며, 원래 테이블에서 회원 정보를 삭제했습니다.");   예시 */
     } else {
-       		/*  out.println("회원 정보 조회, 인서트, 또는 삭제 중에 문제가 발생했습니다."); 예시 2*/
-       		
-       	%>	<script>
-       	alert("회원탈퇴실패했습니다 확인하고 다시부탁드립니다 ");
+             /*  out.println("회원 정보 조회, 인서트, 또는 삭제 중에 문제가 발생했습니다."); 예시 2*/
+             
+          %>   <script>
+          alert("회원탈퇴실패했습니다 확인하고 다시부탁드립니다 ");
         window.location="/BookStay/member/deleteSelect.jsp";
-       	</script>
-       	
-       	<% 
+          </script>
+          
+          <% 
     }
     %>
 </body>
