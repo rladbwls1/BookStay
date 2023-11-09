@@ -22,7 +22,7 @@ public class HOrderDAO extends OracleDB {
 	
 	public HOrderDTO getOrder(int renum) {
 	    HOrderDTO order = new HOrderDTO();
-	    String query = "select * from horder h,hotel r where h.ref=r.num and h.renum=?";
+	    String query = "select * from horder h,hotel r where h.ref=r.num and h.ref=?";
 	    
 	    try (Connection conn = getConnection(); // 새로운 데이터베이스 연결을 생성
 	         PreparedStatement stmt = conn.prepareStatement(query)) {

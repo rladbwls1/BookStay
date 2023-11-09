@@ -4,11 +4,6 @@
 <%@ include file="../views/main_bar.jsp" %>
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-4bw+/aepP/YC94hEpVNVgiZdgIC5+VKNBQNGCHeKRQN+PtmoHDEXuppvnDJzQIu9" crossorigin="anonymous">
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-HwwvtgBNo3bZJJLYd8oVXjrBZt8cqVSpeBNS5n7C8IVInixGAoxmnlMuBnhbgrkm" crossorigin="anonymous"></script>
-
-
-<!DOCTYPE html>
-<html>
-<head>
       <link rel="stylesheet" href="/BookStay/resources/css/loginform.css" type="text/css">
     <style>
     /*modal 공통 */
@@ -323,11 +318,7 @@ margin-bottom:10px;
         
             <tr>
                  <td>
-                <div class="button">
-                <a href="javascript:void(0);" class="button_a" onclick="openModal('FindId')">아이디 찾기</a>&nbsp|
-                <a href="javascript:void(0);" class="button_b" onclick="openModal2('FindPw')">비밀번호 찾기</a>&nbsp|
-                <a href="memberForm.jsp" class="button_c">회원가입</a>&nbsp|<a href="/BookStay/views/main.jsp" class="button_d"> 홈으로 가기</a>
-            </div>
+                
             </td>
         </tr>
                     </table>
@@ -506,5 +497,3 @@ margin-bottom:10px;
         </div>
     </div>
    
-</body>
-</html>

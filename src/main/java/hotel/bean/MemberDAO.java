@@ -87,11 +87,12 @@ public class MemberDAO extends  OracleDB {
 	        boolean result = false;
 	        try {
 	            conn = getConnection();
-	            String sql = "select *from member where name= ? and email= ? and pnum=?";
+	            String sql = "select * from member where name= ? and email= ? and pnum=? and id=?";
 	            pstmt = conn.prepareStatement(sql);
 	            pstmt.setString(1, name);
 	            pstmt.setString(2, email);
 	            pstmt.setString(3, pnum);
+	            pstmt.setString(4, id);
 	            rs = pstmt.executeQuery();
 	            if (rs.next()) {
 	                result = true; // 사용자 정보가 일치하는 경우
@@ -135,20 +136,20 @@ public class MemberDAO extends  OracleDB {
 	       public boolean transferMemberData(String id, String pw) {
 	           Connection conn = null;
 	           PreparedStatement pstmt = null;
-
+	           int check=0;
+	           boolean result=false;
 	           try {
 	               conn = getConnection();
 
 	               // 1. 아이디와 비밀번호로 회원 정보 조회 (예: member 테이블)
-	               String selectQuery = "SELECT id, pw, name, email, birth, addr, pnum, joindate FROM member WHERE id = ? AND pw = ?";
+	               String selectQuery = "SELECT * FROM member WHERE id = ? AND pw = ?";
 	               pstmt = conn.prepareStatement(selectQuery);
 	               pstmt.setString(1, id);
 	               pstmt.setString(2, pw);
 	               ResultSet rs = pstmt.executeQuery();
-
 	               if (rs.next()) {
 	                   // 2. 조회한 정보로 다른 테이블에 인서트 (예: quitmember 테이블)
-	                   String insertQuery = "INSERT INTO quitmember (id, pw, name, email, birth, addr, pnum, joindate) VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
+	                   String insertQuery = "INSERT INTO quitmember (quitmember_seq.nextval,id, pw, name, email, birth, addr, pnum, joindate) VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
 	                   pstmt = conn.prepareStatement(insertQuery);
 	                   pstmt.setString(1, rs.getString("id"));
 	                   pstmt.setString(2, rs.getString("pw"));
@@ -158,38 +159,26 @@ public class MemberDAO extends  OracleDB {
 	                   pstmt.setString(6, rs.getString("addr"));
 	                   pstmt.setString(7, rs.getString("pnum"));
 	                   pstmt.setDate(8, rs.getDate("joindate"));
-	                   pstmt.executeUpdate();
+	                   check=pstmt.executeUpdate();
 
 	                   // 3. 원래 테이블에서 삭제 (예: member 테이블)
+	                   if(check==1) {
 	                   String deleteQuery = "DELETE FROM member WHERE id = ? AND pw = ?";
 	                   pstmt = conn.prepareStatement(deleteQuery);
 	                   pstmt.setString(1, id);
 	                   pstmt.setString(2, pw);
 	                   pstmt.executeUpdate();
+	                   result=true;
+	                   }
 
-	                   return true;
+	                  
 	               }
 	           } catch (SQLException e) {
 	               e.printStackTrace();
 	           } finally {
-	               // 리소스 정리
-	               if (pstmt != null) {
-	                   try {
-	                       pstmt.close();
-	                   } catch (SQLException e) {
-	                       e.printStackTrace();
-	                   }
-	               }
-	               if (conn != null) {
-	                   try {
-	                       conn.close();
-	                   } catch (SQLException e) {
-	                       e.printStackTrace();
-	                   }
-	               }
-	           }
+	               close(rs, pstmt, conn);
+	           }return result;
 
-	           return false;
 	       }
 	       //2023 11 08 메서드  도준생성 
 	       public int updateOnlyPw(String id, String pw) {
@@ -203,8 +192,6 @@ public class MemberDAO extends  OracleDB {
 	                pstmt =conn.prepareStatement(sql);
 	                pstmt.setString(1, pw);
 	                pstmt.setString(2,id);
-	             
-	                
 	                 result = pstmt.executeUpdate();
 	           } catch(Exception e) {
 	               e.printStackTrace();
@@ -307,14 +294,12 @@ public class MemberDAO extends  OracleDB {
           pstmt.setString(4, member.getAddr());
           pstmt.setString(5, member.getPnum());
           pstmt.setString(6, member.getId());
-     
           result = pstmt.executeUpdate();
         } catch(Exception e) {
             e.printStackTrace();
          }finally {
              close(rs, pstmt, conn);
       }
-      
          return result;
       }   
     
@@ -431,17 +416,12 @@ public class MemberDAO extends  OracleDB {
 		} finally {
 			close(rs, pstmt, conn);
 		}
-		
-		
 	}
-	
-		 
 	    public List<hotelDTO> heartList(String id) throws Exception {
 	    	List<hotelDTO> heartList = new ArrayList<>();
 	    	Connection conn = null;
 	        PreparedStatement pstmt = null;
 	        ResultSet rs = null;
-
 	        try {
 	            conn = getConnection();
 

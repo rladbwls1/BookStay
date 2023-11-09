@@ -336,7 +336,7 @@ margin-bottom:10px;
                       <div class="button">
                 <a href="javascript:void(0);" class="button_a" onclick="openModal('FindId')">아이디 찾기</a>&nbsp|
                 <a href="javascript:void(0);" class="button_b" onclick="openModal2('FindPw')">비밀번호 찾기</a>&nbsp|
-                <a href="memberForm.jsp" class="button_c">회원가입</a>&nbsp|<a href="/BookStay/views/main.jsp" class="button_d"> 홈으로 가기</a>
+                <a href="memberForm.jsp" class="button_c">회원가입</a>&nbsp;<a href="/BookStay/views/main.jsp" class="button_d"> 홈으로 가기</a>
             </div>
             </td>
         </tr>
@@ -355,7 +355,7 @@ margin-bottom:10px;
             <!-- 아이디 찾기 및 비밀번호 찾기 페이지의 URL을 설정하세요 -->
        <!--   Findid modalform 시작  -->
            
-<form action="FindIdPro.jsp" method="post" id="registrationForm" name="userinput">
+<form action="FindIdPro.jsp" method="get" id="registrationForm" name="userinput" accept-charset="utf-8">
     <table  id="modaltable" >
         <tr>
             <td class="hiddenshow"></td>
@@ -432,7 +432,7 @@ margin-bottom:10px;
             
 <!--  form 시작 -->
 
-<form action="FindPwPro.jsp" method="post" id="registrationForm" name="userinput">
+<form action="FindPwPro.jsp" method="get" id="registrationForm" name="userinput" accept-charset="utf-8">
 <table id="modaltable">
 
 <tr>

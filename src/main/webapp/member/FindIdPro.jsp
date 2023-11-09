@@ -7,12 +7,6 @@
 
 <jsp:setProperty property="*" name="dto" />
 <!DOCTYPE html>
-<html>
-<head>
-    <meta charset="UTF-8">
-    <title>Password Recovery</title>
-</head>
-<body>
   <% 
   request.setCharacterEncoding("UTF-8");
     String name = request.getParameter("name");
@@ -25,17 +19,18 @@
     System.out.println("아이디"+id);
     
    //asd, asd@naver.com, 123-1 = abcdefg
-    if (id == null) {
+    if (id == null|| id.length()<1) {
     %>
     <script>
         alert("입력한 정보가 일치하지 않습니다. 다시 입력해주세요.");
+        history.go(-1);
         // 데이터가 일치하지 않을 때 현재 페이지에 남음
         // 현재 페이지에 다시 데이터 입력을 받는 폼을 두는 등의 방법으로 구현할 수 있음
     </script>
     <%
     } else {
         // 데이터가 일치하는 경우 Dispatcher 방식으로 FindIdShow.jsp로 이동
-        response.sendRedirect("FindIdShow.jsp?id=" + id);
+        response.sendRedirect("FindIdShow.jsp?id="+id);
     }
 %>
 </body>
