@@ -68,6 +68,9 @@ if (grade!=99){
 	</div>
 	</div>
 	<hr id="hr"/>
+	        <% for (hotelDTO dto1 : cal) { %>
+	        	<input type="text" value="<%=dto1.getContent() %>">
+	        <%} %>
 	<div id="list">
 	<ul id="ul1">
 	  <li><button id="bn1" type="button" onclick="window.location='/BookStay/admin/adminMain.jsp'">요약정보</button></li>
@@ -149,7 +152,6 @@ if (grade!=99){
         center: 'title',
         end: 'next'
       },
-      displayEventTime: false,
       dayMaxEvents: true,
       selectable: true,
       droppable: true,
@@ -158,23 +160,24 @@ if (grade!=99){
         <% for (hotelDTO dto : cal) { %>
         {
           title: '<%= dto.getTitle() %>',
-          start: '<%= dto.getContent() %>',
-          end: '<%= dto.getContact() %>',
+          start: convertDate('<%= dto.getContent() %>'),
+          end: convertDate('<%= dto.getContact() %>'),
           extendedProps: {
             reservationId: '<%= dto.getContact() %>',
-            kidmax: ' <%= dto.getKidmax() + dto.getAdultmax() %>',
-            content: '<%= dto.getContent().split(" ")[0] %>',
-            service: '<%= dto.getService().split(" ")[0] %>',
+            kidmax: '<%= dto.getKidmax() %>',
+            content: '<%= dto.getContent() %>',
+            service: '<%= dto.getService() %>',
+            adultmax: '<%= dto.getAdultmax() %>'
           },
         },
         <% } %>
       ],
       eventClick: function(info) {
         var eventTitle = info.event.title;
-        var additionalInfo = '<b>예약 정보</b><br><br>' +
-          '인원수 : ' + info.event.extendedProps.kidmax + '명<br>' +
-          '체크인 : ' + info.event.extendedProps.service + '<br>' +
-          '체크아웃: ' + info.event.extendedProps.content;
+        var additionalInfo = 'Adult Max: ' + info.event.extendedProps.adultmax + '<br>' +
+          'Kid Max: ' + info.event.extendedProps.kidmax + '<br>' +
+          'Service: ' + info.event.extendedProps.service + '<br>' +
+          'Content: ' + info.event.extendedProps.content;
 
         $('#myModal').modal('show');
 
@@ -193,4 +196,10 @@ if (grade!=99){
       document.getElementById('btn').style.display = 'none';
     });
   });
+  function convertDate(originalDate) {
+	  var parts = originalDate.split('/');
+	  var currentYear = new Date().getFullYear();
+	  var formattedDate = '20' + parts[0] + '-' + parts[1] + '-' + parts[2];
+	  return formattedDate;
+	}
 </script>
