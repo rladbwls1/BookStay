@@ -76,16 +76,32 @@
     		response.sendRedirect("/BookStay/member/loginPro.jsp");	
     	}
     if (cid == null || cpw == null || cauto == null) { %>
-		<div><a href="/BookStay/member/loginform.jsp">로그인</a></div>
-		<div><a href="/BookStay/member/memberForm.jsp">회원가입</a></div>
+		<div><button class="btn bbtn"><a href="/BookStay/member/loginform.jsp">로그인</a></button></div>
+		<div><button class="btn bbtn"><a href="/BookStay/member/memberForm.jsp">회원가입</a></button></div>
 		<%}				
 		}if(grade==0 || grade==99){ %>
-		<div><a href="/BookStay/member/logout.jsp">로그아웃</a></div>
-		<div><a href="/BookStay/member/memberinfo.jsp">MyPage</a></div>
+		<div><button class="btn bbtn"><a href="/BookStay/member/logout.jsp">로그아웃</a></button></div>
+		<div class="dropdown">
+		  <button class="btn bbtn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+		    MyPage
+		  </button>
+		  <ul class="dropdown-menu">
+		    <li><a class="dropdown-item" href="../member/memberinfo.jsp">회원정보</a></li>
+		    <li><a class="dropdown-item" href="../board/myQuestion.jsp">나의 질문</a></li>
+		  </ul>
+		</div>
 		<%}%>
-		<div>고객센터</div>
+		<div class="dropdown">
+		  <button class="btn bbtn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+		    고객센터
+		  </button>
+		  <ul class="dropdown-menu">
+		    <li><a class="dropdown-item" href="../board/notice.jsp">공지사항</a></li>
+		    <li><a class="dropdown-item" href="../board/QnAList.jsp">자주하는질문</a></li>
+		  </ul>
+		</div>
 		<%if(grade==99){ %>
-		<div><a href="/BookStay/admin/adminMain.jsp">관리자페이지</a></div>
+		<div><button class="btn bbtn"><a href="/BookStay/admin/adminMain.jsp">관리자페이지</a></button></div>
 		<%} %>	
 	</div>
 	<div id="logo">

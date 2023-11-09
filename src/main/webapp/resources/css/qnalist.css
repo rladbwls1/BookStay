@@ -5,6 +5,10 @@
 	margin: 0;
 	box-sizing: border-box;
 }
+.on{
+	background-color: #E9B384;
+	color: white;
+}
 
 /* 사이드메뉴 css */
 #list{
@@ -96,7 +100,7 @@
 #tbcal{
 	position: relative;
 }
-#c3{
+#c8{
 	float: right;
 	margin-top: 20px;
 	width: 100px;
@@ -117,4 +121,31 @@
 }
 .btn-group{
 	margin-top: 15px;
+}
+.button{
+	padding: 6px 10px;
+	border: 1px solid gainsboro;
+	background-color: white;
+}
+#page {
+    margin-top: 30px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-bottom: 100px;
+    text-align: center;
+}
+#color{
+	background-color: black;
+	color: white;
+}
+#cateBtn{
+	border: 1px solid gainsboro;
+	display: inline-flex;
+}
+#cateBtn a:not(:last-child){
+	border-right: 1px solid gainsboro;
+}
+#cateBtn a{
+	padding: 3px 5px;
 }

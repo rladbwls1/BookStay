@@ -3,9 +3,12 @@
 <%@ page import="hotel.bean.MemberDAO" %>
 
 <jsp:useBean id="dao" class="hotel.bean.MemberDAO" />
-
 <jsp:useBean id="dto" class="hotel.bean.MemberDTO" />
 <jsp:setProperty property="*" name="dto" />
+
+
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-4bw+/aepP/YC94hEpVNVgiZdgIC5+VKNBQNGCHeKRQN+PtmoHDEXuppvnDJzQIu9" crossorigin="anonymous">
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-HwwvtgBNo3bZJJLYd8oVXjrBZt8cqVSpeBNS5n7C8IVInixGAoxmnlMuBnhbgrkm" crossorigin="anonymous"></script>
 <%
 request.setCharacterEncoding("UTF-8");
 String sid = (String) session.getAttribute("sid");
@@ -22,6 +25,205 @@ dto.setId(sid);
 
 <html>
 <head>
+<style>
+@charset "utf-8";
+
+/* 헤더 라인 시작 */
+#font{
+	
+	margin-bottom:5px;
+	margin-top:10px;
+}
+
+    
+
+ .info {
+    cursor: pointer;
+    font-size: 16px;
+	
+}
+
+#logo {
+    width: 200px;
+    height: 60px;
+    font-weight: 800;
+    padding: 10px;
+    z-index: 150;
+    text-align: left;
+}
+
+        #logo > a {
+            width: 133px;
+            height: 40px;
+            font-size: 30px;
+            text-decoration: none;
+            color: black;
+        }
+
+
+/* 헤더 끝 */
+body {
+    width: 600px;
+    height: 650px;
+    margin: 0 auto;
+    background-color: #F2F2F2;
+    margin-top: 170px;
+    border: none;
+}
+
+table {
+	 border: white;
+    width: 100%; /* 수정: 테이블 폭을 80%로 조정 */
+    margin: 0 auto; /* 테이블을 가운데 정렬 */
+    border-collapse: collapse;
+    background-color: white;
+    text-decoration: none;
+    font-size: 14px;
+    color: black;
+    border-radius: 15px;
+}
+.hiddenshow{
+	display: none;
+}
+th,
+td {    
+	margin:5px;
+	padding:10px 0px 10px 0px;
+	width:110%;
+    text-align: center;
+    font-family: Arial, sans-serif;
+    font-size: 14px;
+}
+
+th {
+    background-color: #333;
+    color: #fff;
+}
+
+table tr a {
+    color: #999999;
+    text-decoration: none;
+}
+
+.box {
+    width: 20%;
+    height: 38px;
+    color: black;
+    font-size: 14px;
+    border-radius: 5px;
+    font-weight: bold;
+}
+
+/* submit 버튼 */
+.sumitinput {
+margin-top:10px;
+margin-bottom:10px;
+    width: 25%;
+    background-color: #198754;
+    height: 40px;
+    border-radius: 8px;
+    color: white;
+    border: none;
+    cursor: pointer;
+}
+
+.sumitinput:hover {
+    background-color: #157347;
+}
+.thankyou{
+	font-size: 18px;
+	
+}
+.idcheck {
+	border-top:30px;
+      width: 20%;
+    background-color: #636363;
+;
+    height: 35px;
+    border-radius: 8px;
+  color:white;
+    border: none;
+    cursor: pointer;
+}
+
+.pwcheck {
+    width: 20%;
+    color:white;
+    background-color: #636363
+;
+    height: 35px;
+    border-radius: 8px;
+     color:white;
+    border: none;
+    cursor: pointer;
+}
+
+.idcheck:hover {
+    background-color: 
+#C9C9C9;
+}
+
+.pwcheck:hover {
+    background-color:
+#C9C9C9;
+}
+
+.btn {
+    width: 20%;
+    background-color:#636363;
+    height: 35px;
+    border-radius: 8px;
+     color:white;
+    border: none;
+    cursor: pointer;
+    margin-bottom:0;
+       transition: all 0.3s; /* 모든 속성에 대한 0.3초의 트랜지션 적용 */
+}
+
+.btn:hover {
+    background-color: #C9C9C9;
+}
+
+.inputText {
+	left:0;
+	margin-left:0px;
+    width: 50%;
+    height: 40px;
+    border-radius: 8px;
+    margin-top: 2px;
+}
+
+.text{
+	margin-bottom:30px;
+	margin-top:10px;
+	background-color: none;
+}
+/* a 이동 태그 */
+
+.button_a {
+    font-size: 14px;
+}
+
+.button_a:hover {
+    font-weight: bolder;
+}
+
+.button_b:hover {
+    font-weight: bolder;
+}
+
+.button_c:hover {
+    font-weight: bolder;
+}
+.welcome{
+	font-size: x-large;
+	
+}
+
+
+
+
+</style>
 <script>
 
 
@@ -146,38 +348,15 @@ function updateEmail() {
 
 </script>
 
-<style>
-	.UjinsHypboy{
-	
-		 box-sizing: border-box;
-            width: 100%;
-            height: 80px;
-            background-color: white;
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            position: fixed;
-            top: 0;
-            left: 0;
-            padding: 0 20px;
-	
-	}
-</style>
-    <link rel="stylesheet" href="/BookStay/resources/css/update.css" type="text/css">
+  
 </head>
 <body>
-   <div class="UjinsHypboy">
-        <div id="logo">
-            <a href="/BookStay/views/main.jsp">BookStay</a>
-        </div>
-        <div class="info">고객센터</div>
-    </div>
 <form method="post" action="updatePro.jsp">
     <table border="1" class="table-container">
     
     	<tr >
     	  <td colspan="3" style="text-align:center;">
-    	  		<div id="font">	<font size="+4" >	<%=name%>님 환영합니다  !  </font></div>
+    	  		<div id="font">	<font size="+3" >	<%=request.getParameter("name")%>님 환영합니다  !  </font></div>
     	  <td>
     	</tr>
     				<tr>

@@ -37,9 +37,12 @@ html,
 .main_img img{
 	border-radius: 15px;
 	width: 100%;
+	height: 100%;
+	overflow: hidden;
 }
-.main_img{
+.swiper{
 	border-radius: 15px;
+	overflow: hidden;
 }
 #list{
 	position: relative;
@@ -89,16 +92,17 @@ html,
 	width: 30px;
 }
 .form{
-	display: grid;
-	grid-template-rows: 100%;
-    grid-template-columns: 50% 50%;
+	display: flex;
     word-wrap: break-word;
     overflow: hidden; 
     position: relative;
 }
+#b3{
+	flex: 1;
+}
 .form img{
 	width: 100%;
-	height: auto;
+	height: 100%;
 	border-radius: 15px;	
 }
 .title2{
@@ -112,6 +116,8 @@ html,
 #box3{
 	position: relative;
 	padding-left: 30px;
+	flex: 1;
+	height: 100%;
 }
 .bt1{
 	position: absolute;	
@@ -121,6 +127,9 @@ html,
 	height: 40px;
 	border: none;
 	border-radius: 5px;
+}
+.tnrqkr{
+	padding-bottom: 70px;
 }
 .bt2{
 	position: absolute;
@@ -137,7 +146,7 @@ html,
 	color: darkgray;
 	font-size: 18px;
 }
-#hr{
+#hr5{
 	margin: 70px 0 20px;
 }
 #staticBackdropLabel{
@@ -153,21 +162,34 @@ html,
 	border: 1px solid gainsboro;
 	border-radius: 5px;
 	margin-bottom: 10px;
-	height: 150px;
+	min-height: 150px;
 	padding: 10px;
 }
+#rid{
+	margin-bottom: 15px;
+}
 #chd{
-	background-color: rgb(241, 241, 241);
+	background-color: #DDF2FD;
 	margin-right: 10px;
+	border-radius: 5px;
 	height: 250px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    justify-content: center;
+}
+#jum{
+	font-size: 23px;
+	font-weight: 800;
 }
 .custom-modal {
     max-height: 80vh; 
 }
 #rreg{
 	position: absolute;
-	right: 0;
-	top: 0;
+	right: 10px;
+	top: 10;
 }
 #hcapr{
 	border: 1px solid gainsboro;
@@ -223,4 +245,36 @@ html,
 	border-radius: 5px;
 	height: 40px;
 	width: 120px;
+}
+#b5{
+	float: right;
+}
+
+/* 별찍기 css */
+.stars-outer {
+  position: relative;
+  display: inline-block;
+}
+
+.stars-inner {
+  position: absolute;
+  top: 0;
+  left: 0;
+  white-space: nowrap;
+  overflow: hidden;
+  width: 0;
+}
+
+.stars-outer::before {
+  content: "\f005 \f005 \f005 \f005 \f005";
+  font-family: "Font Awesome 5 Free";
+  font-weight: 900;
+  color: #ccc;
+}
+
+.stars-inner::before {
+  content: "\f005 \f005 \f005 \f005 \f005";
+  font-family: "Font Awesome 5 Free";
+  font-weight: 900;
+  color: #f8ce0b;
 }

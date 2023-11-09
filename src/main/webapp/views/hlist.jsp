@@ -1,6 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ page import="hotel.bean.hotelDTO" %>
+<%@ page import="hotel.bean.MemberDTO" %>
+
 <%@ page import="hotel.bean.hotelDAO" %>
 <%@ page import="java.sql.*" %>
 <%@ page import = "hotel.bean.reviewDTO" %>
@@ -48,6 +50,7 @@
 	    
 	    roomValue1[i] = adultValues;
 	    kidsValue1[i] = kidsValuee; 
+	    
 	    val += "&a" + (i+1) + "=" + roomValue1[i] + "&k" + (i+1) + "=" + kidsValue1[i];
 	}
 	
@@ -64,7 +67,7 @@
 			 "&room=" + room1 + "&select=" + sel1 + "&check=" + check1;
 	//int category= 0;  
 	hotelDAO dao = new hotelDAO();
-	ArrayList<hotelDTO> list = dao.hotelList(sel1, check1, title1, checkin1, checkout1, roomValue1, kidsValue1, start, end); 
+	ArrayList<hotelDTO> list = dao.hotelList(sel1, check1, title1, checkin1, checkout1, test, start, end); 
 	int cnt = dao.count(title1);
 	int count = dao.count(title1, check1, checkin1, checkout1, roomValue1, kidsValue1);
 	
@@ -85,7 +88,7 @@
 <body onload="qq();">
 <input type="hidden" id="vel"/>
 <input type="hidden" id="block" value="<%=block2%>"/>
-<input type="hidden" id="rr" value="<%=room1%>"/>
+<input type="hidden" id="rr" value="<%=room1%>"/> 
 <div id="bb">
 <div class="grid">
 <div class="box" id="box11">
@@ -133,7 +136,12 @@
 <%
 	for(hotelDTO dto : list){
 		String imgname = dto.getImg();
-		String [] img = imgname.split(",");
+		String [] img = new String[1];
+		if(imgname == null){
+			img[0] = "default.gif";
+		}else{
+			img = imgname.split(",");
+		}
 		Integer check = dao.checkRoom(block2, dto.getNum());
 		ArrayList<hotelDTO> li2 = dao.getContent(dto.getRef());
 		boolean zt = dao.getTest(li2, test, room1);
@@ -186,7 +194,7 @@
 	&select=<%=sel1%>&check=<%=check1%><%=val%>">
     		<div class="list_s">
     		<div>
-	    	<img src="/BookStay/upload/<%= dto.getImg() %>"/>
+	    	<img src="/BookStay/upload/<%= img[0] %>" style="height: 148px;"/>
     		</div>
     		<div class="mar">
     		<div class="title"><%= dto.getTitle() %></div>
@@ -208,12 +216,35 @@
 			</a>
     		<div class="xx"><button type="button" onclick="window.location.href='/BookStay/hotel/hotelDelete.jsp?num=<%=dto.getNum()%>&re_step=<%=dto.getRe_step()%>&ref=<%=dto.getRef() %>'" class="btn btn-danger">삭제</button></div>
     		<hr>
+    		
+    		<!-- 찜하기 버튼   도준-->
+		
+				<%-- <%
+				 int ref= Integer.parseInt(request.getParameter("ref"));
+				MemberDTO mdto=new MemberDTO();
+				mdto=mdao.myInfo(id);
+				 String heart=mdto.getHeart();
+				 hotelDTO maindto=dao.getContentMain(ref);
+				 mdto=mdao.myInfo(id);
+					if(heart!=null&&heart.contains(Integer.toString(ref))){%>
+				<button type="button" onclick="window.location='../member/heartPro.jsp?num=<%=maindto.getNum()%>&ref=<%=ref%>'">찜취소하기</button>
+				<%}else{ %>
+				<button type="button" id="heart" onclick="window.location='../member/heartPro.jsp?num=<%=maindto.getNum()%>&ref=<%=ref%>'">
+					<img src="/BookStay/resources/img/heart.png">
+				</button>
+				</div>
+				<%} %>
+				 --%>
+				
+    		<!-- 찜하기 버튼  도준  -->
+		
+				
     	<%	
     	}else{
     	%>
 		<div class="list_s">
 		<div>
-    	<img src="/BookStay/upload/<%= dto.getImg() %>"/>
+    	<img src="/BookStay/upload/<%= img[0] %>" style="height: 148px;"/>
     	</div>
     	<div class="mar">
     	<div class="title"><%= dto.getTitle() %></div>
@@ -254,9 +285,14 @@
 		<%if(startPage > 10){%>
 			<a href="hlist.jsp?pageNum=<%=startPage-10%><%=url%><%=val%>"><button class="button">이전</button></a>
 		<%}
+		int p = Integer.parseInt(pageNum);
 		for(int i = startPage; i <= endPage; i++){
-		%> <a href="hlist.jsp?pageNum=<%=i %><%=url%><%=val%>"><button class="button"><%=i %></button></a>	
-		<%}
+			if(p == i){
+		%> <a href="hlist.jsp?pageNum=<%=i %><%=url%><%=val%>"><button id="color" class="button"><%=i %></button></a>	
+		<%}else{%>
+		   <a href="hlist.jsp?pageNum=<%=i %><%=url%><%=val%>"><button class="button"><%=i %></button></a>
+			<%}
+		}
 		if(endPage < pageCnt){
 		%>	<a href="hlist.jsp?pageNum=<%=startPage+10 %><%=url%><%=val%>"><button class="button">다음</button></a>	
 		<%}
@@ -265,7 +301,7 @@
 		</div>	
 		<!-- <%@ include file="footer.jsp" %> -->
 		
-		</body>
+		</body>		
 <script>
 	var sel1Input = document.querySelector('input[name="sel1"]');
 	var hselect = document.getElementById("hselect");

@@ -1,15 +1,17 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
 <%@page import="hotel.bean.MemberDAO"%>
 <%@page import="hotel.bean.MemberDTO"%>
 <%@page import="java.util.ArrayList"%>
 <%@page import="hotel.bean.hotelDTO"%>
 <%@page import="hotel.bean.hotelDAO"%>
 <%@ page import = "hotel.bean.reviewDTO" %>
+<%@ page import = "java.text.SimpleDateFormat" %>
 <%@ page import = "hotel.bean.reviewDAO" %>
 <%@page import="java.util.List"%>
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@8/swiper-bundle.min.css"/>
 <script src="https://cdn.jsdelivr.net/npm/swiper@8/swiper-bundle.min.js"></script>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
 <script type="text/javascript" src="https://cdn.jsdelivr.net/jquery/latest/jquery.min.js"></script>
 <script type="text/javascript" src="https://cdn.jsdelivr.net/momentjs/latest/moment.min.js"></script>
 <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.min.js"></script>
@@ -18,6 +20,7 @@
 <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.css" />
 <link rel="stylesheet" href="/BookStay/resources/css/list_menu.css"/>
 <link rel="stylesheet" href="/BookStay/resources/css/hotelContent.css"/>
+
 <%@ include file="../views/main_bar.jsp" %>
 <%request.setCharacterEncoding("UTF-8");
 
@@ -33,7 +36,7 @@
   block = request.getParameter("block");
 		 }
  
- String[] imgArray={"default1.jpg","default1.jpg","default1.jpg"};
+ String[] imgArray={"default.gif","default.gif","default.gif"};
  if(!dao.checkNull(mainimg)){
  if(mainimg.contains(",")){
 	 imgArray=mainimg.split(",");
@@ -111,7 +114,6 @@ String title = request.getParameter("title");
 		
 			    roomValue[i] = adultValue;
 			    kidsValue[i] = kidsValue1;  
-			    
 	  %>
 	  <div id="pop<%=i+1 %>">
 	  <hr>
@@ -142,15 +144,25 @@ String title = request.getParameter("title");
 <div id="apr"><%=maindto.getPrice() %>원</div>
 <div id="bmo">
 <% if(heart!=null&&heart.contains(Integer.toString(ref))){%>
-<button type="button" onclick="window.location='../member/heartPro.jsp?num=<%=maindto.getNum()%>&ref=<%=ref%>'">찜취소하기</button>
-<%}else{ %>
-<button type="button" id="heart" onclick="window.location='../member/heartPro.jsp?num=<%=maindto.getNum()%>&ref=<%=ref%>'">
+<button type="button" id="heart" onclick="window.location='../member/heartPro.jsp?num=<%=maindto.getNum()%>&title=<%=title%>&ref=<%=ref%>&room=<%=rortlf%>&adult=<%=adult%>&kids=<%=kids%>&select=<%=select%>&checkin=<%=checkin%>&checkout=<%=checkout%>&heartadd=true'">
 	<img src="/BookStay/resources/img/heart.png">
 </button>
-</div>
+<%}else{ %>
+<button type="button" id="heart" onclick="window.location='../member/heartPro.jsp?num=<%=maindto.getNum()%>&title=<%=title%>&ref=<%=ref%>&room=<%=rortlf%>&adult=<%=adult%>&kids=<%=kids%>&select=<%=select%>&checkin=<%=checkin%>&checkout=<%=checkout%>&heartadd=true'">
+	<img src="/BookStay/resources/img/heart1.png">
+</button>
 <%} %>
+</div>
+<% double jumsu = re.getAvgJumsu(ref);
+String jum = String.valueOf(jumsu);
+if (jum.equals("0.0")) {
+    jum = "0";
+}
+double tjum = Double.parseDouble(jum) * 20;
+%>
+
 <button id="gnBtn" type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#staticBackdrop">
-  <%= re.getAvgJumsu(ref)%> /5 후기(<%= re.getcount(ref)%>)
+  <%= jum%> /5 후기(<%= re.getcount(ref)%>)
 </button>
 
 <!-- Modal -->
@@ -162,7 +174,11 @@ String title = request.getParameter("title");
         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
       <div class="modal-body">
-      <div id="chd">총 평점 <%= re.getAvgJumsu(ref)%></div>
+      <div id="chd"><div><b id="jum"><%= jum%></b>/ 5</div>
+          <div class="stars-outer">
+            <div class="stars-inner" style="width: <%=tjum%>%;"></div>
+          </div>
+          </div>
       <div>
         <% 
         for (reviewDTO review : reviews) {
@@ -171,13 +187,13 @@ String title = request.getParameter("title");
 		<div class="item" id="rid"><%= review.getId() %> 님</div> 
 		<div class="item" id="rjumsu"><b><%= review.getJumsu() %></b> /5</div>
 		<div class="item" id="rcon"><%= review.getContent() %></div> 
-		<div class="item" id="rreg"><%= review.getReg() %></div> 
+		<div class="item" id="rreg"><%= new SimpleDateFormat("yyyy-MM-dd").format(review.getReg()) %></div> 
 		</div>
         <%
         }
         %>
         <div>
-        <button class="btn btn-success" onclick="window.location='/BookStay/review/reviewWriteForm.jsp?ref=<%=ref %>'">글작성</button>
+        <button id="b5" class="btn btn-primary" onclick="window.location='/BookStay/review/reviewWriteForm.jsp?ref=<%=ref %>'">글작성</button>
         </div>
         </div>
       </div>
@@ -204,15 +220,22 @@ String title = request.getParameter("title");
 	
 	</div>
 </div>
-<hr id="hr"/>
+<hr id="hr5"/>
 <% 
 for(hotelDTO dto : list){
+	String imgname = dto.getImg();
 	%>
 	<div id="box1">
 	<form class="form" action="../horder/payment.jsp" method="post">
+	<input type="hidden" name="num" value="<%=dto.getNum()%>">
 	<input type="hidden" name="ref" value="<%=ref%>">
-	<div>
-	<img src="/BookStay/upload/<%=dto.getImg()%>">
+	<input type="hidden" name=checkin value="<%=checkin%>">
+	<input type="hidden" name=checkout value="<%=checkout%>">
+	<input type="hidden" name=title value="<%=title%>">
+	<input type="hidden" name=kids value="<%=kids%>">
+	<input type="hidden" name=adult value="<%=adult%>">
+	<div id="b3">
+	<img src="/BookStay/upload/<%=imgname%>">
 	</div>
 	<div id="box3">
 	<div class="title2"><%=dto.getRoomtype()%></div>
@@ -262,12 +285,6 @@ for(hotelDTO dto : list){
         </td>
     </tr>
 </table>
-</div>
-<div class="tnrqkr">
-	<p class="hr2">숙박 위치</p>
-</div>
-<div class="tnrqkr">
-	<p class="hr2">편의시설</p>
 </div>
 </div>	
 </body>

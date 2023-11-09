@@ -9,11 +9,12 @@ if(id==null){
 	%>
 	<script>
 		alert("로그인후 이용해주세요");
-		window.location="../member/main.jsp";
+		window.location="../views/main.jsp";
 	</script>
 	<%
 }
 String num = request.getParameter("num");
+
 MemberDTO dto = new MemberDTO();
 MemberDAO dao = new MemberDAO();
 dto=dao.myInfo(id);
@@ -45,11 +46,22 @@ if(heart==null){
 		nheart=nheart.substring(1);
 		}
 	}
-
-dao.updateHeart(id, nheart);
-dao.allupdateHeart();
+	if(request.getParameter("heartadd").equals("true")){
+	dao.updateHeart(id, nheart);
+	dao.allupdateHeart();
+	}
+	String title = request.getParameter("title");
+	int ref = Integer.parseInt(request.getParameter("ref"));
+	String checkin = request.getParameter("checkin");
+	String checkout = request.getParameter("checkout");
+	int room = Integer.parseInt(request.getParameter("room"));
+	int adult = Integer.parseInt(request.getParameter("adult"));
+	int kids = Integer.parseInt(request.getParameter("kids"));
+	int select = Integer.parseInt(request.getParameter("select"));
 %>
 <script>
 	alert("찜목록이 수정되었습니다. ");
-	window.location="../member/heartList.jsp";
 </script>
+<%
+	response.sendRedirect("../hotel/hotelContent.jsp?title="+title+"&ref="+ref+"&checkin="+checkin+"&checkout="+checkout+"&room="+room+"&adult="+adult+"&kids="+kids+"&select="+select);
+%>

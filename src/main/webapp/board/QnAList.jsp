@@ -18,7 +18,15 @@ int category = 20;
 if(request.getParameter("category")!=null){
 	category = Integer.parseInt(request.getParameter("category"));
 }
-ArrayList<boardDTO> list = dao.getList(category);
+int pageSize = 10; 
+String pageNum = request.getParameter("pageNum");
+if(pageNum == null){
+	pageNum="1";
+}
+int currentPage = Integer.parseInt(pageNum);
+int start = (currentPage - 1) * pageSize + 1; 
+int end = currentPage * pageSize; 
+ArrayList<boardDTO> list = dao.getList(category, start, end);
 adminDAO dao1=adminDAO.getInstance();
 adminDTO dto1 = dao1.getPreView();
 %>
@@ -31,7 +39,7 @@ adminDTO dto1 = dao1.getPreView();
 	  <li><button id="bn3" type="button" onclick="window.location='/BookStay/board/notice.jsp'">공지사항 </button></li>
 	  <li><button id="bn4" type="button" onclick="window.location='/BookStay/board/QnAList.jsp'">자주하는질문 </button></li>
 	  <li><button id="bn5" type="button" onclick="window.location='/BookStay/board/myQuestion.jsp'">1:1문의[<%=dto1.getNoanswer() %>] </button></li>
-	  <li><button id="bn6" type="button" onclick="window.location='/BookStay/admin/adminHotelListPro.jsp?check=1'">숙박업소 게시글 정보 </button></li>
+	  <li><button id="bn6" type="button" onclick="window.location='/BookStay/admin/adminHotelListPro.jsp?check=2'">숙박업소 게시글 정보 </button></li>
 	  <li><button id="bn7" type="button" onclick="window.location='/BookStay/admin/adminGradeList.jsp'">등급 관리/조회</button></li>
 	<%}else if(grade==11 || grade==0){ %>
 	 <li><button id="bn3" type="button" onclick="window.location='/BookStay/board/notice.jsp'">공지사항 </button></li>
@@ -50,13 +58,13 @@ adminDTO dto1 = dao1.getPreView();
 </form>
 
 <div id="all">
-	<div>
-	<a href="QnAPro.jsp?category=20" >전체</a>
-	<a href="QnAPro.jsp?category=21" >예약</a>
-	<a href="QnAPro.jsp?category=22" >체크인</a>
-	<a href="QnAPro.jsp?category=23" >검색</a>
-	<a href="QnAPro.jsp?category=24" >계정</a>
-	<a href="QnAPro.jsp?category=25" >기타</a>
+	<div id="cateBtn">
+	<a id="c1" href="QnAPro.jsp?category=20" >전체</a>
+	<a id="c2" href="QnAPro.jsp?category=21" >예약</a>
+	<a id="c3" href="QnAPro.jsp?category=22" >체크인</a>
+	<a id="c4" href="QnAPro.jsp?category=23" >검색</a>
+	<a id="c5" href="QnAPro.jsp?category=24" >계정</a>
+	<a id="c6" href="QnAPro.jsp?category=25" >기타</a>
 	</div>
 		<%for(boardDTO d : list){	%>
 		<div class="board-item">
@@ -74,14 +82,45 @@ adminDTO dto1 = dao1.getPreView();
 		<% 
 if(grade==99){
 	%>
-	<button id="c3" type="button" onclick="window.location='writeForm.jsp'">QnA글 작성</button>
+	<button id="c8" type="button" onclick="window.location='writeForm.jsp'">QnA글 작성</button>
 	<%
 }%>
+ <% 
+ if(category == 20){
+ int count = dao.count();
+	if(count > 0){
+		int pageCount = count / pageSize + (count % pageSize == 0 ? 0 : 1);
+		int startPage = (int)(currentPage/10)*10+1;
+		int pageBlock = 10;
+		int endPage = startPage + pageBlock - 1;
+		if(endPage > pageCount){
+			endPage = pageCount;
+		}
+		%>
+		<div id="page">
+		<%
+		if(startPage > 10){
+		%>	<a href="QnAList.jsp?&pageNum=<%=startPage-10 %>"><button class="button">이전</button></a>	
+		<%}
+		int p = Integer.parseInt(pageNum);
+		for(int i = startPage; i <= endPage; i++){
+			if(p == i){
+		%> <a href="QnAList.jsp?&pageNum=<%=i %>"><button id="color" class="button"><%=i %></button></a>	
+		<%}else{%>
+		   <a href="QnAList.jsp?&pageNum=<%=i %>"><button class="button"><%=i %></button></a>
+			<%}
+		}
+		if(endPage < pageCount){
+		%>	<a href="QnAList.jsp?&pageNum=<%=startPage+10 %>"><button class="button">다음</button></a>	
+		<%}
+	}
+ }
+%>
 </div>
 </div>
 </div>
 </div>
-	
+</div>	
 <script>
 function toggleContent(contentId) {
     var contentDiv = document.getElementById(contentId);
@@ -98,6 +137,45 @@ function toggleContent(contentId) {
         }
     }
     
+}
+</script>
+<script>
+var num = <%=category%>;
+var c1 = document.getElementById("c1");
+var c2 = document.getElementById("c2");
+var c3 = document.getElementById("c3");
+var c4 = document.getElementById("c4");
+var c5 = document.getElementById("c5");
+var c6 = document.getElementById("c6");
+if (num == 20) {
+    c1.classList.add("on");
+} else {
+    c1.classList.remove("on");
+}
+if (num == 21) {
+    c2.classList.add("on");
+} else {
+    c2.classList.remove("on");
+}
+if (num == 22) {
+    c3.classList.add("on");
+} else {
+    c3.classList.remove("on");
+}
+if (num == 23) {
+    c4.classList.add("on");
+} else {
+    c4.classList.remove("on");
+}
+if (num == 24) {
+    c5.classList.add("on");
+} else {
+    c5.classList.remove("on");
+}
+if (num == 25) {
+    c6.classList.add("on");
+} else {
+    c6.classList.remove("on");
 }
 </script>
 

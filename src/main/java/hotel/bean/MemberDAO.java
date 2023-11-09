@@ -21,6 +21,30 @@ public class MemberDAO extends  OracleDB {
 	    return instance;
 	}
 	
+	//2023 11 08 메서드  도준생성 
+    public int updateOnlyPw(String id, String name, String email, String pnum , String pw) {
+       int result= 0;
+       Connection conn=null;
+       PreparedStatement pstmt=null;
+       ResultSet rs=null;
+       conn = getConnection();
+       try {
+          String sql="UPDATE member set  pw=? where id=? and  name=?  and email=?  and pnum=? ";
+             pstmt =conn.prepareStatement(sql);
+             pstmt.setString(1, pw);
+             pstmt.setString(2,id);
+             pstmt.setString(3,name);
+             pstmt.setString(4, email);
+             pstmt.setString(5, pnum);
+             result = pstmt.executeUpdate();
+        } catch(Exception e) {
+            e.printStackTrace();
+         }finally {
+             close(rs, pstmt, conn);
+      }
+         return result;
+      } 
+	
 		
 			//아이디중복체크
 	// 아이디 중복 체크
@@ -56,7 +80,7 @@ public class MemberDAO extends  OracleDB {
 		
 
 	
-	 // 아이디,이름 이메일을 ,휴대폰번호를  이용해서 비밀번호찾기   -20231027 도준
+	 // 이름 이메일을 ,휴대폰번호를  이용해서 비밀번호찾기   -20231027 도준
 	    public boolean findPW(String id, String name, String email, String pnum) {
 	        Connection conn = null;
 	        PreparedStatement pstmt = null;
@@ -64,8 +88,7 @@ public class MemberDAO extends  OracleDB {
 	        boolean result = false;
 	        try {
 	            conn = getConnection();
-	            String sql = "\r\n"
-	            		+ "select *from member where name= ? and email= ? and pnum=? ;";
+	            String sql = "select *from member where name= ? and email= ? and pnum=?";
 	            pstmt = conn.prepareStatement(sql);
 	            pstmt.setString(1, name);
 	            pstmt.setString(2, email);
@@ -86,27 +109,27 @@ public class MemberDAO extends  OracleDB {
 	    
 		 // 이름 ,이메일을 ,휴대폰번호를  이용해서 아이디찾기   -20231027 도준
 	    public String findId(String name, String email, String pnum) {
-	    	 Connection conn = null;
-		        PreparedStatement pstmt = null;
-		        ResultSet rs = null;
-		        String result = "";
-		        try {
-		            conn = getConnection();
-		            String sql = "SELECT * FROM member WHERE name=? AND email=? AND pnum=?";
-		            pstmt = conn.prepareStatement(sql);
-		            pstmt.setString(1, name);
-		            pstmt.setString(2, email);
-		            pstmt.setString(3, pnum);
-		            rs = pstmt.executeQuery();
-		            if (rs.next()) {
-		                result = rs.getString("id"); // 사용자 정보가 일치하는 경우
-		            }
-		        } catch (Exception e) {
-		            e.printStackTrace();
-		        } finally {
-		            close(rs, pstmt, conn);
-		        }
-		        return result;
+	        Connection conn = null;
+	        PreparedStatement pstmt = null;
+	        ResultSet rs = null;
+	        String result = "";
+	        try {
+	            conn = getConnection();
+	            String sql = "SELECT id FROM member WHERE name=? AND email=? AND pnum=?";
+	            pstmt = conn.prepareStatement(sql);
+	            pstmt.setString(1, name);
+	            pstmt.setString(2, email);
+	            pstmt.setString(3, pnum);
+	            rs = pstmt.executeQuery();
+	            if (rs.next()) {
+	                result = rs.getString("id"); // 사용자 정보가 모두 일치하는 경우
+	            }
+	        } catch (Exception e) {
+	            e.printStackTrace();
+	        } finally {
+	            close(rs, pstmt, conn);
+	        }
+	        return result;
 	    }
 	    
 	    //2023 11 06 도준 생성  조회  > 인서트  > 딜리트 한번에함   :  타테이블에 이관하고 삭제하는 메서드  
@@ -390,29 +413,6 @@ public class MemberDAO extends  OracleDB {
 		
 	}
 	
-		//찜 취소하기 메서드
-		public void removeHeart(String id, String num) {
-		    Connection conn = null;
-		    PreparedStatement pstmt = null;
-		    ResultSet rs = null;
-		    
-		    conn = getConnection();
-		    
-		    try {
-		        String sql = "UPDATE member SET heart = ? WHERE id = ?";
-		        pstmt = conn.prepareStatement(sql);	       
-		        // 여기서는 찜하기 취소를 구현하므로, 'heart'에서 해당 아이템 ID를 제거합니다.
-		        // num이 아이템 ID라고 가정하고 아이템 ID를 제거하는 작업을 수행합니다.
-		        pstmt.setString(1, null); // 아이템 ID를 제거하거나 해당 필드를 초기화할 수도 있습니다.
-		        pstmt.setString(2, id);		  
-		        pstmt.executeUpdate();
-		    } catch (Exception e) {
-		        e.printStackTrace();
-		    } finally {
-		        close(rs, pstmt, conn);
-		    }
-		}      
-
 		 
 	    public List<hotelDTO> heartList(String id) throws Exception {
 	    	List<hotelDTO> heartList = new ArrayList<>();

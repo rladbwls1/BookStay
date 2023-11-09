@@ -4,6 +4,10 @@
 <%@ page import="hotel.bean.MemberDAO" %>
 <jsp:useBean id="dao" class="hotel.bean.MemberDAO" />
 <jsp:useBean id="dto" class="hotel.bean.MemberDTO" />
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-4bw+/aepP/YC94hEpVNVgiZdgIC5+VKNBQNGCHeKRQN+PtmoHDEXuppvnDJzQIu9" crossorigin="anonymous">
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-HwwvtgBNo3bZJJLYd8oVXjrBZt8cqVSpeBNS5n7C8IVInixGAoxmnlMuBnhbgrkm" crossorigin="anonymous"></script>
+<%@ include file="../views/main_bar.jsp" %>
+
 <%	
     request.setCharacterEncoding("UTF-8");
     String sid = (String) session.getAttribute("sid"); // 사용자 아이디 가져오기
@@ -13,6 +17,126 @@
     String birth = user.getBirth().substring(0, 11);
 %>
 <style>
+
+  /* 2023.11.07  그냥  내부 css 로  변경 */
+    body {
+            font-family: Arial, sans-serif;
+            background-color: #F2F2F2;
+            margin: 0;
+            padding: 0;
+        }
+
+    .UjinsHypboy{
+            box-sizing: border-box;
+            width: 100%;
+            height: 80px;
+            background-color: white;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            position: fixed;
+            top: 0;
+            left: 0;
+            padding: 0 20px;
+        }
+
+ .info {
+    cursor: pointer;
+    font-size: 16px;
+    
+}
+
+#logo {
+    width: 200px;
+    height: 60px;
+    font-weight: 800;
+    padding: 10px;
+    z-index: 150;
+    text-align: left;
+}
+
+        #logo > a {
+            width: 133px;
+            height: 40px;
+            font-size: 30px;
+            text-decoration: none;
+            color: black;
+        }
+
+        .table-container {
+            text-align: center;
+            margin: 150px auto;
+            width: 80%;
+            background-color: white;
+            border-radius: 15px;
+            padding: 20px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+
+        h2 {
+            text-align: center;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 20px 0;
+        }
+
+        th, td {
+            border: 1px solid #ccc;
+            padding: 8px;
+        }
+
+        th {
+            background-color: #333;
+            color: #fff;
+        }
+
+        .button-container {
+            text-align: center;
+            margin-top: 20px;
+        }
+        
+
+        input[type="button"] {
+            width: 22%;
+            height:5%;
+            background-color: #198754;
+            border: none;
+            border-radius: 8px;
+            color: white;
+            font-weight: bold;
+            margin: 0 6px;
+            cursor: pointer;
+        }
+
+        input[type="button"]:hover {
+            background-color: #157347;
+        }
+        
+        
+        .mainTable{
+           color:#787878;
+            
+        	width: 50%;
+        	padding:auto;
+        	margin:auto;
+        	
+        }
+        .mainTable{
+        	color:#787878;
+        	 
+        }
+    
+    
+    
+    
+     /* 2023.11.07  그냥  내부 css 로  변경 */
+    
+
+
+
 /*모달 생성*/
 #myModal {
     display: none;
@@ -47,7 +171,7 @@
     font-weight: bold;
 }/*   모달 생성*/
 
-	  /*  화원정보수정 모달 영역     */
+     /*  화원정보수정 모달 영역     */
       .modal-content{
             font-family: Arial, sans-serif;
             background-color: #F2F2F2;
@@ -60,9 +184,9 @@
     
     font-size: 14px;
 }   
-	  .modalTable {
-	  border:none;
-	 border: white;
+     .modalTable {
+     border:none;
+    border: white;
     width: 100%; /* 수정: 테이블 폭을 80%로 조정 */
     margin: 0 auto; /* 테이블을 가운데 정렬 */
     border-collapse: collapse;
@@ -74,23 +198,23 @@
 }
 
 .modalHiddenshow{
-	display: none;
+   display: none;
 }
 
 
 .mainment{
-	font-weight: bold;
-	font-size: x-large;
+   font-weight: bold;
+   font-size: x-large;
 }
 .subment{
-		font-size: large;
+      font-size: large;
 }
 .modalsumitinput:hover {
     background-color: #157347;
 }
 .modalInputText{
-	left:0;
-	margin-left:0px;
+   left:0;
+   margin-left:0px;
     width: 50%;
     height: 40px;
     border-radius: 8px;
@@ -98,7 +222,7 @@
 }
 
 .modalSumitinput {
-	margin-top:10px;
+   margin-top:10px;
 margin-bottom:10px;
     width:30%;
     background-color: #198754;
@@ -118,7 +242,7 @@ margin-bottom:10px;
     font-weight: bolder;
 }
       
-	/* 회원 정보수정 모달 영역끝*/
+   /* 회원 정보수정 모달 영역끝*/
 </style>
 <script>
 
@@ -190,20 +314,74 @@ function closeModalAndRedirect() {
 }
 
 </script>
-            
 
 <html>
 <head>
     <title>마이페이지</title>
-    <link rel="stylesheet" href="/BookStay/resources/memberinfo.css" type="text/css">
+    <style>
+    @charset "UTF-8";
+        .table-container {
+            text-align: center;
+            margin: 150px auto;
+            width: 80%;
+            background-color: white;
+            border-radius: 15px;
+            padding: 20px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+
+        h2 {
+            text-align: center;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 20px 0;
+        }
+
+        th, td {
+            border: 1px solid #ccc;
+            padding: 8px;
+        }
+
+        th {
+            background-color: #333;
+            color: #fff;
+        }
+
+        .button-container {
+            text-align: center;
+            margin-top: 20px;
+        }
+        
+
+        input[type="button"] {
+            width: 22%;
+            height:5%;
+            background-color: #198754;
+            border: none;
+            border-radius: 8px;
+            color: white;
+            font-weight: bold;
+            margin: 0 6px;
+            cursor: pointer;
+        }
+
+        input[type="button"]:hover {
+            background-color: #157347;
+        }
+        
+        .mainTable{
+        	color:#787878;
+        	 
+        }
+    
+    </style>
+    <link rel="stylesheet" href="/resources/css/memberinfo.css" type="text/css">
 </head>
 <body class="mainbody">
-    <div class="UjinsHypboy">
-        <div id="logo">
-            <a href="/BookStay/views/main.jsp">BookStay</a>
-        </div>
-        <div class="info">고객센터</div>
-    </div>
+
     <div class="table-container" >
         <h2>마이페이지</h2>
         <table border="1"  class="mainTable">
@@ -232,29 +410,29 @@ function closeModalAndRedirect() {
                 <td><%= user.getPnum() %></td>
             </tr>
         </table>
-        <div class="button-container">
-            <input type="button" value="메인" onclick="location.href='../views/main.jsp'" id="button-container_a" class="button_sub">
-            <input type="button" value="로그아웃" onclick="location.href='logout.jsp'" id="button-container_b" class="button_sub">
+       <div class="button-container">
+            <input type="button" value="로그아웃" onclick="location.href='/BookStay/member/logout.jsp'" id="button-container_b" class="button_sub">
             <input type="button" value="회원정보수정" onclick="openModal('updateFirst')" id="button-container_c" class="button_sub">
             <input type="button" value="회원탈퇴"  onclick="location.href='/BookStay/member/deleteSelect.jsp'" id="button-container_d" class="button_sub">
+            <input type="button" value="예약확인 "  onclick="location.href='/BookStay/member/memberlist.jsp'" id="button-container_d" class="button_sub">
         </div>
     </div>
-	</body>
-	</html>
+   </body>
+   </html>
    <!--   myModal :updateFirst  회원정보수정영역 시작  -->
   <div id="myModal" class="modal">
     <div class="modal-content">
         <span class="close" onclick="closeModal()">&times;</span>     
-  	    <form action="updateFirstPro.jsp" method="post"  onsubmit="return validateForm();">
-  	  <table class="modalTable" style="border:none;">
+         <form action="updateFirstPro.jsp" method="post"  onsubmit="return validateForm();">
+       <table class="modalTable" style="border:none;">
       
-          	  <tr  style="border:none;">
+               <tr  style="border:none;">
                 <td class="modalHiddenshow">
                 </td>
                 <td  style="border:none;">
                 <br/>
                     <div class="modalMent" >
-                    	 <div class="mainment"> 회원정보 수정</div><br/>
+                        <div class="mainment"> 회원정보 수정</div><br/>
                         <div class="subment">회원정보 확인을 위해 비밀번호를 입력해주세요</div>
                     </div>
                 </td>
@@ -281,4 +459,3 @@ function closeModalAndRedirect() {
         </form>
     </div>
 </div>
- <!--   myModal :updateFirst  회원정보수정영역 종료  -->

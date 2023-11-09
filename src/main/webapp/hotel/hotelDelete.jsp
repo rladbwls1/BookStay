@@ -27,7 +27,7 @@ if(re_step==1){
 	%>
 	<script>
 		alert("삭제되었습니다. ");
-		window.location="hotelContent.jsp?ref=<%=ref%>";
+		window.location=document.referrer;
 		
 	</script>
 	<%
@@ -36,7 +36,7 @@ if(re_step==1){
 	%>
 	<script>
 		alert("삭제되었습니다. ");
-		window.location="/views/hlist.jsp";
+		window.location=document.referrer;
 	</script>
 	<%
 	
