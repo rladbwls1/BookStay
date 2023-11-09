@@ -59,9 +59,9 @@
             <div class="btn8">
                     <input type="submit" id="btn" class="btn btn8 btn-primary" value="다음" />
                     <button type="button" id="btn1" class="btn btn8 btn-secondary" role="button"> 취소 </button>
-           </div>
-        </form>
+
                 </div>
+                </form>
 <% 	
     } else {
 %>

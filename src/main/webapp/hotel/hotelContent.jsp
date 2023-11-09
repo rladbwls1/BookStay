@@ -24,6 +24,7 @@
 <%@ include file="../views/main_bar.jsp" %>
 <%request.setCharacterEncoding("UTF-8");
 
+
  int ref= Integer.parseInt(request.getParameter("ref"));
  hotelDAO dao = new hotelDAO();
  reviewDAO re = new reviewDAO();
@@ -32,6 +33,8 @@
  ArrayList<hotelDTO> list=dao.getContent(ref);
  String mainimg=maindto.getImg();
  String block = "0";
+ boolean stayedcheck = re.checkStayedHotel(id, ref);
+ System.out.println(stayedcheck);
  if(request.getParameter("block")!=null){
   block = request.getParameter("block");
 		 }
@@ -53,7 +56,8 @@
  }
 %>
 <%
-String title = request.getParameter("title");
+	String title = request.getParameter("title");
+	String utitle=URLEncoder.encode(title,"UTF-8");
 	String checkin = request.getParameter("checkin");
 	String checkout = request.getParameter("checkout");
 	int rortlf = Integer.parseInt(request.getParameter("room"));
@@ -144,11 +148,11 @@ String title = request.getParameter("title");
 <div id="apr"><%=maindto.getPrice() %>원</div>
 <div id="bmo">
 <% if(heart!=null&&heart.contains(Integer.toString(ref))){%>
-<button type="button" id="heart" onclick="window.location='../member/heartPro.jsp?num=<%=maindto.getNum()%>&title=<%=title%>&ref=<%=ref%>&room=<%=rortlf%>&adult=<%=adult%>&kids=<%=kids%>&select=<%=select%>&checkin=<%=checkin%>&checkout=<%=checkout%>&heartadd=true'">
+<button type="button" id="heart" onclick="window.location='../member/heartPro.jsp?num=<%=maindto.getNum()%>&title=<%=utitle%>&ref=<%=ref%>&room=<%=rortlf%>&adult=<%=adult%>&kids=<%=kids%>&select=<%=select%>&checkin=<%=checkin%>&checkout=<%=checkout%>&heartadd=true'">
 	<img src="/BookStay/resources/img/heart.png">
 </button>
 <%}else{ %>
-<button type="button" id="heart" onclick="window.location='../member/heartPro.jsp?num=<%=maindto.getNum()%>&title=<%=title%>&ref=<%=ref%>&room=<%=rortlf%>&adult=<%=adult%>&kids=<%=kids%>&select=<%=select%>&checkin=<%=checkin%>&checkout=<%=checkout%>&heartadd=true'">
+<button type="button" id="heart" onclick="window.location='../member/heartPro.jsp?num=<%=maindto.getNum()%>&title=<%=utitle%>&ref=<%=ref%>&room=<%=rortlf%>&adult=<%=adult%>&kids=<%=kids%>&select=<%=select%>&checkin=<%=checkin%>&checkout=<%=checkout%>&heartadd=true'">
 	<img src="/BookStay/resources/img/heart1.png">
 </button>
 <%} %>
@@ -193,8 +197,12 @@ double tjum = Double.parseDouble(jum) * 20;
         }
         %>
         <div>
+        <%System.out.println("test : "+re.checkStayedHotel(id, ref)+" ref : "+ref); %>
+        <%if(re.checkStayedHotel(id, ref)) {%>
         <button id="b5" class="btn btn-primary" onclick="window.location='/BookStay/review/reviewWriteForm.jsp?ref=<%=ref %>'">글작성</button>
+         <%} %>
         </div>
+       
         </div>
       </div>
     </div>

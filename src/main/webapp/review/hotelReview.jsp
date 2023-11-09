@@ -7,7 +7,9 @@
     
 <html>
 <head>
-<%request.setCharacterEncoding("UTF-8"); %>
+<%request.setCharacterEncoding("UTF-8"); 
+  String id = (String)session.getAttribute("sid");
+%>
     <style>
 .flexbox {
 			
@@ -44,6 +46,7 @@
     String ref = request.getParameter("ref");
     reviewDAO dao = new reviewDAO();
     List<reviewDTO> reviews = dao.getReviewHotel(Integer.parseInt(ref));
+    int iref = Integer.parseInt(request.getParameter("ref"));
     
 %>
     <h2>호텔 리뷰</h2>
@@ -60,6 +63,9 @@
         <%
         }
         %>
+        <%
+        if(dao.checkStayedHotel(id,iref)) {%>
         <button class="btn btn-success" onclick="window.location='../review/reviewWriteForm?ref=<%=ref%>'">글작성</button>
+        <%} %>
 </body>
 </html>

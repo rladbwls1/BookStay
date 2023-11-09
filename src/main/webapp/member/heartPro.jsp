@@ -14,7 +14,6 @@ if(id==null){
 	<%
 }
 String num = request.getParameter("num");
-
 MemberDTO dto = new MemberDTO();
 MemberDAO dao = new MemberDAO();
 dto=dao.myInfo(id);
@@ -61,7 +60,5 @@ if(heart==null){
 %>
 <script>
 	alert("찜목록이 수정되었습니다. ");
+	window.location="../hotel/hotelContent.jsp?title=<%=title%>&ref=<%=ref%>&checkin=<%=checkin%>&checkout=<%=checkout%>&room=<%=room%>&adult=<%=adult%>&kids=<%=kids%>&select=<%=select%>";
 </script>
-<%
-	response.sendRedirect("../hotel/hotelContent.jsp?title="+title+"&ref="+ref+"&checkin="+checkin+"&checkout="+checkout+"&room="+room+"&adult="+adult+"&kids="+kids+"&select="+select);
-%>

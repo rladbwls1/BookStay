@@ -24,7 +24,12 @@ public class hotelDAO extends OracleDB{
 		    }
 		}
 		String[] chk = check.split(",");
-		String[] typeArray = new String[chk.length];
+		String[] typeArray=null;
+		if(check.contains("4")) {
+			typeArray= new String[chk.length+1];
+		}else {
+		typeArray = new String[chk.length];
+		}
 		for (int i = 0; i < chk.length; i++) {
 		    if ("1".equals(chk[i])) { 
 		        typeArray[i] = "호텔";
@@ -33,7 +38,8 @@ public class hotelDAO extends OracleDB{
 		    } else if ("3".equals(chk[i])) {
 		        typeArray[i] = "모텔";
 		    } else if ("4".equals(chk[i])) {
-		    	typeArray[i] = "기타";
+		    	typeArray[i] = "펜션";
+		    	typeArray[i+1] = "게스트하우스";
 		    }
 		}
 		if (sel == 5) {
@@ -208,16 +214,22 @@ public class hotelDAO extends OracleDB{
 				}
 			}
 			String[] chk = check.split(",");
-			String[] typeArray = new String[chk.length];
+			String[] typeArray=null;
+			if(check.contains("4")) {
+				typeArray= new String[chk.length+1];
+			}else {
+			typeArray = new String[chk.length];
+			}
 			for (int i = 0; i < chk.length; i++) {
-			    if ("1".equals(chk[i])) {
+			    if ("1".equals(chk[i])) { //
 			        typeArray[i] = "호텔";
 			    } else if ("2".equals(chk[i])) {
 			        typeArray[i] = "리조트";
 			    } else if ("3".equals(chk[i])) {
 			        typeArray[i] = "모텔";
 			    } else if ("4".equals(chk[i])) {
-			    	typeArray[i] = "기타";
+			    	typeArray[i] = "펜션";
+			    	typeArray[i+1] = "게스트하우스";
 			    }
 			}
 			sql = "select count(*) from hotel where (title like ? or address like ?) and type in (";

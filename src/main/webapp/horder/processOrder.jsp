@@ -94,10 +94,13 @@
         	<%
         }else{
         int renum = dao.getRecentOrder(id);
-        
         %>
         <div id="list">
-        <h2>카드 결제</h2>
+        <%if(request.getParameter("paytype").equals("card")){ %>
+        	<h2>카드 결제</h2>
+        <%}else if(request.getParameter("paytype").equals("cash")){ %>
+        	<h2>현금 결제</h2>
+        <%} %>
         <form id="form" action="cardProcess.jsp" method="post">
         <input type="hidden" name="partner_order_id" value="<%=renum%>">
         <input type="hidden" name="partner_user_id" value="<%=id%>">
@@ -128,7 +131,7 @@
              <tr>
                 <td class="title">총 금액</td>
                 <td class="an"><%=hdto.getPrice()%>원</td>
-       		</tr>
+</tr>
        </table>
        <div class="btn8">
        <button id="btn" type="button" onclick="history.go(-1)">뒤로가기</button>
@@ -138,7 +141,7 @@
         <%}else if(paytype.equals("card")) {%>
        <button id="btn1" type="submit">카드 결제</button>
        </div>
-        <%}%>
-       </form>
-       <%} %>
+ </form>
        </div>
+   
+       <%}} %>

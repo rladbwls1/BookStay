@@ -46,7 +46,7 @@ if(dto.getState()==0){
 	</tr>
 	<tr>
 		<td>결제금액</td>
-		<td><%=dto.getAdult()%>원</td>
+		<td><%=dto.getPrice()%>원</td>
 	</tr>
 	<tr>
 		<td>결제방식</td>

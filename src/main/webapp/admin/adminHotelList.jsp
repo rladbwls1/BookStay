@@ -37,7 +37,7 @@ int check = Integer.parseInt(request.getParameter("check"));
 <div id="list">
 	<ul id="ul1">
 	  <li><button id="bn1" type="button" onclick="window.location='/BookStay/admin/adminMain.jsp'">요약정보</button></li>
-	  <li><button id="bn2" type="button" onclick="window.location='/BookStay/admin/adminlist.jsp'">예약목록 </button></li>
+	  <li><button id="bn2" type="button" onclick="window.location='/BookStay/admin/adminlist.jsp?check=ing'">예약목록 </button></li>
 	  <li><button id="bn3" type="button" onclick="window.location='/BookStay/board/notice.jsp'">공지사항 </button></li>
 	  <li><button id="bn4" type="button" onclick="window.location='/BookStay/board/QnAList.jsp'">자주하는질문 </button></li>
 	  <li><button id="bn5" type="button" onclick="window.location='/BookStay/board/myQuestion.jsp'">1:1문의[<%=dto1.getNoanswer() %>] </button></li>
@@ -122,8 +122,8 @@ int check = Integer.parseInt(request.getParameter("check"));
 			%>
 			<tr>
 				<td><%=d.getNum()%></td><td><%=d.getTitle()%></td><td><%=d.getAddress() %></td>
-				<td><button type="button" id="cg" class="btn" onclick="window.location='/BookStay/admin/adminStatusUpdate.jsp?ref=<%=d.getNum()%>&status=<%=d.getStatus()%>&check=true'">등록글 비활성화</button>
-				<button type="button" onclick="window.location.href='/BookStay/hotel/hotelDelete.jsp?num=<%=d.getNum()%>&re_step=<%=d.getRe_step()%>&ref=<%=d.getRef() %>'" class="btn btn-danger">삭제</button></td>
+<td><button type="button" class="btn btn-Secondary" onclick="window.location='/BookStay/admin/adminStatusUpdate.jsp?ref=<%=d.getNum()%>&status=<%=d.getStatus()%>&check=true'">등록글 비활성화</button>
+				<button type="button" onclick="window.location.href='/BookStay/hotel/hotelDelete.jsp?num=<%=d.getNum()%>&re_step=<%=d.getRe_step()%>&ref=<%=d.getRef() %>'" class="btn btn-Warning">삭제</button></td>
 			</tr>
 			<%
 		  }%>
