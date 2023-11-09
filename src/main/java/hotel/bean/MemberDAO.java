@@ -146,16 +146,16 @@ public class MemberDAO extends  OracleDB {
 	               rs = pstmt.executeQuery();
 	               if (rs.next()) {
 	                   // 2. 조회한 정보로 다른 테이블에 인서트 (예: quitmember 테이블)
-	                   String insertQuery = "INSERT INTO quitmember (quitmember_seq.nextval,id, pw, name, email, birth, addr, pnum, joindate) VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
+	                   String insertQuery = "INSERT INTO quitmember (num,id, pw, name, email, birth, addr, pnum, joindate) VALUES (quitmember_seq.nextval,?, ?, ?, ?, ?, ?, ?, ?)";
 	                   pstmt = conn.prepareStatement(insertQuery);
 	                   pstmt.setString(1, rs.getString("id"));
 	                   pstmt.setString(2, rs.getString("pw"));
 	                   pstmt.setString(3, rs.getString("name"));
 	                   pstmt.setString(4, rs.getString("email"));
-	                   pstmt.setDate(5, rs.getDate("birth"));
+	                   pstmt.setString(5, rs.getString("birth"));
 	                   pstmt.setString(6, rs.getString("addr"));
 	                   pstmt.setString(7, rs.getString("pnum"));
-	                   pstmt.setDate(8, rs.getDate("joindate"));
+	                   pstmt.setTimestamp(8, rs.getTimestamp("joindate"));
 	                   check=pstmt.executeUpdate();
 	                   // 3. 원래 테이블에서 삭제 (예: member 테이블)
 	                   if(check==1) {
@@ -583,7 +583,7 @@ public class MemberDAO extends  OracleDB {
 	                pstmt.setString(5, quitmember.getBirth());
 	                pstmt.setString(6, quitmember.getAddr());
 	                pstmt.setString(7, quitmember.getPnum());
-	                pstmt.setString(8, quitmember.getJoindate());
+	                pstmt.setTimestamp(8, quitmember.getJoindate());
 	                result = pstmt.executeUpdate();
 	            }
 	        } catch (SQLException e) {
@@ -593,6 +593,20 @@ public class MemberDAO extends  OracleDB {
 	            // Connection 및 리소스 관련 처리
 	        }
 	        return result;
+	    }
+	    
+	    public void lastLoginUpdate(String id) {
+	    	try {
+				conn=getConnection();
+				String sql="update member set lastlogin=sysdate where id=? and not grade=81";
+				pstmt=conn.prepareStatement(sql);
+				pstmt.setString(1, id);
+				pstmt.executeUpdate();
+			} catch (Exception e) {
+				e.printStackTrace();
+			} finally {
+				close(rs, pstmt, conn);
+			}
 	    }
 
 }

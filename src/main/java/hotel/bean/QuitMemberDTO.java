@@ -1,5 +1,7 @@
 package hotel.bean;
 
+import java.sql.Timestamp;
+
 public class QuitMemberDTO {
 
 		private String id;
@@ -9,7 +11,7 @@ public class QuitMemberDTO {
 		private String birth;
 		private String pnum;
 		private String addr;
-		private String joindate;
+		private Timestamp joindate;
 
 
 		public String getId() {
@@ -48,13 +50,14 @@ public class QuitMemberDTO {
 		public void setAddr(String addr) {
 			this.addr = addr;
 		}
-		public String getJoindate() {
+		
+
+		public Timestamp getJoindate() {
 			return joindate;
 		}
-		public void setJoindate(String joindate) {
+		public void setJoindate(Timestamp joindate) {
 			this.joindate = joindate;
 		}
-
 		public String getName() {
 			return name;
 		}

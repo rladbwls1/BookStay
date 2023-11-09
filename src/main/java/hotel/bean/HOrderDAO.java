@@ -205,6 +205,28 @@ public class HOrderDAO extends OracleDB {
 		}
 		return result;
 	}
+	public int count(String id) {
+		int result = 0;
+		// num이 0일 때 현재 예약 내역
+		conn = getConnection();
+		String sql = "";
+			sql = "select count(*) from "
+					+ "	horder b,hotel h where "
+					+ "	b.ref=h.num and b.id=?";
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1, id);
+			rs = pstmt.executeQuery();
+			if(rs.next()) {
+				result = rs.getInt(1);
+			}
+		}catch(Exception e) {
+			e.printStackTrace();
+		}finally {
+			close(rs, pstmt, conn);
+		}
+		return result;
+	}
 	public int insertOrder(HOrderDTO order)throws Exception {
     	int result=0;
 		try{			
@@ -229,4 +251,42 @@ public class HOrderDAO extends OracleDB {
    	    }
 		return result;
    	}
+	public List<HOrderDTO> getHOrders(String orderId, int start, int end) {
+	       List<HOrderDTO> orders = new ArrayList<>();
+	try {
+	       String sql = "select * from "
+	              
+	      + "(select b.* , rownum r from "
+	               + "(select * from horder where id=? order by renum desc) b) "
+	               + "    where r >= ? and r <= ? ";
+	       
+	       conn = getConnection();
+	          pstmt = conn.prepareStatement(sql);
+	          pstmt.setString(1, orderId);
+	         pstmt.setInt(2, start);
+	         pstmt.setInt(3, end);
+	         rs = pstmt.executeQuery();
+	               while (rs.next()) {
+	                   HOrderDTO order = new HOrderDTO();
+	                   order.setRenum(rs.getInt("renum"));
+	                   order.setId(rs.getString("id"));
+	                   order.setRef(rs.getInt("ref"));
+	                   order.setCheckin(rs.getString("checkin")); // 데이터베이스 컬럼 이름을 확인하고 수정
+	                   order.setCheckout(rs.getString("checkout"));
+	                   order.setAdult(rs.getInt("adult"));
+	                   order.setKid(rs.getInt("kid"));
+	                   order.setPaytype(rs.getString("paytype"));
+	                  order.setReg(rs.getTimestamp("reg"));
+	                  order.setName(rs.getString("name"));
+	                  order.setState(rs.getInt("state"));
+	                  order.setPaid(rs.getInt("paid"));
+	                   orders.add(order);
+	              }
+	      }catch(Exception e) {     
+	         e.printStackTrace();
+	      }finally {
+	         close(rs,pstmt,conn);
+	         
+	      }return orders;
+	   }
 }

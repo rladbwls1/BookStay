@@ -26,7 +26,9 @@
 MemberDAO mdao = MemberDAO.getInstance();
 String id = (String) session.getAttribute("sid");
 mdao.checkHuman();
+mdao.lastLoginUpdate(id);
 int grade= mdao.checkGrade(id);
+
 %>
 <script>
 	function loc(v1){
