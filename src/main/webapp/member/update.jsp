@@ -7,6 +7,7 @@
 <jsp:setProperty property="*" name="dto" />
 
 
+<%@ include file="../views/main_bar.jsp" %>
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-4bw+/aepP/YC94hEpVNVgiZdgIC5+VKNBQNGCHeKRQN+PtmoHDEXuppvnDJzQIu9" crossorigin="anonymous">
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-HwwvtgBNo3bZJJLYd8oVXjrBZt8cqVSpeBNS5n7C8IVInixGAoxmnlMuBnhbgrkm" crossorigin="anonymous"></script>
 <%
@@ -28,50 +29,16 @@ dto.setId(sid);
 <style>
 @charset "utf-8";
 
-/* 헤더 라인 시작 */
-#font{
-	
-	margin-bottom:5px;
-	margin-top:10px;
-}
-
-    
-
- .info {
-    cursor: pointer;
-    font-size: 16px;
-	
-}
-
-#logo {
-    width: 200px;
-    height: 60px;
-    font-weight: 800;
-    padding: 10px;
-    z-index: 150;
-    text-align: left;
-}
-
-        #logo > a {
-            width: 133px;
-            height: 40px;
-            font-size: 30px;
-            text-decoration: none;
-            color: black;
-        }
-
-
 /* 헤더 끝 */
-body {
+.formbody {
     width: 600px;
     height: 650px;
     margin: 0 auto;
-    background-color: #F2F2F2;
-    margin-top: 170px;
+    margin-top: 70px;
     border: none;
 }
 
-table {
+.table-container {
 	 border: white;
     width: 100%; /* 수정: 테이블 폭을 80%로 조정 */
     margin: 0 auto; /* 테이블을 가운데 정렬 */
@@ -85,8 +52,7 @@ table {
 .hiddenshow{
 	display: none;
 }
-th,
-td {    
+.table-container th{
 	margin:5px;
 	padding:10px 0px 10px 0px;
 	width:110%;
@@ -95,12 +61,21 @@ td {
     font-size: 14px;
 }
 
-th {
+.table-container  td {    
+	margin:5px;
+	padding:10px 0px 10px 0px;
+	width:110%;
+    text-align: center;
+    font-family: Arial, sans-serif;
+    font-size: 14px;
+}
+
+.table-container th {
     background-color: #333;
     color: #fff;
 }
 
-table tr a {
+.table-container tr a {
     color: #999999;
     text-decoration: none;
 }
@@ -168,7 +143,7 @@ margin-bottom:10px;
 #C9C9C9;
 }
 
-.btn {
+.addrbtn {
     width: 20%;
     background-color:#636363;
     height: 35px;
@@ -219,7 +194,6 @@ margin-bottom:10px;
 	font-size: x-large;
 	
 }
-
 
 
 
@@ -351,12 +325,12 @@ function updateEmail() {
   
 </head>
 <body>
-<form method="post" action="updatePro.jsp">
+<form method="post" action="updatePro.jsp" class="formbody">
     <table border="1" class="table-container">
     
     	<tr >
     	  <td colspan="3" style="text-align:center;">
-    	  		<div id="font">	<font size="+3" >	<%=request.getParameter("name")%>님 환영합니다  !  </font></div>
+    	  		<div id="font">	<font size="+3" >	<%=name%>님 환영합니다  !  </font></div>
     	  <td>
     	</tr>
     				<tr>
@@ -367,12 +341,12 @@ function updateEmail() {
     				
          <tr>
               
-               <td width="200" class="hiddenshow">
+               <td width="200" class="hiddenshow" >
                     <label for="pw">변경 할 비밀번호</label>
                 </td>
                 
                 <td width="400">
-                    <input type="password" id="passwordField" name="pw" size="15" placeholder="변경하실 비밀번호를 입력하세요" class="inputText" onblur="validatePassword(this, 'pwError')"  >
+                    <input type="password" id="passwordField" name="pw" size="15" placeholder="변경하실 비밀번호를 입력하세요" class="inputText" onblur="validatePassword(this, 'pwError')"   >
                     <button type="button" onclick="togglePasswordVisibility('passwordField')" class="pwcheck">비밀번호 표시</button><br/>
                     <span id="pwError" style="color: red;"></span>
                 </td>
@@ -415,8 +389,8 @@ function updateEmail() {
                     <label for="addr">주소</label>
                 </td>
                 <td width="400">
-                    <input type="text" name="addr"  class="inputText"  size="15"  required   id="address" placeholder="변경하실 주소를 입력하세요 ">
-                    <button type="button" class="btn" onclick="searchAddress()">주소검색</button>
+                    <input type="text" name="addr"  class="inputText"  size="15"    id="address" placeholder="변경하실 주소를 입력하세요 ">
+                    <button type="button" class="addrbtn" onclick="searchAddress()">주소검색</button>
                       <div id="result"></div>
                     
                 </td>
@@ -426,7 +400,7 @@ function updateEmail() {
 	                    <label for="pnum">변경할 휴대폰 번호</label>
 	                </td>
 	                <td >
-	                    <input type="text" name="pnum"   style="width:70%;" size="15" placeholder="변경할 휴대폰번호"  class="inputText"  required  maxlength="13" oninput="formatPhoneNumber(this);">
+	                    <input type="text" name="pnum"   style="width:70%;" size="15" placeholder="변경할 휴대폰번호"  class="inputText"    maxlength="13" oninput="formatPhoneNumber(this);">
 	                </td>
             </tr>
         <tr>

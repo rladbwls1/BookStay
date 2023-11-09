@@ -13,7 +13,6 @@
 <head>
 
 <%     
-
 String name = request.getParameter("name");
 String email = request.getParameter("email");
 String pnum = request.getParameter("pnum"); %>
@@ -233,7 +232,7 @@ margin-bottom:10px;
 	   }
 	}
    
-   function updateEmail() {
+   function updateEmail2() {
 	   const emaillist = document.getElementById('emaillist2');
 	   const emailInput = document.getElementById('email2');
 
@@ -406,7 +405,7 @@ margin-bottom:10px;
             <td class="hiddenshow"></td>
             <td>
                 <!-- <input type="submit" name="confirm" value="아이디찾기" class="modalsumitinput" onclick="openCenteredWindow(event)" />-->            
-<input type="submit" name="confirm" value="아이디찾기" class="modalsumitinput";>
+<input type="submit" name="confirm" value="아이디찾기" class="modalsumitinput">
 
 
 
@@ -474,7 +473,7 @@ margin-bottom:10px;
                 </td>
 	                <td width="400">
                 <input type="text" id="email2" name="email" size="14" placeholder="이메일을 입력하세요" class="modalinputText"  />
-                <select class="box" id="emaillist2" name="emaillist" onchange="updateEmail('email2', 'emaillist2')">
+                <select class="box" id="emaillist2" name="emaillist" onchange="updateEmail2('email2', 'emaillist2')">
                     <option value="type">직접 입력</option>
                     <option value="@naver.com">@naver.com</option>
                     <option value="@google.com">@google.com</option>

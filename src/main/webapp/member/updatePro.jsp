@@ -13,13 +13,12 @@
  
     MemberDAO manager = MemberDAO.getInstance();
     int updateResult = manager.updateMember(member);
-	 String id = request.getParameter("id");
-	 String email = request.getParameter("email");
-   	String name = request.getParameter("name");
-  	 String birth = request.getParameter("birth");
-   	String addr = request.getParameter("addr");
-   	String pnum = request.getParameter("pnum");
-	String pw=request.getParameter("pw"); 
+    String pw = request.getParameter("pw"); // 비밀번호 받기
+    String pw2 = request.getParameter("pw2"); // 비밀번호 확인 받기
+    String email = request.getParameter("email"); // 이메일 받기
+    String addr = request.getParameter("addr"); // 주소 받기
+    String pnum = request.getParameter("pnum"); // 휴대폰 번호 받기
+ 
 %>
 
 <table width="270" border="0" cellspacing="0" cellpadding="5" align="center">
@@ -36,9 +35,9 @@
       	</script>
               		
         <% } else { %>
-          <script>alert("어딘가 잘못되었습니다");
+          <script>alert("오류가 있습니다 다른 업무보시는동안  부리나게 방법을 찾아보겠습니다 ");
           
-          window.location="/BookStay/member/update.jsp";</script>
+          window.location="/BookStay/views/main.jsp";</script>
               			
         <% } %>
       </p>

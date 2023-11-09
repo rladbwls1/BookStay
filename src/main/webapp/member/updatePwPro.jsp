@@ -30,7 +30,7 @@
 
     
     int updateResult = manager.updateOnlyPw(checkid,pw);
-
+	System.out.println(checkid+","+pw);
     // 변경 결과에 따라 메시지를 표시하고 적절한 페이지로 리디렉션
     if (updateResult == 1) {
         // 비밀번호 변경 성공

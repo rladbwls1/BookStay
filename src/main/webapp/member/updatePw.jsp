@@ -196,7 +196,7 @@ margin-bottom:10px;
 
 <form method="post" action="updatePwPro.jsp">
     <table border="1" class="table-container">
-	    <input type="hidden" name="checkid" value=<%=checkid %>>
+	    <input type="hidden" name="checkid" value=<%=checkid%>>
     	<tr >
     	  <td colspan="3" style="text-align:center;">
     	  		<div id="font">	<font size="+1" >	수정 하실 비밀번호를 입력하세요 </font></div>
