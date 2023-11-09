@@ -28,6 +28,7 @@
  int ref= Integer.parseInt(request.getParameter("ref"));
  hotelDAO dao = new hotelDAO();
  reviewDAO re = new reviewDAO();
+ dao.countUpdate();
  List<reviewDTO> reviews = re.getReviewHotel(ref);
  hotelDTO maindto=dao.getContentMain(ref);
  ArrayList<hotelDTO> list=dao.getContent(ref);
