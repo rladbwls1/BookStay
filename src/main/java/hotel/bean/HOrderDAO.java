@@ -110,15 +110,12 @@ public class HOrderDAO extends OracleDB {
 	
 	public List<HOrderDTO> getOrdersAdmin(int start, int end) {
 	    List<HOrderDTO> orders = new ArrayList<>();
-	    String query = "select rownum,b.*,h.* from "
-	    		+ " horder b,hotel h where "
-	    		+ " b.ref=h.num and rownum>=? and rownum<=? and checkin <= to_char(sysdate,'YYYY-MM-DD') "
-	    		+ " order by checkin";
+	    String query = "select * from "
+	    		+ " (select rownum r,o.*,h.price,h.roomtype from hotel h,horder o where o.ref=h.num order by checkin desc) where "
+	    		+ " r>=? and r<=? and checkin <= to_char(sysdate,'YYYY-MM-DD') order by r";
 
-	    try (Connection conn = getConnection();
+	    try {Connection conn = getConnection();
 	         PreparedStatement stmt = conn.prepareStatement(query);
-	    		
-	        ) {
 	    	stmt.setInt(1, start);
 			stmt.setInt(2, end);
 			ResultSet rs = stmt.executeQuery();
@@ -148,15 +145,14 @@ public class HOrderDAO extends OracleDB {
 	
 	public List<HOrderDTO> getLastOrdersAdmin(int start, int end) {
 	    List<HOrderDTO> orders = new ArrayList<>();
-	    String query = "select rownum,b.*,h.* from "
-	    		+ " horder b,hotel h where "
-	    		+ " b.ref=h.num and rownum>=? and rownum<=? and checkin > to_char(sysdate,'YYYY-MM-DD') "
-	    		+ " order by checkin";
+	    String query = "select * from "
+	    		+ " (select rownum r,o.*,h.price,h.roomtype from hotel h,horder o where o.ref=h.num order by checkin desc) where "
+	    		+ " r>=? and r<=? and checkin > to_char(sysdate,'YYYY-MM-DD') order by r";
 
-	    try (Connection conn = getConnection();
+	    try {
+	    	Connection conn = getConnection();
 	         PreparedStatement stmt = conn.prepareStatement(query);
 	    		
-	        ) {
 	    	stmt.setInt(1, start);
 			stmt.setInt(2, end);
 			ResultSet rs = stmt.executeQuery();

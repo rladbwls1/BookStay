@@ -250,9 +250,6 @@ int grade= mdao.checkGrade(id);
         &copy; BookStay All right reserve / design by MOSEN / Hosting by
         CAFE24 / Agreement / 개인정보취급방침 / Guide
       </p>
-<!-- 	<img src="/BookStay/resources/img/face.png"/>
-	<img src="/BookStay/resources/img/instar.png"/>
-	 -->
 </div>
 </div>
 </body>
@@ -262,33 +259,6 @@ int grade= mdao.checkGrade(id);
 <script src="/BookStay/resources/js/today.js"></script>
 <script src="/BookStay/resources/js/count.js"></script>
 <script src="/BookStay/resources/js/btn.js"></script>
-<!--  
-<script>
-	var form = document.getElementById('searchForm');
-	var titleInput = form.querySelector('input[name="title"]');
-	var checkinInput = form.querySelector('input[name="checkin"]');
-	var checkoutInput = form.querySelector('input[name="checkout"]');
-	var adultInput = form.querySelector('input[name="adult"]');
-	var kidsInput = form.querySelector('input[name="kids"]');
-	var startInput = form.querySelector('input[name="checkin"]'); 
-	var endInput = form.querySelector('input[name="checkout"]');
-	var rortlf = form.querySelector('input[name="rortlf"]');
-	
-	document.getElementById('sub').addEventListener('click', function () {
-	  var titleValue = titleInput.value;
-	  var checkinValue = checkinInput.value;
-	  var checkoutValue = checkoutInput.value;
-	  var adultValue = adultInput.value;
-	  var kidsValue = kidsInput.value;
-	  var startValue = startInput.value;
-	  var endValue = endInput.value;
-	  var rorValue = rortlf.value;
-      var hselect = 0;
-      
-	  form.action = 'hlist.jsp?title=' + titleValue + '&checkin=' + startValue + '&checkout=' + endValue
-	  + '&adult=' + adultValue + '&kids=' + kidsValue + '&room=' + rorValue + '&select=1&check=1,2,3,4'; 
-    });
-</script>-->
 <script src="/BookStay/resources/js/date.js"></script>
 <script src="/BookStay/resources/js/popup.js"></script>
 </html>

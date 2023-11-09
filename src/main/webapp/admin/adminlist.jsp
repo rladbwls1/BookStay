@@ -112,7 +112,7 @@
             <td><%= money%>원</td>
             <td><%= status %></td>
             <td>
-            <%if(money>=0 && status.equals("입금중")) {%>
+            <%if(money>=0 && status.equals("입금중")){%>
             <button type="button" class="btn btn-success" data-bs-toggle="modal" data-bs-target="#staticBackdrop<%=reservation.getRenum()%>">입금액 입력</button></td><!-- 입금액입력  -->
             <div class="modal fade" id="staticBackdrop<%=reservation.getRenum()%>" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
 				  <div class="modal-dialog">
