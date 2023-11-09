@@ -3,8 +3,7 @@
 <%@ page import="hotel.bean.MemberDAO" %>
 
 <jsp:useBean id="dao" class="hotel.bean.MemberDAO" />
-<jsp:useBean id="dto" class="hotel.bean.MemberDTO" />
-<jsp:setProperty property="*" name="dto" />
+
 
 
 <%@ include file="../views/main_bar.jsp" %>
@@ -12,15 +11,11 @@
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-HwwvtgBNo3bZJJLYd8oVXjrBZt8cqVSpeBNS5n7C8IVInixGAoxmnlMuBnhbgrkm" crossorigin="anonymous"></script>
 <%
 request.setCharacterEncoding("UTF-8");
-String sid = (String) session.getAttribute("sid");
-dto.setId(sid);
+MemberDTO dto = new MemberDTO();
+MemberDAO memdao = new MemberDAO();
+dto=memdao.myInfo(id);
 
 // MemberDTO 객체에서 정보를 가져와서 필드에 저장
-    String pw = request.getParameter("pw");
-    String email = request.getParameter("email");
-    String addr = request.getParameter("addr");
-    String pnum = request.getParameter("pnum");
-    String name = request.getParameter("name");
                                                 //1030 도준 수정
 %>
 
@@ -330,7 +325,7 @@ function updateEmail() {
     
        <tr >
          <td colspan="3" style="text-align:center;">
-               <div id="font">   <font size="+3" >   <%=name%>님 환영합니다  !  </font></div>
+               <div id="font">   <font size="+3" >   <%=dto.getName()%>님 환영합니다  !  </font></div>
          <td>
        </tr>
                 <tr>

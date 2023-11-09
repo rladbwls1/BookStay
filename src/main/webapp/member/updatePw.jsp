@@ -8,8 +8,7 @@
 <jsp:setProperty property="*" name="dto" />
 <%
 request.setCharacterEncoding("UTF-8");
-String checkid=request.getParameter("pw");
-String pw=request.getParameter("pw");
+String checkid=request.getParameter("id");
 
 %>
 
@@ -134,16 +133,6 @@ margin-bottom:10px;
 
 
 </style>
-<%
-    String sid = (String) session.getAttribute("id");
-   
-   //1030도준수정
-        String name = request.getParameter("name");
-        String email = request.getParameter("email");
-        String pnum = request.getParameter("pnum");
-        
-
-%>
     <script>
         // 비밀번호 필드 유효성 검사 및 확인 함수
         function validatePassword(inputField, errorId) {
@@ -197,7 +186,9 @@ margin-bottom:10px;
     </script>
 
 <form method="post" action="updatePwPro.jsp">
+	<input type="hidden" name="id" value="<%=checkid%>">
     <table border="1" class="table-container">
+    	
        <tr>
          <td colspan="3" style="text-align:center;">
             <div id="font"><font size="+1">수정 하실 비밀번호를 입력하세요</font></div>

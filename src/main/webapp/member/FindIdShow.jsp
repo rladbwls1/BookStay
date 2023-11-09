@@ -347,7 +347,7 @@ font-weight: bold;
             
 <!--  form 시작 -->
 
-<form action="FindPwPro.jsp" method="post" id="registrationForm" name="userinput">
+<form action="FindPwPro.jsp" method="get" id="registrationForm" name="userinput">
 <table id="modaltable">
 
 <tr>
@@ -362,7 +362,7 @@ font-weight: bold;
                     <label>아이디</label>
                 </td>
                 <td width="400">
-                    <input type="text"   class="modalinputText"  name="id" size="10" maxlength="12" placeholder="아이디를 입력하세요"  required>          
+                    <input type="text" class="modalinputText"  name="id" size="10" maxlength="12" placeholder="아이디를 입력하세요"  required>          
                 </td>
                 <td></td>
             </tr>

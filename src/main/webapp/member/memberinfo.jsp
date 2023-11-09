@@ -350,6 +350,7 @@ function closeModalAndRedirect() {
             <tr  style="border:none;">
                 <td class="modalHiddenshow"><label for="pw">비밀번호</label></td>
                 <td  style="border:none;">
+                	<input type="hidden" name="id" value="<%=id%>">
                     <input type="password" id="pw" name="pw" class="modalInputText" placeholder="비밀번호를 입력하세요" size="15" onblur="validatePassword(this, 'pwError')"> <br/>
                     <span id="pwError" style="color: red;" class=" error-message">  </span>
                 </td>

@@ -21,14 +21,14 @@
 %>
 <%
     // 비밀번호를 입력 폼에서 받아옴
-    String sid = (String) session.getAttribute("sid");
+    String id = request.getParameter("id");
     
     // 새 비밀번호를 입력 폼에서 받아옴
     String pw = request.getParameter("pw");
 
     MemberDAO manager = MemberDAO.getInstance();
     
-    int updateResult = manager.updateOnlyPw(sid, pw); // 사용자 아이디를 사용하여 비밀번호 변경
+    int updateResult = manager.updateOnlyPw(id, pw); // 사용자 아이디를 사용하여 비밀번호 변경
     // 변경 결과에 따라 메시지를 표시하고 적절한 페이지로 리디렉션
     if (updateResult == 1) {
         // 비밀번호 변경 성공

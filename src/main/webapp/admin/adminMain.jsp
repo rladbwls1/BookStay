@@ -68,9 +68,7 @@ if (grade!=99){
 	</div>
 	</div>
 	<hr id="hr"/>
-	        <% for (hotelDTO dto1 : cal) { %>
-	        	<input type="text" value="<%=dto1.getContent() %>">
-	        <%} %>
+	        
 	<div id="list">
 	<ul id="ul1">
 	  <li><button id="bn1" type="button" onclick="window.location='/BookStay/admin/adminMain.jsp'">요약정보</button></li>
