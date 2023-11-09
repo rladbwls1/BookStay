@@ -145,6 +145,7 @@ public class HOrderDAO extends OracleDB {
 
 	    return orders;
 	}
+	
 	public List<HOrderDTO> getLastOrdersAdmin(int start, int end) {
 	    List<HOrderDTO> orders = new ArrayList<>();
 	    String query = "select rownum,b.*,h.* from "
@@ -181,11 +182,21 @@ public class HOrderDAO extends OracleDB {
 
 	    return orders;
 	}
-	public int count() {
+	public int count(int num) {
 		int result = 0;
+		// num이 0일 때 현재 예약 내역
+		conn = getConnection();
+		String sql = "";
+		if(num == 1) {
+			sql = "select count(*) from "
+					+ " horder b,hotel h where "
+					+ " b.ref=h.num and checkin > to_char(sysdate,'YYYY-MM-DD')";
+		}else {
+			sql = "select count(*) from "
+					+ "	horder b,hotel h where "
+					+ "	b.ref=h.num and checkin <= to_char(sysdate,'YYYY-MM-DD')";
+		}
 		try {
-			conn = getConnection();
-			String sql = "select count(*) from horder";
 			pstmt = conn.prepareStatement(sql);
 			rs = pstmt.executeQuery();
 			if(rs.next()) {
