@@ -88,10 +88,10 @@ if (grade!=99){
 	    <a class="nav-link active" aria-current="page">요약정보</a>
 	  </li>
 	</ul>
-<table id="tb" border="1">
+<table id="tb">
 	<tr>
-		<td class="t1">진행중예약</td><td><%=dto.getOngoingReserve() %>건</td>
-		<td class="t1">오늘예약 </td><td><%=dto.getTodayReserve() %>건</td>
+		<td class="t1 c1">진행중예약</td><td class="c1"><%=dto.getOngoingReserve() %>건</td>
+		<td class="t1 c1">오늘예약 </td><td class="c1"><%=dto.getTodayReserve() %>건</td>
 	</tr>
 	<tr>
 		<td class="t1">이번달예약</td><td><%=dto.getThisMonthReserve() %>건</td>

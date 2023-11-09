@@ -45,18 +45,18 @@ if(heart==null){
 		nheart=nheart.substring(1);
 		}
 	}
-if(request.getParameter("heartadd").equals("true")){
-dao.updateHeart(id, nheart);
-dao.allupdateHeart();
-}
-String title = request.getParameter("title");
-int ref = Integer.parseInt(request.getParameter("ref"));
-String checkin = request.getParameter("checkin");
-String checkout = request.getParameter("checkout");
-int room = Integer.parseInt(request.getParameter("room"));
-int adult = Integer.parseInt(request.getParameter("adult"));
-int kids = Integer.parseInt(request.getParameter("kids"));
-int select = Integer.parseInt(request.getParameter("select"));
+	if(request.getParameter("heartadd").equals("true")){
+	dao.updateHeart(id, nheart);
+	dao.allupdateHeart();
+	}
+	String title = request.getParameter("title");
+	int ref = Integer.parseInt(request.getParameter("ref"));
+	String checkin = request.getParameter("checkin");
+	String checkout = request.getParameter("checkout");
+	int room = Integer.parseInt(request.getParameter("room"));
+	int adult = Integer.parseInt(request.getParameter("adult"));
+	int kids = Integer.parseInt(request.getParameter("kids"));
+	int select = Integer.parseInt(request.getParameter("select"));
 %>
 <script>
 	alert("찜목록이 수정되었습니다. ");

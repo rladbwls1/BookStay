@@ -1,14 +1,14 @@
-<%@page import="java.net.URLEncoder"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
 <%@page import="hotel.bean.MemberDAO"%>
 <%@page import="hotel.bean.MemberDTO"%>
 <%@page import="java.util.ArrayList"%>
 <%@page import="hotel.bean.hotelDTO"%>
 <%@page import="hotel.bean.hotelDAO"%>
 <%@ page import = "hotel.bean.reviewDTO" %>
+<%@ page import = "java.text.SimpleDateFormat" %>
 <%@ page import = "hotel.bean.reviewDAO" %>
 <%@page import="java.util.List"%>
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@8/swiper-bundle.min.css"/>
 <script src="https://cdn.jsdelivr.net/npm/swiper@8/swiper-bundle.min.js"></script>
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
@@ -191,7 +191,7 @@ double tjum = Double.parseDouble(jum) * 20;
 		<div class="item" id="rid"><%= review.getId() %> 님</div> 
 		<div class="item" id="rjumsu"><b><%= review.getJumsu() %></b> /5</div>
 		<div class="item" id="rcon"><%= review.getContent() %></div> 
-		<div class="item" id="rreg"><%= review.getReg() %></div> 
+		<div class="item" id="rreg"><%= new SimpleDateFormat("yyyy-MM-dd").format(review.getReg()) %></div> 
 		</div>
         <%
         }

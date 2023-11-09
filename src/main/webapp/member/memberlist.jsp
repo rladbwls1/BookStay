@@ -7,6 +7,7 @@
 <%@ page import="java.util.List" %>
 <jsp:useBean id="dao" class="hotel.bean.HOrderDAO" />
 <jsp:useBean id="dto" class="hotel.bean.HOrderDTO" />
+
 <link rel="stylesheet" href="/BookStay/resources/css/notice.css"/>
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-4bw+/aepP/YC94hEpVNVgiZdgIC5+VKNBQNGCHeKRQN+PtmoHDEXuppvnDJzQIu9" crossorigin="anonymous">
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-HwwvtgBNo3bZJJLYd8oVXjrBZt8cqVSpeBNS5n7C8IVInixGAoxmnlMuBnhbgrkm" crossorigin="anonymous"></script>
@@ -163,61 +164,70 @@ position: fixed;
                     <td><%= price %>원 </td> <!-- 호텔 가격 표시 -->
 
                 </tr>
-
-<%
-
-            }
-
-%>
-
-            </table>
-
-            <input type="button" value="뒤로가기" onclick="location.href='memberinfo.jsp'">
-
-            <a href="logout.jsp">로그아웃</a>
-
-            </body>
-
-<input type="button" class="btn btn-success" value="뒤로가기" onclick="location.href='memberinfo.jsp'">
-<input type="button" class="btn btn-success" value="로그아웃" onclick="location.href='logout.jsp'">
-
-</div>
-</div>
+            </thead>
+            <%
+                hotelDAO hotelDAO = new hotelDAO();
+                for (HOrderDTO order : orders) {
+                    String etc = "";
+                    if (order.getEtc() != null) {
+                        etc = order.getEtc();
+                    }
+                    String status = "";
+                    if (order.getState() == 0) {
+                        status = "입금중";
+                    } else if (order.getState() == 1) {
+                        status = "입금완료";
+                    } else if (order.getState() == 2) {
+                        status = "예약취소";
+                    }
+                    String reg = new SimpleDateFormat("yyyy-MM-dd").format(order.getReg());
+                    String checkin = order.getCheckin();
+                    if (checkin.length() >= 11) {
+                        checkin = checkin.substring(0, 11);
+                    }
+                    String checkout = order.getCheckout();
+                    if (checkout.length() >= 11) {
+                        checkout = checkout.substring(0, 11);
+                    }
+                    int ref = order.getRef();
+                    hotelDTO hotelInfo = hotelDAO.getContentMain(ref);
+                    String Title = hotelInfo.getTitle();
+                    int price = hotelInfo.getPrice();
+            %>
+            <tr>
+                <td><%= order.getRenum() %></td>
+                <td><%= checkin %></td>
+                <td><%= checkout %></td>
+                <td>어른 : <%= order.getAdult() %> </td>
+                <td> 아이 : <%= order.getKid() %></td>
+                <td><%= order.getPaytype() %></td>
+                <td><%= Title %></td>
+                <td><%= price %></td>
+                <td><%= status %></td>
+                <td><%= etc %></td>
+            </tr>
+            <%
+                }
+            %>
+        </table>
+    </div>
 </body>
 </html>
-
 <%
-
         } else {
-
 %>
-
-        <script>
-
-            alert("예약 내역이 존재하지 않습니다.");
-
-            window.location = "memberinfo.jsp";
-
-        </script>
-
+<script>
+    alert("예약 내역이 존재하지 않습니다.");
+    window.location = "memberinfo.jsp";
+</script>
 <%
-
         }
-
     } else {
-
 %>
-
-    <script>
-
-        alert("세션이 만료되었거나 로그인하지 않았습니다. 다시 로그인해주세요.");
-
-        window.location = "loginform.jsp";
-
-    </script>
-
+<script>
+    alert("세션이 만료되었거나 로그인하지 않았습니다. 다시 로그인해주세요.");
+    window.location = "loginform.jsp";
+</script>
 <%
-
     }
-
 %>

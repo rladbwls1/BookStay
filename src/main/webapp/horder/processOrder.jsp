@@ -1,4 +1,5 @@
-<%@ page contentType="text/html; charset=UTF-8"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
 <%@page import="org.apache.catalina.tribes.group.InterceptorPayload"%>
 <%@page import="hotel.bean.MemberDTO"%>
 <%@page import="hotel.bean.hotelDAO"%>
@@ -130,7 +131,7 @@
              <tr>
                 <td class="title">총 금액</td>
                 <td class="an"><%=hdto.getPrice()%>원</td>
-      
+</tr>
        </table>
        <div class="btn8">
        <button id="btn" type="button" onclick="history.go(-1)">뒤로가기</button>
@@ -140,7 +141,7 @@
         <%}else if(paytype.equals("card")) {%>
        <button id="btn1" type="submit">카드 결제</button>
        </div>
-           </form>
+ </form>
        </div>
    
        <%}} %>

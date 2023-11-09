@@ -59,12 +59,12 @@ adminDTO dto1 = dao1.getPreView();
 
 <div id="all">
 	<div id="cateBtn">
-	<a href="QnAPro.jsp?category=20" >전체</a>
-	<a href="QnAPro.jsp?category=21" >예약</a>
-	<a href="QnAPro.jsp?category=22" >체크인</a>
-	<a href="QnAPro.jsp?category=23" >검색</a>
-	<a href="QnAPro.jsp?category=24" >계정</a>
-	<a href="QnAPro.jsp?category=25" >기타</a>
+	<a id="c1" href="QnAPro.jsp?category=20" >전체</a>
+	<a id="c2" href="QnAPro.jsp?category=21" >예약</a>
+	<a id="c3" href="QnAPro.jsp?category=22" >체크인</a>
+	<a id="c4" href="QnAPro.jsp?category=23" >검색</a>
+	<a id="c5" href="QnAPro.jsp?category=24" >계정</a>
+	<a id="c6" href="QnAPro.jsp?category=25" >기타</a>
 	</div>
 		<%for(boardDTO d : list){	%>
 		<div class="board-item">
@@ -82,7 +82,7 @@ adminDTO dto1 = dao1.getPreView();
 		<% 
 if(grade==99){
 	%>
-	<button id="c3" type="button" onclick="window.location='writeForm.jsp'">QnA글 작성</button>
+	<button id="c8" type="button" onclick="window.location='writeForm.jsp'">QnA글 작성</button>
 	<%
 }%>
  <% 
@@ -120,7 +120,7 @@ if(grade==99){
 </div>
 </div>
 </div>
-	
+</div>	
 <script>
 function toggleContent(contentId) {
     var contentDiv = document.getElementById(contentId);
@@ -140,6 +140,45 @@ function toggleContent(contentId) {
     }
 }
     
+</script>
+<script>
+var num = <%=category%>;
+var c1 = document.getElementById("c1");
+var c2 = document.getElementById("c2");
+var c3 = document.getElementById("c3");
+var c4 = document.getElementById("c4");
+var c5 = document.getElementById("c5");
+var c6 = document.getElementById("c6");
+if (num == 20) {
+    c1.classList.add("on");
+} else {
+    c1.classList.remove("on");
+}
+if (num == 21) {
+    c2.classList.add("on");
+} else {
+    c2.classList.remove("on");
+}
+if (num == 22) {
+    c3.classList.add("on");
+} else {
+    c3.classList.remove("on");
+}
+if (num == 23) {
+    c4.classList.add("on");
+} else {
+    c4.classList.remove("on");
+}
+if (num == 24) {
+    c5.classList.add("on");
+} else {
+    c5.classList.remove("on");
+}
+if (num == 25) {
+    c6.classList.add("on");
+} else {
+    c6.classList.remove("on");
+}
 </script>
 
 

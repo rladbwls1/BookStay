@@ -138,7 +138,7 @@ public class HOrderDAO extends OracleDB {
 	        }
 	    } catch (SQLException e) {
 	        e.printStackTrace();
-	    }finally {
+  }finally {
 			close(rs, pstmt, conn);
 			
 		}
@@ -177,7 +177,6 @@ public class HOrderDAO extends OracleDB {
 	        e.printStackTrace();
 	    }finally {
 			close(rs, pstmt, conn);
-			
 		}
 
 	    return orders;

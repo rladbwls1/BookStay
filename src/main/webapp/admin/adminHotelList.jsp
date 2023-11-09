@@ -77,60 +77,90 @@ int check = Integer.parseInt(request.getParameter("check"));
 		<tr>
 			<td><%=d.getNum()%></td>
 			<td><a href="/BookStay/hotel/hotelContent.jsp?ref=<%=d.getRef()%>&room=1&adult=2&kids=0&select=1"><%=d.getTitle()%></a></td><td><%=d.getAddress() %></td>
-			<td><button type="button" class="cg" onclick="window.location='/BookStay/admin/adminStatusUpdate.jsp?ref=<%=d.getRef()%>&status=<%=d.getStatus()%>&check=true'">등록글 활성화</button>
-			<button type="button" onclick="window.location='/BookStay/hotel/hotelWriteForm.jsp?ref=<%=d.getRef()%>'">방등록</button>
+			<td><button type="button" id="cg" class="btn" onclick="window.location='/BookStay/admin/adminStatusUpdate.jsp?ref=<%=d.getRef()%>&status=<%=d.getStatus()%>&check=true'">등록글 활성화</button>
+			<button id="add" type="button" class="btn" onclick="window.location='/BookStay/hotel/hotelWriteForm.jsp?ref=<%=d.getRef()%>'">방등록</button>
 			<button type="button" onclick="window.location.href='/BookStay/hotel/hotelDelete.jsp?num=<%=d.getNum()%>&re_step=<%=d.getRe_step()%>&ref=<%=d.getRef() %>'" class="btn btn-danger">삭제</button>
 			</td>
 		</tr>
 		<%
-	  }
-	  
-	  
+	  }%>
+		 </table>
+	  <%
+	  int count = hdao.count(0);
+	 	if(count > 0){
+	 		int pageCount = count / pageSize + (count % pageSize == 0 ? 0 : 1);
+	 		int startPage = (int)(currentPage/10)*10+1;
+	 		int pageBlock = 10;
+	 		int endPage = startPage + pageBlock - 1;
+	 		if(endPage > pageCount){
+	 			endPage = pageCount;
+	 		}
+	 		%>
+	 		<div id="page">
+	 		<%
+	 		if(startPage > 10){
+	 		%>	<a href="adminHotelList.jsp?check=<%=check %>&pageNum=<%=startPage-10 %>"><button class="button">이전</button></a>	
+	 		<%}
+	 		int p = Integer.parseInt(pageNum);
+	 		for(int i = startPage; i <= endPage; i++){
+	 			if(p == i){
+	 		%> <a href="adminHotelList.jsp?check=<%=check %>&pageNum=<%=i %>"><button id="color" class="button"><%=i %></button></a>	
+	 		<%}else{%>
+	 		   <a href="adminHotelList.jsp?check=<%=check %>&pageNum=<%=i %>"><button class="button"><%=i %></button></a>
+	 			<%}
+	 		}
+	 		if(endPage < pageCount){
+	 		%>	<a href="adminHotelList.jsp?check=<%=check %>&pageNum=<%=startPage+10 %>"><button class="button">다음</button></a>	
+	 		<%}
+	 	}
+	%>
+	     </div>
+<%	  
   }else if(request.getParameter("check").equals("2")){
 	  ArrayList<hotelDTO> list = hdao.getClientHotelList(start, end);
 	  for(hotelDTO d : list){
 			%>
 			<tr>
 				<td><%=d.getNum()%></td><td><%=d.getTitle()%></td><td><%=d.getAddress() %></td>
-				<td><button type="button" class="btn btn-Secondary" onclick="window.location='/BookStay/admin/adminStatusUpdate.jsp?ref=<%=d.getNum()%>&status=<%=d.getStatus()%>&check=true'">등록글 비활성화</button>
+<td><button type="button" class="btn btn-Secondary" onclick="window.location='/BookStay/admin/adminStatusUpdate.jsp?ref=<%=d.getNum()%>&status=<%=d.getStatus()%>&check=true'">등록글 비활성화</button>
 				<button type="button" onclick="window.location.href='/BookStay/hotel/hotelDelete.jsp?num=<%=d.getNum()%>&re_step=<%=d.getRe_step()%>&ref=<%=d.getRef() %>'" class="btn btn-Warning">삭제</button></td>
 			</tr>
 			<%
-		  }
-  }
+		  }%>
+	  </table>
+	  <% 
+	  int count = hdao.count(1);
+	 	if(count > 0){
+	 		int pageCount = count / pageSize + (count % pageSize == 0 ? 0 : 1);
+	 		int startPage = (int)(currentPage/10)*10+1;
+	 		int pageBlock = 10;
+	 		int endPage = startPage + pageBlock - 1;
+	 		if(endPage > pageCount){
+	 			endPage = pageCount;
+	 		}
+	 		%>
+	 		<div id="page">
+	 		<%
+	 		if(startPage > 10){
+	 		%>	<a href="adminHotelList.jsp?check=<%=check %>&pageNum=<%=startPage-10 %>"><button class="button">이전</button></a>	
+	 		<%}
+	 		int p = Integer.parseInt(pageNum);
+	 		for(int i = startPage; i <= endPage; i++){
+	 			if(p == i){
+	 		%> <a href="adminHotelList.jsp?check=<%=check %>&pageNum=<%=i %>"><button id="color" class="button"><%=i %></button></a>	
+	 		<%}else{%>
+	 		   <a href="adminHotelList.jsp?check=<%=check %>&pageNum=<%=i %>"><button class="button"><%=i %></button></a>
+	 			<%}
+	 		}
+	 		if(endPage < pageCount){
+	 		%>	<a href="adminHotelList.jsp?check=<%=check %>&pageNum=<%=startPage+10 %>"><button class="button">다음</button></a>	
+	 		<%}
+	 	}
+	 %>
+	     </div>
+<%  }
  
 %>
- </table>
- <% 
- int count = hdao.count();
-	if(count > 0){
-		int pageCount = count / pageSize + (count % pageSize == 0 ? 0 : 1);
-		int startPage = (int)(currentPage/10)*10+1;
-		int pageBlock = 10;
-		int endPage = startPage + pageBlock - 1;
-		if(endPage > pageCount){
-			endPage = pageCount;
-		}
-		%>
-		<div id="page">
-		<%
-		if(startPage > 10){
-		%>	<a href="adminHotelList.jsp?check=<%=check %>&pageNum=<%=startPage-10 %>"><button class="button">이전</button></a>	
-		<%}
-		int p = Integer.parseInt(pageNum);
-		for(int i = startPage; i <= endPage; i++){
-			if(p == i){
-		%> <a href="adminHotelList.jsp?check=<%=check %>&pageNum=<%=i %>"><button id="color" class="button"><%=i %></button></a>	
-		<%}else{%>
-		   <a href="adminHotelList.jsp?check=<%=check %>&pageNum=<%=i %>"><button class="button"><%=i %></button></a>
-			<%}
-		}
-		if(endPage < pageCount){
-		%>	<a href="adminHotelList.jsp?check=<%=check %>&pageNum=<%=startPage+10 %>"><button class="button">다음</button></a>	
-		<%}
-	}
-%>
-    </div>
 </div>
 </div>
 </div>
