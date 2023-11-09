@@ -57,7 +57,6 @@
 %>
 <%
 	String title = request.getParameter("title");
-	String utitle=URLEncoder.encode(title,"UTF-8");
 	String checkin = request.getParameter("checkin");
 	String checkout = request.getParameter("checkout");
 	int rortlf = Integer.parseInt(request.getParameter("room"));
@@ -148,11 +147,11 @@
 <div id="apr"><%=maindto.getPrice() %>원</div>
 <div id="bmo">
 <% if(heart!=null&&heart.contains(Integer.toString(ref))){%>
-<button type="button" id="heart" onclick="window.location='../member/heartPro.jsp?num=<%=maindto.getNum()%>&title=<%=utitle%>&ref=<%=ref%>&room=<%=rortlf%>&adult=<%=adult%>&kids=<%=kids%>&select=<%=select%>&checkin=<%=checkin%>&checkout=<%=checkout%>&heartadd=true'">
+<button type="button" id="heart" onclick="window.location='../member/heartPro.jsp?num=<%=maindto.getNum()%>&title=<%=title%>&ref=<%=ref%>&room=<%=rortlf%>&adult=<%=adult%>&kids=<%=kids%>&select=<%=select%>&checkin=<%=checkin%>&checkout=<%=checkout%>&heartadd=true'">
 	<img src="/BookStay/resources/img/heart.png">
 </button>
 <%}else{ %>
-<button type="button" id="heart" onclick="window.location='../member/heartPro.jsp?num=<%=maindto.getNum()%>&title=<%=utitle%>&ref=<%=ref%>&room=<%=rortlf%>&adult=<%=adult%>&kids=<%=kids%>&select=<%=select%>&checkin=<%=checkin%>&checkout=<%=checkout%>&heartadd=true'">
+<button type="button" id="heart" onclick="window.location='../member/heartPro.jsp?num=<%=maindto.getNum()%>&title=<%=title%>&ref=<%=ref%>&room=<%=rortlf%>&adult=<%=adult%>&kids=<%=kids%>&select=<%=select%>&checkin=<%=checkin%>&checkout=<%=checkout%>&heartadd=true'">
 	<img src="/BookStay/resources/img/heart1.png">
 </button>
 <%} %>
