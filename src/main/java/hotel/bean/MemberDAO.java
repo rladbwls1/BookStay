@@ -134,19 +134,16 @@ public class MemberDAO extends  OracleDB {
 	    
 	    //2023 11 06 도준 생성  조회  > 인서트  > 딜리트 한번에함   :  타테이블에 이관하고 삭제하는 메서드  
 	       public boolean transferMemberData(String id, String pw) {
-	           Connection conn = null;
-	           PreparedStatement pstmt = null;
 	           int check=0;
 	           boolean result=false;
 	           try {
 	               conn = getConnection();
-
 	               // 1. 아이디와 비밀번호로 회원 정보 조회 (예: member 테이블)
 	               String selectQuery = "SELECT * FROM member WHERE id = ? AND pw = ?";
 	               pstmt = conn.prepareStatement(selectQuery);
 	               pstmt.setString(1, id);
 	               pstmt.setString(2, pw);
-	               ResultSet rs = pstmt.executeQuery();
+	               rs = pstmt.executeQuery();
 	               if (rs.next()) {
 	                   // 2. 조회한 정보로 다른 테이블에 인서트 (예: quitmember 테이블)
 	                   String insertQuery = "INSERT INTO quitmember (quitmember_seq.nextval,id, pw, name, email, birth, addr, pnum, joindate) VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
@@ -160,7 +157,6 @@ public class MemberDAO extends  OracleDB {
 	                   pstmt.setString(7, rs.getString("pnum"));
 	                   pstmt.setDate(8, rs.getDate("joindate"));
 	                   check=pstmt.executeUpdate();
-
 	                   // 3. 원래 테이블에서 삭제 (예: member 테이블)
 	                   if(check==1) {
 	                   String deleteQuery = "DELETE FROM member WHERE id = ? AND pw = ?";
@@ -286,14 +282,13 @@ public class MemberDAO extends  OracleDB {
         ResultSet rs = null;
         conn = getConnection();
         try {
-        String sql = "UPDATE member SET pw=?, email=?, birth=?, addr=?, pnum=? WHERE id=?";
+        String sql = "UPDATE member SET pw=?, email=?, addr=?, pnum=? WHERE id=?";
               pstmt = conn.prepareStatement(sql);
           pstmt.setString(1, member.getPw());
           pstmt.setString(2, member.getEmail());
-          pstmt.setString(3, member.getBirth());
-          pstmt.setString(4, member.getAddr());
-          pstmt.setString(5, member.getPnum());
-          pstmt.setString(6, member.getId());
+          pstmt.setString(3, member.getAddr());
+          pstmt.setString(4, member.getPnum());
+          pstmt.setString(5, member.getId());
           result = pstmt.executeUpdate();
         } catch(Exception e) {
             e.printStackTrace();

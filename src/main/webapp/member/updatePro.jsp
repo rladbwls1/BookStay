@@ -18,21 +18,11 @@
 <body>
 <%
     request.setCharacterEncoding("UTF-8");
+	String id = (String)session.getAttribute("sid");
 %>
 <%
     // 비밀번호를 입력 폼에서 받아옴
-    	String id = (String)session.getAttribute("sid");
-        String name = request.getParameter("name");
-        String email = request.getParameter("email");
-        String pnum = request.getParameter("pnum");
-        String pw = request.getParameter("pw");
-        String addr = request.getParameter("addr");
-        dto.setId(id);
-        dto.setName(name);
-        dto.setEmail(email);
-        dto.setPnum(pnum);
-        dto.setPw(pw);
-        dto.setAddr(addr);
+    	
 
 
     MemberDAO manager = MemberDAO.getInstance();

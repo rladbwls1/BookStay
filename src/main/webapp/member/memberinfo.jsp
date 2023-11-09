@@ -11,7 +11,6 @@
 <%   
     request.setCharacterEncoding("UTF-8");
     String sid = (String) session.getAttribute("sid"); // 사용자 아이디 가져오기
-
     // 사용자 정보 조회
     MemberDTO user = dao.myInfo(sid);
     String birth = user.getBirth().substring(0, 11);
@@ -36,9 +35,7 @@
     border-radius: 10px;
     left:40%;
 background-color: white;
-
 }
-
 .close {
     position: absolute;
     top: -4px;

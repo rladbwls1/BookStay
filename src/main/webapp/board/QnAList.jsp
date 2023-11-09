@@ -53,7 +53,7 @@ adminDTO dto1 = dao1.getPreView();
 	    <a class="nav-link active" aria-current="page">자주하는질문</a>
 	  </li>
 	</ul>
-<form id="form" action="serchQnAList.jsp" method="post">
+<form id="form" action="/BookStay/board/searchQnAList.jsp" method="post">
 	<input id="text" type="text" name="keyword"><button id="sBtn" type="submit">검색</button> 
 </form>
 

@@ -3,9 +3,6 @@
 <%@ page import="hotel.bean.MemberDAO" %>
 
 <jsp:useBean id="dao" class="hotel.bean.MemberDAO" />
-
-
-
 <%@ include file="../views/main_bar.jsp" %>
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-4bw+/aepP/YC94hEpVNVgiZdgIC5+VKNBQNGCHeKRQN+PtmoHDEXuppvnDJzQIu9" crossorigin="anonymous">
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-HwwvtgBNo3bZJJLYd8oVXjrBZt8cqVSpeBNS5n7C8IVInixGAoxmnlMuBnhbgrkm" crossorigin="anonymous"></script>
@@ -321,6 +318,7 @@ function updateEmail() {
 </head>
 <body>
 <form method="post" action="updatePro.jsp" class="formbody">
+    <input type="hidden" name="id" value=<%=id%>>
     <table border="1" class="table-container">
     
        <tr >

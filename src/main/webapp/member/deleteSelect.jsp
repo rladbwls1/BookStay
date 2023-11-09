@@ -311,7 +311,7 @@ margin-bottom:10px;
                               
                               
                         <div>
-                    <input type="submit" value="회원 탈퇴" class="logininput" onclick="combineAndSubmit()">
+                    <input type="submit" value="회원 탈퇴" class="logininput">
                 </div>
             </td>
         </tr>

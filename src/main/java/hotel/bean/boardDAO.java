@@ -156,7 +156,7 @@ public class boardDAO extends OracleDB{
 		ArrayList<boardDTO> list= new ArrayList<boardDTO>();
 		try {
 			conn=getConnection();
-			String sql="select * from board where title like ? or title like ? and category>20";
+			String sql="select * from board where title like ? or content like ? and category>20";
 			pstmt=conn.prepareStatement(sql);
 			pstmt.setString(1, "%"+keyworkd+"%");
 			pstmt.setString(2, sql);
