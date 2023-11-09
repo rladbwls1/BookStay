@@ -68,7 +68,6 @@ if (grade!=99){
 	</div>
 	</div>
 	<hr id="hr"/>
-	        
 	<div id="list">
 	<ul id="ul1">
 	  <li><button id="bn1" type="button" onclick="window.location='/BookStay/admin/adminMain.jsp'">요약정보</button></li>
@@ -162,20 +161,19 @@ if (grade!=99){
           end: convertDate('<%= dto.getContact() %>'),
           extendedProps: {
             reservationId: '<%= dto.getContact() %>',
-            kidmax: '<%= dto.getKidmax() %>',
+            kidmax: '<%= dto.getKidmax() + dto.getAdultmax()%>',
             content: '<%= dto.getContent() %>',
             service: '<%= dto.getService() %>',
-            adultmax: '<%= dto.getAdultmax() %>'
           },
         },
         <% } %>
       ],
       eventClick: function(info) {
         var eventTitle = info.event.title;
-        var additionalInfo = 'Adult Max: ' + info.event.extendedProps.adultmax + '<br>' +
-          'Kid Max: ' + info.event.extendedProps.kidmax + '<br>' +
-          'Service: ' + info.event.extendedProps.service + '<br>' +
-          'Content: ' + info.event.extendedProps.content;
+        var additionalInfo = '<b>예약 정보</b><br><br>' +
+        '인원수 : ' + info.event.extendedProps.kidmax + '명<br>' +
+        '체크인 : ' + info.event.extendedProps.content + '<br>' +
+        '체크아웃: ' + info.event.extendedProps.service;
 
         $('#myModal').modal('show');
 

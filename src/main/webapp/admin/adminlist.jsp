@@ -73,10 +73,13 @@
             // Java 코드를 사용하여 예약 내역을 가져와서 표시
             String check = request.getParameter("check");
             List<HOrderDTO> reservationList = null;
+            int count = 0;
             if(check.equals("last")){
             	reservationList = dao2.getLastOrdersAdmin(start, end);
+            	count = dao2.count(1);
             }else if(check.equals("ing")){
             	reservationList=dao2.getOrdersAdmin(start, end);
+            	count = dao2.count(0);
             }
             MemberDAO memberDAO = MemberDAO.getInstance(); // MemberDAO 인스턴스 생성
 
@@ -169,7 +172,6 @@
         %>
     </table>
 <%
-int count = dao2.count();
 	if(count > 0){
 		int pageCount = count / pageSize + (count % pageSize == 0 ? 0 : 1);
 		int startPage = (int)(currentPage/10)*10+1;
@@ -187,9 +189,9 @@ int count = dao2.count();
 			int p = Integer.parseInt(pageNum);
 			for(int i = startPage; i <= endPage; i++){
 				if(p == i){
-		%> <a href="adminlist.jsp?pageNum=<%=i %>&check=<%=check%>"><button id="color" class="button"><%=i %></button></a>	
+		%> <a href="adminlist.jsp?pageNum=<%=i%>&check=<%=check%>"><button id="color" class="button"><%=i %></button></a>	
 		<%}else{%>
-			<a href="adminlist.jsp?pageNum=<%=i %>&check=<%=check%>"><button class="button"><%=i %></button></a>	
+			<a href="adminlist.jsp?pageNum=<%=i%>&check=<%=check%>"><button class="button"><%=i %></button></a>	
 		<%}}
 		if(endPage < pageCount){
 		%>	<a href="adminlist.jsp?pageNum=<%=startPage+10 %>&check=<%=check%>"><button class="button">다음</button></a>	
@@ -197,6 +199,7 @@ int count = dao2.count();
 	}
 %>
     </div>
+</div>
 </div>
 </div>
 <%}%>

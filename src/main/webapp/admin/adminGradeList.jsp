@@ -19,12 +19,20 @@ if(grade!=99){%>
     window.location="/BookStay/views/main.jsp";
 </script>
 <%}
+int pageSize = 10; 
+String pageNum = request.getParameter("pageNum");
+if(pageNum == null){
+	pageNum="1";
+}
+int currentPage = Integer.parseInt(pageNum);
+int start = (currentPage - 1) * pageSize + 1; 
+int end = currentPage * pageSize; 
 ArrayList<MemberDTO> list = null;
 String keyword=request.getParameter("keyword");
 String check=request.getParameter("check");
 if(check==null||check.equals("0")){
 	if(keyword==null){
-	list = adao.getAllMember();
+	list = adao.getAllMember(start, end); 
 	}else{
 		list=adao.serchGrade(keyword);
 	}
@@ -32,7 +40,7 @@ if(check==null||check.equals("0")){
 		list = adao.serchGrade(Integer.parseInt(check),keyword);
 }
 if(keyword==null){
-	keyword="";
+	keyword=""; 
 }
 %>
 <div id="list">
@@ -91,6 +99,35 @@ for(MemberDTO d : list){%>
 <%}%>
 </table>
 </form>
+<%
+int count = adao.count();
+	if(count > 0){
+		int pageCount = count / pageSize + (count % pageSize == 0 ? 0 : 1);
+		int startPage = (int)(currentPage/10)*10+1;
+		int pageBlock = 10;
+		int endPage = startPage + pageBlock - 1;
+		if(endPage > pageCount){
+			endPage = pageCount;
+		}
+		%>
+		<div id="page">
+		<%
+		if(startPage > 10){
+		%>	<a href="adminGradeList.jsp?pageNum=<%=startPage-10%>&check=<%=check%>"><button class="button">이전</button></a>	
+		<%}
+			int p = Integer.parseInt(pageNum);
+			for(int i = startPage; i <= endPage; i++){
+				if(p == i){
+		%> <a href="adminGradeList.jsp?pageNum=<%=i %>&check=<%=check%>"><button id="color" class="button"><%=i %></button></a>	
+		<%}else{%>
+			<a href="adminGradeList.jsp?pageNum=<%=i %>&check=<%=check%>"><button class="button"><%=i %></button></a>	
+		<%}}
+		if(endPage < pageCount){
+		%>	<a href="adminlist.jsp?pageNum=<%=startPage+10 %>&check=<%=check%>"><button class="button">다음</button></a>	
+		<%}
+	}
+%>
+    </div>
 </div>
 </div>
 </div>
