@@ -80,3 +80,19 @@
 	border: 1px solid gainsboro;
 	padding: 8px 0;
 }
+#color{
+	background-color: black;
+	color: white;
+}
+#page{
+	margin-top: 30px;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	margin-bottom: 100px;
+}
+.button{
+	padding: 6px 10px;
+	border: 1px solid gainsboro;
+	background-color: white;
+}

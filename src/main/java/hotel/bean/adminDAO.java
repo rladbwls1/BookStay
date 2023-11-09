@@ -171,12 +171,35 @@ public class adminDAO extends OracleDB{
 		} return paid;
 	}
 	
-	public ArrayList<MemberDTO> getAllMember(){
+	public int count() {
+		int result = 0;
+		try {
+			conn = getConnection();
+			String sql = "select count(*) from member";
+			pstmt = conn.prepareStatement(sql);
+			rs = pstmt.executeQuery();
+			if(rs.next()) {
+				result = rs.getInt(1);
+			}
+		}catch(Exception e) {
+			e.printStackTrace();
+		}finally {
+			close(rs, pstmt, conn);
+		}
+		return result;
+	}
+	
+	public ArrayList<MemberDTO> getAllMember(int start, int end){
 		ArrayList<MemberDTO> list = new ArrayList<MemberDTO>();
 		try {
 			conn=getConnection();
-			String sql="select * from member";
+			String sql="select * from "
+					+ " (select b.*, rownum r from "
+					+ " (select * from member) b) "
+					+ " where r >= ? and r <= ?";
 			pstmt=conn.prepareStatement(sql);
+			pstmt.setInt(1, start);
+			pstmt.setInt(2, end);
 			rs=pstmt.executeQuery();
 			while(rs.next()) {
 				MemberDTO dto = new MemberDTO();

@@ -7,8 +7,8 @@
     <jsp:setProperty property="*" name="dto"/>
 
 <%
-	System.out.println();
 	request.setCharacterEncoding("UTF-8");
+	System.out.println();
 	Cookie [] cookies = request.getCookies();
 	for(Cookie c : cookies){
 		if(c.getName().equals("cid")){dto.setId(c.getValue());}

@@ -67,7 +67,7 @@
 			 "&room=" + room1 + "&select=" + sel1 + "&check=" + check1;
 	//int category= 0;  
 	hotelDAO dao = new hotelDAO();
-	ArrayList<hotelDTO> list = dao.hotelList(sel1, check1, title1, checkin1, checkout1, test, start, end); 
+	ArrayList<hotelDTO> list = dao.hotelList(roomValue1, kidsValue1, sel1, check1, title1, checkin1, checkout1, test, start, end); 
 	int cnt = dao.count(title1);
 	int count = dao.count(title1, check1, checkin1, checkout1, roomValue1, kidsValue1);
 	

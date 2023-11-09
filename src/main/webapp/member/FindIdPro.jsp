@@ -14,6 +14,7 @@
 </head>
 <body>
   <% 
+  request.setCharacterEncoding("UTF-8");
     String name = request.getParameter("name");
     String email = request.getParameter("email");
     String pnum = request.getParameter("pnum");
@@ -21,7 +22,7 @@
     // 이름, 이메일, 휴대폰 번호를 사용하여 아이디를 찾습니다.
     String id = MemberDAO.getInstance().findId(name, email, pnum);
     System.out.println(name+","+email+","+pnum);
-    System.out.println(id);
+    System.out.println("아이디"+id);
     
    //asd, asd@naver.com, 123-1 = abcdefg
     if (id == null) {
