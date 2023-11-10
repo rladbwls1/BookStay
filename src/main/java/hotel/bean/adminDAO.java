@@ -25,19 +25,19 @@ public class adminDAO extends OracleDB{
 			adminDTO dto = new adminDTO();					//오늘투숙객(6),내일투숙객(5),
 		try {
 			conn=getConnection(); 
-			String sql="select count(*) total from horder where checkin >= to_char(sysdate,'YYYY-MM-DD')"; //1
+			String sql="select count(*) total from horder where to_date(checkin,'YYYY-MM-DD') >= to_date(sysdate,'YYYY-MM-DD')"; //1
 			pstmt=conn.prepareStatement(sql);
 			rs=pstmt.executeQuery();
 			if(rs.next()) {
 				dto.setOngoingReserve(rs.getInt(1));
 			}
-			sql="select count(*) total from horder where checkin = to_char(sysdate,'YYYY-MM-DD')"; //2
+			sql="select count(*) total from horder where to_date(checkin,'YYYY-MM-DD') = to_date(sysdate,'YYYY-MM-DD')"; //2
 			pstmt=conn.prepareStatement(sql);
 			rs=pstmt.executeQuery();
 			if(rs.next()) {
 				dto.setTodayReserve(rs.getInt(1));
 			}
-			sql="select sum(adult) adult,sum(kid) kid from horder where checkin = to_char(sysdate,'YYYY-MM-DD')"; //3
+			sql="select sum(adult) adult,sum(kid) kid from horder where to_date(checkin,'YYYY-MM-DD') = to_date(sysdate,'YYYY-MM-DD')"; //3
 			pstmt=conn.prepareStatement(sql);
 			rs=pstmt.executeQuery();
 			if(rs.next()) {
@@ -62,26 +62,26 @@ public class adminDAO extends OracleDB{
 			if(rs.next()) {
 				dto.setLastMonthReserve(rs.getInt(1));
 			}
-			sql="select count(*) total from horder where checkin < to_char(sysdate,'YYYY-MM-DD')"; //7
+			sql="select count(*) total from horder where to_date(checkin,'YYYY-MM-DD') < to_char(sysdate,'YYYY-MM-DD')"; //7
 			pstmt=conn.prepareStatement(sql);
 			rs=pstmt.executeQuery();
 			if(rs.next()) {
 				dto.setLastReserve(rs.getInt(1));
 			}
-			sql="select sum(adult) adult,sum(kid) kid from horder where checkin = trunc(sysdate)+1"; //8
+			sql="select sum(adult) adult,sum(kid) kid from horder where to_date(checkin,'YYYY-MM-DD') = trunc(sysdate)+1"; //8
 			pstmt=conn.prepareStatement(sql);
 			rs=pstmt.executeQuery();
 			if(rs.next()) {
 				dto.setTomorrowAdult(rs.getInt("adult"));
 				dto.setTommorowkids(rs.getInt("kid"));
 			}
-			sql="select sum(price) from (select * from horder r,hotel h where r.ref=h.num)where checkin = to_char(sysdate,'YYYY-MM-DD')"; //9
+			sql="select sum(price) from (select * from horder r,hotel h where r.ref=h.num)where to_date(checkin,'YYYY-MM-DD') = to_date(sysdate,'YYYY-MM-DD')"; //9
 			pstmt=conn.prepareStatement(sql);
 			rs=pstmt.executeQuery();
 			if(rs.next()) {
 				dto.setTodaySales(rs.getInt(1));
 			}
-			sql="select sum(price) from (select * from horder r,hotel h where r.ref=h.num)where checkin between (trunc(SYSDATE,'MM')) and to_char(sysdate,'YYYY-MM-DD')"; //10
+			sql="select sum(price) from (select * from horder r,hotel h where r.ref=h.num) where to_date(checkin,'YYYY-MM-DD') >= to_date((trunc(SYSDATE,'MM')),'YYYY-MM-DD') and to_date(checkin,'YYYY-MM-DD')<=to_date(sysdate,'YYYY-MM-DD')"; //10
 			pstmt=conn.prepareStatement(sql);
 			rs=pstmt.executeQuery();
 			if(rs.next()) {

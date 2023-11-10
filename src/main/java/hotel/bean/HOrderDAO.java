@@ -110,9 +110,11 @@ public class HOrderDAO extends OracleDB {
 	
 	public List<HOrderDTO> getOrdersAdmin(int start, int end) {
 	    List<HOrderDTO> orders = new ArrayList<>();
-	    String query = "select * from "
-	    		+ " (select rownum r,o.*,h.price,h.roomtype from hotel h,horder o where o.ref=h.num order by checkin desc) where "
-	    		+ " r>=? and r<=? and to_date(checkin) > to_char(sysdate,'YYYY-MM-DD') order by r";
+	    String query = "SELECT *FROM ( "
+	    		+ "    SELECT ROW_NUMBER() OVER (ORDER BY o.checkin DESC) AS r,o.*,h.price,h.roomtype FROM hotel h"
+	    		+ "    JOIN horder o ON o.ref = h.num "
+	    		+ "    WHERE TO_DATE(o.checkin, 'YYYY-MM-DD') > TO_DATE(SYSDATE, 'YYYY-MM-DD') "
+	    		+ ")WHERE r >= ? AND r <= ? ORDER BY r";
 
 	    try {Connection conn = getConnection();
 	         PreparedStatement stmt = conn.prepareStatement(query);
@@ -127,6 +129,7 @@ public class HOrderDAO extends OracleDB {
 	            order.setCheckout(rs.getString("checkout"));
 	            order.setAdult(rs.getInt("adult"));
 	            order.setKid(rs.getInt("kid"));
+	            order.setPrice(rs.getInt("price"));
 	            order.setRoomtype(rs.getString("roomtype"));
 	            order.setPaytype(rs.getString("paytype"));
 	            order.setReg(rs.getTimestamp("reg"));
@@ -145,9 +148,11 @@ public class HOrderDAO extends OracleDB {
 	
 	public List<HOrderDTO> getLastOrdersAdmin(int start, int end) {
 	    List<HOrderDTO> orders = new ArrayList<>();
-	    String query = "select * from "
-	    		+ " (select rownum r,o.*,h.price,h.roomtype from hotel h,horder o where o.ref=h.num order by checkin desc) where "
-	    		+ " r>=? and r<=? and to_date(checkin) <= to_char(sysdate,'YYYY-MM-DD') order by r";
+	    String query = "SELECT *FROM ( "
+	    		+ "    SELECT ROW_NUMBER() OVER (ORDER BY o.checkin DESC) AS r,o.*,h.price,h.roomtype FROM hotel h"
+	    		+ "    JOIN horder o ON o.ref = h.num "
+	    		+ "    WHERE TO_DATE(o.checkin, 'YYYY-MM-DD') <= TO_DATE(SYSDATE, 'YYYY-MM-DD') "
+	    		+ ")WHERE r >= ? AND r <= ? ORDER BY r";
 
 	    try {
 	    	Connection conn = getConnection();
@@ -165,6 +170,7 @@ public class HOrderDAO extends OracleDB {
 	            order.setAdult(rs.getInt("adult"));
 	            order.setRoomtype(rs.getString("roomtype"));
 	            order.setKid(rs.getInt("kid"));
+	            order.setPrice(rs.getInt("price"));
 	            order.setPaytype(rs.getString("paytype"));
 	            order.setReg(rs.getTimestamp("reg"));
 	            order.setName(rs.getString("name"));
@@ -186,11 +192,12 @@ public class HOrderDAO extends OracleDB {
 		if(num == 1) {
 			sql = "select count(*) from "
 					+ " horder b,hotel h where "
-					+ " b.ref=h.num and checkin > to_char(sysdate,'YYYY-MM-DD')";
+					+ " b.ref=h.num and to_date(checkin, 'YYYY-MM-DD') <= to_date(sysdate,'YYYY-MM-DD')";
 		}else {
 			sql = "select count(*) from "
 					+ "	horder b,hotel h where "
-					+ "	b.ref=h.num and checkin <= to_char(sysdate,'YYYY-MM-DD')";
+					+ "	b.ref=h.num and to_date(checkin, 'YYYY-MM-DD') > to_date(sysdate,'YYYY-MM-DD')";
+		
 		}
 		try {
 			pstmt = conn.prepareStatement(sql);

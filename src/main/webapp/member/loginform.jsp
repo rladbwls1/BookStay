@@ -506,23 +506,13 @@ margin-bottom:10px;
           
             <tr>          
             <td class="hiddenshow"></td>
-            <td>  <input type="submit" name="confirm" value="비밀번호 찾기"   class="modalsumitinput" onclick="openCenteredWindow2(event);"/></td>
+            <td>  <input type="submit" name="confirm" value="비밀번호 찾기"  class="modalsumitinput" onclick="openCenteredWindow2(event);"/></td>
             <td></td>
             </tr>
-        
-   
-  
 </table>                        
-   
 </form>
-
-
-
 <!--  form 끝 -->
         </div>
     </div>
-    
-    
-
 </body>
 </html>
