@@ -90,6 +90,8 @@ public class hotelDAO extends OracleDB{
 				sql += " order by price desc)b)";			
 			}else if(sel == 4) {
 				sql += " order by price asc)b)";			
+			}else if (sel == 6) {
+				sql += " order by heartcount desc)b)";
 			}
 			sql += " where r >= ? and r <= ?";
 		}
@@ -684,7 +686,7 @@ public class hotelDAO extends OracleDB{
 				close(rs, pstmt, conn);
 				
 			}return price;
-
+		}
 
 			public void countUpdate(int num) {
 			
