@@ -325,8 +325,8 @@ margin-bottom:10px;
                               
                               
                         <div>
-                    <input type="checkbox" name="auto" value="1" class="autologin" id="autologin-checkbox">
-                    <a class="autotext" >자동로그인</a>
+                    <!--  <input type="checkbox" name="auto" value="1" class="autologin" id="autologin-checkbox">
+                    <a class="autotext" >자동로그인</a>-->
                     <input type="submit" value="Login" class="logininput" onclick="combineAndSubmit()">
                 </div>
             </td>
