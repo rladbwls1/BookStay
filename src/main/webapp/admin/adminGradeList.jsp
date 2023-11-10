@@ -113,17 +113,17 @@ int count = adao.count();
 		<div id="page">
 		<%
 		if(startPage > 10){
-		%>	<a href="adminGradeList.jsp?pageNum=<%=startPage-10%>&check=<%=check%>"><button class="button">이전</button></a>	
+		%>	<a href="adminGradeList.jsp?pageNum=<%=startPage-10%>"><button class="button">이전</button></a>	
 		<%}
 			int p = Integer.parseInt(pageNum);
 			for(int i = startPage; i <= endPage; i++){
 				if(p == i){
-		%> <a href="adminGradeList.jsp?pageNum=<%=i %>&check=<%=check%>"><button id="color" class="button"><%=i %></button></a>	
+		%> <a href="adminGradeList.jsp?pageNum=<%=i %>"><button id="color" class="button"><%=i %></button></a>	
 		<%}else{%>
-			<a href="adminGradeList.jsp?pageNum=<%=i %>&check=<%=check%>"><button class="button"><%=i %></button></a>	
+			<a href="adminGradeList.jsp?pageNum=<%=i %>"><button class="button"><%=i %></button></a>	
 		<%}}
 		if(endPage < pageCount){
-		%>	<a href="adminlist.jsp?pageNum=<%=startPage+10 %>&check=<%=check%>"><button class="button">다음</button></a>	
+		%>	<a href="adminlist.jsp?pageNum=<%=startPage+10 %>"><button class="button">다음</button></a>	
 		<%}
 	}
 %>
