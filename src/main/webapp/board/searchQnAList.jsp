@@ -79,7 +79,7 @@ adminDTO dto1 = dao1.getPreView();
 		<% 
 if(grade==99){
 	%>
-	<button id="c3" type="button" onclick="window.location='writeForm.jsp'">QnA글 작성</button>
+	<button id="c8" type="button" onclick="window.location='writeForm.jsp'">QnA글 작성</button>
 	<%
 }%>
 </div>
