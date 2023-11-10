@@ -76,13 +76,17 @@
 	background-color: #105652;
 	margin-right: 10px;
 	padding: 5px;
+	max-height: 40px;
+	min-height: 40px;
 }
 .c2{
 	padding: 5px;
+	min-height: 40px;
 	background-color: #FBD148;
 	color: white;
 	border: none;
 	border-radius: 5px;
+	max-height: 40px;
 }
 .c3{
 	flex: 1;

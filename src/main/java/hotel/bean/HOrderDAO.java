@@ -112,7 +112,7 @@ public class HOrderDAO extends OracleDB {
 	    List<HOrderDTO> orders = new ArrayList<>();
 	    String query = "select * from "
 	    		+ " (select rownum r,o.*,h.price,h.roomtype from hotel h,horder o where o.ref=h.num order by checkin desc) where "
-	    		+ " r>=? and r<=? and checkin <= to_char(sysdate,'YYYY-MM-DD') order by r";
+	    		+ " r>=? and r<=? and to_date(checkin) > to_char(sysdate,'YYYY-MM-DD') order by r";
 
 	    try {Connection conn = getConnection();
 	         PreparedStatement stmt = conn.prepareStatement(query);
@@ -147,7 +147,7 @@ public class HOrderDAO extends OracleDB {
 	    List<HOrderDTO> orders = new ArrayList<>();
 	    String query = "select * from "
 	    		+ " (select rownum r,o.*,h.price,h.roomtype from hotel h,horder o where o.ref=h.num order by checkin desc) where "
-	    		+ " r>=? and r<=? and checkin > to_char(sysdate,'YYYY-MM-DD') order by r";
+	    		+ " r>=? and r<=? and to_date(checkin) <= to_char(sysdate,'YYYY-MM-DD') order by r";
 
 	    try {
 	    	Connection conn = getConnection();
